@@ -58,7 +58,7 @@ public class CircleEvent extends Event {
 		System.out.println("f "+f);
 		center =new Site(-d/(2*a),-e/(2*a)); 
 		radius=Math.sqrt((d*d+e*e)/(4*a*a)-f/a); 
-		this.yEvent=new Site(center.getXcoord(),center.getYcoord()+radius); 
+		this.yEvent=new Site(center.getXcoord(),center.getYcoord()-radius); 
 		}
 
 
