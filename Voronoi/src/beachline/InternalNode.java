@@ -21,20 +21,26 @@ public class InternalNode implements Composant {
 	public double getX(double y0){
 		double y1=pLeft.getYcoord(); 
 		double y2=pRight.getYcoord(); 
+		double x1=pLeft.getXcoord(); 
+		double x2=pRight.getXcoord(); 
 		double d1=0.5/(y1-y0); 
 		double d2=0.5/(y2-y0); 
-		double A=d2-d1;
-		if(A==0.0) A=Epsilon; 
+		double A=d2-d1; 
 		System.out.println(A); 
-		double Bp=y1*d1-y2*d2;
-		double C=pRight.getSqNorm()/d2-pLeft.getSqNorm()/d1;
-		C+=y0*y0*(d2-d1); 
+		double Bp=x1*d1-x2*d2;
+		System.out.println(Bp); 
+		double C=pRight.getSqNorm()*d2-pLeft.getSqNorm()*d1;
+		C+=y0*y0*(d1-d2); 
+		System.out.println(C);
+		if(A==0) return -C/(2*Bp);
 		double deltaP=Bp*Bp-A*C;
 		double r1=(-Bp-Math.sqrt(deltaP))/A;
 		double r2=(-Bp+Math.sqrt(deltaP))/A;
 		System.out.println(r1+" "+r2); 
 		if((r1>=pLeft.getXcoord())&&(r1<=pRight.getXcoord())) return r1; 
 		else return r2; 
+		// TODO : verifier que les point d'intersection des paraboles sont bien equidistants de trois trucs
+		// TODO : comment choisir entre les deux points d'intersection ? 
 	}
 
 	/**

@@ -23,8 +23,8 @@ public class testDeterminant {
 	 */
 	public static void main(String[] args) {
 		Site p1=new Site(-1,1); 
-		Site p2=new Site(1,2); 
+		Site p2=new Site(1,10); 
 		InternalNode testBP=new InternalNode(p1,p2); 
-		System.out.println("--->"+testBP.getX(0.75)); 
+		System.out.println("--->"+testBP.getX(0)); 
 }
 }
