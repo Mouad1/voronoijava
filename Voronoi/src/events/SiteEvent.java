@@ -7,12 +7,13 @@ package events;
  * @author decomite
  *
  */
-public class siteEvent extends Event {
-	private Site p; 
-	
+public class SiteEvent extends Event {
+
 	/* (non-Javadoc)
 	 * @see events.Event#handle()
 	 */
+	
+	public SiteEvent(Site p){this.yEvent=p; }
 	
 	public void handle() {
 		// TODO Auto-generated method stub
