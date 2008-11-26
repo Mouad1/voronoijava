@@ -18,5 +18,12 @@ public class Leave extends Composant{
 		this.isLeftSon=isLeft;
 		this.father=f;
 	}
+	/**
+	 * @return the p
+	 */
+	public Site getP() {
+		return p;
+	}
+	
 
 }

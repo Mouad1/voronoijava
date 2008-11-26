@@ -10,6 +10,7 @@ import events.Site;
 import events.SiteEvent;
 import java.util.Iterator; 
 
+import beachline.BeachLine;
 import beachline.Composant;
 import beachline.InternalNode;
 /**
@@ -36,5 +37,7 @@ public class testDeterminant {
 		
 		InternalNode testBP=new InternalNode(p1,p2); 
 		System.out.println("--->"+testBP.getX(0)); 
+		
+		BeachLine bl=new BeachLine();
 }
 }
