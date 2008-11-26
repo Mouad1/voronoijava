@@ -19,6 +19,7 @@ public class InternalNode extends Composant {
 		pRight=p2; 
 		isLeftSon=left; 
 		father=fat; 
+		if (left) fat.setFLeft(this); else fat.setFRight(this); 
 	}
 	
 	/* Compute the x-coordinate of the breakpoint from pLeft,PRight,ycoord 

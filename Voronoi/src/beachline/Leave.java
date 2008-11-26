@@ -17,6 +17,7 @@ public class Leave extends Composant{
 		this.p=p;
 		this.isLeftSon=isLeft;
 		this.father=f;
+		if (isLeft) f.setFLeft(this); else f.setFRight(this); 
 	}
 	/**
 	 * @return the p
