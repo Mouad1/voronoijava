@@ -72,6 +72,34 @@ public class InternalNode extends Composant {
 	public void setFRight(Composant right) {
 		fRight = right;
 	}
+
+	/**
+	 * @return the fLeft
+	 */
+	public Composant getFLeft() {
+		return fLeft;
+	}
+
+	/**
+	 * @return the fRight
+	 */
+	public Composant getFRight() {
+		return fRight;
+	}
+
+	/**
+	 * @return the pLeft
+	 */
+	public Site getPLeft() {
+		return pLeft;
+	}
+
+	/**
+	 * @return the pRight
+	 */
+	public Site getPRight() {
+		return pRight;
+	}
 	
 	
 
