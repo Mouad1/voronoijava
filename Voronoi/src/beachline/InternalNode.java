@@ -9,10 +9,17 @@ import events.Site;
  * @author decomite
  *
  */
-public class InternalNode implements Composant {
+public class InternalNode extends Composant {
 	private Site pLeft,pRight; 
-	private Composant fleft,fRight; 
-	private static double Epsilon=1e-6; 
+	private Composant fLeft,fRight; 
+	
+	
+	public InternalNode(Site p1,Site p2,boolean left,InternalNode fat){
+		pLeft=p1;
+		pRight=p2; 
+		isLeftSon=left; 
+		father=fat; 
+	}
 	
 	/* Compute the x-coordinate of the breakpoint from pLeft,PRight,ycoord 
 	 * 
@@ -50,6 +57,20 @@ public class InternalNode implements Composant {
 	public InternalNode(Site left, Site right) {
 		pLeft = left;
 		pRight = right;
+	}
+
+	/**
+	 * @param fleft the fleft to set
+	 */
+	public void setFLeft(Composant fleft) {
+		this.fLeft = fleft;
+	}
+
+	/**
+	 * @param right the fRight to set
+	 */
+	public void setFRight(Composant right) {
+		fRight = right;
 	}
 	
 	

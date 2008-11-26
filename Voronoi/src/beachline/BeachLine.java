@@ -8,6 +8,8 @@ package beachline;
  *
  */
 public class BeachLine {
-	private Composant root; 
+	private Composant root=null;
+	public boolean isEmpty(){return root==null);}
+	
 
 }
