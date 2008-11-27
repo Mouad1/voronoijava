@@ -1,9 +1,15 @@
 package events;
 
+import beachline.BeachLine;
+
 abstract public class Event implements Comparable<Event> {
-	protected Site yEvent; 
+	protected Site ySite; 
+	protected static  BeachLine BL; 
 	
-	public double getY(){return yEvent.getYcoord();}
+	// All events now knows the beachline they refer to
+	public static void setBeachLine(BeachLine bp){Event.BL=bp;}
+	
+	public double getY(){return ySite.getYcoord();}
 	
 	abstract public void handle(); 
 	
@@ -12,11 +18,11 @@ abstract public class Event implements Comparable<Event> {
 	 */
 	@Override
 	public int compareTo(Event o) {
-		return this.yEvent.compareTo(o.yEvent); 
+		return this.ySite.compareTo(o.ySite); 
 	}
 
 	public String toString(){
-		return yEvent.toString(); 
+		return ySite.toString(); 
 	}
 
 	/* (non-Javadoc)
@@ -26,7 +32,7 @@ abstract public class Event implements Comparable<Event> {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((yEvent == null) ? 0 : yEvent.hashCode());
+		result = prime * result + ((ySite == null) ? 0 : ySite.hashCode());
 		return result;
 	}
 
@@ -42,12 +48,19 @@ abstract public class Event implements Comparable<Event> {
 		if (getClass() != obj.getClass())
 			return false;
 		final Event other = (Event) obj;
-		if (yEvent == null) {
-			if (other.yEvent != null)
+		if (ySite == null) {
+			if (other.ySite != null)
 				return false;
-		} else if (!yEvent.equals(other.yEvent))
+		} else if (!ySite.equals(other.ySite))
 			return false;
 		return true;
+	}
+
+	/**
+	 * @return the yEvent
+	 */
+	public Site getYSite() {
+		return ySite;
 	}
 	
 	
