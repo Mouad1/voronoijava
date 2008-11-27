@@ -4,6 +4,7 @@
 package beachline;
 
 import events.Site;
+import events.SiteEvent;
 
 /**
  * @author decomite
@@ -13,6 +14,21 @@ public class BeachLine {
 	private Composant root=null;
 	
 	public boolean isEmpty(){return root==null;}
+	
+	// This is going to be handleSiteEvent.....
+	public void placeLeave(Site p,double y0){
+		if(this.root==null){
+			Leave nv=new Leave(p,false,null);
+			nv.setPred(null); 
+			nv.setSucc(null); 
+			this.root=nv; 
+			return;
+		}
+		Leave alpha=findLeave(p,y0); 
+		
+		System.out.println("alpha "+alpha); 
+		replaceLeave(alpha,p);
+	}
 	
 	public Leave findLeave(Site p,double y0){
 		if(root==null) return null; 
@@ -26,13 +42,28 @@ public class BeachLine {
 		return (Leave)curseur; 
 	}
 	
-	public void replaceleave(Leave alpha,Site p){
+	public Leave replaceLeave(Leave alpha,Site p){
+		
 		Site pOrig=alpha.getP(); 
-		InternalNode A=new InternalNode(pOrig,p,alpha.isLeftSon,alpha.getFather()); 
+		InternalNode A=new InternalNode(pOrig,p,alpha.isLeftSon,alpha.getFather());
+		if(alpha==root)root=A;
 		InternalNode B=new InternalNode(p,pOrig,false,A); 
 		Leave al1=new Leave(pOrig,true,A); 
 		Leave al2=new Leave(p,true,B);
 		Leave al3=new Leave(pOrig,false,B); 
+		// setting preds and succs
+		al1.setPred(alpha.getPred());
+		al1.setSucc(al2);
+		
+		al2.setPred(al1);
+		al2.setSucc(al3); 
+		
+		al3.setPred(al2); 
+		al3.setSucc(alpha.getSucc()); 
+		
+		if(alpha.getPred()!=null) alpha.getPred().setSucc(al1);
+		if(alpha.getSucc()!=null) alpha.getSucc().setPred(al3); 
+		return al2; 
 	}
 	
 	private void afficheAux(int incr,Composant cur){

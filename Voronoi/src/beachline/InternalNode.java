@@ -19,7 +19,10 @@ public class InternalNode extends Composant {
 		pRight=p2; 
 		isLeftSon=left; 
 		father=fat; 
-		if (left) fat.setFLeft(this); else fat.setFRight(this); 
+		if(fat!=null){
+			if (left) fat.setFLeft(this); 
+			else fat.setFRight(this);
+		}
 	}
 	
 	/* Compute the x-coordinate of the breakpoint from pLeft,PRight,ycoord 
@@ -102,6 +105,10 @@ public class InternalNode extends Composant {
 		return pRight;
 	}
 	
+	public String toString(){
+		String s="Internal < "+pLeft+","+pRight+">"; 
+		return s; 
+	}
 	
 
 }
