@@ -71,7 +71,7 @@ public class Site implements Comparable<Site>{
 		return true;
 	}
 
-	@Override
+	
 	public int compareTo(Site o) {
 		int cy=new Double(o.getYcoord()).compareTo(this.getYcoord()); 
 		if(cy!=0) return cy; 
