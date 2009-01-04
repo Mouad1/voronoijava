@@ -16,7 +16,7 @@ abstract public class Event implements Comparable<Event> {
 	/* (non-Javadoc)
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
-	@Override
+	
 	public int compareTo(Event o) {
 		return this.ySite.compareTo(o.ySite); 
 	}
