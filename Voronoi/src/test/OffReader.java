@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
@@ -13,11 +14,15 @@ public class OffReader {
 	private Random generator=new Random(); 
 
 
-	public int nbVertices,nbFaces; 
+	public int nbVertices,nbFaces;
+
+
+	private PrintStream output; 
 	
 	  public void afficheFichierTexte(String nomFichierSource) {
           File source = new File(nomFichierSource);
           try {
+        	  output=new PrintStream("/tmp/voronoi.txt");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
                   ligne=in.readLine();
@@ -32,6 +37,7 @@ public class OffReader {
                 	  Double x=rl.nextDouble(); 
                 	  Double z=rl.nextDouble();
                 	  System.out.println("#declare s"+i+"=<"+x+","+z+">;"); 
+                	  output.println("#declare s"+i+"=<"+x+","+z+">;"); 
                   }
                   for(int i=0;i<nbFaces;i++){
                 	  ligne=in.readLine();
@@ -46,15 +52,21 @@ public class OffReader {
                 	  }
                 	  if(!blonk){ // definition du prism
                 		  System.out.println("#declare p"+i+"=prism{\n linear_spline\n 0,0.1,"+dim);
-                		  for(int j=0;j<dim-1;j++)System.out.print("s"+coins[j]+",");
+                		  output.println("#declare p"+i+"=prism{\n linear_spline\n 0,0.1,"+dim);
+                		  for(int j=0;j<dim-1;j++){System.out.print("s"+coins[j]+",");output.print("s"+coins[j]+",");}
                 		  System.out.println("s"+coins[dim-1]); 
-                		  System.out.println("texture{pigment{color rgb <"+generator.nextDouble()+","+generator.nextDouble()+","+generator.nextDouble()+">}}}");
+                		  System.out.println("texture{pigment{color rgb <"+generator.nextDouble()/2+","+generator.nextDouble()/2+","+generator.nextDouble()+">}}}");
                 		  System.out.println("p"+i); 
+                		  
+                		  output.println("s"+coins[dim-1]); 
+                		  output.println("texture{pigment{color rgb <"+generator.nextDouble()/2+","+generator.nextDouble()/2+","+generator.nextDouble()+">}}}");
+                		  output.println("p"+i); 
                 		  
                 	  }
                   }
                 
                   in.close();
+                 output.close(); 
                 
           } catch (IOException e) {
                   e.printStackTrace();

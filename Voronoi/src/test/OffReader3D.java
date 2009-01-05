@@ -35,9 +35,10 @@ public class OffReader3D {
                 	  rl=new Scanner(ligne); 
                 	  rl.useLocale(Locale.US);
                 	  Double x=rl.nextDouble(); 
+                	  Double y=rl.nextDouble();
                 	  Double z=rl.nextDouble();
-                	  System.out.println("#declare s"+i+"=<"+x+","+z+">;"); 
-                	  output.println("#declare s"+i+"=<"+x+","+z+">;"); 
+                	  System.out.println("#declare s"+i+"=<"+x+","+y+","+z+">;"); 
+                	  output.println("#declare s"+i+"=<"+x+","+y+","+z+">;"); 
                   }
                   for(int i=0;i<nbFaces;i++){
                 	  ligne=in.readLine();
@@ -50,9 +51,9 @@ public class OffReader3D {
                 		  coins[j]=rl.nextInt(); 
                 		  if(coins[j]==0) blonk=true; 
                 	  }
-                	  if(!blonk){ // definition du prism
-                		  System.out.println("#declare p"+i+"=prism{\n linear_spline\n 0,0.1,"+dim);
-                		  output.println("#declare p"+i+"=prism{\n linear_spline\n 0,0.1,"+dim);
+                	//  if(!blonk){ // definition du prism
+                		  System.out.println("#declare p"+i+"=polygon{"+dim);
+                		  output.println("#declare p"+i+"=polygon{"+dim);
                 		  for(int j=0;j<dim-1;j++){System.out.print("s"+coins[j]+",");output.print("s"+coins[j]+",");}
                 		  System.out.println("s"+coins[dim-1]); 
                 		  System.out.println("texture{pigment{color rgb <"+generator.nextDouble()/2+","+generator.nextDouble()/2+","+generator.nextDouble()+">}}}");
@@ -62,7 +63,7 @@ public class OffReader3D {
                 		  output.println("texture{pigment{color rgb <"+generator.nextDouble()/2+","+generator.nextDouble()/2+","+generator.nextDouble()+">}}}");
                 		  output.println("p"+i); 
                 		  
-                	  }
+                	  //}
                   }
                 
                   in.close();
