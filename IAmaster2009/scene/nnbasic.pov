@@ -2,10 +2,13 @@
 
 
 background{color White}
-/*
+
     global_settings
 {
  max_trace_level 255
+ charset utf8
+ }
+ /*
 radiosity
 {
 pretrace_start 0.16
@@ -58,7 +61,7 @@ adaptive 0.2
 jitter
 circular
 orient
-translate <-40,360,-30>
+translate <-40,360,-30>*0.1
 
 photons {
 refraction on
@@ -132,19 +135,19 @@ translate depart
 
 #declare index=-2; 
 #while(index<3)
-sphere{<dret,0,index*coef>,diamsphere texture{pigment{color Red}} finish{ reflection 0.01 specular 0.5}}
+sphere{<dret,0,index*coef>,diamsphere scale 0.4*y texture{pigment{color Red}} finish{ reflection 0.01 specular 0.5}}
 #declare index=index+1;
 #end
 
 #declare index=-1; 
 #while(index<2)
-sphere{<drouge,0,index*coef>,diamsphere texture{pigment{color Blue}} finish{ reflection 0.01 specular 0.5}}
+sphere{<drouge,0,index*coef>,diamsphere scale 0.4*y texture{pigment{color Blue}} finish{ reflection 0.01 specular 0.5}}
 #declare index=index+1;
 #end
 
 #declare index=-0.5; 
 #while(index<1)
-sphere{<djaune,0,index*coef>,diamsphere texture{pigment{color Yellow}} finish{ reflection 0.01 specular 0.5}}
+sphere{<djaune,0,index*coef>,diamsphere scale 0.4*y texture{pigment{color Yellow}} finish{ reflection 0.01 specular 0.5}}
 #declare index=index+1;
 #end
 
@@ -176,28 +179,40 @@ cylindre(<djaune,0,i2*coef>,<djaune+2,0,i2*coef>)
 #end 
 plane{y, -diamsphere texture{pigment{color Gray90}} finish{reflection 0.1} }
   #declare decale=0.7; 
- text {
-    ttf "LucidaBrightRegular.ttf" "Input" 0.1, 0
+  
+  text {
+    ttf "LucidaBrightRegular.ttf" "Couches : " 0.1, 0
     texture{T_Gold_3E}
     finish{Metallic_Finish}
-    scale 0.6
+    scale 0.55
+    rotate 0*y
+    translate <dret-decale-3,0,3.5>
+  } 
+  
+  
+  
+ text {
+    ttf "LucidaBrightRegular.ttf" ,concat("Entr",chr(233),"es") 0.1, 0
+    texture{T_Gold_1A}
+    finish{Metallic_Finish}
+    scale 0.55
     rotate 0*y
     translate <dret-decale,0,3.5>
   }
 
 text {
-    ttf "LucidaBrightRegular.ttf" "Hidden" 0.1, 0
+    ttf "LucidaBrightRegular.ttf" concat("Cach",chr(233),"es") 0.1, 0
     texture{T_Gold_3E}
     finish{Metallic_Finish}
-    scale 0.6
+    scale 0.55
     rotate 0*y
     translate <drouge-decale,0,2.5>
   }
 text {
-    ttf "LucidaBrightRegular.ttf" "Output" 0.1, 0
+    ttf "LucidaBrightRegular.ttf" "Sorties" 0.1, 0
     texture{T_Gold_3E}
     finish{Metallic_Finish}
-    scale 0.6
+    scale 0.55
     rotate 0*y
     translate <djaune-decale,0,1.5>
   }
