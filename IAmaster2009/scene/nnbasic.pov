@@ -123,7 +123,7 @@ look_at<0,-1,0>
 #macro cylindre(depart,arrivee)
 #declare norm=VDist(arrivee-depart,0); 
 union{
-object{cylinder{<0,0,0>,(arrivee-depart)*0.9,0.01 texture{pigment{color Green}}}}
+object{cylinder{<0,0,0>,(arrivee-depart)*0.98,0.01 texture{pigment{color Green}}}}
 object{cone{(arrivee-depart)*(1-0.3/norm),0.04,(arrivee-depart),0 texture{pigment{color Green}}}
 }
 translate depart
@@ -175,28 +175,29 @@ cylindre(<djaune,0,i2*coef>,<djaune+2,0,i2*coef>)
 #declare i2=i2+1; 
 #end 
 plane{y, -diamsphere texture{pigment{color Gray90}} finish{reflection 0.1} }
-
+  #declare decale=0.7; 
  text {
     ttf "LucidaBrightRegular.ttf" "Input" 0.1, 0
     texture{T_Gold_3E}
     finish{Metallic_Finish}
-    scale 0.8
-    rotate -30*y
-    translate <dret-0.5,0,3.5>
+    scale 0.6
+    rotate 0*y
+    translate <dret-decale,0,3.5>
   }
+
 text {
     ttf "LucidaBrightRegular.ttf" "Hidden" 0.1, 0
     texture{T_Gold_3E}
     finish{Metallic_Finish}
-    scale 0.8
-    rotate -30*y
-    translate <drouge-0.5,0,3.5>
+    scale 0.6
+    rotate 0*y
+    translate <drouge-decale,0,2.5>
   }
 text {
     ttf "LucidaBrightRegular.ttf" "Output" 0.1, 0
     texture{T_Gold_3E}
     finish{Metallic_Finish}
-    scale 0.8
-    rotate -30*y
-    translate <djaune-0.5,0,3.5>
+    scale 0.6
+    rotate 0*y
+    translate <djaune-decale,0,1.5>
   }
