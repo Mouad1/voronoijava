@@ -178,7 +178,7 @@ translate <drouge-2,0.06,-1.2>*1.8
 texture{TexText} finish{finishTexte}
 }
 
-text{ttf "DejaVuSans-Oblique.ttf" "0 if s<0" 0.1,0 scale 0.5 translate <7,1,0> texture{TexText} finish{finishTexte}}
-text{ttf "DejaVuSans-Oblique.ttf" "1 otherwise" 0.1,0 scale 0.5 translate <7,0.5,0> texture{TexText} finish{finishTexte}}
-
-
+text{ttf "DejaVuSans-Oblique.ttf" "1" 0.1,0 scale 0.5 translate <7.6,1,0> texture{TexText} finish{finishTexte}}
+text{ttf "DejaVuSans-Oblique.ttf" "_____" 0.1,0 scale 0.5 translate <7.1,1,0> texture{TexText} finish{finishTexte}}
+text{ttf "DejaVuSans-Oblique.ttf" "1+e" 0.1,0 scale 0.5 translate <7.1,0.4,0> texture{TexText} finish{finishTexte}}
+text{ttf "DejaVuSans-Oblique.ttf" "-s" 0.1,0 scale 0.3 translate <8.1,0.6,0> texture{TexText} finish{finishTexte}}
