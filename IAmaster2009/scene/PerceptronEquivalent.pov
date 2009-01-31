@@ -129,7 +129,7 @@ texture{TexText} finish{finishTexte}
 
 union{
 box{<0,0,0.1><1,1,1.1> }
-text {ttf "DejaVuSans-Oblique.ttf" "0" 0.1, 0 translate <0.25,0.135,0>}
+text {ttf "DejaVuSans-Oblique.ttf" chr(963) 0.1, 0 translate <0.25,0.135,0>}
 texture{T_Wood13} finish{reflection 0.3}
 translate <5,-0.5,-0.5>
 }
@@ -178,7 +178,7 @@ translate <drouge-2,0.06,-1.2>*1.8
 texture{TexText} finish{finishTexte}
 }
 
-text{ttf "DejaVuSans-Oblique.ttf" "0 si s<0" 0.1,0 scale 0.5 translate <7,1,0> texture{TexText} finish{finishTexte}}
-text{ttf "DejaVuSans-Oblique.ttf" "1 sinon" 0.1,0 scale 0.5 translate <7,0.5,0> texture{TexText} finish{finishTexte}}
+text{ttf "DejaVuSans-Oblique.ttf" "0 if s<0" 0.1,0 scale 0.5 translate <7,1,0> texture{TexText} finish{finishTexte}}
+text{ttf "DejaVuSans-Oblique.ttf" "1 otherwise" 0.1,0 scale 0.5 translate <7,0.5,0> texture{TexText} finish{finishTexte}}
 
 
