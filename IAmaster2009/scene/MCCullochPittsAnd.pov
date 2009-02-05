@@ -1,7 +1,7 @@
 #include "inclusions.inc"
 
 
-background{color White}
+background{color Gray90}
 
     global_settings
 {
@@ -42,13 +42,14 @@ adaptive 0.2
 jitter
 circular
 orient
-translate <40,100,-30>*0.1
+translate <40,1000,-30>*10
 
 photons {
 refraction on
 reflection on
 }
 media_attenuation on
+shadowless
 }
 
 light_source
@@ -62,13 +63,14 @@ adaptive 0.2
 jitter
 circular
 orient
-translate <-40,360,-30>*0.1
+translate <-40,360,-30>*10
 
 photons {
 refraction on
 reflection on
 }
 media_attenuation on
+shadowless
 }
 
 /*
@@ -82,8 +84,8 @@ color White
 #declare epsilon=0.1; 
 
 camera{
-//orthographic
-location <1,5,-15>
+orthographic
+location <1,15,0>
 look_at<1,0,0>
 }
 
@@ -104,13 +106,21 @@ text{ttf "DejaVuSans-Oblique.ttf" ty 0.1,0 scale 0.4  translate <0.35,-0.2,0>}
 }
 #end
 
-plane{y, -diamsphere texture{pigment{color Gray90}} finish{reflection 0.1} }
+plane{y, -diamsphere*20 texture{pigment{color Gray90}} finish{reflection 0.1} }
 
 
-#declare TexText=texture{T_Copper_3A}
-#declare finishTexte=finish{Metallic_Finish}
+#declare TexText=texture{pigment{color Blue}}
+#declare finishTexte=finish{specular 0.6}
 
-sphere{<drouge,0,0>,diamsphere scale 0.4*y texture{pigment{color Red}} finish{ reflection 0.01 specular 0.5}}
+//sphere{<drouge,0,0>,diamsphere scale 0.4*y texture{pigment{color Red}} finish{ reflection 0.01 specular 0.5}}
+sphere{<drouge,0,0>,diamsphere 
+ pigment { image_map { tga "deux.tga" 
+                            map_type 1
+ }}                            
+ rotate -90*y
+ rotate 90*x
+scale 0.4*y
+finish{ reflection 0.01 specular 0.5}}
 
 
 
@@ -124,60 +134,106 @@ text{ttf "DejaVuSans-Oblique.ttf" "w" 0.1,0 scale 0.6  translate <2,0.1+decaler,
 text{ttf "DejaVuSans-Oblique.ttf" "i" 0.1,0 scale 0.4  translate <2.35,-0.1+decaler,0>}
 text{ttf "DejaVuSans-Oblique.ttf" "x" 0.1,0 scale 0.6  translate <2.5,0.1+decaler,0>}
 text{ttf "DejaVuSans-Oblique.ttf" "i" 0.1,0 scale 0.4  translate <2.87,-0.1+decaler,0>}
-texture{TexText} finish{finishTexte}
+//texture{TexText} finish{finishTexte}
 }//union
 
-
+/*
 union{
 box{<0,0,0.1><1,1,1.1> }
-text {ttf "DejaVuSans-Oblique.ttf" "0" 0.1, 0 translate <0.25,0.135,0>}
+text {ttf "DejaVuSans-Oblique.ttf" chr(963) 0.1, 0 translate <0.25,0.135,0>}
 texture{T_Wood13} finish{reflection 0.3}
 translate <5,-0.5,-0.5>
 }
+*/
 
 
-object{somme texture{TexText} finish{finishTexte} finish{specular 0.2} translate <1.7,1.2,0>}
-cylindre(<drouge,0,0>,<drouge+10,0,0>)
+object{somme  texture{pigment{color rgbf 1}}
+finish{finishTexte} 
+finish{specular 0.2} 
+rotate 90*x translate <4,1.2,1>}
 
-//cylindre(<drouge+6,0,0>,<drouge+10,0,0>)
+cylindre(<drouge,0,0>,<drouge+8,0,0>)
+
+//cylindre(<drouge+6,0,0>,<drouge+8,0,0>)
 cylindre(<drouge-5,0,4><drouge-0.9,0,0.4>)
 cylindre(<drouge-5,0,-4><drouge-0.9,0,-0.4>)
-cylindre(<drouge,0,-5><drouge,0,-0.8>)
+//cylindre(<drouge,0,-5><drouge,0,-0.8>)
+
+/*
 object{
 aindiceb("x","0")
+rotate 90*x
 translate <drouge,0,-6>
 texture{TexText} finish{finishTexte}
 }
-text{ttf "DejaVuSans-Oblique.ttf" "=1" 0.1,0 scale 0.6 translate <drouge+0.6,0,-6> texture{TexText} finish{finishTexte}}
-object{
-text {ttf "DejaVuSans-Oblique.ttf" "-0.8" 0.1, 0  scale 0.5}
+text{ttf "DejaVuSans-Oblique.ttf" "=1" 0.1,0 
+scale 0.6 
+rotate 90*x 
+translate <drouge+0.6,0,-6> texture{TexText} finish{finishTexte}}
+*/
 
+/*
+object{
+aindiceb("w","0")
+rotate 90*x
 translate <drouge+0.3,0.65,-5.4>
 texture{TexText} finish{finishTexte}
 }
+*/
 object{
 aindiceb("x","1")
+rotate 90*x
 translate <drouge-6,0,4.2>
 texture{TexText} finish{finishTexte}
 }
+/*
 object{
-text {ttf "DejaVuSans-Oblique.ttf" "0.5" 0.1, 0  scale 0.5}
+aindiceb("x","n")
+rotate 90*x
+translate <drouge-6,0,0.5>
+texture{TexText} finish{finishTexte}
+}
+cylindre(<drouge-5,0,0.5><drouge-0.9,0,0.2>)
+cylindre(<drouge-5,0,-0.5><drouge-0.9,0,-0.2>)
+*/
+/*
+object{
+aindiceb("w","1")
+rotate 90*x
 rotate 30*y
 translate <drouge-2,0.35,1.2>*1.5
 texture{TexText} finish{finishTexte}
 }
+*/
+/*
+object{
+aindiceb("y","1")
+rotate 90*x
+translate <drouge-6,0,-0.5>
+texture{TexText} finish{finishTexte}
+
+}
+*/
+
 
 object{
-aindiceb("x","n")
-translate <drouge-5.5,0,-4.2>
+aindiceb("y","1")
+rotate 90*x
+translate <drouge-6,0,-4.2>
 texture{TexText} finish{finishTexte}
+
 }
+
+text{ttf "DejaVuSans-Oblique.ttf" "f" 0.1,0  rotate 90*x translate <5,1,0.7> texture{TexText} finish{finishTexte}}
+/*
 object{
-text {ttf "DejaVuSans-Oblique.ttf" "0.5" 0.1, 0  scale 0.5}
+aindiceb("w","n")
+rotate 90*x
 rotate -45*y
 translate <drouge-2,0.06,-1.2>*1.8
 texture{TexText} finish{finishTexte}
 }
+*/
 /*
 text{ttf "DejaVuSans-Oblique.ttf" "1" 0.1,0 scale 0.5 translate <7.6,1,0> texture{TexText} finish{finishTexte}}
 text{ttf "DejaVuSans-Oblique.ttf" "_____" 0.1,0 scale 0.5 translate <7.1,1,0> texture{TexText} finish{finishTexte}}
