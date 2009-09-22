@@ -156,7 +156,7 @@ public class OffReader3DMeshV2 {
 	  public static void main(String args[]) {
           // new TestIO().copieFichierTexte("essai.txt","output.txt");
          // new OffReader3DMeshV2().afficheFichierTexte("/tmp/pentagonal_hexecontahedron.off");
-          new OffReader3DMeshV2().afficheFichierTexte("C:/Documents and Settings/moi/workspace/Voronoi/src/test/rhombic_triacontahedron.off");
+          new OffReader3DMeshV2().afficheFichierTexte("C:/Documents and Settings/moi/workspace/Voronoi/src/test/kite_hexecontahedron.off");
 	  }
 
 	
