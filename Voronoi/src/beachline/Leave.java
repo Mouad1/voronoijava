@@ -39,9 +39,10 @@ public class Leave extends Composant{
 	private String miniString(){
 		return "("+p.getYSite().toString()+")"; 
 	}
+	
 
 	public String toString(){
-		String s="Leave "+p.getYEvent();
+		String s="Leave "+p.getYSite();
 		if(pred!=null)
 			s+="\t Pred "+pred.miniString();
 		if(succ!=null)

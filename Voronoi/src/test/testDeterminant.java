@@ -40,10 +40,11 @@ public class testDeterminant {
 		
 		BeachLine bl=new BeachLine();
 		Event.setBeachLine(bl); 
+		/*
 		bl.placeLeave(p1, 0);
 		bl.placeLeave(p2, 1);
 		bl.placeLeave(p3,2); 
-		
+		*/
 		bl.affiche(); 
 }
 }

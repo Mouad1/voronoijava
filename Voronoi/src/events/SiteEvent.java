@@ -19,7 +19,9 @@ public class SiteEvent extends Event {
 	
 	public void handle() {
 		if(BL.isEmpty()){
-			BL.placeLeave(this.ySite, this.getY()); 
+			/*
+			BL.placeLeave(this.ySite, this.getY());
+			*/ 
 			return;
 		}
 		Leave alpha=BL.findLeave(this.ySite, this.getY()); 

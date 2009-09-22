@@ -3,6 +3,7 @@
  */
 package beachline;
 
+import events.Event;
 import events.Site;
 import events.SiteEvent;
 
@@ -16,7 +17,7 @@ public class BeachLine {
 	public boolean isEmpty(){return root==null;}
 	
 	// This is going to be handleSiteEvent.....
-	public void placeLeave(Site p,double y0){
+	public void placeLeave(Event p,double y0){
 		if(this.root==null){
 			Leave nv=new Leave(p,false,null);
 			nv.setPred(null); 
