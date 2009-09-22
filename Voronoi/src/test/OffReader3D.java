@@ -38,33 +38,37 @@ public class OffReader3D {
                 	  Double y=rl.nextDouble();
                 	  Double z=rl.nextDouble();
                 	  System.out.println("#declare s"+i+"=<"+x+","+y+","+z+">;"); 
-                	  output.println("#declare s"+i+"=<"+x+","+y+","+z+">;"); 
+                	  output.println("#declare s"+i+"=<"+x+","+y+","+z+">;");
+                	  //System.out.println("sphere{s"+i+",0.005 texture{pigment{color Red}}}"); 
+                	 // output.println("sphere{s"+i+",5*radio texture{pigment{color Red}}}"); 
                   }
+                  output.println("#declare totor=union{"); 
                   for(int i=0;i<nbFaces;i++){
                 	  ligne=in.readLine();
                 	  rl=new Scanner(ligne); 
                 	  rl.useLocale(Locale.US);
                 	  int dim=rl.nextInt(); 
                 	  int coins[]=new int[dim];
-                	  boolean blonk=false; 
                 	  for(int j=0;j<dim;j++){
                 		  coins[j]=rl.nextInt(); 
-                		  if(coins[j]==0) blonk=true; 
                 	  }
-                	//  if(!blonk){ // definition du prism
-                		  System.out.println("#declare p"+i+"=polygon{"+dim);
-                		  output.println("#declare p"+i+"=polygon{"+dim);
-                		  for(int j=0;j<dim-1;j++){System.out.print("s"+coins[j]+",");output.print("s"+coins[j]+",");}
-                		  System.out.println("s"+coins[dim-1]); 
-                		  System.out.println("texture{pigment{color rgb <"+generator.nextDouble()/2+","+generator.nextDouble()/2+","+generator.nextDouble()+">}}}");
-                		  System.out.println("p"+i); 
-                		  
-                		  output.println("s"+coins[dim-1]); 
-                		  output.println("texture{pigment{color rgb <"+generator.nextDouble()/2+","+generator.nextDouble()/2+","+generator.nextDouble()+">}}}");
-                		  output.println("p"+i); 
-                		  
-                	  //}
-                  }
+                	  System.out.println("polygon{"+dim+" ");
+                	  output.println("polygon{"+dim+" ");
+                		  for(int j=0;j<dim-1;j++){
+                			
+                			  System.out.print("s"+coins[j]+",");
+                			  output.print("s"+coins[j]+",");
+                		  }
+                		output.println("s"+coins[dim-1]+" ");
+                		System.out.println("s"+coins[dim-1]+"");
+                		 System.out.println("texture{pigment{color Blue}}}");
+             			 
+           			  output.println("texture{pigment{color rgbt<0,0,1,tra>}} finish{reflection re} interior{ior 1.15}}"); 
+                			
+                		 
+                		  }
+                 
+                  output.println("}\n");
                 
                   in.close();
                  output.close(); 
@@ -75,7 +79,7 @@ public class OffReader3D {
   }
 	  public static void main(String args[]) {
           // new TestIO().copieFichierTexte("essai.txt","output.txt");
-          new OffReader3D().afficheFichierTexte("/tmp/rxx2.txt");
+          new OffReader3D().afficheFichierTexte("/tmp/result2.txt");
   }
 
 	
