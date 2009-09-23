@@ -2,7 +2,7 @@ package utils;
 
 public class Pos3D {
 	
-	private double x,y,z;
+	protected double x,y,z;
 	/**
 	 * @param x
 	 * @param y

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
@@ -14,7 +15,8 @@ import java.util.TreeSet;
 
 import utils.Cylinder;
 import utils.Face;
-import utils.Pos3D;
+import utils.Vertex;
+import utils.Pos3D; 
 
 public class OffReader3DMeshV2 {
 	
@@ -25,6 +27,43 @@ public class OffReader3DMeshV2 {
 	{
 		Locale.setDefault(Locale.US);
 	}
+	
+	private int nn=0; 
+	public  int  maxsize=55; 
+	public  ArrayList<Vertex> trajet(ArrayList<Vertex> deja,ArrayList<Vertex> reste,Vertex v){
+		nn++;
+		if(reste.isEmpty()){
+			System.out.println("Houra !"); 
+			return deja; 
+		}
+		Iterator<Vertex> it=v.getIterator(); 
+		while(it.hasNext()){
+			Vertex q=it.next();
+			if(!deja.contains(q)){
+				ArrayList<Vertex> dejax=new ArrayList<Vertex>(deja);
+				ArrayList<Vertex> restex=new ArrayList<Vertex>(reste);
+				dejax.add(v);
+				restex.remove(q); 
+				ArrayList<Vertex> presu=trajet(dejax,restex,q); 
+				//if(presu.size()>59) return presu; 
+			}
+		}
+			if(deja.size()>maxsize){
+				maxsize=deja.size(); 
+				System.out.println("\t\t\t\t nouvelle taille max "+deja.size()+"("+nn+")"+nbVertices);
+				
+				for(int i=0;i<deja.size();i++){
+					
+					System.out.println(deja.get(i)+",diamsphere,");
+				}
+	 	
+			}
+			return deja; 
+	}
+	
+	
+	private ArrayList<Vertex> vertices=new ArrayList<Vertex>(); 
+	
 
 	private double roundDecimals(double d) {
     	DecimalFormat twoDForm = new DecimalFormat("#.#####");
@@ -42,7 +81,7 @@ public class OffReader3DMeshV2 {
                   //ligne=in.readLine();
                   Scanner rl=new Scanner(ligne); 
                   nbVertices=rl.nextInt(); 
-                  ArrayList<Pos3D> vertices=new ArrayList<Pos3D>(); 
+                  
                   nbFaces=rl.nextInt();
                   System.out.println(nbVertices+" "+nbFaces);
                   /*
@@ -58,7 +97,7 @@ public class OffReader3DMeshV2 {
                 	  Double x=rl.nextDouble(); 
                 	  Double y=rl.nextDouble();
                 	  Double z=rl.nextDouble();
-                	  vertices.add(new Pos3D(x,y,z)); 
+                	  vertices.add(new Vertex(x,y,z)); 
                 	
                   }
                   ArrayList<Face> lesFaces=new ArrayList<Face>(); 
@@ -77,15 +116,24 @@ public class OffReader3DMeshV2 {
                 	  else // la face n'est pas un triangle
                 	  {
                 		  // calculer le milieu de l'ensemble des points c
-                		  Pos3D center=new Pos3D(0,0,0);
-                		  for(int j=0;j<dim;j++) center=Pos3D.add(vertices.get(coins[j]),center);
-                		  center=Pos3D.mul(center,1.0/(dim+0.0)); 
+                		  Vertex center=new Vertex(0,0,0);
+                		  for(int j=0;j<dim;j++) center= Vertex.add(vertices.get(coins[j]),center);
+                		  center=(Vertex) Vertex.mul(center,1.0/(dim+0.0)); 
                 		  vertices.add(center);
                 		  // Construire les dim triangles  (vi,v(i+1),c)
                 		  for(int j=0;j<dim;j++)
                 			  lesFaces.add(new Face(vertices.get(coins[j]),vertices.get(coins[(j+1)%dim]),center,coins[j],coins[(j+1)%dim],vertices.indexOf(center)));
                 	  }
+                	  // fixer les voisins
+                	  for(int j=0;j<dim;j++) {
+                		  //la suivante
+                		  vertices.get(coins[j]).setNeighbour(vertices.get(coins[(j+1)%dim]));
+                		  // la precedente
+                		  vertices.get(coins[(j+1)%dim]).setNeighbour(vertices.get(coins[j]));
+                		  
+                	  }
                   }
+                
                 	// On doit encore s'occuper des aretes
                   ArrayList<Cylinder> lesAretes=new ArrayList<Cylinder>();
                 
@@ -155,8 +203,13 @@ public class OffReader3DMeshV2 {
   }
 	  public static void main(String args[]) {
           // new TestIO().copieFichierTexte("essai.txt","output.txt");
-         // new OffReader3DMeshV2().afficheFichierTexte("/tmp/pentagonal_hexecontahedron.off");
-          new OffReader3DMeshV2().afficheFichierTexte("C:/Documents and Settings/moi/workspace/Voronoi/src/test/pentagonal_icositetrahedron.off");
+          OffReader3DMeshV2 toto=new OffReader3DMeshV2(); 
+          toto.afficheFichierTexte("/tmp/pentagonal_hexecontahedron.off");
+          //new OffReader3DMeshV2().afficheFichierTexte("C:/Documents and Settings/moi/workspace/Voronoi/src/test/pentagonal_icositetrahedron.off");
+          ArrayList<Vertex> resu=new ArrayList<Vertex>();
+  		Vertex debut=toto.vertices.remove(0); 
+  		
+          ArrayList<Vertex> circuit=toto.trajet(resu,toto.vertices,debut );
 	  }
 
 	
