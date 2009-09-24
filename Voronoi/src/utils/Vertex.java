@@ -47,4 +47,9 @@ public class Vertex extends Pos3D {
 	public static Vertex mul(Vertex a,double m){
 		return new Vertex(a.x*m,a.y*m,a.z*m); 
 	}
+	
+	public static Vertex middle(Vertex a,Vertex b){
+		Vertex m=new Vertex((a.x+b.x)/2.0,(a.y+b.y)/2.0,(a.z+b.z)/2.0);
+		return m;
+	}
 }
