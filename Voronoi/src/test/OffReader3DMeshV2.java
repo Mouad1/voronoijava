@@ -15,6 +15,7 @@ import java.util.TreeSet;
 
 import utils.Cylinder;
 import utils.Face;
+import utils.Transfo;
 import utils.Vertex;
 import utils.Pos3D; 
 
@@ -28,7 +29,7 @@ public class OffReader3DMeshV2 {
 		Locale.setDefault(Locale.US);
 	}
 	
-	private int nn=0; 
+	protected int nn=0; 
 	public  int  maxsize=55; 
 	public  ArrayList<Vertex> trajet(ArrayList<Vertex> deja,ArrayList<Vertex> reste,Vertex v){
 		nn++;
@@ -45,24 +46,28 @@ public class OffReader3DMeshV2 {
 				dejax.add(v);
 				restex.remove(q); 
 				ArrayList<Vertex> presu=trajet(dejax,restex,q); 
-				//if(presu.size()>59) return presu; 
+				if(nn>10e6) return presu; 
 			}
 		}
 			if(deja.size()>maxsize){
 				maxsize=deja.size(); 
-				System.out.println("\t\t\t\t nouvelle taille max "+deja.size()+"("+nn+")"+nbVertices);
+				System.out.println("\t\t\t\t\t\t\t\t nouvelle taille max "+deja.size()+"("+nn+")"+nbVertices);
 				
 				for(int i=0;i<deja.size();i++){
 					
 					System.out.println(deja.get(i)+",diamsphere,");
 				}
+				
 	 	
 			}
 			return deja; 
 	}
 	
 	
-	private ArrayList<Vertex> vertices=new ArrayList<Vertex>(); 
+	private ArrayList<Vertex> vertices=new ArrayList<Vertex>();
+
+
+	private PrintStream output; 
 	
 
 	private double roundDecimals(double d) {
@@ -71,10 +76,26 @@ public class OffReader3DMeshV2 {
 }
 	//private PrintStream output; 
 	
-	  public void afficheFichierTexte(String nomFichierSource) {
+	public void mix(){
+		System.out.println("entree dans mix "+vertices.size()+" "+nbVertices); 
+		ArrayList<Vertex> verpro=new ArrayList<Vertex>();
+		ArrayList<Integer> sac=new ArrayList<Integer>();
+		for(int i=0;i<nbVertices;i++)
+			sac.add(i); 
+		System.out.println("***"+sac.size());
+		for(int i=0;i<nbVertices;i++){
+			int gene=generator.nextInt(sac.size()); 
+			verpro.add(vertices.get(gene));
+			sac.remove(gene);
+		}
+		System.out.println("--->"+sac.size()+" "+verpro.size());
+		vertices=verpro;
+	}
+	
+	public void afficheFichierTexte(String nomFichierSource) {
           File source = new File(nomFichierSource);
           try {
-        	 // output=new PrintStream("/tmp/voronoi.txt");
+        	 output=new PrintStream("/tmp/archi.txt");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
                   while(ligne.charAt(0)=='#') ligne=in.readLine();
@@ -142,7 +163,7 @@ public class OffReader3DMeshV2 {
                   while(true){
                 	  int c0=rl.nextInt(); 
                 	  int c1=rl.nextInt(); 
-                	  lesAretes.add(new Cylinder(vertices.get(c0),vertices.get(c1)));
+                	  lesAretes.add(new Cylinder(vertices.get(c0),vertices.get(c1),c0,c1));
                 	  System.out.println("debug "+c0+" "+c1);
                 	  System.out.println("object{"+new Cylinder(vertices.get(c0),vertices.get(c1))+"}\n");
                 	  ligne=in.readLine();
@@ -195,6 +216,37 @@ public class OffReader3DMeshV2 {
                }
                System.out.println("}");
                
+               // Les transformations amenant un vecteur central vertical sur une arete
+               ArrayList<Transfo> lesTransfos=new ArrayList<Transfo>();
+               for(Cylinder c:lesAretes){
+            	   //Ramener le vecteur en <0,0,0>
+            	   Vertex mimi=Vertex.middle(c.getA(),c.getB()); 
+            	   
+            	   mimi=Vertex.mul(mimi,-1); 
+            	   Cylinder cy=new Cylinder(Vertex.add(c.getA(),mimi),Vertex.add(c.getB(), mimi));
+            	   // chaque arete a ete ramenee au centre (et centrée !)
+            	   // cy.getA() contient les x,y,z qui m'interessent
+            	   double xx=cy.getA().getX();
+            	   double yy= cy.getA().getY();
+            	   double zz=cy.getA().getZ();
+            	   double alpha=Math.atan2(zz, xx)*180/Math.PI; 
+            	   double newX=Math.sqrt(xx*xx+zz*zz);
+            	   double beta=Math.atan2(newX,yy)*180/Math.PI;
+            	   
+            	  lesTransfos.add(new Transfo(alpha,beta,mimi));
+            	   
+               }
+               System.out.println("#declare trans=array["+lesAretes.size()+"];");
+               output.println("#declare trans=array["+lesAretes.size()+"];");
+               int i=0;
+               for(Transfo t:lesTransfos){
+            	   System.out.println("#declare trans["+i+"]="+t+";");
+            	   output.println("#declare trans["+i+"]="+t+";");
+            	   i++;
+               
+               
+               
+               }   
               
                 
           } catch (IOException e) {
@@ -204,14 +256,24 @@ public class OffReader3DMeshV2 {
 	  public static void main(String args[]) {
           // new TestIO().copieFichierTexte("essai.txt","output.txt");
           OffReader3DMeshV2 toto=new OffReader3DMeshV2(); 
-          toto.afficheFichierTexte("/tmp/pentagonal_hexecontahedron.off");
+          toto.afficheFichierTexte("/tmp/snub_icosidodecahedron.off");
           //new OffReader3DMeshV2().afficheFichierTexte("C:/Documents and Settings/moi/workspace/Voronoi/src/test/pentagonal_icositetrahedron.off");
+          // Recherche d'un chemin hamiltonien
+          /*
+          for(int i=0;i<100;i++){
+        	  toto.nn=0;
           ArrayList<Vertex> resu=new ArrayList<Vertex>();
-  		Vertex debut=toto.vertices.remove(0); 
+          // Melanger toto.vertices
+          toto.mix();
+          Vertex debut=toto.vertices.remove(0); 
   		
           ArrayList<Vertex> circuit=toto.trajet(resu,toto.vertices,debut );
+          if(circuit.size()==92) break; 
+          toto.vertices.add(debut);
 	  }
+	  */
+         
 
-	
+	  }
 	
 }
