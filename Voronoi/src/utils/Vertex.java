@@ -52,4 +52,15 @@ public class Vertex extends Pos3D {
 		Vertex m=new Vertex((a.x+b.x)/2.0,(a.y+b.y)/2.0,(a.z+b.z)/2.0);
 		return m;
 	}
+	public static double produitScalaire(Vertex a,Vertex b){
+		return a.x*b.x+a.y*b.y+a.z*b.z; 
+	}
+	
+	public double norme(){
+		return Math.sqrt(x*x+y*y+z*z); 
+	}
+	
+	
+	
+	
 }
