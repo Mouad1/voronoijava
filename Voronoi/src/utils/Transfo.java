@@ -24,9 +24,12 @@ public class Transfo {
 		String s="\n#declare Victor=<0,1,0>; \n";
 		s+="#declare Victor=vrotate(Victor,<0,0,"+(-beta)+">);\n";
 		s+="#declare Victor=vrotate(Victor,<0,"+(-alpha)+",0>);\n";
+		s+="#declare Hugo=<1,0,0>;\n";
+		s+="#declare Hugo=vrotate(Hugo,<0,0,"+(-beta)+">);\n";
+		s+="#declare Hugo=vrotate(Hugo,<0,"+(-alpha)+",0>);\n";
 		s+="#declare transy=<"+trans.x+","+trans.y+","+trans.z+">;\n";
 		s+="#declare normetransy=vlength(transy);\n";
-		s+="#declare gamo=vdot(Victor,transy)/normetransy*180/pi;\n";
+		s+="#declare gamo=vdot(Hugo,transy)/normetransy*180/pi;\n";
 		s+="#debug \"Beta :\"" ; 
 		s+="#debug str("+beta+",3,3)\n";
 		s+="#debug \"\n Alpha :\"" ; 
@@ -40,7 +43,7 @@ public class Transfo {
 		s+="#debug \"\n\"" ; 
 		//String s="transform{\n translate"+Vertex.mul(trans,-1)+"\nrotate " +(-beta)+"*z\n rotate "+(-alpha)+"*y\n translate "+trans+"}";
 		 s+="transform{ rotate "+(-beta)+"*z rotate "+(-alpha)+"*y ";
-		s+="Axis_Rotate_Trans(Victor,gamo-90) "; 
+		s+="Axis_Rotate_Trans(Victor,gamo) "; 
 		s+=" translate "+Vertex.mul(trans,-1)+"}";
 		return s; 
 	}
