@@ -95,7 +95,8 @@ public class OffReader3DMeshV2 {
 	public void afficheFichierTexte(String nomFichierSource) {
           File source = new File(nomFichierSource);
           try {
-        	 output=new PrintStream("/tmp/archi.txt");
+        	// output=new PrintStream("../../../../pearls/scene/geometry/polyhedra/archimedean/archi.txt");
+        	  output=new PrintStream("../pearls/scene/geometry/polyhedra/archimedean/archi.txt");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
                   while(ligne.charAt(0)=='#') ligne=in.readLine();
@@ -224,7 +225,7 @@ public class OffReader3DMeshV2 {
             	   
             	   mimi=Vertex.mul(mimi,-1); 
             	   Cylinder cy=new Cylinder(Vertex.add(c.getA(),mimi),Vertex.add(c.getB(), mimi));
-            	   // chaque arete a ete ramenee au centre (et centrée !)
+            	   // chaque arete a ete ramenee au centre (et centree !)
             	   // cy.getA() contient les x,y,z qui m'interessent
             	   double xx=cy.getA().getX();
             	   double yy= cy.getA().getY();
@@ -247,7 +248,7 @@ public class OffReader3DMeshV2 {
                
                
                }   
-              
+               output.close(); 
                 
           } catch (IOException e) {
                   e.printStackTrace();
@@ -256,7 +257,8 @@ public class OffReader3DMeshV2 {
 	  public static void main(String args[]) {
           // new TestIO().copieFichierTexte("essai.txt","output.txt");
           OffReader3DMeshV2 toto=new OffReader3DMeshV2(); 
-          toto.afficheFichierTexte("/tmp/snub_icosidodecahedron.off");
+          //toto.afficheFichierTexte("/tmp/snub_icosidodecahedron.off");
+          toto.afficheFichierTexte("C:/Documents and Settings/moi/workspace/Voronoi/src/test/snub_icosidodecahedron.off");
           //new OffReader3DMeshV2().afficheFichierTexte("C:/Documents and Settings/moi/workspace/Voronoi/src/test/pentagonal_icositetrahedron.off");
           // Recherche d'un chemin hamiltonien
           /*
