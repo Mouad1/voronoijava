@@ -1,5 +1,5 @@
 package test;
-// Polygones quelconques, présence de commentaires, aretes 
+// Polygones quelconques, presence de commentaires, aretes 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -25,6 +25,7 @@ public class OffReader3DMeshV2 {
 
 
 	public int nbVertices,nbFaces;
+	private String catena;
 	{
 		Locale.setDefault(Locale.US);
 	}
@@ -92,11 +93,13 @@ public class OffReader3DMeshV2 {
 		vertices=verpro;
 	}
 	
+	
 	public void afficheFichierTexte(String nomFichierSource) {
-          File source = new File(nomFichierSource);
+			this.catena="C:/Documents and Settings/moi/workspace/Voronoi/src/test/"+nomFichierSource+".off";
+          File source = new File(catena);
           try {
         	// output=new PrintStream("../../../../pearls/scene/geometry/polyhedra/archimedean/archi.txt");
-        	  output=new PrintStream("../pearls/scene/geometry/polyhedra/archimedean/archi.txt");
+        	  output=new PrintStream("../pearls/scene/geometry/polyhedra/archimedean/"+nomFichierSource+".inc");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
                   while(ligne.charAt(0)=='#') ligne=in.readLine();
@@ -184,39 +187,62 @@ public class OffReader3DMeshV2 {
                 	  System.out.println(x); 
                   //System.exit(0);
                   // traitement des surfaces (puis sortie du texte 'mesh'
-                  System.out.println("mesh2{\n");
+                  System.out.println("#declare "+nomFichierSource+"=mesh2{\n");
                   System.out.println("vertex_vectors{\n");
                   System.out.println(vertices.size()+",");
-                  for(int i=0;i<vertices.size()-1;i++)
+                  output.println("#declare "+nomFichierSource+"=mesh2{\n");
+                  output.println("vertex_vectors{\n");
+                  output.println(vertices.size()+",");
+                  
+                  for(int i=0;i<vertices.size()-1;i++){
                 	  System.out.println(vertices.get(i)+","); 
+                	  output.println(vertices.get(i)+","); 
+                  }
                   System.out.println(vertices.get(vertices.size()-1)+"\n }");
                   // les textures
                   System.out.println("texture_list{\n"+provi.size()+","); 
-                  for(int i=0;i<provi.size()-1;i++)
+                  output.println(vertices.get(vertices.size()-1)+"\n }");
+                  output.println("texture_list{\n"+provi.size()+","); 
+                
+                  for(int i=0;i<provi.size()-1;i++){
                 	  System.out.println("texture{texture"+i+"},");
+                	  output.println("texture{texture"+i+"},");
+                  }
                   System.out.println("texture{texture"+(provi.size()-1)+"}\n }");
                   System.out.println("face_indices{");
                   System.out.println(lesFaces.size()+","); 
+                  output.println("texture{texture"+(provi.size()-1)+"}\n }");
+                  output.println("face_indices{");
+                  output.println(lesFaces.size()+","); 
                   for(Face f:lesFaces)
-                	  if(lesFaces.indexOf(f)!=lesFaces.size()-1)
-                	  System.out.println(f+","+ provi.indexOf(roundDecimals(f.surface()))+",");
-                	  else
+                	  if(lesFaces.indexOf(f)!=lesFaces.size()-1){
+                		System.out.println(f+","+ provi.indexOf(roundDecimals(f.surface()))+",");
+                  		output.println(f+","+ provi.indexOf(roundDecimals(f.surface()))+",");
+                	  }
+                	  else{
                 		  System.out.println(f+" "+provi.indexOf(roundDecimals(f.surface()))+"\n } \n }");
-                  
+                		  output.println(f+" "+provi.indexOf(roundDecimals(f.surface()))+"\n } \n }");
+                	  }
                   
                   // Les aretes 
                System.out.println("#declare aretes=union{\n");
-               for(Cylinder c:lesAretes)
+               output.println("#declare aretes=union{\n");
+               for(Cylinder c:lesAretes){
             	   System.out.println("object{"+c+"}"); 
+            	   output.println("object{"+c+"}"); 
+               }
                System.out.println("}");
-               // les sommets (pour masquer l'intersection des spheres)
+               output.println("}");
+               // les sommets (pour masquer l'intersection des cylindres)
                System.out.println("#declare sommets=union{\n");
+               output.println("#declare sommets=union{\n");
                for(int j=0;j<nbVertices;j++){
             	   Pos3D v=vertices.get(j);
             	   System.out.println("object{sphere{"+v+",diam1 }}");
+            	   output.println("object{sphere{"+v+",diam1 }}");
                }
                System.out.println("}");
-               
+               output.println("}");
                // Les transformations amenant un vecteur central vertical sur une arete
                ArrayList<Transfo> lesTransfos=new ArrayList<Transfo>();
                for(Cylinder c:lesAretes){
@@ -237,6 +263,8 @@ public class OffReader3DMeshV2 {
             	  lesTransfos.add(new Transfo(alpha,beta,mimi));
             	   
                }
+               System.out.println("#declare maxIndices="+lesTransfos.size()+";");
+               output.println("#declare maxIndices="+lesTransfos.size()+";");
                System.out.println("#declare trans=array["+lesAretes.size()+"];");
                output.println("#declare trans=array["+lesAretes.size()+"];");
                int i=0;
@@ -258,8 +286,9 @@ public class OffReader3DMeshV2 {
           // new TestIO().copieFichierTexte("essai.txt","output.txt");
           OffReader3DMeshV2 toto=new OffReader3DMeshV2(); 
           //toto.afficheFichierTexte("/tmp/snub_icosidodecahedron.off");
-          toto.afficheFichierTexte("C:/Documents and Settings/moi/workspace/Voronoi/src/test/snub_icosidodecahedron.off");
+          //toto.afficheFichierTexte("C:/Documents and Settings/moi/workspace/Voronoi/src/test/snub_icosidodecahedron.off");
           //new OffReader3DMeshV2().afficheFichierTexte("C:/Documents and Settings/moi/workspace/Voronoi/src/test/pentagonal_icositetrahedron.off");
+          toto.afficheFichierTexte("truncated_dodecahedron");
           // Recherche d'un chemin hamiltonien
           /*
           for(int i=0;i<100;i++){
