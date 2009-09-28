@@ -290,7 +290,9 @@ public class OffReader3DMeshV2 {
           //toto.afficheFichierTexte("/tmp/snub_icosidodecahedron.off");
           //toto.afficheFichierTexte("C:/Documents and Settings/moi/workspace/Voronoi/src/test/snub_icosidodecahedron.off");
           //new OffReader3DMeshV2().afficheFichierTexte("C:/Documents and Settings/moi/workspace/Voronoi/src/test/pentagonal_icositetrahedron.off");
+
           toto.afficheFichierTexte("rhombicosidodecahedron");
+
           // Recherche d'un chemin hamiltonien
           /*
           for(int i=0;i<100;i++){
