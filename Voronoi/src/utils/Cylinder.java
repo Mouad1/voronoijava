@@ -21,8 +21,10 @@ public class Cylinder {
 	private Vertex a,b;
 	private int ca,cb;
 	
+	
+	
 	public String toString(){
-		return "cylinder{"+a+","+b+",diam}";
+		return "cylinder{"+a+","+b+",diam  }";
 	}
 
 	/**
@@ -52,6 +54,7 @@ public class Cylinder {
 	public int getCb() {
 		return cb;
 	}
+
 	
 
 }
