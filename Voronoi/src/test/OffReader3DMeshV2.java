@@ -95,7 +95,8 @@ public class OffReader3DMeshV2 {
 	
 	
 	public void afficheFichierTexte(String nomFichierSource) {
-			this.catena="C:/Documents and Settings/moi/workspace/Voronoi/src/test/"+nomFichierSource+".off";
+			//this.catena="C:/Documents and Settings/moi/workspace/Voronoi/src/test/"+nomFichierSource+".off";
+		this.catena="/tmp/"+nomFichierSource+".off"; 
           File source = new File(catena);
           try {
         	// output=new PrintStream("../../../../pearls/scene/geometry/polyhedra/archimedean/archi.txt");
@@ -160,6 +161,7 @@ public class OffReader3DMeshV2 {
                   }
                 
                 	// On doit encore s'occuper des aretes
+                  TreeSet<Double> lengthAretes=new TreeSet<Double>();
                   ArrayList<Cylinder> lesAretes=new ArrayList<Cylinder>();
                 
                   ligne=in.readLine(); 
@@ -168,13 +170,13 @@ public class OffReader3DMeshV2 {
                 	  int c0=rl.nextInt(); 
                 	  int c1=rl.nextInt(); 
                 	  lesAretes.add(new Cylinder(vertices.get(c0),vertices.get(c1),c0,c1));
-                	  System.out.println("debug "+c0+" "+c1);
-                	  System.out.println("object{"+new Cylinder(vertices.get(c0),vertices.get(c1))+"}\n");
+                	  lengthAretes.add(roundDecimals(Pos3D.distance(vertices.get(c0), vertices.get(c1)))); 
                 	  ligne=in.readLine();
                 	  if(ligne==null) break;
                 	  rl=new Scanner(ligne); 
                   }
-                
+                  double meilleur=lengthAretes.last(); 
+                 
                 
                   in.close();
                   // classement des surfaces
@@ -248,7 +250,7 @@ public class OffReader3DMeshV2 {
                for(Cylinder c:lesAretes){
             	   //Ramener le vecteur en <0,0,0>
             	   Vertex mimi=Vertex.middle(c.getA(),c.getB()); 
-            	   
+            	   double taille=Pos3D.distance(c.getA(), c.getB());
             	   mimi=Vertex.mul(mimi,-1); 
             	   Cylinder cy=new Cylinder(Vertex.add(c.getA(),mimi),Vertex.add(c.getB(), mimi));
             	   // chaque arete a ete ramenee au centre (et centree !)
@@ -260,7 +262,7 @@ public class OffReader3DMeshV2 {
             	   double newX=Math.sqrt(xx*xx+zz*zz);
             	   double beta=Math.atan2(newX,yy)*180/Math.PI;
             	   
-            	  lesTransfos.add(new Transfo(alpha,beta,mimi));
+            	  lesTransfos.add(new Transfo(alpha,beta,mimi,taille/meilleur));
             	   
                }
                System.out.println("#declare maxIndices="+lesTransfos.size()+";");
@@ -288,7 +290,7 @@ public class OffReader3DMeshV2 {
           //toto.afficheFichierTexte("/tmp/snub_icosidodecahedron.off");
           //toto.afficheFichierTexte("C:/Documents and Settings/moi/workspace/Voronoi/src/test/snub_icosidodecahedron.off");
           //new OffReader3DMeshV2().afficheFichierTexte("C:/Documents and Settings/moi/workspace/Voronoi/src/test/pentagonal_icositetrahedron.off");
-          toto.afficheFichierTexte("truncated_dodecahedron");
+          toto.afficheFichierTexte("rhombicosidodecahedron");
           // Recherche d'un chemin hamiltonien
           /*
           for(int i=0;i<100;i++){
