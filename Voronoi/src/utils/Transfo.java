@@ -22,6 +22,7 @@ public class Transfo {
 	private Vertex trans,axe; 
 	
 	public String toString(){
+		//this.rapport=1;
 		String s="\n#declare Victor=<0,1,0>; \n";
 		s+="#declare Victor=vrotate(Victor,<0,0,"+(-beta)+">);\n";
 		s+="#declare Victor=vrotate(Victor,<0,"+(-alpha)+",0>);\n";
