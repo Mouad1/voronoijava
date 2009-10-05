@@ -60,6 +60,10 @@ public class Vertex extends Pos3D {
 		return Math.sqrt(x*x+y*y+z*z); 
 	}
 	
+	public static Vertex sub(Vertex v1,Vertex v2){
+		return new Vertex(v1.x-v2.x,v1.y-v2.y,v1.z-v2.z); 
+	}
+	
 	
 	
 	
