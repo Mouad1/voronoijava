@@ -14,7 +14,8 @@ import java.util.Scanner;
 import java.util.TreeSet;
 
 import utils.Cylinder;
-import utils.Face;
+import utils.FacePolygonale;
+import utils.FaceTriangulaire;
 import utils.Transfo;
 import utils.Vertex;
 import utils.Pos3D; 
@@ -66,7 +67,8 @@ public class OffReader3DMeshV2 {
 	
 	
 	private ArrayList<Vertex> vertices=new ArrayList<Vertex>();
-
+	private ArrayList<FaceTriangulaire> lesFacesTriangulaires=new ArrayList<FaceTriangulaire>(); 
+	private ArrayList<FacePolygonale> lesFacesPolygonales=new ArrayList<FacePolygonale>();
 
 	private PrintStream output; 
 	
@@ -127,19 +129,24 @@ public class OffReader3DMeshV2 {
                 	  vertices.add(new Vertex(x,y,z)); 
                 	
                   }
-                  ArrayList<Face> lesFaces=new ArrayList<Face>(); 
+                  
                   for(int i=0;i<nbFaces;i++){
                 	  ligne=in.readLine();
                 	  rl=new Scanner(ligne); 
                 	  rl.useLocale(Locale.US);
                 	  int dim=rl.nextInt(); 
+                	  FacePolygonale faceEnCours=new FacePolygonale(dim);
                 	  int coins[]=new int[dim];
                 	  System.out.println("-->"+dim);
                 	  for(int j=0;j<dim;j++){
                 		  coins[j]=rl.nextInt(); 
                 	  }
+                	  for(int toto=0;toto<dim;toto++)
+                		  faceEnCours.add(vertices.get(coins[toto]),coins[toto]);
+                	  faceEnCours.determineAxe();
+                	  lesFacesPolygonales.add(faceEnCours);
                 	  if(dim==3)                	
-                	  lesFaces.add(new Face(vertices.get(coins[0]),vertices.get(coins[1]),vertices.get(coins[2]),coins[0],coins[1],coins[2]));
+                	  lesFacesTriangulaires.add(new FaceTriangulaire(vertices.get(coins[0]),vertices.get(coins[1]),vertices.get(coins[2]),coins[0],coins[1],coins[2]));
                 	  else // la face n'est pas un triangle
                 	  {
                 		  // calculer le milieu de l'ensemble des points c
@@ -149,7 +156,7 @@ public class OffReader3DMeshV2 {
                 		  vertices.add(center);
                 		  // Construire les dim triangles  (vi,v(i+1),c)
                 		  for(int j=0;j<dim;j++)
-                			  lesFaces.add(new Face(vertices.get(coins[j]),vertices.get(coins[(j+1)%dim]),center,coins[j],coins[(j+1)%dim],vertices.indexOf(center)));
+                			  lesFacesTriangulaires.add(new FaceTriangulaire(vertices.get(coins[j]),vertices.get(coins[(j+1)%dim]),center,coins[j],coins[(j+1)%dim],vertices.indexOf(center)));
                 	  }
                 	  // fixer les voisins
                 	  for(int j=0;j<dim;j++) {
@@ -182,7 +189,7 @@ public class OffReader3DMeshV2 {
                   in.close();
                   // classement des surfaces
                   TreeSet<Double> ts=new TreeSet<Double>();
-                  for(Face f:lesFaces)
+                  for(FaceTriangulaire f:lesFacesTriangulaires)
                 	  ts.add(roundDecimals(f.surface())); 
                   
                   ArrayList<Double> provi=new ArrayList<Double>(ts); 
@@ -213,12 +220,12 @@ public class OffReader3DMeshV2 {
                   }
                   System.out.println("texture{texture"+(provi.size()-1)+"}\n }");
                   System.out.println("face_indices{");
-                  System.out.println(lesFaces.size()+","); 
+                  System.out.println(lesFacesTriangulaires.size()+","); 
                   output.println("texture{texture"+(provi.size()-1)+"}\n }");
                   output.println("face_indices{");
-                  output.println(lesFaces.size()+","); 
-                  for(Face f:lesFaces)
-                	  if(lesFaces.indexOf(f)!=lesFaces.size()-1){
+                  output.println(lesFacesTriangulaires.size()+","); 
+                  for(FaceTriangulaire f:lesFacesTriangulaires)
+                	  if(lesFacesTriangulaires.indexOf(f)!=lesFacesTriangulaires.size()-1){
                 		System.out.println(f+","+ provi.indexOf(roundDecimals(f.surface()))+",");
                   		output.println(f+","+ provi.indexOf(roundDecimals(f.surface()))+",");
                 	  }
