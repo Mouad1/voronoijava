@@ -75,4 +75,7 @@ public class Pos3D {
 		return Math.sqrt(resu); 
 	}
 
+	public static Pos3D sub(Pos3D v1,Pos3D v2){
+		return new Pos3D(v1.x-v2.x,v1.y-v2.y,v1.z-v2.z); 
+	}
 }
