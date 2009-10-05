@@ -11,7 +11,7 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.TreeSet;
 
-import utils.Face;
+import utils.FaceTriangulaire;
 import utils.Pos3D;
 
 public class OffReader3DMesh {
@@ -58,7 +58,7 @@ public class OffReader3DMesh {
                   System.out.println("face_indices{\n");
                   System.out.println(nbFaces+",\n"); 
                   */
-                  Face lesFaces[]=new Face[nbFaces]; 
+                  FaceTriangulaire lesFaces[]=new FaceTriangulaire[nbFaces]; 
                   for(int i=0;i<nbFaces;i++){
                 	  ligne=in.readLine();
                 	  rl=new Scanner(ligne); 
@@ -69,7 +69,7 @@ public class OffReader3DMesh {
                 		  coins[j]=rl.nextInt(); 
                 	  }
                 	//  System.out.print("<"+coins[0]+","+coins[1]+","+coins[2]+">");
-                	  lesFaces[i]=new Face(vertices[coins[0]],vertices[coins[1]],vertices[coins[2]],coins[0],coins[1],coins[2]);
+                	  lesFaces[i]=new FaceTriangulaire(vertices[coins[0]],vertices[coins[1]],vertices[coins[2]],coins[0],coins[1],coins[2]);
                 	  //if(i<nbFaces-1) System.out.print(",");
                 	  //System.out.println("");
                 	 	 
