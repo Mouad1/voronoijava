@@ -45,6 +45,33 @@ public class FacePolygonale {
 				
 			}
 			else{ // un polygone de Catalan
+				switch(dim){
+				case 3 : // triangle
+					break; 
+				case 4 : // losange ou kite
+					double l1=Pos3D.distance(lesSommets.get(0), lesSommets.get(2));
+					double l2=Pos3D.distance(lesSommets.get(1), lesSommets.get(3));
+					if(l1>l2){
+						this.extrem1=lesSommets.get(0); 
+						this.extrem2=lesSommets.get(2); 
+					}
+					else{
+						this.extrem1=lesSommets.get(1); 
+						this.extrem2=lesSommets.get(3); 
+					}
+					break; 
+				case 5 : // tear
+					double dist[]=new double[5]; 
+					int imax=0; 
+					for(int i=0;i<dim;i++){
+						dist[i]=Pos3D.distance(lesSommets.get(i),Vertex.middle(lesSommets.get((i+2)%dim), lesSommets.get((i+3)%dim)));
+						if(dist[i]>dist[imax]) imax=i; 
+					}
+					this.extrem1=lesSommets.get(imax); 
+					this.extrem2=Vertex.middle(lesSommets.get((imax+2)%dim), lesSommets.get((imax+3)%dim));
+					break; 
+				default: break; // ne devrait pas se produire 
+				}
 				
 			}// else
 			
@@ -55,5 +82,20 @@ public class FacePolygonale {
     	DecimalFormat twoDForm = new DecimalFormat("#.#####");
 	return Double.valueOf(twoDForm.format(d));
 }
+
+	
+	/**
+	 * @return the extrem1
+	 */
+	public Vertex getExtrem1() {
+		return extrem1;
+	}
+
+	/**
+	 * @return the extrem2
+	 */
+	public Vertex getExtrem2() {
+		return extrem2;
+	}
 	
 }
