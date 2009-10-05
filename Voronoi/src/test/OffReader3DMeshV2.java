@@ -97,9 +97,9 @@ public class OffReader3DMeshV2 {
 	
 	
 	public void afficheFichierTexte(String nomFichierSource) {
-			this.catena="C:/Documents and Settings/moi/workspace/Voronoi/src/test/"+nomFichierSource+".off";
+			//this.catena="C:/Documents and Settings/moi/workspace/Voronoi/src/test/"+nomFichierSource+".off";
 		//this.catena="/tmp/"+nomFichierSource+".off"; 
-		//this.catena="./src/test/"+nomFichierSource+".off"; 
+		this.catena="./src/test/"+nomFichierSource+".off"; 
           File source = new File(catena);
           try {
         	// output=new PrintStream("../../../../pearls/scene/geometry/polyhedra/archimedean/archi.txt");
@@ -282,10 +282,39 @@ public class OffReader3DMeshV2 {
             	   System.out.println("#declare trans["+i+"]="+t+";");
             	   output.println("#declare trans["+i+"]="+t+";");
             	   i++;
-               
-               
-               
                }   
+               
+               // transformations relatives aux faces
+               ArrayList<Transfo> lesTransfosFaces=new ArrayList<Transfo>();
+               for(FacePolygonale fp:lesFacesPolygonales){
+            	   Vertex ca=fp.getExtrem1(); 
+            	   Vertex cb=fp.getExtrem2();
+            	   Vertex mimi=Vertex.middle(ca,cb); 
+            	   mimi=Vertex.mul(mimi,-1); 
+            	   Cylinder cy=new Cylinder(Vertex.add(ca,mimi),Vertex.add(cb, mimi));
+            	   // chaque arete a ete ramenee au centre (et centree !)
+            	   // cy.getA() contient les x,y,z qui m'interessent
+            	   double xx=cy.getA().getX();
+            	   double yy= cy.getA().getY();
+            	   double zz=cy.getA().getZ();
+            	   double alpha=Math.atan2(zz, xx)*180/Math.PI; 
+            	   double newX=Math.sqrt(xx*xx+zz*zz);
+            	   double beta=Math.atan2(newX,yy)*180/Math.PI;
+            	   lesTransfosFaces.add(new Transfo(alpha,beta,mimi,1));
+            	   
+            	   
+               }// for fp
+               System.out.println("#declare maxFaces="+lesTransfosFaces.size()+";");
+               output.println("#declare maxFaces="+lesTransfosFaces.size()+";");
+               System.out.println("#declare transface=array["+lesTransfosFaces.size()+"];");
+               output.println("#declare transface=array["+lesTransfosFaces.size()+"];");
+               int ui=0;
+               for(Transfo t:lesTransfosFaces){
+            	   System.out.println("#declare transface["+ui+"]="+t+";");
+            	   output.println("#declare transface["+ui+"]="+t+";");
+            	   ui++;
+               }   
+               
                output.close(); 
                 
           } catch (IOException e) {
@@ -300,7 +329,7 @@ public class OffReader3DMeshV2 {
           //new OffReader3DMeshV2().afficheFichierTexte("C:/Documents and Settings/moi/workspace/Voronoi/src/test/pentagonal_icositetrahedron.off");
 
 
-          toto.afficheFichierTexte("snub_icosidodecahedron");
+          toto.afficheFichierTexte("dodecahedron");
 
 
           // Recherche d'un chemin hamiltonien
