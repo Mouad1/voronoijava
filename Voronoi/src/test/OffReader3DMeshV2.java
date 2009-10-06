@@ -329,7 +329,7 @@ public class OffReader3DMeshV2 {
           //new OffReader3DMeshV2().afficheFichierTexte("C:/Documents and Settings/moi/workspace/Voronoi/src/test/pentagonal_icositetrahedron.off");
 
 
-          toto.afficheFichierTexte("dodecahedron");
+          toto.afficheFichierTexte("truncated_tetrahedron");
 
 
           // Recherche d'un chemin hamiltonien
