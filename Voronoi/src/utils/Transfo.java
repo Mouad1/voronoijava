@@ -34,7 +34,7 @@ public class Transfo {
 		s+="#declare provi=acos(provi)*180/pi;";
 		s+="#if(transy.y>0) #declare provi=-provi; #end ";
 	
-		 s+="transform{scale "+rapport+" rotate "+(-beta)+"*z rotate "+(-alpha)+"*y ";
+		 s+="transform{translate 0.0*y scale "+rapport+" rotate "+(-beta)+"*z rotate "+(-alpha)+"*y ";
 		s+="Axis_Rotate_Trans(Victor,provi) "; 
 		s+=" translate "+Vertex.mul(trans,-1)+"}";
 		return s; 

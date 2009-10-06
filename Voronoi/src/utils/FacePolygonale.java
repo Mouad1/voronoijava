@@ -22,6 +22,7 @@ public class FacePolygonale {
 	}
 	
 	public void determineAxe(){
+		System.out.println("---------------------------------dimension --------->"+dim); 
 		// trouver l'axe pour la transformation selon la forme de la face......
 		// Regarder combien il y a de longueurs d'aretes differentes
 		TreeSet<Double> lengthAretes=new TreeSet<Double>();
@@ -32,19 +33,25 @@ public class FacePolygonale {
 			Vertex vect1=Vertex.sub(this.lesSommets.get(0), this.lesSommets.get(1)); 
 			Vertex vect2=Vertex.sub(this.lesSommets.get(1), this.lesSommets.get(2));
 			double ps=Vertex.produitScalaire(vect1,vect2); // angle droit : un carre
-			if((dim!=4)||(Math.abs(ps)<1e-6)){ // polygone regulier 
+		
+;			if((dim!=4)||(Math.abs(ps)<1e-6)){ // polygone regulier 
+				System.out.println("----------------> cas1"); 
 				if(dim%2==0){ // nombre pair de cotes
+					System.out.println("----------------> cas2"); 
 					this.extrem1=lesSommets.get(0); 
 					this.extrem2=lesSommets.get(dim/2); 
 					
 				}
 				else{ // nombre impair de cotes
+					System.out.println("----------------> cas3"); 
 					this.extrem1=lesSommets.get(0); 
 					this.extrem2=Vertex.middle(lesSommets.get(dim/2), lesSommets.get((dim+1)/2));
 				}
 				
 			}
+		}
 			else{ // un polygone de Catalan
+				System.out.println("----------------> cas4"); 
 				switch(dim){
 				case 3 : // triangle
 					break; 
@@ -70,13 +77,14 @@ public class FacePolygonale {
 					this.extrem1=lesSommets.get(imax); 
 					this.extrem2=Vertex.middle(lesSommets.get((imax+2)%dim), lesSommets.get((imax+3)%dim));
 					break; 
-				default: break; // ne devrait pas se produire 
+				default:System.out.println("y a un bug..."); break; // ne devrait pas se produire 
 				}
 				
 			}// else
 			
 		}
-	}
+		
+	
 
 	private double roundDecimals(double d) {
     	DecimalFormat twoDForm = new DecimalFormat("#.#####");
