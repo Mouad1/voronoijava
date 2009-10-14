@@ -7,6 +7,9 @@ public class Transfo {
 	 * @param trans
 	 * @param rapport
 	 */
+	
+	
+		
 	public Transfo(double alpha, double beta, Vertex trans,double rapport) {
 		this.alpha = alpha;
 		this.beta = beta;
@@ -18,6 +21,8 @@ public class Transfo {
 		
 		
 	}
+	
+	
 	private double alpha,beta,rapport;
 	private Vertex trans,axe; 
 	

@@ -33,24 +33,40 @@ public class FacePolygonale {
 			Vertex vect1=Vertex.sub(this.lesSommets.get(0), this.lesSommets.get(1)); 
 			Vertex vect2=Vertex.sub(this.lesSommets.get(1), this.lesSommets.get(2));
 			double ps=Vertex.produitScalaire(vect1,vect2); // angle droit : un carre
-		
-;			if((dim!=4)||(Math.abs(ps)<1e-6)){ // polygone regulier 
+			
+			if((dim!=4)||(Math.abs(ps)<1e-6)){ // polygone regulier 
 				System.out.println("----------------> cas1"); 
 				if(dim%2==0){ // nombre pair de cotes
 					System.out.println("----------------> cas2"); 
 					this.extrem1=lesSommets.get(0); 
 					this.extrem2=lesSommets.get(dim/2); 
-					
-				}
-				else{ // nombre impair de cotes
-					System.out.println("----------------> cas3"); 
-					this.extrem1=lesSommets.get(0); 
-					this.extrem2=Vertex.middle(lesSommets.get(dim/2), lesSommets.get((dim+1)/2));
+		
 				}
 				
+				else{ 
+					
+					System.out.println("----------------> cas3"); 
+					this.extrem1=lesSommets.get(0); 
+					this.extrem2=Vertex.middle(lesSommets.get(dim/2), lesSommets.get((dim+1)/2));	
+				}
+			}
+			else{ // losange
+				double l1=Pos3D.distance(lesSommets.get(0), lesSommets.get(2));
+				double l2=Pos3D.distance(lesSommets.get(1), lesSommets.get(3));
+				if(l1>l2){
+					this.extrem2=lesSommets.get(0); 
+					this.extrem1=lesSommets.get(2);
+				}
+				else{
+					this.extrem1=lesSommets.get(0); 
+					this.extrem2=lesSommets.get(2);
+					
+				}
+			
+			
 			}
 		}
-			else{ // un polygone de Catalan
+			else{ // un polygone de Catalan (hors losange)
 				System.out.println("----------------> cas4"); 
 				switch(dim){
 				case 3 : // triangle
@@ -58,11 +74,23 @@ public class FacePolygonale {
 				case 4 : // losange ou kite
 					double l1=Pos3D.distance(lesSommets.get(0), lesSommets.get(2));
 					double l2=Pos3D.distance(lesSommets.get(1), lesSommets.get(3));
-					if(l1>l2){
-						this.extrem1=lesSommets.get(0); 
-						this.extrem2=lesSommets.get(2); 
+					double l3=Pos3D.distance(lesSommets.get(0), lesSommets.get(1));
+					double l4=Pos3D.distance(lesSommets.get(1), lesSommets.get(2));
+					// TODO : controler l'orientation (tjrs la meme ) : pour les kites
+					// "la pointe vers le haut"
+					// pour les losanges ??? (indifferent...)
+					
+					if(l1>l2){ //kite
+						if(l3>l4){
+						this.extrem2=lesSommets.get(0); 
+						this.extrem1=lesSommets.get(2);
+						}
+						else{
+							this.extrem1=lesSommets.get(0); 
+							this.extrem2=lesSommets.get(2);
+							}
 					}
-					else{
+					else{ // losange
 						this.extrem1=lesSommets.get(1); 
 						this.extrem2=lesSommets.get(3); 
 					}
