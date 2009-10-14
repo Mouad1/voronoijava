@@ -49,4 +49,10 @@ public class Triangle {
 		return A+"/"+B+"/"+C; 
 	}
 
+	public String dessin(){
+		String s="drawLine("+A.getX()+","+A.getY()+","+B.getX()+","+B.getY()+");\n";
+		s+="drawLine("+A.getX()+","+A.getY()+","+C.getX()+","+C.getY()+");\n";
+		s+="drawLine("+C.getX()+","+C.getY()+","+B.getX()+","+B.getY()+");\n";
+		return s;
+	}
 }
