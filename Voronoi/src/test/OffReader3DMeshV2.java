@@ -289,8 +289,8 @@ public class OffReader3DMeshV2 {
                for(FacePolygonale fp:lesFacesPolygonales){
             	   Vertex ca=fp.getExtrem1(); 
             	   Vertex cb=fp.getExtrem2();
-            	   //output.println("sphere{"+ca+",0.1 texture{pigment{color Red}}}\n"); 
-            	   //output.println("sphere{"+cb+",0.1 texture{pigment{color Red}}}\n"); 
+            	   System.out.println("sphere{"+ca+",0.1 texture{pigment{color Red}}}\n"); 
+            	   System.out.println("sphere{"+cb+",0.1 texture{pigment{color Red}}}\n"); 
             	   Vertex mimi=Vertex.middle(ca,cb); 
             	   mimi=Vertex.mul(mimi,-1); 
             	   Cylinder cy=new Cylinder(Vertex.add(ca,mimi),Vertex.add(cb, mimi));
@@ -331,7 +331,7 @@ public class OffReader3DMeshV2 {
           //new OffReader3DMeshV2().afficheFichierTexte("C:/Documents and Settings/moi/workspace/Voronoi/src/test/pentagonal_icositetrahedron.off");
 
 
-          toto.afficheFichierTexte("kite_hexecontahedron");
+          toto.afficheFichierTexte("rhombic_triacontahedron");
 
 
           // Recherche d'un chemin hamiltonien
