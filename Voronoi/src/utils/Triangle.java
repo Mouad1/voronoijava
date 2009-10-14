@@ -6,7 +6,7 @@ public class Triangle {
 	 * @param b
 	 * @param c
 	 */
-	protected Triangle(Point a, Point b, Point c) {
+	public Triangle(Point a, Point b, Point c) {
 		A = a;
 		B = b;
 		C = c;
