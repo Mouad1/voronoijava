@@ -47,7 +47,7 @@ public class CalculTriangles {
 	
 	static ArrayList<Triangle> lesTriangles=new ArrayList<Triangle>(); 
 	public static void main(String[] args) {
-		int N=5; 
+		int N=100; 
 		double r2=Math.sqrt(2);
 		
 		for(int k=0;k<N;k++)
@@ -69,7 +69,7 @@ public class CalculTriangles {
 		
 		for(Triangle t: lesTriangles)
 			System.out.println(t.dessin()); 
-		/*
+		
 		double max=0;
 		for(int i=0;i<N-4;i++)
 			for(int j=i+1;j<N-3;j++)
@@ -80,7 +80,7 @@ public class CalculTriangles {
 							if(s>max) max=s; 
 						}
 				System.out.println(max);
-				*/ 
+				
 	}
 
 }
