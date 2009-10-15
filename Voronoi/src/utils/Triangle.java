@@ -55,4 +55,10 @@ public class Triangle {
 		s+="drawLine("+C.getX()+","+C.getY()+","+B.getX()+","+B.getY()+");\n";
 		return s;
 	}
+	public String lesX(){
+		return "{"+A.getX()+","+B.getX()+","+C.getX()+"}"; 
+	}
+	public String lesY(){
+		return "{"+A.getY()+","+B.getY()+","+C.getY()+"}"; 
+	}
 }
