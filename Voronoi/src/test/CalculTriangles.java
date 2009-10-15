@@ -50,7 +50,7 @@ public class CalculTriangles {
 	
 	static ArrayList<Triangle> lesTriangles=new ArrayList<Triangle>(); 
 	public static void main(String[] args) {
-		int N=10; 
+		int N=25; 
 		double r2=Math.sqrt(2);
 		
 		for(int k=0;k<N;k++)
@@ -74,7 +74,7 @@ public class CalculTriangles {
 	System.out.println(lesTriangles.size()); 
 		
 		double max=0;
-		
+		int lligne=0; 
 		for(int i=0;i<N*N-4;i++)
 			for(int j=i+1;j<N*N-3;j++)
 				for(int k=j+1;k<N*N-2;k++)
@@ -83,7 +83,19 @@ public class CalculTriangles {
 							double s=calculSurface(i,j,k,l,m);
 							if(s>max){ 
 								max=s; 
+								System.out.println(); 
+								System.out.println("drawTriangle(new double[]"+lesTriangles.get(i).lesX()+",new double[]"+lesTriangles.get(i).lesY()+");");
+								System.out.println("drawTriangle(new double[]"+lesTriangles.get(j).lesX()+",new double[]"+lesTriangles.get(j).lesY()+");");
+								System.out.println("drawTriangle(new double[]"+lesTriangles.get(k).lesX()+",new double[]"+lesTriangles.get(k).lesY()+");");
+								System.out.println("drawTriangle(new double[]"+lesTriangles.get(l).lesX()+",new double[]"+lesTriangles.get(l).lesY()+");");
+								System.out.println("drawTriangle(new double[]"+lesTriangles.get(m).lesX()+",new double[]"+lesTriangles.get(m).lesY()+");");
+								
 								System.out.println(max);
+							}
+							else {
+								if(lligne%10000000==0) System.out.print("*");
+								lligne++; 
+								if(lligne==800000000){lligne=0; System.out.println(); }
 							}
 						}
 				
