@@ -12,6 +12,7 @@ public class CalculTriangles {
 		double s=(B.getX()-A.getX())*(C.getY()-A.getY()); 
 		s=s-(C.getX()-A.getX())*(B.getY()-A.getY()); 
 		s=0.5*Math.abs(s);
+		//System.out.println(s); 
 		return s; 
 	}
 	
@@ -26,6 +27,7 @@ public class CalculTriangles {
 					double s=surface(T0.get(ia),T1.get(ib),T2.get(ic)); 
 					if(s>max)max =s; 
 				}
+		
 		return max; 
 	}
 	
@@ -40,6 +42,7 @@ public class CalculTriangles {
 		s=surfaceElem(j,k,m); if(s<min) min=s; 
 		s=surfaceElem(j,l,m); if(s<min) min=s; 
 		s=surfaceElem(k,l,m); if(s<min) min=s; 
+		
 		return min;
 	}
 
@@ -47,7 +50,7 @@ public class CalculTriangles {
 	
 	static ArrayList<Triangle> lesTriangles=new ArrayList<Triangle>(); 
 	public static void main(String[] args) {
-		int N=100; 
+		int N=10; 
 		double r2=Math.sqrt(2);
 		
 		for(int k=0;k<N;k++)
@@ -67,19 +70,23 @@ public class CalculTriangles {
 				
 			}
 		
-		for(Triangle t: lesTriangles)
-			System.out.println(t.dessin()); 
+	
+	System.out.println(lesTriangles.size()); 
 		
 		double max=0;
-		for(int i=0;i<N-4;i++)
-			for(int j=i+1;j<N-3;j++)
-				for(int k=j+1;k<N-2;k++)
-					for(int l=k+1;l<N-1;l++)
-						for(int m=l+1;m<N;m++){
+		
+		for(int i=0;i<N*N-4;i++)
+			for(int j=i+1;j<N*N-3;j++)
+				for(int k=j+1;k<N*N-2;k++)
+					for(int l=k+1;l<N*N-1;l++)
+						for(int m=l+1;m<N*N;m++){
 							double s=calculSurface(i,j,k,l,m);
-							if(s>max) max=s; 
+							if(s>max){ 
+								max=s; 
+								System.out.println(max);
+							}
 						}
-				System.out.println(max);
+				
 				
 	}
 
