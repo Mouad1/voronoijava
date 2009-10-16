@@ -50,7 +50,7 @@ public class CalculTriangles {
 	
 	static ArrayList<Triangle> lesTriangles=new ArrayList<Triangle>(); 
 	public static void main(String[] args) {
-		int N=25; 
+		int N=5; 
 		double r2=Math.sqrt(2);
 		
 		for(int k=0;k<N;k++)
@@ -80,6 +80,7 @@ public class CalculTriangles {
 				for(int k=j+1;k<N*N-2;k++)
 					for(int l=k+1;l<N*N-1;l++)
 						for(int m=l+1;m<N*N;m++){
+							lligne++; 
 							double s=calculSurface(i,j,k,l,m);
 							if(s>max){ 
 								max=s; 
@@ -94,12 +95,12 @@ public class CalculTriangles {
 							}
 							else {
 								if(lligne%10000000==0) System.out.print("*");
-								lligne++; 
+								//lligne++; 
 								if(lligne==800000000){lligne=0; System.out.println(); }
 							}
 						}
 				
-				
+				System.out.println(lligne); 
 	}
 
 }
