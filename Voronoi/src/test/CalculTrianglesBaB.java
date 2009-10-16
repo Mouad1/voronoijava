@@ -75,14 +75,55 @@ public class CalculTrianglesBaB {
 		
 		double max=0;
 		int lligne=0; 
+		double calculCourant; 
 		for(int i=0;i<N*N-4;i++)
 			for(int j=i+1;j<N*N-3;j++)
-				for(int k=j+1;k<N*N-2;k++)
-					for(int l=k+1;l<N*N-1;l++)
-						for(int m=l+1;m<N*N;m++){
-							double s=calculSurface(i,j,k,l,m);
-							if(s>max){ 
-								max=s; 
+				for(int k=j+1;k<N*N-2;k++){
+					// On peut calculer surfaceElem(i,j,k)
+					calculCourant=surfaceElem(i,j,k);			
+					for(int l=k+1;(l<N*N-1)&&(calculCourant>=max);l++){
+						// On peut calculer (i,j,l),(i,k,l),(j,k,l)
+						int kk=0; 
+						double cc1=0; 
+						while(kk!=1){
+						kk=1;	
+						cc1=surfaceElem(i,j,l); 
+						if(cc1<max) break; 
+						if(cc1<calculCourant) {calculCourant=cc1;}
+						cc1=surfaceElem(i,k,l); 
+						if(cc1<max) break; 
+						if(cc1<calculCourant) {calculCourant=cc1;}
+						cc1=surfaceElem(j,k,l); 
+						if(cc1<max) break; 
+						if(cc1<calculCourant) {calculCourant=cc1;}	
+						}
+						for(int m=l+1;((m<N*N)&&(cc1>max));m++){
+                                                // 6 calculs de surface a faire......
+							int mm=0; 
+							while(mm!=1){
+								mm=1;
+								cc1=surfaceElem(i,j,m); 
+								if(cc1<max) break; 
+								if(cc1<calculCourant) {calculCourant=cc1;}
+								cc1=surfaceElem(i,k,m); 
+								if(cc1<max) break; 
+								if(cc1<calculCourant) {calculCourant=cc1;}
+								cc1=surfaceElem(i,l,m); 
+								if(cc1<max) break; 
+								if(cc1<calculCourant) {calculCourant=cc1;}
+								cc1=surfaceElem(j,k,m); 
+								if(cc1<max) break; 
+								if(cc1<calculCourant) {calculCourant=cc1;}
+								cc1=surfaceElem(j,l,m); 
+								if(cc1<max) break; 
+								if(cc1<calculCourant) {calculCourant=cc1;}
+								cc1=surfaceElem(k,l,m); 
+								if(cc1<max) break; 
+								if(cc1<calculCourant) {calculCourant=cc1;}
+							}
+							
+							if(calculCourant>max){ 
+								max=calculCourant; 
 								System.out.println(); 
 								System.out.println("drawTriangle(new double[]"+lesTriangles.get(i).lesX()+",new double[]"+lesTriangles.get(i).lesY()+");");
 								System.out.println("drawTriangle(new double[]"+lesTriangles.get(j).lesX()+",new double[]"+lesTriangles.get(j).lesY()+");");
@@ -97,8 +138,9 @@ public class CalculTrianglesBaB {
 								lligne++; 
 								if(lligne==800000000){lligne=0; System.out.println(); }
 							}
-						}
-				
+						}// for m
+					}// FOR L
+				}// for k
 				
 	}
 
