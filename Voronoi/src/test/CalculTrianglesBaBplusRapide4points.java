@@ -31,17 +31,11 @@ public class CalculTrianglesBaBplusRapide4points {
 		return max; 
 	}
 	
-	static public double calculSurface(int i,int j,int k,int l,int m){
+	static public double calculSurface(int i,int j,int k,int l){
 		double min=surfaceElem(i,j,k); 
-		double s=surfaceElem(i,j,l); if(s<min) min=s; 
-		s=surfaceElem(i,j,m); if(s<min) min=s; 
+		double s=surfaceElem(i,j,l); if(s<min) min=s;  
 		s=surfaceElem(i,k,l); if(s<min) min=s; 
-		s=surfaceElem(i,k,m); if(s<min) min=s; 
-		s=surfaceElem(i,l,m); if(s<min) min=s; 
 		s=surfaceElem(j,k,l); if(s<min) min=s; 
-		s=surfaceElem(j,k,m); if(s<min) min=s; 
-		s=surfaceElem(j,l,m); if(s<min) min=s; 
-		s=surfaceElem(k,l,m); if(s<min) min=s; 
 		
 		return min;
 	}
@@ -76,16 +70,17 @@ public class CalculTrianglesBaBplusRapide4points {
 		double max=0;
 		int lligne=0; 
 		//double calculCourant; 
-		for(int i=0;i<N*N-4;i++)
-			for(int j=i+1;j<N*N-3;j++)
-				for(int k=j+1;k<N*N-2;k++){
+		for(int i=0;i<N*N-3;i++)
+			for(int j=i+1;j<N*N-2;j++)
+				for(int k=j+1;k<N*N-1;k++){
 					// On peut calculer surfaceElem(i,j,k)
 					//System.out.println(i+" "+j+" "+k); 
 					double calculCourant0=surfaceElem(i,j,k);	
-					//if(calculCourant0<max) break;  
-					for(int l=k+1;(l<N*N-1)&&(calculCourant0>max);l++){
+				
+					for(int l=k+1;(l<N*N)&&(calculCourant0>max);l++){
 					//for(int l=k+1;(l<N*N-1);l++){
 						double calculCourant1=calculCourant0; 
+						lligne++;
 						// On peut calculer (i,j,l),(i,k,l),(j,k,l)
 						//System.out.println("\t\t"+l); 
 						int kk=0; 
@@ -105,50 +100,14 @@ public class CalculTrianglesBaBplusRapide4points {
 						if(cc1<calculCourant1) {calculCourant1=cc1;}	
 						if(cc1<max) break; 
 						}
-						for(int m=l+1;((m<N*N)&&(calculCourant1>max));m++){
-					//	for(int m=l+1;(m<N*N);m++){
-                                                // 6 calculs de surface a faire......
-							//System.out.println(i+" "+j+" "+k+" "+l+" "+m);
-							double calculCourant2=calculCourant1;
-							lligne++; 
-							int mm=0; 
-						while(mm!=1){
-								mm=1;
-								cc1=surfaceElem(i,j,m); 
-								//if(cc1<max) break; 
-								if(cc1<calculCourant2) {calculCourant2=cc1;}
-								if(cc1<max) break; 
-								cc1=surfaceElem(i,k,m); 
-								//if(cc1<max) break; 
-								if(cc1<calculCourant2) {calculCourant2=cc1;}
-								if(cc1<max) break; 
-								cc1=surfaceElem(i,l,m); 
-								//if(cc1<max) break; 
-								if(cc1<calculCourant2) {calculCourant2=cc1;}
-								if(cc1<max) break; 
-								cc1=surfaceElem(j,k,m); 
-								//if(cc1<max) break; 
-								if(cc1<calculCourant2) {calculCourant2=cc1;}
-								if(cc1<max) break; 
-								cc1=surfaceElem(j,l,m); 
-								//if(cc1<max) break; 
-								if(cc1<calculCourant2) {calculCourant2=cc1;}
-								if(cc1<max) break; 
-								cc1=surfaceElem(k,l,m); 
-								//if(cc1<max) break; 
-								if(cc1<calculCourant2) {calculCourant2=cc1;}
-								if(cc1<max) break; 
 						
-							
-							if(calculCourant2>max){ 
-								max=calculCourant2; 
+							if(calculCourant1>max){ 
+								max=calculCourant1; 
 								System.out.println(); 
 								System.out.println("drawTriangle(new double[]"+lesTriangles.get(i).lesX()+",new double[]"+lesTriangles.get(i).lesY()+");");
 								System.out.println("drawTriangle(new double[]"+lesTriangles.get(j).lesX()+",new double[]"+lesTriangles.get(j).lesY()+");");
 								System.out.println("drawTriangle(new double[]"+lesTriangles.get(k).lesX()+",new double[]"+lesTriangles.get(k).lesY()+");");
 								System.out.println("drawTriangle(new double[]"+lesTriangles.get(l).lesX()+",new double[]"+lesTriangles.get(l).lesY()+");");
-								System.out.println("drawTriangle(new double[]"+lesTriangles.get(m).lesX()+",new double[]"+lesTriangles.get(m).lesY()+");");
-								
 								System.out.println(max);
 							}
 							else {
@@ -157,10 +116,9 @@ public class CalculTrianglesBaBplusRapide4points {
 								if(lligne==800000000){lligne=0; System.out.println(); }
 							}
 						}
-						}// for m
-					}// FOR L
+									}// FOR L
 				}// for k
-				System.out.println(lligne); 
+				
 	}
 
-}
+
