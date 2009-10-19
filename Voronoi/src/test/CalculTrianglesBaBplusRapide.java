@@ -82,7 +82,7 @@ public class CalculTrianglesBaBplusRapide {
 					// On peut calculer surfaceElem(i,j,k)
 					//System.out.println(i+" "+j+" "+k); 
 					double calculCourant0=surfaceElem(i,j,k);	
-					//if(calculCourant0<max) break; 
+					//if(calculCourant0<max) break;  
 					for(int l=k+1;(l<N*N-1)&&(calculCourant0>max);l++){
 					//for(int l=k+1;(l<N*N-1);l++){
 						double calculCourant1=calculCourant0; 
