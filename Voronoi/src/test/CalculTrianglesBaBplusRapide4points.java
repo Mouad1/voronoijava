@@ -44,7 +44,7 @@ public class CalculTrianglesBaBplusRapide4points {
 	
 	static ArrayList<Triangle> lesTriangles=new ArrayList<Triangle>(); 
 	public static void main(String[] args) {
-		int N=19; 
+		int N=100; 
 		double r2=Math.sqrt(2);
 		
 		for(int k=0;k<N;k++)

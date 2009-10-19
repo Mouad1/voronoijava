@@ -65,33 +65,37 @@ public class TriangleConj6Points {
 	private static Random gene=new Random();
 	
 	public static void main(String args[]) {
-		Point p[]=new Point[5];
-		Point resu[]=new Point[5]; 
+		Point p[]=new Point[6];
+		Point resu[]=new Point[6]; 
 		double r2=Math.sqrt(2);
 		double max=0;
-		String couleurs[]={"RED","BLUE","GREEN","ORANGE","BLACK"};
-		String chaine[]={"0,1,2","0,1,3","0,1,4","0,2,3","0,2,4","0,3,4","1,2,3","1,2,4","1,3,4","2,3,4"};
+		String couleurs[]={"RED","BLUE","GREEN","ORANGE","BLACK","PURPLE"};
+		String chaine[]={"0,1,2","0,1,3","0,1,4","0,2,3","0,2,4","0,3,4","1,2,3","1,2,4","1,3,4","2,3,4"
+					,"0,1,5","0,2,5","0,3,5","0,4,5","1,2,5","1,3,5","1,4,5","2,3,5","2,4,5","3,4,5"};
 		int indmin=0; 
 		int indminmax=0;
-		double smax[]=new double[10]; 
-		double s[]=new double[10];
+		double smax[]=new double[20]; 
+		double s[]=new double[20];
 		
 		try{
 			 PrintStream output=new PrintStream("/tmp/points.txt"); 
-		double alpha=0.5841; 
-		double beta=0.2936;
-		double step=0.000001; 
+	
 		
-		while(alpha<0.5860){
-			beta=0.2936; 
-			while(beta<0.30){
-				p[0]=new Point(0,0); 
-				double mouve=r2*alpha; //r2/phi; 
+		for(int k=0;k<1000000;k++){
+			for(int i=0;i<1000000;i++){
+				
+				double mouve=r2*gene.nextDouble(); 
+				p[0]=new Point(0,mouve);
+				mouve=r2*gene.nextDouble(); 
 				p[1]=new Point(0,mouve);
+				mouve=r2*gene.nextDouble(); 
 				p[2]=new Point(mouve,0);
-				double xixi=beta*r2;
-				p[3]=new Point(xixi,r2-xixi); 
-				p[4]=new Point(r2-xixi,xixi); 
+				mouve=r2*gene.nextDouble(); 
+				p[3]=new Point(mouve,0);
+				mouve=r2*gene.nextDouble(); 
+				p[4]=new Point(mouve,r2-mouve);
+				mouve=r2*gene.nextDouble(); 
+				p[5]=new Point(mouve,r2-mouve);
 				 s[0]=surface(p[0],p[1],p[2]);
 					double min=s[0]; 
 					indmin=0; 
@@ -114,30 +118,47 @@ public class TriangleConj6Points {
 					 s[9]=surface(p[2],p[3],p[4]);
 					if(s[9]<min) {min=s[9]; indmin=9; }
 					
-					
+					 s[10]=surface(p[0],p[1],p[5]);
+					if(s[10]<min) {min=s[10]; indmin=10; }
+					s[11]=surface(p[0],p[2],p[5]);
+					if(s[11]<min) {min=s[11]; indmin=11; }
+					s[12]=surface(p[0],p[3],p[5]);
+					if(s[12]<min) {min=s[12]; indmin=12; }
+					s[13]=surface(p[0],p[4],p[5]);
+					if(s[13]<min) {min=s[13]; indmin=13; }
+					s[14]=surface(p[1],p[2],p[5]);
+					if(s[14]<min) {min=s[14]; indmin=14; }
+					s[15]=surface(p[1],p[3],p[5]);
+					if(s[15]<min) {min=s[15]; indmin=15; }
+					s[16]=surface(p[1],p[4],p[5]);
+					if(s[16]<min) {min=s[16]; indmin=16; }
+					s[17]=surface(p[2],p[3],p[5]);
+					if(s[17]<min) {min=s[17]; indmin=17; }
+					s[18]=surface(p[2],p[4],p[5]);
+					if(s[18]<min) {min=s[18]; indmin=18; }
+					s[19]=surface(p[3],p[4],p[5]);
+					if(s[19]<min) {min=s[19]; indmin=19; }
 					
 					if(min>=max){
 						max=min;
 						indminmax=indmin;
-						for(int j=0;j<5;j++) resu[j]=new Point(p[j]); 
-						for(int j=0;j<10;j++) smax[j]=s[j]; 
-						System.out.println(alpha+" "+beta+" "+max); 
+						for(int j=0;j<6;j++) resu[j]=new Point(p[j]); 
+						for(int j=0;j<20;j++) smax[j]=s[j]; 
+						System.out.println(" "+max); 
 						
 					}
-					beta=beta+step;
-					output.println(alpha+" "+beta+" "+min); 
+					
 			}
 			output.println();
-			
-			alpha=alpha+step; 
+		
 		}
 		output.close();
 		}
 		catch(Exception e){System.out.println(e); }
-		for(int i=0;i<5;i++) {
+		for(int i=0;i<6;i++) {
 			System.out.println("Point "+i+"("+couleurs[i]+") : "+resu[i].x+","+resu[i].y); 
 	}
-		for(int i=0;i<10;i++) System.out.println("    "+smax[i]+" "+ chaine[i]); 
+		for(int i=0;i<20;i++) System.out.println("    "+smax[i]+" "+ chaine[i]); 
 		
 	}
 
