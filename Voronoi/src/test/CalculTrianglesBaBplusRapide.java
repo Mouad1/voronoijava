@@ -6,7 +6,7 @@ import utils.Point;
 import utils.Triangle;
 
 
-public class CalculSegments {
+public class CalculTrianglesBaBplusRapide {
 	
 	static double surface(Point A, Point B,Point C){
 		double s=(B.getX()-A.getX())*(C.getY()-A.getY()); 
@@ -48,9 +48,9 @@ public class CalculSegments {
 
 	
 	
-	static ArrayList<Segments> lesSegments=new ArrayList<Segment>(); 
+	static ArrayList<Triangle> lesTriangles=new ArrayList<Triangle>(); 
 	public static void main(String[] args) {
-		int N=25; 
+		int N=19; 
 		double r2=Math.sqrt(2);
 		
 		for(int k=0;k<N;k++)
@@ -75,14 +75,73 @@ public class CalculSegments {
 		
 		double max=0;
 		int lligne=0; 
+		//double calculCourant; 
 		for(int i=0;i<N*N-4;i++)
 			for(int j=i+1;j<N*N-3;j++)
-				for(int k=j+1;k<N*N-2;k++)
-					for(int l=k+1;l<N*N-1;l++)
-						for(int m=l+1;m<N*N;m++){
-							double s=calculSurface(i,j,k,l,m);
-							if(s>max){ 
-								max=s; 
+				for(int k=j+1;k<N*N-2;k++){
+					// On peut calculer surfaceElem(i,j,k)
+					//System.out.println(i+" "+j+" "+k); 
+					double calculCourant0=surfaceElem(i,j,k);	
+					//if(calculCourant0<max) break; 
+					for(int l=k+1;(l<N*N-1)&&(calculCourant0>max);l++){
+					//for(int l=k+1;(l<N*N-1);l++){
+						double calculCourant1=calculCourant0; 
+						// On peut calculer (i,j,l),(i,k,l),(j,k,l)
+						//System.out.println("\t\t"+l); 
+						int kk=0; 
+						double cc1=0; 
+						while(kk!=1){
+						kk=1;	
+						cc1=surfaceElem(i,j,l); 
+						//if(cc1<max) break; 
+						if(cc1<calculCourant1) {calculCourant1=cc1;}
+						if(cc1<max) break; 
+						cc1=surfaceElem(i,k,l); 
+						//if(cc1<max) break; 
+						if(cc1<calculCourant1) {calculCourant1=cc1;}
+						if(cc1<max) break; 
+						cc1=surfaceElem(j,k,l); 
+						//if(cc1<max) break; 
+						if(cc1<calculCourant1) {calculCourant1=cc1;}	
+						if(cc1<max) break; 
+						}
+						for(int m=l+1;((m<N*N)&&(calculCourant1>max));m++){
+					//	for(int m=l+1;(m<N*N);m++){
+                                                // 6 calculs de surface a faire......
+							//System.out.println(i+" "+j+" "+k+" "+l+" "+m);
+							double calculCourant2=calculCourant1;
+							lligne++; 
+							int mm=0; 
+						while(mm!=1){
+								mm=1;
+								cc1=surfaceElem(i,j,m); 
+								//if(cc1<max) break; 
+								if(cc1<calculCourant2) {calculCourant2=cc1;}
+								if(cc1<max) break; 
+								cc1=surfaceElem(i,k,m); 
+								//if(cc1<max) break; 
+								if(cc1<calculCourant2) {calculCourant2=cc1;}
+								if(cc1<max) break; 
+								cc1=surfaceElem(i,l,m); 
+								//if(cc1<max) break; 
+								if(cc1<calculCourant2) {calculCourant2=cc1;}
+								if(cc1<max) break; 
+								cc1=surfaceElem(j,k,m); 
+								//if(cc1<max) break; 
+								if(cc1<calculCourant2) {calculCourant2=cc1;}
+								if(cc1<max) break; 
+								cc1=surfaceElem(j,l,m); 
+								//if(cc1<max) break; 
+								if(cc1<calculCourant2) {calculCourant2=cc1;}
+								if(cc1<max) break; 
+								cc1=surfaceElem(k,l,m); 
+								//if(cc1<max) break; 
+								if(cc1<calculCourant2) {calculCourant2=cc1;}
+								if(cc1<max) break; 
+						
+							
+							if(calculCourant2>max){ 
+								max=calculCourant2; 
 								System.out.println(); 
 								System.out.println("drawTriangle(new double[]"+lesTriangles.get(i).lesX()+",new double[]"+lesTriangles.get(i).lesY()+");");
 								System.out.println("drawTriangle(new double[]"+lesTriangles.get(j).lesX()+",new double[]"+lesTriangles.get(j).lesY()+");");
@@ -94,12 +153,14 @@ public class CalculSegments {
 							}
 							else {
 								if(lligne%10000000==0) System.out.print("*");
-								lligne++; 
+								//lligne++; 
 								if(lligne==800000000){lligne=0; System.out.println(); }
 							}
 						}
-				
-				
+						}// for m
+					}// FOR L
+				}// for k
+				System.out.println(lligne); 
 	}
 
 }

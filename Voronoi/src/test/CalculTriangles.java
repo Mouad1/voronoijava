@@ -50,7 +50,7 @@ public class CalculTriangles {
 	
 	static ArrayList<Triangle> lesTriangles=new ArrayList<Triangle>(); 
 	public static void main(String[] args) {
-		int N=5; 
+		int N=11; 
 		double r2=Math.sqrt(2);
 		
 		for(int k=0;k<N;k++)
