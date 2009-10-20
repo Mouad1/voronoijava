@@ -90,21 +90,24 @@ public class TriangleConj6Points {
 		for(int k=0;k<10000000;k++){
 			for(int i=0;i<100000;i++){
 				double mx=r2*gene.nextDouble(); 
-				p[0]=new Point(0,0); 
+				p[0]=new Point(r2-1,0); 
 				mx=r2*gene.nextDouble(); 
-				p[1]=new Point(r2,0); 
+				p[1]=new Point(0,r2-1); 
 				mx=r2*gene.nextDouble(); 
-				p[2]=new Point(0,r2); 
+				p[2]=new Point(mx,r2-mx); 
 				mx=r2*gene.nextDouble();
 				double my=(r2-mx)*gene.nextDouble(); 
 				p[3]=new Point(mx,my);
+				//p[3]=new Point(2.0/3,2.0/3); 
 				mx=r2*gene.nextDouble(); 
 				my=(r2-mx)*gene.nextDouble(); 
 				p[4]=new Point(mx,my); 
+				//p[4]=new Point(2.0/3,1.0/6); 
 				mx=r2*gene.nextDouble(); 
-				my=(r2-mx)*gene.nextDouble(); 
-				p[5]=new Point(mx,my);
+				my=(r2-mx)*gene.nextDouble();
 				
+				p[5]=new Point(mx,my);
+				//p[5]=new Point(1.0/6,2.0/3); 
 				
 				/*
 				for(int v=0;v<6;v++){
