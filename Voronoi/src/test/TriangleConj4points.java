@@ -70,7 +70,7 @@ public class TriangleConj4points {
 		double r2=Math.sqrt(2);
 		double max=0;
 		String couleurs[]={"RED","BLUE","GREEN","ORANGE","BLACK"};
-		String chaine[]={"0,1,2","0,1,3","0,1,4","0,2,3","0,2,4","0,3,4","1,2,3","1,2,4","1,3,4","2,3,4"};
+		String chaine[]={"0,1,2","0,1,3","0,2,3","1,2,3","0,2,4","0,3,4","1,2,4","1,3,4","2,3,4","0,1,4"};
 		int indmin=0; 
 		int indminmax=0;
 		double smax[]=new double[10]; 
@@ -83,15 +83,12 @@ public class TriangleConj4points {
 		for(int k=0;k<10000;k++){
 			
 			for(int i=0;i<10000;i++){
-				//p[0]=new Point(0,0); 
-				double mouve=r2*gene.nextDouble(); //r2/phi; 
-				p[1]=new Point(0,mouve);
-				mouve=r2*gene.nextDouble(); 
-				p[2]=new Point(mouve,0);
-				double xixi=gene.nextDouble()*r2;
-				p[3]=new Point(xixi,r2-xixi); 
-				xixi=gene.nextDouble()*r2;
-				p[0]=new Point(r2-xixi,xixi); 
+				p[0]=new Point(0,0); 
+				p[1]=new Point(r2,0); 
+				p[2]=new Point(0,r2);
+				double mx=r2*gene.nextDouble(); 
+				double my=(r2-mx)*gene.nextDouble();
+				p[3]=new Point(mx,my); 
 				 s[0]=surface(p[0],p[1],p[2]);
 					double min=s[0]; 
 					indmin=0; 
@@ -99,11 +96,11 @@ public class TriangleConj4points {
 					if(s[1]<min) {min=s[1]; indmin=1;} 
 					
 					s[2]=surface(p[0],p[2],p[3]); 
-					if(s[2]<min) {min=s[2]; indmin=3;} 
+					if(s[2]<min) {min=s[2]; indmin=2;} 
 					
 					
 					s[3]=surface(p[1],p[2],p[3]);
-					if(s[3]<min) {min=s[3]; indmin=6; }
+					if(s[3]<min) {min=s[3]; indmin=3; }
 					
 					
 					
@@ -117,17 +114,20 @@ public class TriangleConj4points {
 						
 					}
 					
-			} //beta
+			} 
 			output.println();
 			
 		
-		} // alpha
+		} 
 		output.close();
 		}
 		catch(Exception e){System.out.println(e); }
 		for(int i=0;i<4;i++) {
-			System.out.println("Point "+i+"("+couleurs[i]+") : "+resu[i].x+","+resu[i].y); 
+			//System.out.println("Point "+i+"("+couleurs[i]+") : "+resu[i].x+","+resu[i].y);
+			System.out.println("primeIP.setColor(Color."+couleurs[i]+");"); 
+			System.out.println(resu[i]); 
 	}
+	
 		for(int i=0;i<4;i++) System.out.println("    "+smax[i]+" "+ chaine[i]); 
 		
 	}
