@@ -64,6 +64,12 @@ public class TriangleConj6PointsEquilateral {
 		return 0.5*Math.abs((b.x-a.x)*(c.y-a.y)-(c.x-a.x)*(b.y-a.y)); 
 	}
 	
+	static public Point rotation(double angle,Point p){
+		double x=p.x*Math.cos(angle)-p.y*Math.sin(angle); 
+		double y=p.x*Math.sin(angle)+p.y*Math.cos(angle);
+		return new Point(x,y);
+	}
+	
 	private static Random gene=new Random();
 	
 	public static void main(String args[]) {
@@ -91,42 +97,53 @@ public class TriangleConj6PointsEquilateral {
 		System.out.println(p1); 
 		System.out.println(p2); 
 		
+		double al=0.33; 
+		Point p3=new Point(al*p0.x+(1-al)*p1.x,al*p0.y+(1-al)*p1.y); 
+		System.out.println(p3); 
+		Point p4=rotation(2*Math.PI/3,p3); 
+		System.out.println(p4); 
+		Point p5=rotation(4*Math.PI/3,p3); 
+		System.out.println(p5); 
+		
+		double coefDroite=Math.sin(Math.PI*2/3)/(Math.cos(2*Math.PI/3)-1); 
+		double cstDroite=-coefDroite*u; 
+		
+		Point p6=new Point(0.5,0.5*coefDroite+cstDroite); 
+		System.out.println(p6); 
+		
 		
 		System.out.println(surface(p0,p1,p2));
-		System.exit(0); 
+		
 		try{
 			 PrintStream output=new PrintStream("/tmp/points.txt"); 
 	
-		
+		int lligne=0; 
+		int ml=0; 
 		for(int k=0;k<10000000;k++){
 			for(int i=0;i<100000;i++){
-				double mx=r2*gene.nextDouble(); 
-				p[0]=new Point(r2-1,0); 
-				mx=r2*gene.nextDouble(); 
-				p[1]=new Point(0,r2-1); 
-				mx=r2*gene.nextDouble(); 
-				p[2]=new Point(mx,r2-mx); 
-				mx=r2*gene.nextDouble();
-				double my=(r2-mx)*gene.nextDouble(); 
-				p[3]=new Point(mx,my);
-				//p[3]=new Point(2.0/3,2.0/3); 
-				mx=r2*gene.nextDouble(); 
-				my=(r2-mx)*gene.nextDouble(); 
-				p[4]=new Point(mx,my); 
-				//p[4]=new Point(2.0/3,1.0/6); 
-				mx=r2*gene.nextDouble(); 
-				my=(r2-mx)*gene.nextDouble();
-				
-				p[5]=new Point(mx,my);
-				//p[5]=new Point(1.0/6,2.0/3); 
-				
-				/*
-				for(int v=0;v<6;v++){
-					double mx=r2*gene.nextDouble(); 
-					double my=(r2-mx)*gene.nextDouble();
-					p[v]=new Point(mx,my); 
+				lligne++; 
+				if(lligne%1000000==0){
+					lligne=0;
+					System.out.print("*");
+					ml++; 
+					if(ml==80){
+						System.out.println(); 
+						ml=0; 
+					}
 				}
-			*/
+				double alx=gene.nextDouble(); 
+				 p[0]=new Point(alx*p0.x+(1-alx)*p1.x,alx*p0.y+(1-alx)*p1.y); 
+				 p[1]=rotation(2*Math.PI/3,p[0]);
+				 p[2]=rotation(4*Math.PI/3,p[0]);
+				 double alpha=2*Math.PI/3*gene.nextDouble(); 
+				 double maxX=cstDroite/(Math.tan(alpha)-coefDroite); 
+				 double ri=maxX*gene.nextDouble();
+				 p[3]=new Point(ri*Math.cos(alpha),ri*Math.sin(alpha)); 
+				 p[4]=rotation(2*Math.PI/3,p[3]); 
+				 p[5]=rotation(4*Math.PI/3,p[3]); 
+				
+				 	
+		
 				 s[0]=surface(p[0],p[1],p[2]);
 					double min=s[0]; 
 					if(min<max) continue; 
