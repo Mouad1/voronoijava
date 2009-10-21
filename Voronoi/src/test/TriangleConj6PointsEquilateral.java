@@ -80,13 +80,17 @@ public class TriangleConj6PointsEquilateral {
 		double s[]=new double[20];
 		
 		
-		double a=2*Math.sqrt(Math.sqrt(3))/Math.sqrt(3); 
+		double a=2/Math.sqrt(Math.sqrt(3)); 
 		double h=a*Math.sqrt(3)/2;
-		double u=Math.sqrt(13*Math.sqrt(3))/3; 
+		double u=a*Math.sqrt(3)/3; 
 		
 		Point p0=new Point(u,0); 
 		Point p1=new Point(u*Math.cos(2*Math.PI/3),u*Math.sin(2*Math.PI/3)); 
 		Point p2=new Point(u*Math.cos(4*Math.PI/3),u*Math.sin(4*Math.PI/3)); 
+		System.out.println(p0); 
+		System.out.println(p1); 
+		System.out.println(p2); 
+		
 		
 		System.out.println(surface(p0,p1,p2));
 		System.exit(0); 
