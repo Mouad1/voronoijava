@@ -132,9 +132,11 @@ public class TriangleConj6PointsEquilateral {
 					}
 				}
 				double alx=gene.nextDouble(); 
-				 p[0]=new Point(alx*p0.x+(1-alx)*p1.x,alx*p0.y+(1-alx)*p1.y); 
+				 p[0]=new Point(alx*p0.x+(1-alx)*p1.x,alx*p0.y+(1-alx)*p1.y);
+				
 				 p[1]=rotation(2*Math.PI/3,p[0]);
 				 p[2]=rotation(4*Math.PI/3,p[0]);
+				
 				 double alpha=2*Math.PI/3*gene.nextDouble(); 
 				 double maxX=cstDroite/(Math.tan(alpha)-coefDroite); 
 				 double ri=maxX*gene.nextDouble();
@@ -211,7 +213,7 @@ public class TriangleConj6PointsEquilateral {
 						for(int j=0;j<6;j++) resu[j]=new Point(p[j]); 
 						for(int j=0;j<20;j++) smax[j]=s[j]; 
 						System.out.println(); 
-						System.out.println(" "+max); 
+						System.out.println(" "+max+" "+alx); 
 						for(int ix=0;ix<6;ix++){
 							System.out.println("primeIP.setColor(Color."+couleurs[ix]+");"); 
 							System.out.println(resu[ix]);
