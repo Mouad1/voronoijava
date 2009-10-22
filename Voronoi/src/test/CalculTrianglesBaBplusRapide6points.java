@@ -73,11 +73,11 @@ public class CalculTrianglesBaBplusRapide6points {
 	
 	System.out.println(lesTriangles.size()); 
 		
-		double max=0.12;
+		double max=0.0;
 		int lligne=0; 
 		//double calculCourant; 
 		for(int i=0;i<N*N-5;i++){
-			lligne++;
+		
 		
 			for(int j=i+1;j<N*N-4;j++)
 				for(int k=j+1;k<N*N-3;k++){
@@ -144,7 +144,7 @@ public class CalculTrianglesBaBplusRapide6points {
 						for(int p=m+1; (p<N*N)&&(calculCourant2>max);p++){
 							double calculCourant3=calculCourant2; 
 							int pp=0; 
-							
+							lligne++;
 							while(pp!=1){
 								pp=1; 
 								cc1=surfaceElem(i,j,p); 
@@ -205,6 +205,7 @@ public class CalculTrianglesBaBplusRapide6points {
 					}// FOR L
 				}// for k
 		} 
+		
 	}
 
 }
