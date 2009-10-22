@@ -97,13 +97,7 @@ public class TriangleConj6PointsEquilateral {
 		System.out.println(p1); 
 		System.out.println(p2); 
 		
-		double al=0.33; 
-		Point p3=new Point(al*p0.x+(1-al)*p1.x,al*p0.y+(1-al)*p1.y); 
-		System.out.println(p3); 
-		Point p4=rotation(2*Math.PI/3,p3); 
-		System.out.println(p4); 
-		Point p5=rotation(4*Math.PI/3,p3); 
-		System.out.println(p5); 
+		
 		
 		double coefDroite=Math.sin(Math.PI*2/3)/(Math.cos(2*Math.PI/3)-1); 
 		double cstDroite=-coefDroite*u; 
@@ -131,20 +125,19 @@ public class TriangleConj6PointsEquilateral {
 						ml=0; 
 					}
 				}
-				double alx=gene.nextDouble(); 
-				 p[0]=new Point(alx*p0.x+(1-alx)*p1.x,alx*p0.y+(1-alx)*p1.y);
+				double alx=0.25; //gene.nextDouble(); 
 				
-				 p[1]=rotation(2*Math.PI/3,p[0]);
-				 p[2]=rotation(4*Math.PI/3,p[0]);
+				p[0]=new Point(p0); 
+				p[1]=new Point(alx*p0.x+(1-alx)*p1.x,alx*p0.y+(1-alx)*p1.y);
+				p[2]=new Point(alx*p0.x+(1-alx)*p2.x,alx*p0.y+(1-alx)*p2.y);
+				p[3]=new Point(alx*p1.x+(1-alx)*p2.x,alx*p1.y+(1-alx)*p2.y);
+				p[4]=new Point(alx*p2.x+(1-alx)*p1.x,alx*p2.y+(1-alx)*p1.y);
+			
+				double aj=0.2193456688254154; 
+				//double aj=0.21+gene.nextDouble()/100; //gene.nextDouble()*h+Math.cos(2*Math.PI/3);
+				p[5]=new Point(aj,0); 
+			
 				
-				 double alpha=2*Math.PI/3*gene.nextDouble(); 
-				 double maxX=cstDroite/(Math.tan(alpha)-coefDroite); 
-				 double ri=maxX*gene.nextDouble();
-				 p[3]=new Point(ri*Math.cos(alpha),ri*Math.sin(alpha)); 
-				 p[4]=rotation(2*Math.PI/3,p[3]); 
-				 p[5]=rotation(4*Math.PI/3,p[3]); 
-				
-				 	
 		
 				 s[0]=surface(p[0],p[1],p[2]);
 					double min=s[0]; 

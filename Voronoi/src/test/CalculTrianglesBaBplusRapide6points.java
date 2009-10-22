@@ -50,7 +50,7 @@ public class CalculTrianglesBaBplusRapide6points {
 	
 	static ArrayList<Triangle> lesTriangles=new ArrayList<Triangle>(); 
 	public static void main(String[] args) {
-		int N=19; 
+		int N=250; 
 		double r2=Math.sqrt(2);
 		
 		for(int k=0;k<N;k++)
@@ -73,10 +73,12 @@ public class CalculTrianglesBaBplusRapide6points {
 	
 	System.out.println(lesTriangles.size()); 
 		
-		double max=0;
+		double max=0.12;
 		int lligne=0; 
 		//double calculCourant; 
-		for(int i=0;i<N*N-5;i++)
+		for(int i=0;i<N*N-5;i++){
+			lligne++;
+		
 			for(int j=i+1;j<N*N-4;j++)
 				for(int k=j+1;k<N*N-3;k++){
 					// On peut calculer surfaceElem(i,j,k)
@@ -139,10 +141,10 @@ public class CalculTrianglesBaBplusRapide6points {
 								if(cc1<calculCourant2) {calculCourant2=cc1;}
 								if(cc1<max) break; 
 						}
-						for(int p=m+1; (p<N*N)&(calculCourant2>max);p++){
+						for(int p=m+1; (p<N*N)&&(calculCourant2>max);p++){
 							double calculCourant3=calculCourant2; 
 							int pp=0; 
-							lligne++; 
+							
 							while(pp!=1){
 								pp=1; 
 								cc1=surfaceElem(i,j,p); 
@@ -188,6 +190,8 @@ public class CalculTrianglesBaBplusRapide6points {
 								System.out.println("drawTriangle(new double[]"+lesTriangles.get(m).lesX()+",new double[]"+lesTriangles.get(m).lesY()+");");
 								System.out.println("drawTriangle(new double[]"+lesTriangles.get(p).lesX()+",new double[]"+lesTriangles.get(p).lesY()+");");
 								
+						
+								
 								System.out.println(max);
 							}
 							else{
@@ -200,7 +204,7 @@ public class CalculTrianglesBaBplusRapide6points {
 						}// for m
 					}// FOR L
 				}// for k
-				System.out.println(lligne); 
+		} 
 	}
 
 }
