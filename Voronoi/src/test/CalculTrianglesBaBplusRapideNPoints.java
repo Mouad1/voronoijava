@@ -50,7 +50,7 @@ public class CalculTrianglesBaBplusRapideNPoints {
 	
 	static ArrayList<Triangle> lesTriangles=new ArrayList<Triangle>(); 
 	public static void main(String[] args) {
-		int N=50; 
+		int N=20; 
 		double r2=Math.sqrt(2);
 		
 		for(int k=0;k<N;k++)
@@ -73,7 +73,7 @@ public class CalculTrianglesBaBplusRapideNPoints {
 	
 	System.out.println(lesTriangles.size()); 
 	int TAILLE=lesTriangles.size();
-	int NBPOINTS=4;
+	int NBPOINTS=5;
 		
 		double max=0.0;
 		double CC[]=new double[NBPOINTS];
@@ -90,32 +90,39 @@ public class CalculTrianglesBaBplusRapideNPoints {
 			CC[2]=surfaceElem(P[0],P[1],P[2]);
 			for(int u=3;u<NBPOINTS;u++)
 			{
+				// TODO cette boucle est fausse
 				for(int l=P[u-1]+1; l<TAILLE-NBPOINTS+u+1;l++)
 				{
-				CC[u]=CC[u-1];
+					CC[u]=CC[u-1];
 				double vc=0; 
-				for(int v=0;(v<u-1)&&(CC[u]>max);v++)
+				for(int v=0;(v<u-1);v++)
 				{
-					for(int w=v+1; (w<u)&&(CC[u]>max);w++)
+					for(int w=v+1; (w<u);w++)
 					{
 						vc=surfaceElem(l, P[v], P[w]); 
 						if(vc<CC[u]){CC[u]=vc; }
 					}//w
 				}//v
-				if(CC[u]<max)continue; 
-				else {
+				
 					P[u]=l;
 					
+					
+					/*
 					if(u==NBPOINTS-1){
+						
 						max=CC[u]; 
 						System.out.println("-------------------->"+max);
 						for(int u1=0;u1<NBPOINTS-2;u1++)
 							for(int u2=u1+1;u2<NBPOINTS-1;u2++)
 								for(int u3=u2+1;u3<NBPOINTS;u3++)
 									System.out.println(P[u1]+" "+P[u2]+" "+P[u3]+" "+surfaceElem(P[u1], P[u2], P[u3]));
-						//if(max>=0.4) System.exit(0); 
+						
+						
 					}
-				}
+					*/
+					for(int uu=0;uu<=u;uu++) System.out.print(P[uu]+" ");
+					System.out.println(); 
+					
 				}//l
 			}//u
 			if(CC[NBPOINTS-1]>max){
