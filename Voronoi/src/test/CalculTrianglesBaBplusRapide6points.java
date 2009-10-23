@@ -50,7 +50,7 @@ public class CalculTrianglesBaBplusRapide6points {
 	
 	static ArrayList<Triangle> lesTriangles=new ArrayList<Triangle>(); 
 	public static void main(String[] args) {
-		int N=250; 
+		int N=50; 
 		double r2=Math.sqrt(2);
 		
 		for(int k=0;k<N;k++)
