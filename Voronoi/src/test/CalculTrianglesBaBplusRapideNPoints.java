@@ -23,11 +23,11 @@ public class CalculTrianglesBaBplusRapideNPoints {
 		if(indice==nbpoints){
 			dubdub++; 
 			
-			if(minactu>MAXISCHUTZ) //{
+			if(minactu>MAXISCHUTZ) {
 			
 				MAXISCHUTZ=minactu;
 				System.out.println("\t\t\t\t "+minactu);
-			
+			}
 			
 			for(int i=0;i<nbpoints;i++)
 				System.out.print(P[i]+" "); 
@@ -37,18 +37,20 @@ public class CalculTrianglesBaBplusRapideNPoints {
 		}
 
 		// else
-		double min=minactu; 
+		
 		for(int k=P[indice-1]+1; k<taille-nbpoints+indice+1;k++){
+			double min=minactu; 
 			P[indice]=k; 
 			for(int u=0;u<indice-2;u++)
 				for(int v=0;v<indice-1;v++){
 					double s=surfaceElem(P[u],P[v],P[indice]); 
 					//System.out.println(s); 
 					if(s<min) min=s; 
-					if(min<MAXISCHUTZ) return; 
+					//if(min<MAXISCHUTZ) return; 
 				}
-					
+			
 			enumere(P,indice+1,nbpoints,taille,min); 
+			
 		}//k
 		
 	}
@@ -88,7 +90,7 @@ public class CalculTrianglesBaBplusRapideNPoints {
 	
 	static ArrayList<Triangle> lesTriangles=new ArrayList<Triangle>(); 
 	public static void main(String[] args) {
-		int N=10; 
+		int N=5; 
 		double r2=Math.sqrt(2);
 	
 		
@@ -112,7 +114,7 @@ public class CalculTrianglesBaBplusRapideNPoints {
 	
 	System.out.println(lesTriangles.size()); 
 	int TAILLE=lesTriangles.size();
-	int NBPOINTS=5;
+	int NBPOINTS=4;
 		
 		
 		int P[]=new int [NBPOINTS];
