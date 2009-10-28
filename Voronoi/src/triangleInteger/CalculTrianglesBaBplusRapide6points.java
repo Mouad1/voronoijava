@@ -2,38 +2,37 @@ package triangleInteger;
 
 import java.util.ArrayList;
 
-import utils.Point;
-import utils.Triangle;
+import utilsInt.Point;
+import utilsInt.Rationnel;
+import utilsInt.Triangle;
 
 
 public class CalculTrianglesBaBplusRapide6points {
 	
-	static double surface(Point A, Point B,Point C){
-		double s=(B.getX()-A.getX())*(C.getY()-A.getY()); 
+	static int surface(Point A, Point B,Point C){
+		int s=(B.getX()-A.getX())*(C.getY()-A.getY()); 
 		s=s-(C.getX()-A.getX())*(B.getY()-A.getY()); 
-		s=0.5*Math.abs(s);
-		//System.out.println(s); 
 		return s; 
 	}
 	
-	static public double surfaceElem(int i,int j,int k){
+	static public int surfaceElem(int i,int j,int k){
 		Triangle T0=lesTriangles.get(i); 
 		Triangle T1=lesTriangles.get(j); 
 		Triangle T2=lesTriangles.get(k);
-		double max=0; 
+		int max=0; 
 		for(int ia=0;ia<3;ia++)
 			for(int ib=0;ib<3;ib++)
 				for(int ic=0;ic<3;ic++){
-					double s=surface(T0.get(ia),T1.get(ib),T2.get(ic)); 
+					int s=surface(T0.get(ia),T1.get(ib),T2.get(ic)); 
 					if(s>max)max =s; 
 				}
 		
 		return max; 
 	}
 	
-	static public double calculSurface(int i,int j,int k,int l,int m){
-		double min=surfaceElem(i,j,k); 
-		double s=surfaceElem(i,j,l); if(s<min) min=s; 
+	static public int calculSurface(int i,int j,int k,int l,int m){
+		int min=surfaceElem(i,j,k); 
+		int s=surfaceElem(i,j,l); if(s<min) min=s; 
 		s=surfaceElem(i,j,m); if(s<min) min=s; 
 		s=surfaceElem(i,k,l); if(s<min) min=s; 
 		s=surfaceElem(i,k,m); if(s<min) min=s; 
@@ -50,22 +49,22 @@ public class CalculTrianglesBaBplusRapide6points {
 	
 	static ArrayList<Triangle> lesTriangles=new ArrayList<Triangle>(); 
 	public static void main(String[] args) {
-		int N=50; 
-		double r2=Math.sqrt(2);
+		int N=5; 
+		
 		
 		for(int k=0;k<N;k++)
 			for(int l=0;l<N-k;l++){
-				Point A=new Point(k*r2/N,l*r2/N);
-				Point B=new Point((k+1)*r2/N,l*r2/N);
-				Point C=new Point(k*r2/N,(l+1)*r2/N);
+				Point A=new Point(k,l);
+				Point B=new Point(k+1,l);
+				Point C=new Point(k,l+1);
 				lesTriangles.add(new Triangle(A,B,C)); 
 				
 			}
 		for(int l=1;l<N;l++)
 			for(int k=1;k<N-l+1;k++){
-				Point A=new Point(k*r2/N,l*r2/N);
-				Point B=new Point(k*r2/N,(l-1)*r2/N);
-				Point C=new Point((k-1)*r2/N,l*r2/N);
+				Point A=new Point(k,l);
+				Point B=new Point(k,l-1);
+				Point C=new Point(k-1,l);
 				lesTriangles.add(new Triangle(A,B,C)); 
 				
 			}
@@ -73,9 +72,9 @@ public class CalculTrianglesBaBplusRapide6points {
 	
 	System.out.println(lesTriangles.size()); 
 		
-		double max=0.0;
+		int max=0;
 		int lligne=0; 
-		//double calculCourant; 
+		
 		for(int i=0;i<N*N-5;i++){
 		
 		
@@ -83,15 +82,15 @@ public class CalculTrianglesBaBplusRapide6points {
 				for(int k=j+1;k<N*N-3;k++){
 					// On peut calculer surfaceElem(i,j,k)
 					//System.out.println(i+" "+j+" "+k); 
-					double calculCourant0=surfaceElem(i,j,k);	
+					int calculCourant0=surfaceElem(i,j,k);	
 					//if(calculCourant0<max) break;  
 					for(int l=k+1;(l<N*N-2)&&(calculCourant0>max);l++){
 					//for(int l=k+1;(l<N*N-1);l++){
-						double calculCourant1=calculCourant0; 
+						int calculCourant1=calculCourant0; 
 						// On peut calculer (i,j,l),(i,k,l),(j,k,l)
 						//System.out.println("\t\t"+l); 
 						int kk=0; 
-						double cc1=0; 
+						int cc1=0; 
 						while(kk!=1){
 						kk=1;	
 						cc1=surfaceElem(i,j,l); 
@@ -111,7 +110,7 @@ public class CalculTrianglesBaBplusRapide6points {
 					//	for(int m=l+1;(m<N*N);m++){
                                                 // 6 calculs de surface a faire......
 							//System.out.println(i+" "+j+" "+k+" "+l+" "+m);
-							double calculCourant2=calculCourant1;
+							int calculCourant2=calculCourant1;
 							
 							int mm=0; 
 						while(mm!=1){
@@ -142,7 +141,7 @@ public class CalculTrianglesBaBplusRapide6points {
 								if(cc1<max) break; 
 						}
 						for(int p=m+1; (p<N*N)&&(calculCourant2>max);p++){
-							double calculCourant3=calculCourant2; 
+							int calculCourant3=calculCourant2; 
 							int pp=0; 
 							lligne++;
 							while(pp!=1){
@@ -192,7 +191,8 @@ public class CalculTrianglesBaBplusRapide6points {
 								
 						
 								
-								System.out.println(max);
+								System.out.println(max/(N*N+0.0));
+								System.out.println(new Rationnel(max,N*N)); 
 							}
 							else{
 								if(lligne%1000000==0) System.out.print("*");
