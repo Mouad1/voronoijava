@@ -29,4 +29,8 @@ public class Point {
 		public String toString(){
 			return x+","+y; 
 		}
+		
+		public String affiche(){
+			return "new Point("+x+","+y+");"; 
+		}
 }
