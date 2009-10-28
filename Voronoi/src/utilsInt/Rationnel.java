@@ -8,7 +8,7 @@ public class Rationnel {
 	public Rationnel(int p, int q) {
 		this.p = p;
 		this.q = q;
-		reduit();
+		//reduit();
 	}
 
 	int p,q; 
