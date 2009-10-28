@@ -3,6 +3,7 @@ package triangleInteger;
 import java.util.ArrayList;
 
 import utilsInt.Point;
+import utilsInt.Rationnel;
 import utilsInt.Triangle;
 
 
@@ -107,6 +108,7 @@ public class CalculTrianglesBaBplusRapideNPoints {
 		enumere2(P,1,NBPOINTS,TAILLE);
 		}
 		System.out.println(MAXISCHUTZ/(N*N+0.0));
+		System.out.println(new Rationnel(MAXISCHUTZ,N*N));
 	}
 }
 		

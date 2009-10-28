@@ -49,7 +49,7 @@ public class CalculTrianglesBaBplusRapide6points {
 	
 	static ArrayList<Triangle> lesTriangles=new ArrayList<Triangle>(); 
 	public static void main(String[] args) {
-		int N=5; 
+		int N=25; 
 		
 		
 		for(int k=0;k<N;k++)
