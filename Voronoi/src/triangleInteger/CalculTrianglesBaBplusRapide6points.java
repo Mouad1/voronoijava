@@ -12,6 +12,7 @@ public class CalculTrianglesBaBplusRapide6points {
 	static int surface(Point A, Point B,Point C){
 		int s=(B.getX()-A.getX())*(C.getY()-A.getY()); 
 		s=s-(C.getX()-A.getX())*(B.getY()-A.getY()); 
+		if(s<0) s=-s; 
 		return s; 
 	}
 	
