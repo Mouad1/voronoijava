@@ -13,6 +13,7 @@ public class Triangle {
 	}
 
 	private Point A,B,C;
+	private static int size; 
 	
 	public Point get(int i){
 		switch(i){
@@ -49,16 +50,25 @@ public class Triangle {
 		return A+"/"+B+"/"+C; 
 	}
 
+	private double getX(Point u){
+		return u.getX()/(size+0.0)*Math.sqrt(2); 
+	}
+	private double getY(Point u){
+		return u.getY()/(size+0.0)*Math.sqrt(2); 
+	}
+	
 	public String dessin(){
-		String s="drawLine("+A.getX()+","+A.getY()+","+B.getX()+","+B.getY()+");\n";
-		s+="drawLine("+A.getX()+","+A.getY()+","+C.getX()+","+C.getY()+");\n";
-		s+="drawLine("+C.getX()+","+C.getY()+","+B.getX()+","+B.getY()+");\n";
+		String s="drawLine("+getX(A)+","+getY(A)+","+getX(B)+","+getY(B)+");\n";
+		s+="drawLine("+getX(A)+","+getY(A)+","+getX(C)+","+getY(C)+");\n";
+		s+="drawLine("+getX(C)+","+getY(C)+","+getX(B)+","+getY(B)+");\n";
 		return s;
 	}
 	public String lesX(){
-		return "{"+A.getX()+","+B.getX()+","+C.getX()+"}"; 
+		return "{"+getX(A)+","+getX(B)+","+getX(C)+"}"; 
 	}
 	public String lesY(){
-		return "{"+A.getY()+","+B.getY()+","+C.getY()+"}"; 
+		return "{"+getY(A)+","+getY(B)+","+getY(C)+"}"; 
 	}
+	
+	public static void setSize(int i){size=i; }
 }
