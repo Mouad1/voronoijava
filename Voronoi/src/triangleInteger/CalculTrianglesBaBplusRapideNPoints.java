@@ -117,7 +117,7 @@ public class CalculTrianglesBaBplusRapideNPoints {
 	static ArrayList<Triangle> lesTriangles=new ArrayList<Triangle>(); 
 	
 	public static void main(String[] args) {
-		int N=10; 
+		int N=20; 
 
 		for(int k=0;k<N;k++)
 			for(int l=0;l<N-k;l++){
@@ -140,7 +140,7 @@ public class CalculTrianglesBaBplusRapideNPoints {
 	System.out.println(lesTriangles.size()); 
 	int TAILLE=lesTriangles.size();
 	Triangle.setSize(N);
-	int NBPOINTS=7;
+	int NBPOINTS=8;
 		
 		
 		int P[]=new int [NBPOINTS];
