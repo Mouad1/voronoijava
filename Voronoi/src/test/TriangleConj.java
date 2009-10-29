@@ -78,13 +78,13 @@ public class TriangleConj {
 		
 		try{
 			 PrintStream output=new PrintStream("/tmp/points.txt"); 
-		double alpha=0.5841; 
-		double beta=0.2936;
+		double alpha=0.5857; 
+		double beta=0.7071;
 		double step=0.000001; 
 		
-		while(alpha<0.5860){
-			beta=0.2936; 
-			while(beta<0.30){
+		while(alpha<0.6){
+			beta=0.7071; 
+			while(beta<0.8){
 				p[0]=new Point(0,0); 
 				double mouve=r2*alpha; //r2/phi; 
 				p[1]=new Point(0,mouve);
