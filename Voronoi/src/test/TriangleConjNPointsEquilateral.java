@@ -73,7 +73,7 @@ public class TriangleConjNPointsEquilateral {
 			if(mincourant<MAXISCHUTZ) return 0;
 			for(int i=0;i<q.length;i++)
 				System.out.println(q[i]);
-			System.out.println(alx+" "+aly); 
+		
 			MAXISCHUTZ=mincourant; 
 			System.out.println(MAXISCHUTZ);
 			return MAXISCHUTZ; 
@@ -106,8 +106,8 @@ public class TriangleConjNPointsEquilateral {
 	
 	
 	public static void main(String args[]) {
-		Point p[]=new Point[7];
-		Point resu[]=new Point[7]; 
+		Point p[]=new Point[8];
+		Point resu[]=new Point[8]; 
 		double r2=Math.sqrt(2);
 		double max=0;
 		
@@ -127,10 +127,9 @@ public class TriangleConjNPointsEquilateral {
 		
 		double coefDroite=Math.sin(Math.PI*2/3)/(Math.cos(2*Math.PI/3)-1); 
 		double cstDroite=-coefDroite*u; 
+	
 		
-		Point p6=new Point(0.5,0.5*coefDroite+cstDroite); 
-		System.out.println(p6); 
-		
+	 
 		
 		System.out.println(surface(p0,p1,p2));
 		
@@ -167,22 +166,36 @@ public class TriangleConjNPointsEquilateral {
 				double aj=gene.nextDouble()*h+Math.cos(2*Math.PI/3);
 				//p[0]=new Point(aj,0);
 				
+				/*
 				double alpha=2*Math.PI/3*gene.nextDouble(); 
                 double maxX=cstDroite/(Math.tan(alpha)-coefDroite); 
                 double ri=maxX*gene.nextDouble();
+                */
                 //p[0]=new Point(ri*Math.cos(alpha),ri*Math.sin(alpha));
-                p[0]=new Point(0,0); 
-				
-				
-				//alx=gene.nextDouble(); // 0.2+(gene.nextDouble()-0.5)/5;
-				//aly=gene.nextDouble(); //2.0/3+(gene.nextDouble()-0.5)/5;
-                alx=1.0/4; //+(gene.nextDouble()-0.5)/5; 
-                aly=5.0/6.0; //+(gene.nextDouble()-0.5)/5; 
-				for(int l=0;l<3;l++){
-					
-					p[2*l+2]=new Point(alx*rr[l].x+(1-alx)*rr[(l+1)%3].x,alx*rr[l].y+(1-alx)*rr[(l+1)%3].y); 
-					p[2*l+1]=new Point(aly*rr[l].x+(1-aly)*rr[(l+1)%3].x,aly*rr[l].y+(1-aly)*rr[(l+1)%3].y);
-				}
+                alx=10/20.0+gene.nextDouble()/10; 
+                
+                p[0]=new Point(p0);
+                p[1]=new Point(alx*p0.x+(1-alx)*p1.x,alx*p0.y+(1-alx)*p1.y);
+                p[2]=new Point(alx*p0.x+(1-alx)*p2.x,alx*p0.y+(1-alx)*p2.y);
+                
+                alx=3/20.0+gene.nextDouble()/10;  
+                p[3]=new Point(alx*p1.x+(1-alx)*p2.x,alx*p1.y+(1-alx)*p2.y);
+                alx=17/20.0+gene.nextDouble()/10;; 
+                p[4]=new Point(alx*p1.x+(1-alx)*p2.x,alx*p1.y+(1-alx)*p2.y);
+                p[5]=new Point(u-(h/3),0);
+                
+                
+                double xx=h*gene.nextDouble()+u-h;
+                double dis=xx-u; 
+                if(dis<0) dis=-dis; 
+                dis=Math.sqrt(3)/3*dis; 
+                double alu=gene.nextDouble()*2*dis-dis;
+                
+        		p[6]=new Point(xx,alu); 
+        		p[7]=new Point(xx,-alu); 
+        		
+             
+                
 				
 				
 			
