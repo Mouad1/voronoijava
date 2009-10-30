@@ -5,7 +5,7 @@ public class Segment {
 	 * @param a
 	 * @param b
 	 */
-	protected Segment(Point a, Point b) {
+	public Segment(Point a, Point b) {
 		A = a;
 		B = b;
 	}
@@ -23,4 +23,11 @@ public class Segment {
 	public String toString(){
 		return A+"/"+B; 
 	}
+	public String lesX(){
+		return "{"+A.getX()+","+B.getX()+"}"; 
+	}
+	public String lesY(){
+		return "{"+A.getY()+","+B.getY()+"}"; 
+	}
+	
 }
