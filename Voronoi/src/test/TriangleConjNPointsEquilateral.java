@@ -194,19 +194,19 @@ public class TriangleConjNPointsEquilateral {
                 */
                 p[1]=new Point(mx,y); 
                 p[2]=new Point(mx,-y); 
-                alx=3/20.0+(0.5-gene.nextDouble())/5;  
+                alx=3/20.0+2*(0.5-gene.nextDouble())/5;  
                 p[3]=new Point(u-h,alx*p1.y+(1-alx)*p2.y);
                 alx=1-alx; //17/20.0+(0.5-gene.nextDouble())/5; 
                 p[4]=new Point(u-h,alx*p1.y+(1-alx)*p2.y);
-                p[5]=new Point(u-(h/3),0); //+0.002*(0.5-gene.nextDouble()),0); // 0.2
-                
+                p[5]=new Point(u-(h/3),0);//+0.02*(0.5-gene.nextDouble()),0); // 0.2
+                //p[5]=new Point(h*gene.nextDouble()-h+u,0);
                 
                 //double xx=h*gene.nextDouble()+u-h;
-                double xx=-0.125+2*(0.5-gene.nextDouble())/100; 
+                double xx=-0.12+2*(0.5-gene.nextDouble())/100; 
                 double dis=xx-u; 
                 if(dis<0) dis=-dis; 
                 dis=Math.sqrt(3)/3*dis; 
-                double alu=gene.nextDouble()*2*dis-dis;
+                double alu=gene.nextDouble()*dis; //gene.nextDouble()*2*dis-dis;
                 
         		p[6]=new Point(xx,alu); //new Point(xx,2*xx); 
         		p[7]=new Point(xx,-alu); //new Point(xx,-2*xx); 
