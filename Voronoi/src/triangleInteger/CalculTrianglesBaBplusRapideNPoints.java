@@ -50,7 +50,7 @@ public class CalculTrianglesBaBplusRapideNPoints {
 	static void enumere2(int P[],int indice,int nbpoints,int taille,int minAA){
 		if(indice==nbpoints){
 			int minx=minAA;
-			if(minAA<=MAXISCHUTZ) return; 
+			if(minAA<MAXISCHUTZ) return; 
 			/*
 			for(int i=0;i<nbpoints-2;i++)
 				for(int j=i+1;j<nbpoints-1;j++)
@@ -65,8 +65,9 @@ public class CalculTrianglesBaBplusRapideNPoints {
 			System.out.println(minx+" "+MAXISCHUTZ); 
 			if(minx>MAXISCHUTZ) MAXISCHUTZ=minx; 
 			
+			
 			for(int i=0;i<indice;i++)
-				System.out.println("drawTriangle(new double[]"+lesTriangles.get(P[i]).lesX()+",new double[]"+lesTriangles.get(P[i]).lesY()+");");
+				System.out.println("drawTriangleEqui(new double[]"+lesTriangles.get(P[i]).lesX()+",new double[]"+lesTriangles.get(P[i]).lesY()+");");
 
 			return; 
 		}
@@ -117,7 +118,7 @@ public class CalculTrianglesBaBplusRapideNPoints {
 	static ArrayList<Triangle> lesTriangles=new ArrayList<Triangle>(); 
 	
 	public static void main(String[] args) {
-		int N=20; 
+		int N=30; 
 
 		for(int k=0;k<N;k++)
 			for(int l=0;l<N-k;l++){
