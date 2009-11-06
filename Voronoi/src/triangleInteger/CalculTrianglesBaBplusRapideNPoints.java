@@ -1,6 +1,7 @@
 package triangleInteger;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import utilsInt.Point;
 import utilsInt.Rationnel;
@@ -18,6 +19,19 @@ public class CalculTrianglesBaBplusRapideNPoints {
 		return s; 
 	}
 	static int dubdub=0; 
+	
+	static ArrayList<Triangle> melange(ArrayList<Triangle> T){
+		ArrayList<Triangle> U=new ArrayList<Triangle>();
+		int s=T.size();
+		for(int i=0;i<s;i++){
+			Random gene=new Random(); 
+			int ind=gene.nextInt(T.size());
+			Triangle a=T.get(ind); 
+			U.add(a);
+			T.remove(a);
+		}
+		return U; 
+	}
 	
 	static void enumere(int P[],int indice,int nbpoints,int taille){
 		if(indice==nbpoints){
@@ -118,7 +132,7 @@ public class CalculTrianglesBaBplusRapideNPoints {
 	static ArrayList<Triangle> lesTriangles=new ArrayList<Triangle>(); 
 	
 	public static void main(String[] args) {
-		int N=30; 
+		int N=20; 
 
 		for(int k=0;k<N;k++)
 			for(int l=0;l<N-k;l++){
@@ -137,11 +151,11 @@ public class CalculTrianglesBaBplusRapideNPoints {
 				
 			}
 		
-	
+	lesTriangles=melange(lesTriangles); 
 	System.out.println(lesTriangles.size()); 
 	int TAILLE=lesTriangles.size();
 	Triangle.setSize(N);
-	int NBPOINTS=8;
+	int NBPOINTS=7;
 		
 		
 		int P[]=new int [NBPOINTS];
