@@ -10,7 +10,7 @@ import utilsInt.Triangle;
 
 public class CalculTrianglesBaBplusRapideNPoints {
 	
-	static int MAXISCHUTZ=0; 
+	static int MAXISCHUTZ=22; 
 	
 	static int surface(Point A, Point B,Point C){
 		int s=(B.getX()-A.getX())*(C.getY()-A.getY()); 
@@ -132,7 +132,7 @@ public class CalculTrianglesBaBplusRapideNPoints {
 	static ArrayList<Triangle> lesTriangles=new ArrayList<Triangle>(); 
 	
 	public static void main(String[] args) {
-		int N=20; 
+		int N=16; 
 
 		for(int k=0;k<N;k++)
 			for(int l=0;l<N-k;l++){
@@ -155,7 +155,7 @@ public class CalculTrianglesBaBplusRapideNPoints {
 	System.out.println(lesTriangles.size()); 
 	int TAILLE=lesTriangles.size();
 	Triangle.setSize(N);
-	int NBPOINTS=7;
+	int NBPOINTS=8;
 		
 		
 		int P[]=new int [NBPOINTS];
