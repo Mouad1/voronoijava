@@ -73,12 +73,12 @@ public class TriangleConjNPointsEquilateral {
 			if(mincourant<MAXISCHUTZ) return 0;
 			for(int i=0;i<q.length;i++)
 				System.out.println(q[i]);
-			
+			/*
 			for(int u=0;u<q.length-2;u++)
 				for(int v=u+1;v<q.length-1;v++)
 					for(int w=v+1;w<q.length;w++)
 						System.out.println(surface(q[u],q[v],q[w])+" ** "+mincourant); 
-		
+		*/
 			MAXISCHUTZ=mincourant; 
 			System.out.println(MAXISCHUTZ);
 			return MAXISCHUTZ; 
@@ -111,8 +111,9 @@ public class TriangleConjNPointsEquilateral {
 	
 	
 	public static void main(String args[]) {
-		Point p[]=new Point[8];
-		Point resu[]=new Point[8]; 
+		int NBPOINTS=10; 
+		Point p[]=new Point[NBPOINTS];
+		Point resu[]=new Point[NBPOINTS]; 
 		double r2=Math.sqrt(2);
 		double max=0;
 		
@@ -144,6 +145,11 @@ public class TriangleConjNPointsEquilateral {
 		
 		System.out.println(surface(p0,p1,p2));
 		
+		double coefd1=Math.sin(2*Math.PI/3)/(Math.cos(2*Math.PI/3)-1); 
+		double constd1=-u*coefd1; 
+		
+		double coefd2=Math.sin(4*Math.PI/3)/(Math.cos(4*Math.PI/3)-1); 
+		double constd2=-u*coefd2; 
 		
 	
 	
@@ -152,7 +158,7 @@ public class TriangleConjNPointsEquilateral {
 		for(int k=0;k<10000000;k++){
 			for(int i=0;i<100000;i++){
 				lligne++; 
-				if(lligne%100000000==0){
+				if(lligne%1000000000==0){
 					lligne=0;
 					System.out.print("*");
 					ml++; 
@@ -162,59 +168,31 @@ public class TriangleConjNPointsEquilateral {
 					}
 				}
 				
-				/*
-				for(int l=0;l<7;l++){
-				 //Un point quelconque dans le triangle
-				double alpha=2*Math.PI/3*gene.nextDouble(); 
-                double maxX=cstDroite/(Math.tan(alpha)-coefDroite); 
-                double ri=maxX*gene.nextDouble();
-                p[l]=new Point(ri*Math.cos(alpha),ri*Math.sin(alpha));
-				}
-				*/
 				
-				
-				
-				
-				double aj=gene.nextDouble()*h+Math.cos(2*Math.PI/3);
-				//p[0]=new Point(aj,0);
-				
-				/*
-				double alpha=2*Math.PI/3*gene.nextDouble(); 
-                double maxX=cstDroite/(Math.tan(alpha)-coefDroite); 
-                double ri=maxX*gene.nextDouble();
-                */
-                //p[0]=new Point(ri*Math.cos(alpha),ri*Math.sin(alpha));
-                alx=11/20.0+(0.5-gene.nextDouble())/5; 
-                
-                p[0]=new Point(p0);
-                /*
-                p[1]=new Point(alx*p0.x+(1-alx)*p1.x,alx*p0.y+(1-alx)*p1.y);
-                p[2]=new Point(alx*p0.x+(1-alx)*p2.x,alx*p0.y+(1-alx)*p2.y);
-                p[2]=new Point(p[1].x,-p[1].y);
-                */
-                p[1]=new Point(mx,y); 
-                p[2]=new Point(mx,-y); 
-                alx=3/20.0+2*(0.5-gene.nextDouble())/5;  
-                p[3]=new Point(u-h,alx*p1.y+(1-alx)*p2.y);
-                alx=1-alx; //17/20.0+(0.5-gene.nextDouble())/5; 
-                p[4]=new Point(u-h,alx*p1.y+(1-alx)*p2.y);
-                p[5]=new Point(u-(h/3)+0.2*(0.5-gene.nextDouble()),0); // 0.2
-                //p[5]=new Point(h*gene.nextDouble()-h+u,0);
-                
-                //double xx=h*gene.nextDouble()+u-h;
-                double xx=-0.12+2*(0.5-gene.nextDouble())/100; 
-                double dis=xx-u; 
-                if(dis<0) dis=-dis; 
-                dis=Math.sqrt(3)/3*dis; 
-                double alu=gene.nextDouble()*dis; //gene.nextDouble()*2*dis-dis;
-                
-        		p[6]=new Point(xx,alu); //new Point(xx,2*xx); 
-        		p[7]=new Point(xx,-alu); //new Point(xx,-2*xx); 
-        		
-             
-        		
-				
-			
+				for(int l=0;l<NBPOINTS;l++){
+					double alpha=2*Math.PI*gene.nextDouble();
+					double rad,x,yy; 
+					if(alpha<=2*Math.PI/3){
+						x=constd1/(Math.tan(alpha)-coefd1); 
+						yy=Math.tan(alpha)*x; 
+						
+					}
+					else{
+						if(alpha>=4*Math.PI/3){
+							x=constd2/(Math.tan(alpha)-coefd2); 
+							yy=Math.tan(alpha)*x; 
+							
+						}// if
+						else{
+							 x=u-h; 
+							 yy=Math.tan(alpha)*x; 
+							
+						}
+					}
+					rad=Math.sqrt(x*x+yy*yy)*gene.nextDouble(); 
+					p[l]=new Point(rad*Math.cos(alpha),rad*Math.sin(alpha)); 
+					}// for
+
 				double min=evaluer(p,0,1.0); 
 				
 				
