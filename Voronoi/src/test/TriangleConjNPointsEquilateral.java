@@ -66,12 +66,12 @@ public class TriangleConjNPointsEquilateral {
 		return 0.5*Math.abs((b.x-a.x)*(c.y-a.y)-(c.x-a.x)*(b.y-a.y)); 
 	}
 	
-	static public double evaluer(Point q[],int indice,double mincourant,double angle){
+	static public double evaluer(Point q[],int indice,double mincourant,double angle,double coef){
 		if(indice==q.length){
 			if(mincourant<MAXISCHUTZ) return 0;
 			for(int i=0;i<q.length;i++)
 				System.out.println(q[i]);
-			System.out.println("angle : "+angle+" "+(angle*180/Math.PI)); 
+			System.out.println("angle : "+angle+" "+(angle*180/Math.PI)+" coef "+coef); 
 			/*
 			for(int u=0;u<q.length-2;u++)
 				for(int v=u+1;v<q.length-1;v++)
@@ -91,7 +91,7 @@ public class TriangleConjNPointsEquilateral {
 					if(s<min)min=s; 
 					if(min<MAXISCHUTZ) return 0; 
 				}
-			evaluer(q,indice+1,min,angle);
+			evaluer(q,indice+1,min,angle,coef);
 		}
 		
 		return 0; 
@@ -118,9 +118,11 @@ public class TriangleConjNPointsEquilateral {
 		double h=a*Math.sqrt(3)/2;
 		double u=a*Math.sqrt(3)/3; 
 		
+		
 		Point p0=new Point(u,0); 
 		Point p1=new Point(u*Math.cos(2*Math.PI/3),u*Math.sin(2*Math.PI/3)); 
 		Point p2=new Point(u*Math.cos(4*Math.PI/3),u*Math.sin(4*Math.PI/3)); 
+		
 		System.out.println(p0); 
 		System.out.println(p1); 
 		System.out.println(p2); 
@@ -159,8 +161,11 @@ public class TriangleConjNPointsEquilateral {
 						ml=0; 
 					}
 				}
-				
-				double al=gene.nextDouble();
+				System.out.print("--XX--"); 
+				//double al=0.9+0.05*gene.nextDouble();
+				//double al=Math.sqrt(2*Math.sqrt(3))/20;
+				//double al=0.0705*Math.sqrt(Math.sqrt(3))+2*(0.5-gene.nextDouble())*0.005; 
+				double al=0.0925868+2*(0.5-gene.nextDouble())/100000000; 
 				double ap=al; //gene.nextDouble(); 
 				p[0]=new Point(al*p0.x+(1-al)*p1.x,al*p0.y+(1-al)*p1.y); 
 				p[1]=new Point((1-ap)*p0.x+ap*p1.x,(1-ap)*p0.y+ap*p1.y); 
@@ -175,35 +180,29 @@ public class TriangleConjNPointsEquilateral {
 				p[5]=new Point((1-ap)*p1.x+ap*p2.x,(1-ap)*p1.y+ap*p2.y); 
 				p[6]=new Point(0,0); 
 				
-				
-					double alpha=2*Math.PI*gene.nextDouble();
+				double stepalpha=0.00005; 
+				double alpha=Math.PI/5-0.05; 
+				 
+				while(alpha<Math.PI/5+0.05){
 					double rad,x,yy; 
-					if(alpha<=2*Math.PI/3){
+					
 						x=constd1/(Math.tan(alpha)-coefd1); 
 						yy=Math.tan(alpha)*x; 
 						
-					}
-					else{
-						if(alpha>=4*Math.PI/3){
-							x=constd2/(Math.tan(alpha)-coefd2); 
-							yy=Math.tan(alpha)*x; 
-							
-						}// if
-						else{
-							 x=u-h; 
-							 yy=Math.tan(alpha)*x; 
-							
-						}
-					}
-					rad=Math.sqrt(x*x+yy*yy)*gene.nextDouble(); 
+					double steprad=0.000001; 
+					double radcoef=0.500; 
+					while(radcoef<0.61){
+					rad=Math.sqrt(x*x+yy*yy)*radcoef; 
 					p[7]=new Point(rad*Math.cos(alpha),rad*Math.sin(alpha));
 					p[8]=rotation(2*Math.PI/3, p[7]); 
 					p[9]=rotation(4*Math.PI/3, p[7]); 
 					
-
-				double min=evaluer(p,0,1.0,alpha); 
-				
-				
+				double min=evaluer(p,0,1.0,alpha,radcoef);
+				radcoef+=steprad;
+					}
+					alpha+=stepalpha; 
+				}
+				System.out.println("-->"+al); 
 					
 			}
 		
