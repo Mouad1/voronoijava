@@ -1,7 +1,5 @@
 package test;
 
-import java.awt.Color;
-import java.io.PrintStream;
 import java.util.Random;
 
 
@@ -105,17 +103,14 @@ public class TriangleConjNPointsEquilateral {
 	}
 	
 	private static Random gene=new Random();
-	private static double alx;
-	private static double aly;
+	
+	
 	
 	
 	
 	public static void main(String args[]) {
 		int NBPOINTS=10; 
 		Point p[]=new Point[NBPOINTS];
-		Point resu[]=new Point[NBPOINTS]; 
-		double r2=Math.sqrt(2);
-		double max=0;
 		
 		
 		double a=2/Math.sqrt(Math.sqrt(3)); 
@@ -128,11 +123,6 @@ public class TriangleConjNPointsEquilateral {
 		System.out.println(p0); 
 		System.out.println(p1); 
 		System.out.println(p2); 
-		
-		Point rr[]={p0,p1,p2};
-		
-		double coefDroite=Math.sin(Math.PI*2/3)/(Math.cos(2*Math.PI/3)-1); 
-		double cstDroite=-coefDroite*u; 
 	
 		
 	 
@@ -141,8 +131,7 @@ public class TriangleConjNPointsEquilateral {
 		mx=-Math.sqrt(3)*mx; 
 		System.out.println(y+" "+mx); 
 		
-		double x2=Math.sqrt(Math.sqrt(3))/3; 
-		
+	
 		System.out.println(surface(p0,p1,p2));
 		
 		double coefd1=Math.sin(2*Math.PI/3)/(Math.cos(2*Math.PI/3)-1); 
@@ -151,6 +140,8 @@ public class TriangleConjNPointsEquilateral {
 		double coefd2=Math.sin(4*Math.PI/3)/(Math.cos(4*Math.PI/3)-1); 
 		double constd2=-u*coefd2; 
 		
+		
+	
 	
 	
 		int lligne=0; 
@@ -168,8 +159,22 @@ public class TriangleConjNPointsEquilateral {
 					}
 				}
 				
+				double al=gene.nextDouble();
+				double ap=al; //gene.nextDouble(); 
+				p[0]=new Point(al*p0.x+(1-al)*p1.x,al*p0.y+(1-al)*p1.y); 
+				p[1]=new Point((1-ap)*p0.x+ap*p1.x,(1-ap)*p0.y+ap*p1.y); 
+				//al=gene.nextDouble();
+				//ap=al; //gene.nextDouble(); 
+				p[2]=new Point(al*p0.x+(1-al)*p2.x,al*p0.y+(1-al)*p2.y); 
+				p[3]=new Point((1-ap)*p0.x+ap*p2.x,(1-ap)*p0.y+ap*p2.y); 
+				//al=gene.nextDouble();
+				//ap=al; //gene.nextDouble();
 				
-				for(int l=0;l<NBPOINTS;l++){
+				p[4]=new Point(al*p1.x+(1-al)*p2.x,al*p1.y+(1-al)*p2.y); 
+				p[5]=new Point((1-ap)*p1.x+ap*p2.x,(1-ap)*p1.y+ap*p2.y); 
+				p[6]=new Point(0,0); 
+				
+				for(int l=7;l<NBPOINTS;l++){
 					double alpha=2*Math.PI*gene.nextDouble();
 					double rad,x,yy; 
 					if(alpha<=2*Math.PI/3){
