@@ -66,11 +66,12 @@ public class TriangleConjNPointsEquilateral {
 		return 0.5*Math.abs((b.x-a.x)*(c.y-a.y)-(c.x-a.x)*(b.y-a.y)); 
 	}
 	
-	static public double evaluer(Point q[],int indice,double mincourant){
+	static public double evaluer(Point q[],int indice,double mincourant,double angle){
 		if(indice==q.length){
 			if(mincourant<MAXISCHUTZ) return 0;
 			for(int i=0;i<q.length;i++)
 				System.out.println(q[i]);
+			System.out.println("angle : "+angle+" "+(angle*180/Math.PI)); 
 			/*
 			for(int u=0;u<q.length-2;u++)
 				for(int v=u+1;v<q.length-1;v++)
@@ -90,7 +91,7 @@ public class TriangleConjNPointsEquilateral {
 					if(s<min)min=s; 
 					if(min<MAXISCHUTZ) return 0; 
 				}
-			evaluer(q,indice+1,min);
+			evaluer(q,indice+1,min,angle);
 		}
 		
 		return 0; 
@@ -174,7 +175,7 @@ public class TriangleConjNPointsEquilateral {
 				p[5]=new Point((1-ap)*p1.x+ap*p2.x,(1-ap)*p1.y+ap*p2.y); 
 				p[6]=new Point(0,0); 
 				
-				for(int l=7;l<NBPOINTS;l++){
+				
 					double alpha=2*Math.PI*gene.nextDouble();
 					double rad,x,yy; 
 					if(alpha<=2*Math.PI/3){
@@ -195,10 +196,12 @@ public class TriangleConjNPointsEquilateral {
 						}
 					}
 					rad=Math.sqrt(x*x+yy*yy)*gene.nextDouble(); 
-					p[l]=new Point(rad*Math.cos(alpha),rad*Math.sin(alpha)); 
-					}// for
+					p[7]=new Point(rad*Math.cos(alpha),rad*Math.sin(alpha));
+					p[8]=rotation(2*Math.PI/3, p[7]); 
+					p[9]=rotation(4*Math.PI/3, p[7]); 
+					
 
-				double min=evaluer(p,0,1.0); 
+				double min=evaluer(p,0,1.0,alpha); 
 				
 				
 					
