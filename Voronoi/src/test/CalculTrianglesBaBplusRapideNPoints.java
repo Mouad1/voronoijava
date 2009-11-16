@@ -126,7 +126,7 @@ public class CalculTrianglesBaBplusRapideNPoints {
 	
 	static ArrayList<Triangle> lesTriangles=new ArrayList<Triangle>(); 
 	public static void main(String[] args) {
-		int N=25; 
+		int N=10; 
 		double r2=Math.sqrt(2);
 	
 		
