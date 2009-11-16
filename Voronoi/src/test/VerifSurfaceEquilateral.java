@@ -111,7 +111,7 @@ public class VerifSurfaceEquilateral {
 	
 	
 	public static void main(String args[]) {
-		Point p[]=new Point[6];
+		Point p[]=new Point[10];
 		Point resu[]=new Point[8]; 
 		double r2=Math.sqrt(2);
 		double max=0;
@@ -144,15 +144,7 @@ public class VerifSurfaceEquilateral {
 		
 		System.out.println(surface(p0,p1,p2));
 		
-		double al=0.25; 
-		p[0]=new Point(al*p1.x+(1-al)*p0.x,al*p1.y+(1-al)*p0.y);
-		p[1]=new Point(al*p0.x+(1-al)*p1.x,al*p0.y+(1-al)*p1.y);
-		
-		p[2]=new Point(al*p1.x+(1-al)*p2.x,al*p1.y+(1-al)*p2.y);
-		p[3]=new Point(al*p2.x+(1-al)*p1.x,al*p2.y+(1-al)*p1.y);
-		
-		p[4]=new Point(al*p2.x+(1-al)*p0.x,al*p2.y+(1-al)*p0.y);
-		p[5]=new Point(al*p0.x+(1-al)*p2.x,al*p0.y+(1-al)*p2.y);
+	
 		/*
 		// Ma solution pour n=5
 		p[0]=new Point(p0);
@@ -172,18 +164,31 @@ public class VerifSurfaceEquilateral {
 		p[3]=new Point(al*p1.x+(1-al)*p2.x,al*p1.y+(1-al)*p2.y);
 		p[4]=new Point(al*p2.x+(1-al)*p1.x,al*p2.y+(1-al)*p1.y);
 		*/
-		for(int i=0;i<6;i++)
-			System.out.println(p[i]);
+		p[0]=new Point(-0.3168402247621914,0.6894849128242813);
+		p[1]=new Point(0.7555315624130224,0.07035077282731131);
+		p[2]=new Point(-0.316840224762192,-0.689484912824281);
+		p[3]=new Point(0.7555315624130224,-0.07035077282731128);
+		p[4]=new Point(-0.4386913376508311,-0.6191341399969698);
+		p[5]=new Point(-0.4386913376508306,0.61913413999697);
+		p[6]=new Point(0.0,0.0);
+		p[7]=new Point(0.2368347879130569,0.16787237979590036);
+		p[8]=new Point(-0.2637991394535276,0.12116875293465686);
+		p[9]=new Point(0.026964351540470666,-0.2890411327305572);
+		
+		
+		double borne=0.03649; 
+		
 		
 		double min=1; 
-		for(int i=0;i<3;i++)
-			for(int j=i+1;j<4;j++)
-				for(int k=j+1;k<5;k++){
+		for(int i=0;i<8;i++)
+			for(int j=i+1;j<9;j++)
+				for(int k=j+1;k<10;k++){
 					double s=surface(p[i], p[j], p[k]);
-					System.out.println(s); 
+					if(s<0.037) 
+					System.out.println(i+","+j+","+k+" | "+s); 
 					if(s<min) min=s; 
 				}
-		System.out.println(min); 
+		System.out.println("----->"+min); 
 		
 		
 	
