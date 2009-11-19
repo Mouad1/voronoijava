@@ -76,12 +76,12 @@ public class CalculCarreBaBplusRapideNPoints {
 					*/
 			for(int i=0;i<nbpoints;i++)
 				System.out.print(P[i]+" "); 
-			System.out.println(minx+" "+MAXISCHUTZ); 
+			System.out.println(minx+" "+MAXISCHUTZ+" "+lesTriangles.size()); 
 			if(minx>MAXISCHUTZ) MAXISCHUTZ=minx; 
 			
 			
 			for(int i=0;i<indice;i++)
-				System.out.println("drawTriangleEqui(new double[]"+lesTriangles.get(P[i]).lesX()+",new double[]"+lesTriangles.get(P[i]).lesY()+");");
+				System.out.println("drawTriangle(new double[]"+lesTriangles.get(P[i]).lesX()+",new double[]"+lesTriangles.get(P[i]).lesY()+");");
 
 			return; 
 		}
@@ -135,15 +135,15 @@ public class CalculCarreBaBplusRapideNPoints {
 		int N=20; 
 
 		for(int k=0;k<N;k++)
-			for(int l=0;l<N-k;l++){
+			for(int l=0;l<N;l++){
 				Point A=new Point(k,l);
 				Point B=new Point(k+1,l);
 				Point C=new Point(k,l+1);
 				lesTriangles.add(new Triangle(A,B,C)); 
 				
 			}
-		for(int l=1;l<N;l++)
-			for(int k=1;k<N-l+1;k++){
+		for(int l=1;l<N+1;l++)
+			for(int k=1;k<N+1;k++){
 				Point A=new Point(k,l);
 				Point B=new Point(k,l-1);
 				Point C=new Point(k-1,l);
@@ -164,8 +164,8 @@ public class CalculCarreBaBplusRapideNPoints {
 		enumere2(P,1,NBPOINTS,TAILLE,TAILLE);
 		//enumere(P,1,NBPOINTS,TAILLE);
 		}
-		System.out.println(MAXISCHUTZ/(N*N+0.0));
-		System.out.println(new Rationnel(MAXISCHUTZ,N*N));
+		System.out.println(MAXISCHUTZ/(lesTriangles.size()+0.0));
+		System.out.println(new Rationnel(MAXISCHUTZ,lesTriangles.size()));
 	}
 }
 		
