@@ -1,6 +1,8 @@
 package utilsInt;
 
 public class Triangle {
+	
+	private final static double r2=1; 
 	/**
 	 * @param a
 	 * @param b
@@ -51,10 +53,10 @@ public class Triangle {
 	}
 
 	private double getX(Point u){
-		return u.getX()/(size+0.0)*Math.sqrt(2); 
+		return u.getX()/(size+0.0)*r2; 
 	}
 	private double getY(Point u){
-		return u.getY()/(size+0.0)*Math.sqrt(2); 
+		return u.getY()/(size+0.0)*r2; 
 	}
 	
 	public String dessin(){
