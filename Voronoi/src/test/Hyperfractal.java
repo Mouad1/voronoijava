@@ -8,12 +8,13 @@ public class Hyperfractal {
 	
 	public static void main(String[] args) {
   	  PrintStream output; 
+  	  int compteur=0; 
   	  try{
-  	  output=new PrintStream("../pearls/scene/divers/hf.txt");
-  	  double step=0.02; 
+  	  output=new PrintStream("/tmp/hf.txt");
+  	  double step=0.025; 
   	  int nbs=0; 
   	  double x=-1; 
-  	  while(x<1){
+  	  while(x<0){
   		  double y=-1; 
   		  while(y<1){
   			  double z=-1; 
@@ -22,7 +23,7 @@ public class Hyperfractal {
   				  double xn=0;
   				  double yn=0; 
   				  double zn=0;
-  				  while(index<1000){
+  				  while(index<10000){
   					  double r=Math.sqrt(xn*xn+yn*yn+zn*zn); 
   					  if(r>1) break;
   					  double theta=Math.atan2(yn,xn); 
@@ -34,8 +35,10 @@ public class Hyperfractal {
   					  
   					  index++; 
   				  }// index
-  				  if(index==1000){
-  					  System.out.println("sphere{<"+x+","+y+","+z+">,step texture{pigment{color Red}}}");
+  				  if((index<10000)&&(x*x+y*y+z*z<=1)){
+  					  compteur++; 
+  					  if(compteur%1000==0) System.out.println(x);
+  					 // System.out.println("sphere{<"+x+","+y+","+z+">,step texture{pigment{color Red}}}");
   					  //output.println("sphere{<"+x+","+y+","+z+">,step texture{pigment{color Red}}}");
   					  //output.println("box{<"+(x-step)/2+","+(y-step)/2+","+(z-step)/2+">,<"+(x-step)/2+","+(y-step)/2+","+(z-step)/2+"> texture{pigment{color Red}}}");
   					  //output.println("box{<"+(x-step/2)+","+(y-step/2)+","+(z-step/2)+">,<"+(x+step/2)+","+(y+step/2)+","+(z+step/2)+"> texture{pigment{color<"+Math.abs(xn)+","+Math.abs(yn)+","+Math.abs(zn)+">}} finish{F1}}");
