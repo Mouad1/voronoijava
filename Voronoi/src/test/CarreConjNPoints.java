@@ -72,12 +72,12 @@ public class CarreConjNPoints {
 			for(int i=0;i<q.length;i++)
 				System.out.println(q[i]);
 		
-			/*
+			
 			for(int u=0;u<q.length-2;u++)
 				for(int v=u+1;v<q.length-1;v++)
 					for(int w=v+1;w<q.length;w++)
-						System.out.println(surface(q[u],q[v],q[w])+" ** "+mincourant); 
-		*/
+						System.out.println(u+" "+v+" "+w+" "+surface(q[u],q[v],q[w])+" ** "+mincourant); 
+		
 			MAXISCHUTZ=mincourant; 
 			System.out.println(MAXISCHUTZ);
 			return MAXISCHUTZ; 
@@ -132,13 +132,17 @@ public class CarreConjNPoints {
 						ml=0; 
 					}
 				}
+				p[0]=new Point(0,0); 
+				double ax=Math.sqrt(2)/2; 
+				p[1]=new Point(0,ax); 
+				p[2]=new Point(ax,0); 				
 				
-				for(int m=0;m<5;m++){
-				double ax=gene.nextDouble(); 
-				double ay=gene.nextDouble(); 
-				p[m]=new Point(ax,ay);
-				}
-					
+				 ax=Math.sqrt((2-Math.sqrt(2))/2); //0.54+gene.nextDouble()/100; 
+				p[3]=new Point(1,ax); 
+			
+				p[4]=new Point(ax,1); 
+				
+			
 				double min=evaluer(p,0,1.0);
 				
 				
@@ -151,9 +155,10 @@ public class CarreConjNPoints {
 		}
 	
 		
-		
+	}
+
 	
 		
-	}
+	
 
 	
