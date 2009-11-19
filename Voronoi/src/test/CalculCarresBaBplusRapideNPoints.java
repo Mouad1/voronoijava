@@ -6,7 +6,7 @@ import utils.Point;
 import utils.Triangle;
 
 
-public class CalculTrianglesBaBplusRapideNPoints {
+public class CalculCarresBaBplusRapideNPoints {
 	
 	static double MAXISCHUTZ=0; 
 	
@@ -127,11 +127,13 @@ public class CalculTrianglesBaBplusRapideNPoints {
 	static ArrayList<Triangle> lesTriangles=new ArrayList<Triangle>(); 
 	public static void main(String[] args) {
 		int N=10; 
+		
+		// construire les triangles recouvrant un carre
 		double r2=Math.sqrt(2);
 	
 		
 		for(int k=0;k<N;k++)
-			for(int l=0;l<N-k;l++){
+			for(int l=0;l<N;l++){
 				Point A=new Point(k*r2/N,l*r2/N);
 				Point B=new Point((k+1)*r2/N,l*r2/N);
 				Point C=new Point(k*r2/N,(l+1)*r2/N);
@@ -139,7 +141,7 @@ public class CalculTrianglesBaBplusRapideNPoints {
 				
 			}
 		for(int l=1;l<N;l++)
-			for(int k=1;k<N-l+1;k++){
+			for(int k=1;k<N+1;k++){
 				Point A=new Point(k*r2/N,l*r2/N);
 				Point B=new Point(k*r2/N,(l-1)*r2/N);
 				Point C=new Point((k-1)*r2/N,l*r2/N);

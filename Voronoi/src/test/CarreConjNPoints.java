@@ -5,9 +5,9 @@ import java.util.Random;
 
 
 // tester une conjecture
-public class TriangleConjNPointsEquilateral {
+public class CarreConjNPoints {
 	
-	// Triangle de base : triangle rectangle isocele sqrt(2) : surface 1
+	// carre (0-0),(0,1),(1,0),(1,1)
 	
 	static private class Point{
 		/**
@@ -66,12 +66,12 @@ public class TriangleConjNPointsEquilateral {
 		return 0.5*Math.abs((b.x-a.x)*(c.y-a.y)-(c.x-a.x)*(b.y-a.y)); 
 	}
 	
-	static public double evaluer(Point q[],int indice,double mincourant,double angle,double coef){
+	static public double evaluer(Point q[],int indice,double mincourant){
 		if(indice==q.length){
 			if(mincourant<MAXISCHUTZ) return 0;
 			for(int i=0;i<q.length;i++)
 				System.out.println(q[i]);
-			System.out.println("angle : "+angle+" "+(angle*180/Math.PI)+" coef "+coef); 
+		
 			/*
 			for(int u=0;u<q.length-2;u++)
 				for(int v=u+1;v<q.length-1;v++)
@@ -91,7 +91,7 @@ public class TriangleConjNPointsEquilateral {
 					if(s<min)min=s; 
 					if(min<MAXISCHUTZ) return 0; 
 				}
-			evaluer(q,indice+1,min,angle,coef);
+			evaluer(q,indice+1,min);
 		}
 		
 		return 0; 
@@ -110,38 +110,9 @@ public class TriangleConjNPointsEquilateral {
 	
 	
 	public static void main(String args[]) {
-		int NBPOINTS=6; 
+		int NBPOINTS=5; 
 		Point p[]=new Point[NBPOINTS];
 		
-		
-		double a=2/Math.sqrt(Math.sqrt(3)); 
-		double h=a*Math.sqrt(3)/2;
-		double u=a*Math.sqrt(3)/3; 
-		
-		
-		Point p0=new Point(u,0); 
-		Point p1=new Point(u*Math.cos(2*Math.PI/3),u*Math.sin(2*Math.PI/3)); 
-		Point p2=new Point(u*Math.cos(4*Math.PI/3),u*Math.sin(4*Math.PI/3)); 
-		
-		System.out.println(p0); 
-		System.out.println(p1); 
-		System.out.println(p2); 
-	
-		
-	 
-		double y=Math.sqrt(2)-1;
-		double mx=y-Math.sqrt(3)/3*u; 
-		mx=-Math.sqrt(3)*mx; 
-		System.out.println(y+" "+mx); 
-		
-	
-		System.out.println(surface(p0,p1,p2));
-		
-		double coefd1=Math.sin(2*Math.PI/3)/(Math.cos(2*Math.PI/3)-1); 
-		double constd1=-u*coefd1; 
-		
-		double coefd2=Math.sin(4*Math.PI/3)/(Math.cos(4*Math.PI/3)-1); 
-		double constd2=-u*coefd2; 
 		
 		
 	
@@ -162,39 +133,19 @@ public class TriangleConjNPointsEquilateral {
 					}
 				}
 				
-				
-				double al=gene.nextDouble(); 
-				
-				//p[0]=new Point(al*p0.x+(1-al)*p1.x,al*p0.y+(1-al)*p1.y);
-				p[0]=new Point(p0); 
-				
-				al=gene.nextDouble();
-				
-				p[1]=new Point(al*p1.x+(1-al)*p2.x,al*p1.y+(1-al)*p2.y); 
-				
-				al=gene.nextDouble();
-				p[2]=new Point((1-al)*p1.x+al*p2.x,(1-al)*p1.y+al*p2.y); 
-				
-				double alpha=2*Math.PI/3*gene.nextDouble(); 
-					
-					double 	x=constd1/(Math.tan(alpha)-coefd1); 
-					double 	yy=Math.tan(alpha)*x; 
-						
-					double radcoef=gene.nextDouble(); 
-					double rad=Math.sqrt(x*x+yy*yy)*radcoef; 
-					p[3]=new Point(rad*Math.cos(alpha),rad*Math.sin(alpha));
-					
-
-					p[4]=rotation(2*Math.PI/3, p[3]); 
-					p[5]=rotation(4*Math.PI/3, p[3]); 
-					
-				double min=evaluer(p,0,1.0,alpha,radcoef);
-				
-				
+				for(int m=0;m<5;m++){
+				double ax=gene.nextDouble(); 
+				double ay=gene.nextDouble(); 
+				p[m]=new Point(ax,ay);
 				}
+					
+				double min=evaluer(p,0,1.0);
+				
+				
+				}//i
 				
 					
-			}
+			}//k
 		
 		
 		}
