@@ -132,7 +132,7 @@ public class CalculCarreBaBplusRapideNPoints {
 	static ArrayList<Triangle> lesTriangles=new ArrayList<Triangle>(); 
 	
 	public static void main(String[] args) {
-		int N=20; 
+		int N=15; 
 
 		for(int k=0;k<N;k++)
 			for(int l=0;l<N;l++){
@@ -155,7 +155,7 @@ public class CalculCarreBaBplusRapideNPoints {
 	System.out.println(lesTriangles.size()); 
 	int TAILLE=lesTriangles.size();
 	Triangle.setSize(N);
-	int NBPOINTS=5;
+	int NBPOINTS=6;
 		
 		
 		int P[]=new int [NBPOINTS];
