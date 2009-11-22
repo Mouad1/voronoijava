@@ -73,10 +73,14 @@ public class CarreConjNPoints {
 				System.out.println(q[i]);
 		
 			
+			if(mincourant>0.08257){
 			for(int u=0;u<q.length-2;u++)
 				for(int v=u+1;v<q.length-1;v++)
 					for(int w=v+1;w<q.length;w++)
-						System.out.println(u+" "+v+" "+w+" "+surface(q[u],q[v],q[w])+" ** "+mincourant); 
+						System.out.println(u+" "+v+" "+w+" "+surface(q[u],q[v],q[w])+" ** "+mincourant);
+			
+			}
+			
 		
 			MAXISCHUTZ=mincourant; 
 			System.out.println(MAXISCHUTZ);
@@ -110,7 +114,7 @@ public class CarreConjNPoints {
 	
 	
 	public static void main(String args[]) {
-		int NBPOINTS=5; 
+		int NBPOINTS=7; 
 		Point p[]=new Point[NBPOINTS];
 		
 		
@@ -132,17 +136,21 @@ public class CarreConjNPoints {
 						ml=0; 
 					}
 				}
-				p[0]=new Point(0,0); 
-				double ax=Math.sqrt(2)/2; 
-				p[1]=new Point(0,ax); 
-				p[2]=new Point(ax,0); 				
 				
-				 ax=Math.sqrt((2-Math.sqrt(2))/2); //0.54+gene.nextDouble()/100; 
-				p[3]=new Point(1,ax); 
-			
-				p[4]=new Point(ax,1); 
+				p[0]=new Point(0,1); 
+				p[1]=new Point(1,0); 
+				double l=0.79128784747792+(2*gene.nextDouble()-1)*0.000000001; 
+				p[2]=new Point(1,l); 
+				p[3]=new Point(l,1);
+				double u=1/Math.sqrt(2)*(1+l*(l-1)); 
+				p[6]=new Point(u/Math.sqrt(2),u/Math.sqrt(2)); 
+				double kp=u*Math.sqrt(2)/2; 
+				double v=(1-3*kp)/(kp-1);  
+				p[4]=new Point(0,v); 
+				p[5]=new Point(v,0); 
+				//System.out.println(l+" "+u/Math.sqrt(2)+" "+v); 
+				//System.exit(0); 
 				
-			
 				double min=evaluer(p,0,1.0);
 				
 				
