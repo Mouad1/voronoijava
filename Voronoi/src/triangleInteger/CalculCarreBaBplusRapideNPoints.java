@@ -155,7 +155,7 @@ public class CalculCarreBaBplusRapideNPoints {
 	System.out.println(lesTriangles.size()); 
 	int TAILLE=lesTriangles.size();
 	Triangle.setSize(N);
-	int NBPOINTS=6;
+	int NBPOINTS=7;
 		
 		
 		int P[]=new int [NBPOINTS];
