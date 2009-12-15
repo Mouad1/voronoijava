@@ -1,5 +1,6 @@
 package triangleInteger;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -10,6 +11,9 @@ import utilsInt.Triangle;
 
 public class CalculTrianglesBaBplusRapideNPoints {
 	
+	static PrintStream output; 
+	
+	// changer ici (0 ou borne sup)
 	static int MAXISCHUTZ=0; 
 	
 	static int surface(Point A, Point B,Point C){
@@ -33,31 +37,6 @@ public class CalculTrianglesBaBplusRapideNPoints {
 		return U; 
 	}
 	
-	static void enumere(int P[],int indice,int nbpoints,int taille){
-		if(indice==nbpoints){
-			int minx=10000; 
-			for(int i=0;i<nbpoints-2;i++)
-				for(int j=i+1;j<nbpoints-1;j++)
-					for(int k=j+1;k<nbpoints;k++){
-						int s=surfaceElem(P[i], P[j], P[k]);
-						if(s<minx) minx=s; 
-						if(minx<=MAXISCHUTZ) return; 
-					}
-			for(int i=0;i<nbpoints;i++)
-				System.out.print(P[i]+" "); 
-			System.out.println(minx+" "+MAXISCHUTZ); 
-			if(minx>MAXISCHUTZ) MAXISCHUTZ=minx; 
-			return; 
-		}
-		else
-		
-		for(int k=P[indice-1]+1; k<taille-nbpoints+indice+1;k++)
-		{
-			P[indice]=k; 	
-			enumere(P,indice+1,nbpoints,taille); 
-		}
-		
-	}
 	
 	
 	
@@ -80,9 +59,11 @@ public class CalculTrianglesBaBplusRapideNPoints {
 			if(minx>MAXISCHUTZ) MAXISCHUTZ=minx; 
 			
 			
-			for(int i=0;i<indice;i++)
+			for(int i=0;i<indice;i++){
 				System.out.println("drawTriangleEqui(new double[]"+lesTriangles.get(P[i]).lesX()+",new double[]"+lesTriangles.get(P[i]).lesY()+");");
-
+				output.println("drawTriangleEqui(new double[]"+lesTriangles.get(P[i]).lesX()+",new double[]"+lesTriangles.get(P[i]).lesY()+");");
+			}
+			output.println(); 
 			return; 
 		}
 		else
@@ -101,6 +82,7 @@ public class CalculTrianglesBaBplusRapideNPoints {
 				}
 				if(min<MAXISCHUTZ)break; 
 			}
+			// changer ici (> pour avoir le meilleur, >= pour avoir tous les meilleurs (MAXISHUTZ=max))
 			if(min>MAXISCHUTZ)  
 			enumere2(P,indice+1,nbpoints,taille,min); 
 			
@@ -132,8 +114,9 @@ public class CalculTrianglesBaBplusRapideNPoints {
 	static ArrayList<Triangle> lesTriangles=new ArrayList<Triangle>(); 
 	
 	public static void main(String[] args) {
-		int N=20; 
-
+		int N=18; 
+		try { output=new PrintStream("/tmp/solus.txt");}
+		catch(Exception e){System.out.println(e); System.exit(0); }
 		for(int k=0;k<N;k++)
 			for(int l=0;l<N-k;l++){
 				Point A=new Point(k,l);
@@ -155,7 +138,7 @@ public class CalculTrianglesBaBplusRapideNPoints {
 	System.out.println(lesTriangles.size()); 
 	int TAILLE=lesTriangles.size();
 	Triangle.setSize(N);
-	int NBPOINTS=5;
+	int NBPOINTS=8;
 		
 		
 		int P[]=new int [NBPOINTS];
@@ -166,6 +149,7 @@ public class CalculTrianglesBaBplusRapideNPoints {
 		}
 		System.out.println(MAXISCHUTZ/(N*N+0.0));
 		System.out.println(new Rationnel(MAXISCHUTZ,N*N));
+		output.close(); 
 	}
 }
 		
