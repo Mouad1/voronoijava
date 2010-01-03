@@ -40,6 +40,7 @@ public class Transfo {
 		s+="#declare transy=<"+trans.x+","+trans.y+","+trans.z+">;\n";
 		s+="#declare provi=vdot(Hugo,transy)/sqrt(vdot(transy,transy));";
 		s+="#declare provi=acos(provi)*180/pi;";
+		
 		s+="#if(transy.y>0) #declare provi=-provi; #end ";
 	
 
