@@ -103,7 +103,7 @@ public class OffReader3DMeshV2 {
           File source = new File(catena);
           try {
         	// output=new PrintStream("../../../../pearls/scene/geometry/polyhedra/archimedean/archi.txt");
-        	  output=new PrintStream("../pearls/scene/geometry/polyhedra/archimedean/"+nomFichierSource+".inc");
+        	  output=new PrintStream("../pearls/scene/geometry/playingcards/archimedean/"+nomFichierSource+".inc");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
                   while(ligne.charAt(0)=='#') ligne=in.readLine();
@@ -283,14 +283,13 @@ public class OffReader3DMeshV2 {
             	   output.println("#declare trans["+i+"]="+t+";");
             	   i++;
                }   
-               
+               System.out.println(lesFacesPolygonales.size()); 
                // transformations relatives aux faces
                ArrayList<Transfo> lesTransfosFaces=new ArrayList<Transfo>();
                for(FacePolygonale fp:lesFacesPolygonales){
             	   Vertex ca=fp.getExtrem1(); 
             	   Vertex cb=fp.getExtrem2();
-            	   System.out.println("sphere{"+ca+",0.1 texture{pigment{color Red}}}\n"); 
-            	   System.out.println("sphere{"+cb+",0.1 texture{pigment{color Red}}}\n"); 
+            	   
             	   Vertex mimi=Vertex.middle(ca,cb); 
             	   mimi=Vertex.mul(mimi,-1); 
             	   Cylinder cy=new Cylinder(Vertex.add(ca,mimi),Vertex.add(cb, mimi));
@@ -303,7 +302,7 @@ public class OffReader3DMeshV2 {
             	   double newX=Math.sqrt(xx*xx+zz*zz);
             	   double beta=Math.atan2(newX,yy)*180/Math.PI;
             	   lesTransfosFaces.add(new Transfo(alpha,beta,mimi,1));
-            	   
+            	  
             	   
                }// for fp
                System.out.println("#declare maxFaces="+lesTransfosFaces.size()+";");
@@ -319,36 +318,17 @@ public class OffReader3DMeshV2 {
                
                output.close(); 
                 
-          } catch (IOException e) {
-                  e.printStackTrace();
+          } catch (IOException e) {System.out.println(e); 
+                  e.printStackTrace(); 
           }
   }
 	  public static void main(String args[]) {
           // new TestIO().copieFichierTexte("essai.txt","output.txt");
           OffReader3DMeshV2 toto=new OffReader3DMeshV2(); 
-          //toto.afficheFichierTexte("/tmp/snub_icosidodecahedron.off");
-          //toto.afficheFichierTexte("C:/Documents and Settings/moi/workspace/Voronoi/src/test/snub_icosidodecahedron.off");
-          //new OffReader3DMeshV2().afficheFichierTexte("C:/Documents and Settings/moi/workspace/Voronoi/src/test/pentagonal_icositetrahedron.off");
-
-
-          toto.afficheFichierTexte("rhombic_triacontahedron");
-
-
-          // Recherche d'un chemin hamiltonien
-          /*
-          for(int i=0;i<100;i++){
-        	  toto.nn=0;
-          ArrayList<Vertex> resu=new ArrayList<Vertex>();
-          // Melanger toto.vertices
-          toto.mix();
-          Vertex debut=toto.vertices.remove(0); 
-  		
-          ArrayList<Vertex> circuit=toto.trajet(resu,toto.vertices,debut );
-          if(circuit.size()==92) break; 
-          toto.vertices.add(debut);
-	  }
-	  */
          
+          toto.afficheFichierTexte("snub_icosidodecahedron");
+
+
 
 	  }
 	

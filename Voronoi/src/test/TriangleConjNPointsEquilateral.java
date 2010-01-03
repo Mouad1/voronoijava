@@ -66,12 +66,12 @@ public class TriangleConjNPointsEquilateral {
 		return 0.5*Math.abs((b.x-a.x)*(c.y-a.y)-(c.x-a.x)*(b.y-a.y)); 
 	}
 	
-	static public double evaluer(Point q[],int indice,double mincourant,double angle,double coef){
+	static public double evaluer(Point q[],int indice,double mincourant,double angle,double coef,double al1,double al2){
 		if(indice==q.length){
 			if(mincourant<MAXISCHUTZ) return 0;
 			for(int i=0;i<q.length;i++)
 				System.out.println(q[i]);
-			System.out.println("angle : "+angle+" "+(angle*180/Math.PI)+" coef "+coef); 
+			System.out.println("angle : "+angle+" "+(angle*180/Math.PI)+" coef "+coef+"\n"+al1+" "+al2+" "+(al1+al2)); 
 			/*
 			for(int u=0;u<q.length-2;u++)
 				for(int v=u+1;v<q.length-1;v++)
@@ -91,7 +91,7 @@ public class TriangleConjNPointsEquilateral {
 					if(s<min)min=s; 
 					if(min<MAXISCHUTZ) return 0; 
 				}
-			evaluer(q,indice+1,min,angle,coef);
+			evaluer(q,indice+1,min,angle,coef,al1,al2);
 		}
 		
 		return 0; 
@@ -110,7 +110,7 @@ public class TriangleConjNPointsEquilateral {
 	
 	
 	public static void main(String args[]) {
-		int NBPOINTS=6; 
+		int NBPOINTS=9; 
 		Point p[]=new Point[NBPOINTS];
 		
 		
@@ -163,32 +163,37 @@ public class TriangleConjNPointsEquilateral {
 				}
 				
 				
-				double al=gene.nextDouble(); 
+				double al1=0.1155917+0.000001*(0.5-gene.nextDouble()); 
 				
-				//p[0]=new Point(al*p0.x+(1-al)*p1.x,al*p0.y+(1-al)*p1.y);
-				p[0]=new Point(p0); 
 				
-				al=gene.nextDouble();
 				
-				p[1]=new Point(al*p1.x+(1-al)*p2.x,al*p1.y+(1-al)*p2.y); 
 				
-				al=gene.nextDouble();
-				p[2]=new Point((1-al)*p1.x+al*p2.x,(1-al)*p1.y+al*p2.y); 
+				p[0]=new Point(al1*p1.x+(1-al1)*p2.x,al1*p1.y+(1-al1)*p2.y); 
+				p[1]=new Point(al1*p2.x+(1-al1)*p0.x,al1*p2.y+(1-al1)*p0.y); 
+				p[2]=new Point(al1*p0.x+(1-al1)*p1.x,al1*p0.y+(1-al1)*p1.y); 
 				
-				double alpha=2*Math.PI/3*gene.nextDouble(); 
+				double al2=1-al1; //0.884408+0.000001*(0.5-gene.nextDouble());
+				p[3]=new Point(al2*p1.x+(1-al2)*p2.x,al2*p1.y+(1-al2)*p2.y); 
+				p[4]=new Point(al2*p2.x+(1-al2)*p0.x,al2*p2.y+(1-al2)*p0.y); 
+				p[5]=new Point(al2*p0.x+(1-al2)*p1.x,al2*p0.y+(1-al2)*p1.y); 
+				
+				
+				
+				double alpha=-Math.PI/3; //-2*Math.PI/3*gene.nextDouble(); 
 					
-					double 	x=constd1/(Math.tan(alpha)-coefd1); 
+					double 	x=u-h; //constd1/(Math.tan(alpha)-coefd1); 
 					double 	yy=Math.tan(alpha)*x; 
 						
-					double radcoef=gene.nextDouble(); 
-					double rad=Math.sqrt(x*x+yy*yy)*radcoef; 
-					p[3]=new Point(rad*Math.cos(alpha),rad*Math.sin(alpha));
+					double radcoef=0.205182045+0.00000001*(0.5-gene.nextDouble()); //(h-u)*gene.nextDouble(); 
+					double rad=radcoef; //Math.sqrt(x*x+yy*yy)*radcoef; 
+					
+					p[6]=new Point(rad*Math.cos(alpha),rad*Math.sin(alpha));
 					
 
-					p[4]=rotation(2*Math.PI/3, p[3]); 
-					p[5]=rotation(4*Math.PI/3, p[3]); 
+					p[7]=rotation(2*Math.PI/3, p[6]); 
+					p[8]=rotation(4*Math.PI/3, p[6]); 
 					
-				double min=evaluer(p,0,1.0,alpha,radcoef);
+				double min=evaluer(p,0,1.0,alpha,radcoef,al1,al2);
 				
 				
 				}
