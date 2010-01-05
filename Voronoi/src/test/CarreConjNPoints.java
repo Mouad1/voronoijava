@@ -114,7 +114,7 @@ public class CarreConjNPoints {
 	
 	
 	public static void main(String args[]) {
-		int NBPOINTS=7; 
+		int NBPOINTS=8; 
 		Point p[]=new Point[NBPOINTS];
 		
 		
@@ -137,19 +137,22 @@ public class CarreConjNPoints {
 					}
 				}
 				
-				p[0]=new Point(0,1); 
-				p[1]=new Point(1,0); 
-				double l=0.79128784747792+(2*gene.nextDouble()-1)*0.000000001; 
-				p[2]=new Point(1,l); 
-				p[3]=new Point(l,1);
-				double u=1/Math.sqrt(2)*(1+l*(l-1)); 
-				p[6]=new Point(u/Math.sqrt(2),u/Math.sqrt(2)); 
-				double kp=u*Math.sqrt(2)/2; 
-				double v=(1-3*kp)/(kp-1);  
-				p[4]=new Point(0,v); 
-				p[5]=new Point(v,0); 
-				//System.out.println(l+" "+u/Math.sqrt(2)+" "+v); 
-				//System.exit(0); 
+				p[0]=new Point(0,0); 
+				double l=0.579330+0.000001*gene.nextDouble(); 
+				p[1]=new Point(0,l); 
+				p[2]=new Point(l,0); 
+				
+				double a=0.735759+0.000002*(2*gene.nextDouble()-1); 
+				p[3]=new Point(1,a); 
+				p[4]=new Point(a,1); 
+				
+				double b=0.2304700+0.000001*gene.nextDouble(); 
+				p[5]=new Point(1,b); 
+				p[6]=new Point(b,1);
+				double u=0.5284819+0.0000001*gene.nextDouble(); 
+				
+				p[7]=new Point(u,u); 
+				
 				
 				double min=evaluer(p,0,1.0);
 				
