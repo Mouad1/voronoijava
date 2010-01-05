@@ -14,7 +14,9 @@ public class CalculTrianglesBaBplusRapideNPoints {
 	static PrintStream output; 
 	
 	// changer ici (0 ou borne sup)
+
 	static int MAXISCHUTZ=14; 
+
 	
 	static int surface(Point A, Point B,Point C){
 		int s=(B.getX()-A.getX())*(C.getY()-A.getY()); 
@@ -55,7 +57,8 @@ public class CalculTrianglesBaBplusRapideNPoints {
 					*/
 			for(int i=0;i<nbpoints;i++)
 				System.out.print(P[i]+" "); 
-			System.out.println(minx+" "+MAXISCHUTZ); 
+			System.out.println("--->" +minx+" "+MAXISCHUTZ); 
+			output.println("--->" +minx+" "+MAXISCHUTZ); 
 			if(minx>MAXISCHUTZ) MAXISCHUTZ=minx; 
 			
 			
@@ -114,9 +117,11 @@ public class CalculTrianglesBaBplusRapideNPoints {
 	static ArrayList<Triangle> lesTriangles=new ArrayList<Triangle>(); 
 	
 	public static void main(String[] args) {
+
 		int N=12; 
 		//try { output=new PrintStream("/tmp/solus.txt");}
 		try { output=new PrintStream("solus.txt");}
+
 		catch(Exception e){System.out.println(e); System.exit(0); }
 		for(int k=0;k<N;k++)
 			for(int l=0;l<N-k;l++){
