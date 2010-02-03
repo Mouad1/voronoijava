@@ -67,15 +67,9 @@ public class Case {
 		this.neighbours.put(direction, neighbour);
 	}
 
-	/**
-	 * @return
-	 */
-	
-	/** retourne une description de cette case (les voisins, les livings, etc. )
-	 *
-	 *@ return 
-	*/
-	
+	public void remove(Direction d){
+		this.neighbours.remove(d);
+	}
 	public String toString() {
 		return "case " + this.position.toString();
 	}
