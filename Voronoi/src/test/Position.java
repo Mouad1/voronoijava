@@ -2,7 +2,7 @@
  * Created on 30 sept. 2003
  *
  */
-package laby.labyrinthe;
+package test;
 
 /**
  * @author <a href="mailto:routier@lifl.fr">JC Routier</a>
@@ -13,13 +13,16 @@ public class Position {
 	public final int x;
 
 	public final int y;
+	
+	public final int z; 
 
 	/**
 	 * 
 	 */
-	public Position(int x, int y) {
+	public Position(int x, int y,int z) {
 		this.x = x;
 		this.y = y;
+		this.z=z; 
 	}
 	
 	public boolean equals(Object o) {
@@ -28,20 +31,14 @@ public class Position {
 		}
 		else {
 			Position other = (Position) o;
-			return (other.x == this.x) && (other.y == this.y);
+			return (other.x == this.x) && (other.y == this.y)&&(other.z==this.z);
 		}
 	}
 
 	public String toString() {
-		return "("+this.x+","+this.y+")";		
+		return "("+this.x+","+this.y+","+this.z+")";		
 	}
 	
-	/** retourne la (valeur approchée entière) distance euclidienne avec la position donnée
-	 * 
-	 * @param p position référence
-	 * @return la distance euclidienne avec la position référence
-	 */
-	public int distance(Position p) {
-		return (int) Math.sqrt((this.x - p.x)*(this.x - p.x) + (this.y - p.y)*(this.y-p.y)); 
-	}
+	
+	
 }

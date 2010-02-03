@@ -2,7 +2,7 @@
  * Created on 30 sept. 2003
  *
  */
-package laby.labyrinthe;
+package test;
 
 /**
  * @author <a href="mailto:routier@lifl.fr">JC Routier</a>
@@ -10,22 +10,24 @@ package laby.labyrinthe;
  */
 public enum Direction {
 	
-	Nord( 0 , -1),Sud( 0, 1),Ouest(  -1, 0),Est(  1, 0);
+	Nord( 0 , -1,0),Sud( 0, 1,0),Ouest(  -1, 0,0),Est(  1, 0,0),Up(0,0,-1),Down(0,0,1);
 			
-	/** la direction oppos�e � celle-ci */
+	/** la direction opposee a celle-ci */
 	private Direction opposite;
-	/** le d�calage horizontal correspondant � cette direction */
+	/** le decalage horizontal correspondant a cette direction */
 	private int shiftX;
 
-	/** le d�calage vertical correspondant � cette direction */
+	/** le decalage vertical correspondant a cette direction */
 	private int shiftY;
 
+	private int shiftZ; 
 	/**
 	 * 
 	 */
-	private Direction(int shiftX, int shiftY) {
+	private Direction(int shiftX, int shiftY,int shiftZ) {
 		this.shiftX = shiftX;
-		this.shiftY = shiftY;		
+		this.shiftY = shiftY;
+		this.shiftZ=shiftZ; 
 	}
 
 	static {
@@ -33,6 +35,8 @@ public enum Direction {
 		Sud.opposite = Nord;
 		Est.opposite = Ouest;
 		Ouest.opposite = Est;
+		Up.opposite=Down; 
+		Down.opposite=Up; 
 	}		
 
 	public int getShiftX() {
@@ -42,6 +46,10 @@ public enum Direction {
 	
 	public int getShiftY() {
 		return shiftY;
+	}
+	
+	public int getShiftZ(){
+		return shiftZ; 
 	}
 
 	private static java.util.Random alea = new java.util.Random(System.currentTimeMillis());
