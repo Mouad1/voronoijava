@@ -115,9 +115,9 @@ public class Labyrinthe {
 
 	public static void main(String[] args) throws Exception{
 		PrintStream out =new PrintStream("/tmp/desc.txt"); 
-		int mi=5; 
-		int mj=5; 
-		int mk=5; 
+		int mi=20; 
+		int mj=20; 
+		int mk=20; 
 		Labyrinthe l = new Labyrinthe(mi,mj,mk);
 		l.generate();
 		for(int i=0;i<mi;i++)
