@@ -4,6 +4,7 @@
  */
 package test;
 
+import java.io.PrintStream;
 import java.util.*;
 
 
@@ -112,9 +113,30 @@ public class Labyrinthe {
 		}
 	}
 
-	public static void main(String[] args) {
-		Labyrinthe l = new Labyrinthe(20,20,20);
+	public static void main(String[] args) throws Exception{
+		PrintStream out =new PrintStream("/tmp/desc.txt"); 
+		int mi=5; 
+		int mj=5; 
+		int mk=5; 
+		Labyrinthe l = new Labyrinthe(mi,mj,mk);
 		l.generate();
+		for(int i=0;i<mi;i++)
+			for(int j=0;j<mj;j++)
+				for(int k=0;k<mk;k++){
+					Case current=l.laby[i][j][k]; 
+					out.println("sphere{<"+i+","+j+","+k+">,radio texture{tex1} finish {fin1}}");
+					for(Direction d: Direction.values()){
+						Case voisine=current.getNeighbour(d); 
+						if(voisine!=null){
+							int ip=voisine.getPosition().x; 
+							int jp=voisine.getPosition().y; 
+							int kp=voisine.getPosition().z; 
+							out.println("cylinder{<"+i+","+j+","+k+">,<"+ip+","+jp+","+kp+">,radio texture{Tex0} finish{fin0}}");
+							voisine.remove(d.getOpposite());
+						}
+					}
+				}
+					
 		
 	}
 
