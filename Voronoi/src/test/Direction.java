@@ -10,7 +10,13 @@ package test;
  */
 public enum Direction {
 	
-	Nord( 0 , -1,0),Sud( 0, 1,0),Ouest(  -1, 0,0),Est(  1, 0,0),Up(0,0,-1),Down(0,0,1);
+	Nord( 0 , -1,0),Sud( 0, 1,0),Ouest(  -1, 0,0),Est(  1, 0,0),
+	Up(0,0,-1),Down(0,0,1),
+	UNW(-1,-1,-1),UNE(1,-1,-1),USE(1,1,-1),USW(-1,1,-1),
+	DSE(1,1,1),DSW(-1,1,1),DNW(-1,-1,1),DNE(1,-1,1),
+	NE(1,-1,0),NW(-1,-1,0),SE(1,1,0),SW(-1,1,0),
+	NU(0,-1,-1),ND(0,-1,1),SU(0,1,-1),SD(0,1,1),
+	WU(-1,0,-1),WD(-1,0,1),EU(1,0,-1),ED(1,0,1);
 			
 	/** la direction opposee a celle-ci */
 	private Direction opposite;
@@ -37,6 +43,26 @@ public enum Direction {
 		Ouest.opposite = Est;
 		Up.opposite=Down; 
 		Down.opposite=Up; 
+		UNW.opposite=DSE; 
+		UNE.opposite=DSW; 
+		USE.opposite=DNW;
+		USW.opposite=DNE; 
+		DSE.opposite=UNW; 
+		DSW.opposite=UNE;
+		DNW.opposite=USE;
+		DNE.opposite=USW; 
+		NE.opposite=SW; 
+		NW.opposite=SE; 
+		SE.opposite=NW;
+		SW.opposite=NE;
+		NU.opposite=SD;
+		ND.opposite=SU;
+		SU.opposite=ND;
+		SD.opposite=NU;
+		WU.opposite=ED;
+		WD.opposite=EU;
+		EU.opposite=WD;
+		ED.opposite=WU;
 	}		
 
 	public int getShiftX() {
