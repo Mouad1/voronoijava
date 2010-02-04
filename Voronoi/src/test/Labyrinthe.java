@@ -123,15 +123,18 @@ public class Labyrinthe {
 		for(int i=0;i<mi;i++)
 			for(int j=0;j<mj;j++)
 				for(int k=0;k<mk;k++){
+					double ci=(1+Math.cos(Math.PI*i/(mi+0.0)))/2; 
+					double cj=(1+Math.sin(Math.PI*j/(mj+0.0)))/2; 
+					double ck=(1+Math.cos(Math.PI*k/(mi+0.0)))/2; 
 					Case current=l.laby[i][j][k]; 
-					out.println("sphere{<"+i+","+j+","+k+">,radio texture{tex1} finish {fin1}}");
+					out.println("sphere{<"+i+","+j+","+k+">,radio texture{pigment{color rgb <"+ci+","+cj+","+ck+">}} finish {fin1}}");
 					for(Direction d: Direction.values()){
 						Case voisine=current.getNeighbour(d); 
 						if(voisine!=null){
 							int ip=voisine.getPosition().x; 
 							int jp=voisine.getPosition().y; 
 							int kp=voisine.getPosition().z; 
-							out.println("cylinder{<"+i+","+j+","+k+">,<"+ip+","+jp+","+kp+">,radio texture{Tex0} finish{fin0}}");
+							out.println("cylinder{<"+i+","+j+","+k+">,<"+ip+","+jp+","+kp+">,radio texture{pigment{color rgb <"+ci+","+cj+","+ck+">}} finish {fin0}}");
 							voisine.remove(d.getOpposite());
 						}
 					}
