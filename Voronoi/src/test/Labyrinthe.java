@@ -114,7 +114,8 @@ public class Labyrinthe {
 	}
 
 	public static void main(String[] args) throws Exception{
-		PrintStream out =new PrintStream("../pearls/scene/misc/desc.txt"); 
+		//PrintStream out =new PrintStream("../pearls/scene/misc/desc.txt"); 
+		PrintStream out =new PrintStream("/tmp/desc.txt"); 
 		int mi=20; 
 		int mj=20; 
 		int mk=20; 
