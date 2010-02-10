@@ -158,7 +158,10 @@ public class CalculTrianglesBaBplusRapideNPoints {
 		P[0]=i; 			
 		enumere2(P,1,NBPOINTS,TAILLE);
 		}
-		System.out.println(MAXISCHUTZ+" "+dubdub);
+		System.out.println(MAXISCHUTZ+" "+dubdub+" "+TAILLE);
+		for(int i=0;i<NBPOINTS;i++){
+			System.out.println("drawTriangle(new double[]"+lesTriangles.get(P[i]).lesX()+",new double[]"+lesTriangles.get(P[i]).lesY()+");");
+		}
 	}
 }
 		
