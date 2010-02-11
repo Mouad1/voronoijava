@@ -67,16 +67,12 @@ public class TriangleConjNPointsEquilateral {
 	}
 	
 	static public double evaluer(Point q[],int indice,double mincourant,double angle,double coef,double al1,double al2){
->>>>>>> .r155
+
 		if(indice==q.length){
 			if(mincourant<MAXISCHUTZ) return 0;
 			for(int i=0;i<q.length;i++)
 				System.out.println(q[i]);
-<<<<<<< .mine
-	
-=======
-			System.out.println("angle : "+angle+" "+(angle*180/Math.PI)+" coef "+coef+"\n"+al1+" "+al2+" "+(al1+al2)); 
->>>>>>> .r155
+
 			/*
 			for(int u=0;u<q.length-2;u++)
 				for(int v=u+1;v<q.length-1;v++)
@@ -96,11 +92,9 @@ public class TriangleConjNPointsEquilateral {
 					if(s<min)min=s; 
 					if(min<MAXISCHUTZ) return 0; 
 				}
-<<<<<<< .mine
+
 			evaluer(q,indice+1,min,al1,al2);
-=======
-			evaluer(q,indice+1,min,angle,coef,al1,al2);
->>>>>>> .r155
+
 		}
 		
 		return 0; 
