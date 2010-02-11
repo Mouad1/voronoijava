@@ -118,7 +118,7 @@ public class CalculTrianglesBaBplusRapideNPoints {
 	
 	public static void main(String[] args) {
 
-		int N=12; 
+		int N=20; 
 		//try { output=new PrintStream("/tmp/solus.txt");}
 		try { output=new PrintStream("solus.txt");}
 
@@ -144,7 +144,7 @@ public class CalculTrianglesBaBplusRapideNPoints {
 	System.out.println(lesTriangles.size()); 
 	int TAILLE=lesTriangles.size();
 	Triangle.setSize(N);
-	int NBPOINTS=9;
+	int NBPOINTS=6;
 		
 		
 		int P[]=new int [NBPOINTS];
