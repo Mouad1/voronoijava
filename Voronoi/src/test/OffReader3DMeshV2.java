@@ -103,7 +103,7 @@ public class OffReader3DMeshV2 {
           File source = new File(catena);
           try {
         	// output=new PrintStream("../../../../pearls/scene/geometry/polyhedra/archimedean/archi.txt");
-        	  output=new PrintStream("../pearls/scene/geometry/playingcards/archimedean/"+nomFichierSource+".inc");
+        	  output=new PrintStream("../pearls/scene/geometry/playingcards/archimedean/"+nomFichierSource+".incducon");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
                   while(ligne.charAt(0)=='#') ligne=in.readLine();
@@ -209,6 +209,18 @@ public class OffReader3DMeshV2 {
                 	  output.println(vertices.get(i)+","); 
                   }
                   System.out.println(vertices.get(vertices.size()-1)+"\n }");
+                  // les normales
+                  System.out.println("normal_vectors{\n");
+                  System.out.println(vertices.size()+",");
+                  output.println("normal_vectors{\n");
+                  output.println(vertices.size()+",");
+                  for(int i=0;i<vertices.size()-1;i++){
+                	  System.out.println(vertices.get(i)+","); 
+                	  output.println(vertices.get(i)+","); 
+                  }
+                  
+                  
+                  
                   // les textures
                   System.out.println("texture_list{\n"+provi.size()+","); 
                   output.println(vertices.get(vertices.size()-1)+"\n }");
@@ -317,9 +329,11 @@ public class OffReader3DMeshV2 {
                }   
                
                output.close(); 
+             
+               
                 
           } catch (IOException e) {System.out.println(e); 
-                  e.printStackTrace(); 
+                  e.printStackTrace(); System.exit(0);
           }
   }
 	  public static void main(String args[]) {
