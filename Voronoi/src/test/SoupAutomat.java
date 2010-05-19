@@ -1,5 +1,7 @@
 package test;
 
+import java.io.PrintStream;
+
 
 
 public class SoupAutomat {
@@ -34,9 +36,10 @@ public class SoupAutomat {
 				int posindex; 
 				if(val%2==0) posindex=i+val; 
 				else posindex=i-val; 
-				if(val==0) posindex=i; 
-				if(posindex<0) posindex+=length;
-				if(posindex>=length) posindex-=length; 
+				if(val==0) posindex=i;
+				// version torique
+				//if(posindex<0) posindex+=length;
+				//if(posindex>=length) posindex-=length; 
 				if((posindex>=0)&&(posindex<length)){ // ya du taf a faire
 					if(auxi[posindex]==-1) auxi[posindex]=val+1; 
 					else auxi[posindex]+=(val+1); 
@@ -64,14 +67,24 @@ public class SoupAutomat {
 	}
 	
 	public static void main(String[] args) {
-		String s="........9999991199111119...9.7.....11322..9.....23.63..8....19.2.9.610.......5....9.......10.6..............3....2.5.34.8...5.........................";
-		 
-		SoupAutomat sa=new SoupAutomat(150,0,s); 
-		System.out.println(sa);
-		for(int i=0;i<10000;i++){
+		String s="........9999991199111119...9.7.....11322..9.....23.63..8....19.2.9";
+		//String s="0";
+		PrintStream output;  
+		SoupAutomat sa=new SoupAutomat(100,30,s); 
+		try{
+			  output=new PrintStream("F:/Povray/soupautomat.txt");
+		System.out.println("\""+sa+"\""); 
+		output.println("\""+sa+"\",");
+		int maxiter=100; 
+		for(int i=0;i<maxiter;i++){
 			sa.mutate(); 
-			System.out.println(sa);
+			System.out.println("\""+sa+"\""); 
+			output.print("\""+sa+"\"");
+			if(i<maxiter-1) output.println(",");
+			else output.println(); 
 		}
 	}
+		catch(Exception e){System.out.println(e+ " probleme"); }
 
+}
 }
