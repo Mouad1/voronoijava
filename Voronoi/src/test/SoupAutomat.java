@@ -24,7 +24,8 @@ public class SoupAutomat {
 		if(index<length)
 			if(auxi[index]==-1)  auxi[index]=va; 
 			else
-				auxi[index]+=va; 
+				auxi[index]+=va;
+		
 	}
 	
 	public void mutate(){
@@ -38,8 +39,8 @@ public class SoupAutomat {
 				else posindex=i-val; 
 				if(val==0) posindex=i;
 				// version torique
-				//if(posindex<0) posindex+=length;
-				//if(posindex>=length) posindex-=length; 
+				if(posindex<0) posindex+=length;
+				if(posindex>=length) posindex-=length; 
 				if((posindex>=0)&&(posindex<length)){ // ya du taf a faire
 					if(auxi[posindex]==-1) auxi[posindex]=val+1; 
 					else auxi[posindex]+=(val+1); 
@@ -52,7 +53,12 @@ public class SoupAutomat {
 			else
 			{if(auxi[i]<10) ligne[i]=charFor(auxi[i]); 
 			else {
-					addVal(i+1,auxi[i]%10); 
+					if(i<length-1)
+						addVal(i+1,auxi[i]%10);
+					else {
+						addVal(0,auxi[i]%10);
+						ligne[0]=charFor(auxi[0]); 
+					}
 					ligne[i]=charFor(auxi[i]/10); 
 				
 			}
@@ -67,12 +73,21 @@ public class SoupAutomat {
 	}
 	
 	public static void main(String[] args) {
-		String s="........9999991199111119...9.7.....11322..9.....23.63..8....19.2.9";
+		char[] data=new char[9]; 
+		for(int i=0;i<9;i++) data[i]='.'; 
+		String s1=new String(data); 
+		String s0=s1+"2.1247..9";
+		String s=""; 
+		for(int i=0;i<12;i++)
+		s=s+s0;
+		System.out.println(s.length()); 
+		
 		//String s="0";
 		PrintStream output;  
-		SoupAutomat sa=new SoupAutomat(100,30,s); 
+		SoupAutomat sa=new SoupAutomat(216,0,s); 
 		try{
-			  output=new PrintStream("F:/Povray/soupautomat.txt");
+			  //output=new PrintStream("F:/Povray/soupautomat.txt");
+			output=new PrintStream("/tmp/soupautomat.txt");
 		System.out.println("\""+sa+"\""); 
 		output.println("\""+sa+"\",");
 		int maxiter=100; 
