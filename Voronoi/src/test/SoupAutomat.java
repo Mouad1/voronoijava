@@ -113,14 +113,14 @@ public class SoupAutomat {
 		
 		
 		//String s="........................................................................................2..................."; 
-		String s="056.33.44..65..............";
+		String s="9023..............";
 		PrintStream output;  
 		int dist=80;
 		SoupAutomat sa=new SoupAutomat(200,dist,s); 
 
 		try{
-			  //output=new PrintStream("F:/Povray/soupautomat.txt");
-			output=new PrintStream("/tmp/soupautomat2.txt");
+			  output=new PrintStream("F:/Povray/soupautomat3.txt");
+			//output=new PrintStream("/tmp/soupautomat2.txt");
 			//output=new PrintStream("/tmp/soupautomat.txt");
 		System.out.println("\""+sa+"\""); 
 		output.println("\""+sa+"\","+sa.minligne+","+sa.maxligne+",");
