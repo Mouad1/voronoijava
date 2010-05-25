@@ -4,10 +4,12 @@ import java.io.PrintStream;
 
 
 
+
 public class SoupAutomat {
 	private int length=100;
 	private char[] ligne; 
 	private int[] auxi;
+	private int xmin=1000; 
 	
 	public SoupAutomat(int l,int debut,String motif){
 		this.length=l; 
@@ -38,9 +40,7 @@ public class SoupAutomat {
 				if(val%2==0) posindex=i+val; 
 				else posindex=i-val; 
 				if(val==0) posindex=i;
-				// version torique
-				if(posindex<0) posindex+=length;
-				if(posindex>=length) posindex-=length; 
+			
 				if((posindex>=0)&&(posindex<length)){ // ya du taf a faire
 					if(auxi[posindex]==-1) auxi[posindex]=val+1; 
 					else auxi[posindex]+=(val+1); 
@@ -48,21 +48,43 @@ public class SoupAutomat {
 			}
 		}// auxi est rempli, il faut transformer en caracteres
 		
-		for(int i=0;i<length;i++){// transformer les nombre en car
-			if(auxi[i]==-1) ligne[i]='.'; 
-			else
-			{if(auxi[i]<10) ligne[i]=charFor(auxi[i]); 
-			else {
-					if(i<length-1)
-						addVal(i+1,auxi[i]%10);
-					else {
-						addVal(0,auxi[i]%10);
-						ligne[0]=charFor(auxi[0]); 
+		int auxibis[]=new int[length]; 
+		for(int i=0;i<length;i++) auxibis[i]=-1; 
+		for(int i=0;i<length;i++){
+			if(auxi[i]>0){
+				if(i<xmin) xmin=i; 
+				if(auxi[i]<10) {
+					if(auxibis[i]!=-1) auxibis[i]+=auxi[i];
+					else auxibis[i]=auxi[i];
+				}
+				else{
+					{
+					if(auxibis[i]!=-1)
+					auxibis[i]+=auxi[i]/10;
+					else
+					auxibis[i]=auxi[i]/10;
 					}
-					ligne[i]=charFor(auxi[i]/10); 
-				
+					if(i<length-1){
+					if(auxibis[i+1]!=-1)	
+					auxibis[i+1]+=auxi[i]%10;
+					else
+					auxibis[i+1]=auxi[i]%10;	
+					}
+				}// else
+			}// if
+		}// for
+			
+		
+		for(int i=0;i<length;i++){// transformer les nombre en car
+			if(auxibis[i]==-1) ligne[i]='.'; 
+			else
+			{if(auxibis[i]<10) ligne[i]=charFor(auxibis[i]); 
+			else{
+			addVal(i+1,auxibis[i]%10);	
+			ligne[i]=charFor(auxibis[i]/10); 
 			}
 			}
+			
 		}// for
 	
 	}
@@ -74,19 +96,13 @@ public class SoupAutomat {
 	
 	public static void main(String[] args) {
 
-		char[] data=new char[9]; 
-		for(int i=0;i<9;i++) data[i]='.'; 
-		String s1=new String(data); 
-		String s0=s1+"2.1247..9";
-		String s=""; 
-		for(int i=0;i<12;i++)
-		s=s+s0;
-		System.out.println(s.length()); 
 		
-
+		
+		//String s="........................................................................................2..................."; 
+		String s="2................";
 		PrintStream output;  
 
-		SoupAutomat sa=new SoupAutomat(216,0,s); 
+		SoupAutomat sa=new SoupAutomat(216,100-25,s); 
 
 		try{
 			  //output=new PrintStream("F:/Povray/soupautomat.txt");
@@ -104,6 +120,6 @@ public class SoupAutomat {
 		}
 	}
 		catch(Exception e){System.out.println(e+ " probleme"); }
-
+		System.out.println(sa.xmin); 
 }
 }
