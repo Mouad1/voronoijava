@@ -73,8 +73,29 @@ public class FaceTriangulaire {
 		double cb=Pos3D.distance(a,c); 
 		double cc=Pos3D.distance(a,b); 
 		double s=(ca+cb+cc)/2; 
-		double A=Math.sqrt(s*(s-ca)*(s-cb)*(s-cc)); 
+		double A=Math.sqrt(s*Math.abs((s-ca))*Math.abs((s-cb))*Math.abs((s-cc))); 
+		System.out.println("------------>"+ca+" "+cb+" "+cc+" "+s+" "+A); 
 		return A; 
 	}
+	
+	public Vertex getCenter(){
+		Vertex A=new Vertex(a); 
+		Vertex B=new Vertex(b); 
+		Vertex C=new Vertex(c); 
+		Vertex mi=Vertex.add(A,B); 
+		mi=Vertex.add(mi,C);
+		return Vertex.mul(mi,1.0/3); 
+	}
+	
+	public Vertex normal(){
+		Vertex C=this.getCenter(); 
+		Vertex u=Vertex.sub(C, new Vertex(a)); 
+		Vertex v=Vertex.sub(C, new Vertex(b)); 
+		Vertex resu=Vertex.produitVectoriel(u,v); 
+		return Vertex.mul(resu,1/resu.norme()); 
+	}
 
+	public boolean contains(Pos3D v){
+		return (this.a.equals(v)||this.b.equals(v)|| this.c.equals(v)); 
+	}
 }
