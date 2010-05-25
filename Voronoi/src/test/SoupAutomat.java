@@ -10,12 +10,20 @@ public class SoupAutomat {
 	private char[] ligne; 
 	private int[] auxi;
 	private int xmin=1000; 
+	private int minligne; 
+	private int maxligne; 
 	
 	public SoupAutomat(int l,int debut,String motif){
 		this.length=l; 
 		ligne=new char[length]; 
 		for(int i=0;i<length;i++) ligne[i]='.'; 
 		for(int i=debut;i<debut+motif.length();i++) ligne[i]=motif.charAt(i-debut); 
+		maxligne=0; 
+		minligne=1000; 
+		for(int i=0;i<length;i++)
+			if(ligne[i]!='.'){minligne=i; break;}
+		for(int i=length-1;i>=0;i--)
+			if(ligne[i]!='.'){maxligne=i; break;}	
 	}
 	
 	public char charFor(int i){
@@ -31,6 +39,7 @@ public class SoupAutomat {
 	}
 	
 	public void mutate(){
+		
 		auxi=new int[length]; 
 		for(int i=0;i<length;i++)auxi[i]=-1; // les points
 		for(int i=0;i<length;i++){ // traiter un caractere chiffre
@@ -50,8 +59,12 @@ public class SoupAutomat {
 		
 		int auxibis[]=new int[length]; 
 		for(int i=0;i<length;i++) auxibis[i]=-1; 
+		minligne=length; 
+		maxligne=0;
 		for(int i=0;i<length;i++){
 			if(auxi[i]>0){
+				if(i<minligne)minligne=i; 
+				if(i>maxligne)maxligne=i;
 				if(i<xmin) xmin=i; 
 				if(auxi[i]<10) {
 					if(auxibis[i]!=-1) auxibis[i]+=auxi[i];
@@ -65,6 +78,7 @@ public class SoupAutomat {
 					auxibis[i]=auxi[i]/10;
 					}
 					if(i<length-1){
+					if(i==maxligne)maxligne++;	
 					if(auxibis[i+1]!=-1)	
 					auxibis[i+1]+=auxi[i]%10;
 					else
@@ -99,22 +113,22 @@ public class SoupAutomat {
 		
 		
 		//String s="........................................................................................2..................."; 
-		String s="2................";
+		String s="056.33.44..65..............";
 		PrintStream output;  
-
-		SoupAutomat sa=new SoupAutomat(216,100-25,s); 
+		int dist=80;
+		SoupAutomat sa=new SoupAutomat(200,dist,s); 
 
 		try{
 			  //output=new PrintStream("F:/Povray/soupautomat.txt");
-			output=new PrintStream("/tmp/soupautomat.txt");
+			output=new PrintStream("/tmp/soupautomat2.txt");
 			//output=new PrintStream("/tmp/soupautomat.txt");
 		System.out.println("\""+sa+"\""); 
-		output.println("\""+sa+"\",");
-		int maxiter=100; 
+		output.println("\""+sa+"\","+sa.minligne+","+sa.maxligne+",");
+		int maxiter=50; 
 		for(int i=0;i<maxiter;i++){
 			sa.mutate(); 
-			System.out.println("\""+sa+"\""); 
-			output.print("\""+sa+"\"");
+			System.out.println("\""+sa+"\""+"\n"+sa.minligne+" "+sa.maxligne); 
+			output.print("\""+sa+"\""+","+sa.minligne+","+sa.maxligne);
 			if(i<maxiter-1) output.println(",");
 			else output.println(); 
 		}
