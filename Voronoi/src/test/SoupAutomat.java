@@ -73,21 +73,20 @@ public class SoupAutomat {
 	}
 	
 	public static void main(String[] args) {
-		char[] data=new char[9]; 
-		for(int i=0;i<9;i++) data[i]='.'; 
-		String s1=new String(data); 
-		String s0=s1+"2.1247..9";
-		String s=""; 
-		for(int i=0;i<12;i++)
-		s=s+s0;
-		System.out.println(s.length()); 
+		char[] data=new char[23]; 
 		
+	
+		String s="88664422210137577998866442251013557799";
+		 
+		SoupAutomat sa=new SoupAutomat(228,50,s); 
+		System.out.println(s.length()+"_n"+sa); 
+	
 		//String s="0";
 		PrintStream output;  
-		SoupAutomat sa=new SoupAutomat(216,0,s); 
+		
 		try{
-			  //output=new PrintStream("F:/Povray/soupautomat.txt");
-			output=new PrintStream("/tmp/soupautomat.txt");
+			  output=new PrintStream("F:/Povray/soupautomat.txt");
+			//output=new PrintStream("/tmp/soupautomat.txt");
 		System.out.println("\""+sa+"\""); 
 		output.println("\""+sa+"\",");
 		int maxiter=100; 
