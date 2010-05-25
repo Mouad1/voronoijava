@@ -23,8 +23,8 @@ import utils.Pos3D;
 public class OffReader3DMeshV2 {
 	
 	private Random generator=new Random(); 
-
-
+	private  ArrayList<Vertex> lesCentresDesFaces=new ArrayList<Vertex>(); 
+	private  ArrayList<Vertex> lesNormales=new ArrayList<Vertex>(); 
 	public int nbVertices,nbFaces;
 	private String catena;
 	{
@@ -103,7 +103,7 @@ public class OffReader3DMeshV2 {
           File source = new File(catena);
           try {
         	// output=new PrintStream("../../../../pearls/scene/geometry/polyhedra/archimedean/archi.txt");
-        	  output=new PrintStream("../pearls/scene/geometry/playingcards/archimedean/"+nomFichierSource+".incducon");
+        	  output=new PrintStream("../pearls/scene/geometry/playingcards/archimedean/"+nomFichierSource+"Test.inc");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
                   while(ligne.charAt(0)=='#') ligne=in.readLine();
@@ -118,7 +118,7 @@ public class OffReader3DMeshV2 {
                   System.out.println("vertex_vectors{\n");
                   System.out.println(nbVertices+",\n");
                   */
-                  // lire les coins
+                  // lire les aretes
                   for(int i=0;i<nbVertices;i++){
                 	  ligne=in.readLine();
                 	  rl=new Scanner(ligne); 
@@ -166,6 +166,11 @@ public class OffReader3DMeshV2 {
                 		  vertices.get(coins[(j+1)%dim]).setNeighbour(vertices.get(coins[j]));
                 		  
                 	  }
+                	  // Calculer les centres des faces (provisoire 05/2010)
+                	 
+                	  for(FaceTriangulaire f:lesFacesTriangulaires)
+                		  lesCentresDesFaces.add(f.getCenter()); 
+                	  
                   }
                 
                 	// On doit encore s'occuper des aretes
@@ -209,61 +214,78 @@ public class OffReader3DMeshV2 {
                 	  output.println(vertices.get(i)+","); 
                   }
                   System.out.println(vertices.get(vertices.size()-1)+"\n }");
+                  output.println(vertices.get(vertices.size()-1)+"\n }");
                   // les normales
+                  // Calculer la normale en chaque vertex
+                  double epsilon=1e-6; 
+                  for(int i=0;i<vertices.size();i++){
+                	  Vertex v=vertices.get(i); 
+                	  // Pour un vertex, calculer sa normale
+                	  Vertex n=new Vertex(0,0,0);
+                	  for(FaceTriangulaire f:lesFacesTriangulaires){
+                		  if(f.contains(v))
+                			  if(Math.abs(Vertex.produitScalaire(n,f.normal()))>epsilon)
+                			  n=Vertex.add(n,Vertex.mul(f.normal(),1)); 
+                	  }
+                	  lesNormales.add(i,Vertex.mul(n,1));
+                	  
+                  }// for v
+                  
+                  
                   System.out.println("normal_vectors{\n");
                   System.out.println(vertices.size()+",");
                   output.println("normal_vectors{\n");
                   output.println(vertices.size()+",");
-                  for(int i=0;i<vertices.size()-1;i++){
-                	  System.out.println(vertices.get(i)+","); 
-                	  output.println(vertices.get(i)+","); 
+                  for(int i=0;i<lesNormales.size()-1;i++){ 
+                	  System.out.println(lesNormales.get(i)+","); 
+                	  output.println(lesNormales.get(i)+","); 
                   }
-                  
-                  
+                  System.out.println(lesNormales.get(lesNormales.size()-1)+"\n }");
+                  output.println(lesNormales.get(lesNormales.size()-1)+"\n }");
                   
                   // les textures
                   System.out.println("texture_list{\n"+provi.size()+","); 
-                  output.println(vertices.get(vertices.size()-1)+"\n }");
+                
                   output.println("texture_list{\n"+provi.size()+","); 
                 
                   for(int i=0;i<provi.size()-1;i++){
                 	  System.out.println("texture{texture"+i+"},");
                 	  output.println("texture{texture"+i+"},");
                   }
-                  System.out.println("texture{texture"+(provi.size()-1)+"}\n }");
-                  System.out.println("face_indices{");
-                  System.out.println(lesFacesTriangulaires.size()+","); 
+                // System.out.println("texture{texture"+(provi.size()-1)+"}\n }");
+                 // System.out.println("face_indices{");
+                  //System.out.println(lesFacesTriangulaires.size()+","); 
                   output.println("texture{texture"+(provi.size()-1)+"}\n }");
                   output.println("face_indices{");
                   output.println(lesFacesTriangulaires.size()+","); 
                   for(FaceTriangulaire f:lesFacesTriangulaires)
                 	  if(lesFacesTriangulaires.indexOf(f)!=lesFacesTriangulaires.size()-1){
-                		System.out.println(f+","+ provi.indexOf(roundDecimals(f.surface()))+",");
+                	//	System.out.println(f+","+ provi.indexOf(roundDecimals(f.surface()))+",");
                   		output.println(f+","+ provi.indexOf(roundDecimals(f.surface()))+",");
                 	  }
                 	  else{
-                		  System.out.println(f+" "+provi.indexOf(roundDecimals(f.surface()))+"\n } \n }");
+                		//  System.out.println(f+" "+provi.indexOf(roundDecimals(f.surface()))+"\n } \n }");
                 		  output.println(f+" "+provi.indexOf(roundDecimals(f.surface()))+"\n } \n }");
                 	  }
                   
                   // Les aretes 
-               System.out.println("#declare aretes=union{\n");
+               //System.out.println("#declare aretes=union{\n");
                output.println("#declare aretes=union{\n");
                for(Cylinder c:lesAretes){
-            	   System.out.println("object{"+c+"}"); 
+            	 //  System.out.println("object{"+c+"}"); 
             	   output.println("object{"+c+"}"); 
                }
-               System.out.println("}");
+               //System.out.println("}");
                output.println("}");
                // les sommets (pour masquer l'intersection des cylindres)
                System.out.println("#declare sommets=union{\n");
                output.println("#declare sommets=union{\n");
                for(int j=0;j<nbVertices;j++){
             	   Pos3D v=vertices.get(j);
-            	   System.out.println("object{sphere{"+v+",diam1 }}");
+            	 //  System.out.println("object{sphere{"+v+",diam1 }}");
             	   output.println("object{sphere{"+v+",diam1 }}");
                }
-               System.out.println("}");
+               //System.out.println("}");
                output.println("}");
                // Les transformations amenant un vecteur central vertical sur une arete
                ArrayList<Transfo> lesTransfos=new ArrayList<Transfo>();
@@ -285,17 +307,17 @@ public class OffReader3DMeshV2 {
             	  lesTransfos.add(new Transfo(alpha,beta,mimi,taille/meilleur));
             	   
                }
-               System.out.println("#declare maxIndices="+lesTransfos.size()+";");
+               //System.out.println("#declare maxIndices="+lesTransfos.size()+";");
                output.println("#declare maxIndices="+lesTransfos.size()+";");
-               System.out.println("#declare trans=array["+lesAretes.size()+"];");
+               //System.out.println("#declare trans=array["+lesAretes.size()+"];");
                output.println("#declare trans=array["+lesAretes.size()+"];");
                int i=0;
                for(Transfo t:lesTransfos){
-            	   System.out.println("#declare trans["+i+"]="+t+";");
+            	 //  System.out.println("#declare trans["+i+"]="+t+";");
             	   output.println("#declare trans["+i+"]="+t+";");
             	   i++;
                }   
-               System.out.println(lesFacesPolygonales.size()); 
+               //System.out.println(lesFacesPolygonales.size()); 
                // transformations relatives aux faces
                ArrayList<Transfo> lesTransfosFaces=new ArrayList<Transfo>();
                for(FacePolygonale fp:lesFacesPolygonales){
@@ -317,17 +339,18 @@ public class OffReader3DMeshV2 {
             	  
             	   
                }// for fp
-               System.out.println("#declare maxFaces="+lesTransfosFaces.size()+";");
+               //System.out.println("#declare maxFaces="+lesTransfosFaces.size()+";");
                output.println("#declare maxFaces="+lesTransfosFaces.size()+";");
-               System.out.println("#declare transface=array["+lesTransfosFaces.size()+"];");
+               //System.out.println("#declare transface=array["+lesTransfosFaces.size()+"];");
                output.println("#declare transface=array["+lesTransfosFaces.size()+"];");
                int ui=0;
                for(Transfo t:lesTransfosFaces){
-            	   System.out.println("#declare transface["+ui+"]="+t+";");
+            	 //  System.out.println("#declare transface["+ui+"]="+t+";");
             	   output.println("#declare transface["+ui+"]="+t+";");
             	   ui++;
                }   
                
+             
                output.close(); 
              
                
