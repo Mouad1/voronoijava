@@ -64,7 +64,14 @@ public class Vertex extends Pos3D {
 		return new Vertex(v1.x-v2.x,v1.y-v2.y,v1.z-v2.z); 
 	}
 	
-	
-	
+	public Vertex(Pos3D a){
+		super(a.x,a.y,a.z) ;
+	}
+	public static Vertex produitVectoriel(Vertex a,Vertex b){
+		double valx=a.y*b.z-a.z*b.y;
+		double valy=a.z*b.x-b.z*a.x; 
+		double valz=a.x*b.y-a.y*b.x; 
+		return new Vertex(valx,valy,valz); 
+	}
 	
 }
