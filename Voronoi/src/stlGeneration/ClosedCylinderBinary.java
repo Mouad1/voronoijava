@@ -11,7 +11,7 @@ import java.io.FileOutputStream;
 public class ClosedCylinderBinary {
 	
 	public static DataOutputStream issue;  
-	public static String invert(Float num)throws Exception{
+	public static byte[] invert(Float num)throws Exception{
 		FileOutputStream fossy = new FileOutputStream("/tmp/provisoire");
 		
 		DataOutputStream provo= new DataOutputStream(fossy);
@@ -19,16 +19,16 @@ public class ClosedCylinderBinary {
 		provo.close(); 
 		FileInputStream fosso = new FileInputStream("/tmp/provisoire");
 		DataInputStream provi=new DataInputStream(fosso); 
-		String resu=""; 
+		byte resu[]=new  byte[4]; 
 		for(int i=0;i<4;i++)
-			resu=provi.readUnsignedByte()+"*"+resu; 
-		System.out.println("resu :"+resu); 
+			resu[3-i]=(byte) provi.readUnsignedByte() ; 
+		
 		provi.close();
 		return resu;
 	}
 	
 	public static void writeFloat(float x) throws Exception{
-		issue.writeChars(invert(x));
+		issue.write(invert(x),0,4);
 	}
 	
 	public static void main(String[] args) throws Exception{
