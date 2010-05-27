@@ -1,6 +1,7 @@
 package stlGeneration;
+// ASCII STL cylindre ouvert
 
-public class OffCylindre {
+public class OpenCylinder {
 	
 	public static void main(String[] args) {
 		double radius=10; 
