@@ -1,27 +1,34 @@
 package stlGeneration;
 
 //ASCII STL cylindre ferme (???)
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.PrintStream;
 
 
 
 public class ClosedCylinderBinary {
 	
 	public static DataOutputStream issue;  
-	public static String invert(String num){
-		if(num.equals("0"))return "00000000"; 
-		String resu=""; 
+	public static String invert(Float num)throws Exception{
+		FileOutputStream fossy = new FileOutputStream("/tmp/provisoire");
 		
+		DataOutputStream provo= new DataOutputStream(fossy);
+		provo.writeFloat(num); 
+		provo.close(); 
+		FileInputStream fosso = new FileInputStream("/tmp/provisoire");
+		DataInputStream provi=new DataInputStream(fosso); 
+		String resu=""; 
 		for(int i=0;i<4;i++)
-			resu=num.substring(2*i,2*i+2)+resu; 
-		System.out.println("chaine : "+num+" "+num.length()+" "+resu); 
+			resu=provi.readUnsignedByte()+"*"+resu; 
+		System.out.println("resu :"+resu); 
+		provi.close();
 		return resu;
 	}
 	
 	public static void writeFloat(float x) throws Exception{
-		issue.writeChars(invert(Integer.toString(Float.floatToRawIntBits(x),16)));
+		issue.writeChars(invert(x));
 	}
 	
 	public static void main(String[] args) throws Exception{
