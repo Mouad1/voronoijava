@@ -113,7 +113,7 @@ public class SoupAutomat {
 		
 		
 		//String s="........................................................................................2..................."; 
-		String s="9023..............";
+		String s="88664422210137577998866442251013557799..............";
 		PrintStream output;  
 		int dist=80;
 		SoupAutomat sa=new SoupAutomat(200,dist,s); 
