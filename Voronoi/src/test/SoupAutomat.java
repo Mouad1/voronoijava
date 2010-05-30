@@ -115,7 +115,7 @@ public class SoupAutomat {
 		//String s="........................................................................................2..................."; 
 		String s="88664422210137577998866442251013557799..............";
 		PrintStream output;  
-		int dist=80;
+		int dist=120;
 		SoupAutomat sa=new SoupAutomat(200,dist,s); 
 
 		try{
@@ -124,7 +124,7 @@ public class SoupAutomat {
 			//output=new PrintStream("/tmp/soupautomat.txt");
 		System.out.println("\""+sa+"\""); 
 		output.println("\""+sa+"\","+sa.minligne+","+sa.maxligne+",");
-		int maxiter=50; 
+		int maxiter=100; 
 		for(int i=0;i<maxiter;i++){
 			sa.mutate(); 
 			System.out.println("\""+sa+"\""+"\n"+sa.minligne+" "+sa.maxligne); 
