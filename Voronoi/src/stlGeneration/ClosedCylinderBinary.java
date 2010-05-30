@@ -12,12 +12,13 @@ public class ClosedCylinderBinary {
 	
 	public static DataOutputStream issue;  
 	public static byte[] invert(Float num)throws Exception{
-		FileOutputStream fossy = new FileOutputStream("/tmp/provisoire");
+		System.out.println("toto"); 
+		FileOutputStream fossy = new FileOutputStream("F:/Povray/provisoire");
 		
 		DataOutputStream provo= new DataOutputStream(fossy);
 		provo.writeFloat(num); 
 		provo.close(); 
-		FileInputStream fosso = new FileInputStream("/tmp/provisoire");
+		FileInputStream fosso = new FileInputStream("F:/Povray/provisoire");
 		DataInputStream provi=new DataInputStream(fosso); 
 		byte resu[]=new  byte[4]; 
 		for(int i=0;i<4;i++)
@@ -33,7 +34,7 @@ public class ClosedCylinderBinary {
 	
 	public static void main(String[] args) throws Exception{
 	
-		FileOutputStream fos = new FileOutputStream("/tmp/closedCylinderv2.stl");
+		FileOutputStream fos = new FileOutputStream("F:/Povray/closedCylinderv2.stl");
 	
 		issue= new DataOutputStream(fos);
 		

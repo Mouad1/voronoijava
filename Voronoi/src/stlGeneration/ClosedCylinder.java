@@ -7,8 +7,13 @@ import java.io.PrintStream;
 
 public class ClosedCylinder {
 	
+	public static void outputCylinder(double rad,double leng,double nbTr,String filename)throws Exception{
+		PrintStream issue=new PrintStream(filename); 
+		double a=Math.sqrt(3)*2*Math.PI*rad/(2*nbTr); 
+	}
+	
 	public static void main(String[] args) throws Exception{
-		PrintStream issue=new PrintStream("/tmp/closedCylinderv2.stl"); 
+		PrintStream issue=new PrintStream("F:/Povray/closedCylinderv2.stl"); 
 		double radius=10;
 		double length=50; 
 		int n=10; 
@@ -17,7 +22,7 @@ public class ClosedCylinder {
 		double x0=0; // bout du cylindre
 		int nbCouches=(int)(length/a); 
 		issue.println("solid cylinder");
-		/*
+		
 		// les couvercles
 		// face arriere
 		for(int i=0;i<n;i++){
@@ -39,7 +44,7 @@ public class ClosedCylinder {
 			issue.println("endloop"); 
 			issue.println("endfacet");
 		}
-		*/
+		
 		// La paroi cylindrique
 		for(int i=1;i<=nbCouches;i++){
 			if(i%2==0)
