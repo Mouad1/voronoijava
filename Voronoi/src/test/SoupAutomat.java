@@ -113,13 +113,13 @@ public class SoupAutomat {
 		
 		
 		//String s="........................................................................................2..................."; 
-		String s="88664422210137577998866442251013557799..............";
+		String s="9186543724..............";
 		PrintStream output;  
 		int dist=120;
 		SoupAutomat sa=new SoupAutomat(200,dist,s); 
 
 		try{
-			  output=new PrintStream("F:/Povray/soupautomat3.txt");
+			  output=new PrintStream("F:/Povray/soupautomat4.txt");
 			//output=new PrintStream("/tmp/soupautomat2.txt");
 			//output=new PrintStream("/tmp/soupautomat.txt");
 		System.out.println("\""+sa+"\""); 
