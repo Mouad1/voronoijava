@@ -103,7 +103,8 @@ public class OffReader3DMeshV2 {
           File source = new File(catena);
           try {
         	// output=new PrintStream("../../../../pearls/scene/geometry/polyhedra/archimedean/archi.txt");
-        	  output=new PrintStream("../pearls/scene/geometry/playingcards/archimedean/"+nomFichierSource+"Test.inc");
+        	//  output=new PrintStream("../pearls/scene/geometry/playingcards/archimedean/"+nomFichierSource+".inc");
+        	  output=new PrintStream(nomFichierSource+".inc");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
                   while(ligne.charAt(0)=='#') ligne=in.readLine();
@@ -313,7 +314,7 @@ public class OffReader3DMeshV2 {
                output.println("#declare trans=array["+lesAretes.size()+"];");
                int i=0;
                for(Transfo t:lesTransfos){
-            	 //  System.out.println("#declare trans["+i+"]="+t+";");
+            	   System.out.println("#declare trans["+i+"]="+t+";");
             	   output.println("#declare trans["+i+"]="+t+";");
             	   i++;
                }   
@@ -339,13 +340,13 @@ public class OffReader3DMeshV2 {
             	  
             	   
                }// for fp
-               //System.out.println("#declare maxFaces="+lesTransfosFaces.size()+";");
+               System.out.println("#declare maxFaces="+lesTransfosFaces.size()+";");
                output.println("#declare maxFaces="+lesTransfosFaces.size()+";");
-               //System.out.println("#declare transface=array["+lesTransfosFaces.size()+"];");
+               System.out.println("#declare transface=array["+lesTransfosFaces.size()+"];");
                output.println("#declare transface=array["+lesTransfosFaces.size()+"];");
                int ui=0;
                for(Transfo t:lesTransfosFaces){
-            	 //  System.out.println("#declare transface["+ui+"]="+t+";");
+            	   System.out.println("#declare transface["+ui+"]="+t+";");
             	   output.println("#declare transface["+ui+"]="+t+";");
             	   ui++;
                }   
@@ -355,7 +356,7 @@ public class OffReader3DMeshV2 {
              
                
                 
-          } catch (IOException e) {System.out.println(e); 
+          } catch (Exception e) {System.out.println(e); 
                   e.printStackTrace(); System.exit(0);
           }
   }
@@ -363,7 +364,7 @@ public class OffReader3DMeshV2 {
           // new TestIO().copieFichierTexte("essai.txt","output.txt");
           OffReader3DMeshV2 toto=new OffReader3DMeshV2(); 
          
-          toto.afficheFichierTexte("snub_icosidodecahedron");
+          toto.afficheFichierTexte("tetrahedron");
 
 
 
