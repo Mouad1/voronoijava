@@ -1,5 +1,7 @@
 package utils;
 
+import pluginUtils.Point2D;
+
 public class Point {
 
 		/**
@@ -28,6 +30,12 @@ public class Point {
 		} 
 		public String toString(){
 			return x+","+y; 
+		}
+		
+	
+		
+		public double distance(Point z){
+				return Math.sqrt((x-z.x)*(x-z.x)+(y-z.y)*(y-z.y));
 		}
 		
 		public String affiche(){
