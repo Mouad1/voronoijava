@@ -4,12 +4,13 @@ package tangram;
  * ou on a pose des pieces de tangram
  */
 public enum UnitSquare {
-	TYPE0(" "),TYPE1("1"),TYPE2("2"),TYPE3("3"),TYPE4("4"),TYPE5("5"); 
+	TYPE0("."),TYPE1("1"),TYPE2("2"),TYPE3("3"),TYPE4("4"),TYPE5("5"); 
 	private String alpha; 
 	
 	private UnitSquare(String a){this.alpha=a; }
 	
 	public boolean isCompatible(UnitSquare u){
+		if(u.equals(TYPE0)) return true; 
 		switch(this){
 		case TYPE0 : return true;
 		case TYPE1 : return u.equals(TYPE4); 
@@ -31,8 +32,22 @@ public enum UnitSquare {
 		case TYPE4 : if(us.equals(TYPE1)) return TYPE5; else return null; 
 		default:return null;
 		}
-		
 	}
+	
+	public UnitSquare rotate(){
+		switch(this){
+		case TYPE0 : return TYPE0; 
+		case TYPE5 : return TYPE5; 
+		case TYPE1 : return TYPE3;
+		case TYPE2 : return TYPE1;
+		case TYPE3 : return TYPE4; 
+		case TYPE4 : return TYPE2; 
+		
+		}
+		return null;
+	}
+		
+	
 
 	public String alpha() {
 		return this.alpha; 
@@ -40,4 +55,4 @@ public enum UnitSquare {
 		
 	}
 
-}
+
