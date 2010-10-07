@@ -1,9 +1,10 @@
 package tangram;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /* Une piedede tangram, c'est plusieurs configs possibles */
-public class TangramUnit {
+public class TangramUnit implements Iterable<UnitConfig>{
 	private ArrayList<UnitConfig> lesConfigs=new ArrayList<UnitConfig>(); 
 	
 	static private TangramUnit makeCarre(){
@@ -105,6 +106,11 @@ public class TangramUnit {
 	}
 	
 	static public final TangramUnit PARALLELOGRAMME=makeParallelogramme();
+	
+	/* Pour enumerer les configurations possibles d'une piece */
+	public Iterator<UnitConfig> iterator(){
+		return this.lesConfigs.iterator(); 
+	}
 	
 
 }
