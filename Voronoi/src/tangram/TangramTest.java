@@ -40,7 +40,7 @@ public class TangramTest {
 		}
 		for(Motif e:gardes)
 			System.out.println(e); 
-		
+		System.out.println(gardes.size());
 	}
 
 }
