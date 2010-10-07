@@ -1,7 +1,13 @@
 package tangram;
 
+/* La forme possible (parmi 6) que peut prendre un carre elementaire d'un quadrillage 
+ * ou on a pose des pieces de tangram
+ */
 public enum UnitSquare {
-	TYPE0,TYPE1,TYPE2,TYPE3,TYPE4,TYPE5; 
+	TYPE0(" "),TYPE1("1"),TYPE2("2"),TYPE3("3"),TYPE4("4"),TYPE5("5"); 
+	private String alpha; 
+	
+	private UnitSquare(String a){this.alpha=a; }
 	
 	public boolean isCompatible(UnitSquare u){
 		switch(this){
@@ -13,6 +19,25 @@ public enum UnitSquare {
 		case TYPE5 : return false; 
 		default: return false; 
 		}
+	}
+
+	public UnitSquare union(UnitSquare us) {
+		if (us.equals(TYPE0)) return this; 
+		if(this.equals(TYPE0)) return us; 
+		switch(this){
+		case TYPE1 : if(us.equals(TYPE4)) return TYPE5; else return null; 
+		case TYPE2 : if(us.equals(TYPE3)) return TYPE5; else return null; 
+		case TYPE3 : if(us.equals(TYPE2)) return TYPE5; else return null; 
+		case TYPE4 : if(us.equals(TYPE1)) return TYPE5; else return null; 
+		default:return null;
+		}
+		
+	}
+
+	public String alpha() {
+		return this.alpha; 
+		}
+		
 	}
 
 }
