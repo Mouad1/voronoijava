@@ -42,7 +42,6 @@ public class Motif extends Board {
 		for(int i=0;i<3;i++){
 			f=f.rotate(); 
 			String sc=f.getCodage();
-			System.out.println(i+" ** "+sc); 
 			if(sc.compareTo(smin)<0) smin=sc; 
 		}
 		return smin; 
@@ -56,6 +55,10 @@ public class Motif extends Board {
 		if(!(o instanceof Motif)) return false;
 		Motif m=(Motif)o; 
 		return this. canonicalCodage().equals(m.canonicalCodage()); 
+	}
+	
+	public int hashCode(){
+		return this.canonicalCodage().hashCode(); 
 	}
 	
 	
