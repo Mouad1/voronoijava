@@ -2,8 +2,8 @@ package tangram;
 
 /** Un (grand) plateau pour poser des pieces de tangram sans depasser les bords */
 public class Board {
-	private UnitSquare[][] lePlateau; 
-	private int lignes=10,colonnes=10;
+	protected UnitSquare[][] lePlateau; 
+	protected int lignes=10,colonnes=10;
 	
 	
 	
@@ -38,7 +38,6 @@ public class Board {
 	
 	
 	public void place(UnitConfig uc,int l,int c){
-		System.out.println(uc);
 		if (!isPossibleToAdd(uc, l, c)) {System.out.println("pas possible"); return;}
 		for(int i=0;i<uc.getLignes();i++)
 			for(int j=0;j<uc.getColonnes();j++) // placer le carre de base en l+i,c+j
@@ -55,20 +54,20 @@ public class Board {
 		return s; 
 	}
 	
-	private boolean ligneVide(int l){
+	protected boolean ligneVide(int l){
 		for(int j=0;j<colonnes;j++)
 			if(!this.lePlateau[l][j].equals(UnitSquare.TYPE0)) return false; 
 		return true; 
 	}
 	
-	private boolean colonneVide(int c){
+	protected boolean colonneVide(int c){
 		for(int j=0;j<lignes;j++)
 			if(!this.lePlateau[j][c].equals(UnitSquare.TYPE0)) return false; 
 		return true; 
 	}
 	
 	/** retourne le rectangle minimal contenant un motif */
-	public Board minBoard(){
+	public Motif reduce(){
 		// Chercher la premiere ligne contenant quelque chose 
 		int lmin=0; 
 		while(ligneVide(lmin))lmin++;
@@ -78,7 +77,7 @@ public class Board {
 		while(colonneVide(cmin))cmin++; 
 		int cmax=colonnes-1; 
 		while(colonneVide(cmax))cmax--;
-		Board reduce=new Board(lmax-lmin+1,cmax-cmin+1); 
+		Motif reduce=new Motif(lmax-lmin+1,cmax-cmin+1); 
 		for(int i=0;i<lmax-lmin+1;i++)
 			for(int j=0;j<cmax-cmin+1;j++){
 				reduce.lePlateau[i][j]=this.lePlateau[lmin+i][cmin+j];
