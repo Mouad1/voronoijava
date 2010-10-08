@@ -10,12 +10,14 @@ import java.util.Iterator;
  *  */
 public class TangramUnit implements Iterable<UnitConfig>{
 	private ArrayList<UnitConfig> lesConfigs=new ArrayList<UnitConfig>(); 
+	private String name; 
 	
 	static private TangramUnit makeCarre(){
 		TangramUnit c=new TangramUnit();
 		UnitSquare lc[]=new UnitSquare[1];
 		lc[0]=UnitSquare.TYPE5; 
 		c.lesConfigs.add(new UnitConfig(1,1,lc));
+		c.name="CARRE";
 		return c;
 	}
 	
@@ -32,6 +34,7 @@ public class TangramUnit implements Iterable<UnitConfig>{
 		c.lesConfigs.add(new UnitConfig(1,1,lc));
 		lc[0]=UnitSquare.TYPE4; 
 		c.lesConfigs.add(new UnitConfig(1,1,lc));
+		c.name="PETITTriangle"; 
 		return c; 
 	}
 	static public final TangramUnit PETITTRIANGLE1=makePetitTriangle();
@@ -52,6 +55,7 @@ public class TangramUnit implements Iterable<UnitConfig>{
 		lc[0]=UnitSquare.TYPE4;
 		lc[1]=UnitSquare.TYPE2; 
 		c.lesConfigs.add(new UnitConfig(2,1,lc));
+		c.name="MOYENTRIANGLE"; 
 		return c; 
 	}
 	static public final TangramUnit MOYENTRIANGLE=makeMoyenTriangle();
@@ -79,6 +83,7 @@ public class TangramUnit implements Iterable<UnitConfig>{
 		lc[2]=UnitSquare.TYPE4; 
 		lc[3]=UnitSquare.TYPE5; 
 		c.lesConfigs.add(new UnitConfig(2,2,lc));
+		c.name="GRANDTRIANGLE"; 
 		return c; 
 	}
 	
@@ -106,6 +111,7 @@ public class TangramUnit implements Iterable<UnitConfig>{
 		lc[1]=UnitSquare.TYPE5;
 		lc[2]=UnitSquare.TYPE1;  
 		c.lesConfigs.add(new UnitConfig(3,1,lc));
+		c.name="PARALLELOGRAMME"; 
 		return c; 
 	}
 	
@@ -130,6 +136,10 @@ public class TangramUnit implements Iterable<UnitConfig>{
 	}
 	static public TangramUnit[] sacAPiece={CARRE,PARALLELOGRAMME,PETITTRIANGLE1,
 			PETITTRIANGLE2,GRANDTRIANGLE1,GRANDTRIANGLE2,MOYENTRIANGLE};
+
+	public String name() {
+		return this.name; 
+	}
 	
 
 }

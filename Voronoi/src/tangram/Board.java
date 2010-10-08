@@ -26,8 +26,8 @@ public class Board {
 		
 	
 	public boolean isPossibleToAdd(UnitConfig uc,int l,int c){
-		if(l+uc.getLignes()>=this.lignes) return false; 
-		if(c+uc.getColonnes()>=this.colonnes) return false; 
+		if(l+uc.getLignes()>this.lignes) return false; 
+		if(c+uc.getColonnes()>this.colonnes) return false; 
 		
 		for(int i=0;i<uc.getLignes();i++)
 				for(int j=0;j<uc.getColonnes();j++){
