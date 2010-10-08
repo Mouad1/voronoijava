@@ -85,4 +85,23 @@ public class Board {
 		return reduce; 
 	}
 
+
+	/**
+	 * @return the lignes
+	 */
+	public int getLignes() {
+		return lignes;
+	}
+
+
+	/**
+	 * @return the colonnes
+	 */
+	public int getColonnes() {
+		return colonnes;
+	}
+	
+	
+	
+
 }
