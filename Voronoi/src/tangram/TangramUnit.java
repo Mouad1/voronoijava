@@ -134,8 +134,8 @@ public class TangramUnit implements Iterable<UnitConfig>{
 		return s; 
 		
 	}
-	static public TangramUnit[] sacAPiece={CARRE,PARALLELOGRAMME,PETITTRIANGLE1,
-			PETITTRIANGLE2,GRANDTRIANGLE1,GRANDTRIANGLE2,MOYENTRIANGLE};
+	static public TangramUnit[] sacAPiece={CARRE,PARALLELOGRAMME,GRANDTRIANGLE1,
+			GRANDTRIANGLE2,PETITTRIANGLE1,PETITTRIANGLE2,MOYENTRIANGLE};
 
 	public String name() {
 		return this.name; 
