@@ -1,5 +1,5 @@
 package tangram;
-
+// TODO : il manque les miroirs
 /** Un motif est un Board sans lignes ni colonnes inutiles (bounding box) */
 public class Motif extends Board {
 

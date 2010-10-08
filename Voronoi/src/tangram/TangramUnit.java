@@ -123,8 +123,9 @@ public class TangramUnit implements Iterable<UnitConfig>{
 			s+=e+"\n"; 
 		return s; 
 		
-		
 	}
+	public TangramUnit[] sacAPiece={CARRE,PARALLELOGRAMME,PETITTRIANGLE1,
+			PETITTRIANGLE2,GRANDTRIANGLE1,GRANDTRIANGLE2,MOYENTRIANGLE};
 	
 
 }

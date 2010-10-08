@@ -1,14 +1,35 @@
 package tangram;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 
 public class TangramTest {
 	
-	
+	private void placer(TangramUnit[] tu,int index,Motif dejaFait,HashSet<MotifIntermediaire> dejaVu){
+		if(index==7) return; 
+		Iterator<UnitConfig>it=tu[index].iterator();
+		Board exp=dejaFait.expand();
+		while(it.hasNext()){
+			UnitConfig uc=it.next();
+			for(int i=0;i<exp.lignes;i++)
+				for(int j=0;j<exp.colonnes;j++){
+					if(exp.isPossibleToAdd(uc,i,j)){
+						System.out.println("Placer "+uc+" en ("+i+","+j+")"); 
+						exp.place(uc,i,j); 
+						dejaVu.add(new MotifIntermediaire(exp.reduce(),index+1));
+						Motif okNene=exp.reduce();
+						placer(tu,index+1,okNene,dejaVu); 
+					}
+				}
+			
+			
+			
+		}
+	}
 	
 	public static void main(String[] args) {
-		HashSet<Motif> gardes=new HashSet<Motif>(); 
+		HashSet<MotifIntermediaire> gardes=new HashSet<MotifIntermediaire>(); 
 		TangramUnit tu=TangramUnit.GRANDTRIANGLE1; 
 		
 		Iterator<UnitConfig> it=tu.iterator(); 
@@ -31,14 +52,14 @@ public class TangramTest {
 						if(exp.isPossibleToAdd(uc,i,j)){
 							System.out.println("Placer "+uc+" en ("+i+","+j+")"); 
 							exp.place(uc,i,j); 
-							gardes.add(exp.reduce()); 
+							gardes.add(new MotifIntermediaire(exp.reduce(),2)); 
 							
 						}
 					}
 			}
 		
 		}
-		for(Motif e:gardes)
+		for(MotifIntermediaire e:gardes)
 			System.out.println(e); 
 		System.out.println(gardes.size());
 	}
