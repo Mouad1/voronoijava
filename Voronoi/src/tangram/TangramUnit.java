@@ -116,6 +116,10 @@ public class TangramUnit implements Iterable<UnitConfig>{
 		return this.lesConfigs.iterator(); 
 	}
 	
+	public UnitConfig getUnitConfig(int index){
+		return this.lesConfigs.get(index); 
+	}
+	
 	public String toString(){
 		String s="Cette piece a "+this.lesConfigs.size()+" configuration";
 		if(this.lesConfigs.size()>1) s+="s.\n"; else s+=".\n";
@@ -124,7 +128,7 @@ public class TangramUnit implements Iterable<UnitConfig>{
 		return s; 
 		
 	}
-	public TangramUnit[] sacAPiece={CARRE,PARALLELOGRAMME,PETITTRIANGLE1,
+	static public TangramUnit[] sacAPiece={CARRE,PARALLELOGRAMME,PETITTRIANGLE1,
 			PETITTRIANGLE2,GRANDTRIANGLE1,GRANDTRIANGLE2,MOYENTRIANGLE};
 	
 
