@@ -28,7 +28,7 @@ public class OffReader3DVertices {
 	private Random generator=new Random(); 
 	private  ArrayList<Vertex> lesCentresDesFaces=new ArrayList<Vertex>(); 
 	private  ArrayList<Vertex> lesNormales=new ArrayList<Vertex>(); 
-	public int nbVertices,nbFaces;
+	public int nbVertices,nbFaces,nbAretes;
 	private static int roulette=0; 
 	private static int roulette2=7; 
 	private String catena;
@@ -72,10 +72,10 @@ public class OffReader3DVertices {
 	
 	
 	private ArrayList<Vertex> vertices=new ArrayList<Vertex>();
-	private ArrayList<FaceTriangulaire> lesFacesTriangulaires=new ArrayList<FaceTriangulaire>(); 
-	private ArrayList<FacePolygonale> lesFacesPolygonales=new ArrayList<FacePolygonale>();
+	//private ArrayList<FaceTriangulaire> lesFacesTriangulaires=new ArrayList<FaceTriangulaire>(); 
+	//private ArrayList<FacePolygonale> lesFacesPolygonales=new ArrayList<FacePolygonale>();
 
-	private PrintStream output; 
+	//private PrintStream output; 
 	
 
 	private static double roundDecimals(double d) {
@@ -108,7 +108,7 @@ public class OffReader3DVertices {
           File source = new File(catena);
           try {
         	// output=new PrintStream("../../../../pearls/scene/geometry/polyhedra/archimedean/archi.txt");
-        	 output=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Test"+roulette+"_"+roulette2+".inc");
+        	 //=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Test"+roulette+"_"+roulette2+".inc");
         	  //output=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Test"+roulette+".inc");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
@@ -118,13 +118,16 @@ public class OffReader3DVertices {
                   nbVertices=rl.nextInt(); 
                   
                   nbFaces=rl.nextInt();
-                  System.out.println(nbVertices+" "+nbFaces);
+                
+                  
+                  nbAretes=rl.nextInt(); 
+                  System.out.println(nbVertices+" "+nbFaces+" "+nbAretes);
                   /*
                   System.out.println("mesh2{\n");
                   System.out.println("vertex_vectors{\n");
                   System.out.println(nbVertices+",\n");
                   */
-                  // lire les aretes
+                  // lire les sommets
                   for(int i=0;i<nbVertices;i++){
                 	  ligne=in.readLine();
                 	  rl=new Scanner(ligne); 
@@ -133,8 +136,27 @@ public class OffReader3DVertices {
                 	  Double y=rl.nextDouble();
                 	  Double z=rl.nextDouble();
                 	  vertices.add(new Vertex(x,y,z)); 
+                	  System.out.println("#declare V"+i+"=<"+x+","+y+","+z+">*imax;");
                 	
                   }
+                  
+                  for(int i=0;i<nbFaces;i++){
+                	  ligne=in.readLine();
+                	  System.out.println(ligne); 
+                  }
+                  
+                  for(int i=0;i<nbAretes;i++){
+                	  ligne=in.readLine();
+                	  rl=new Scanner(ligne); 
+                	  rl.useLocale(Locale.US);
+                	  //System.out.println(ligne); 
+                	  int i1=rl.nextInt(); 
+                	  int i2=rl.nextInt();
+                	  System.out.println("traceLigne(V"+i1+",V"+i2+",indmax)"); 
+                	  
+                  }
+                   
+                  
               //output.close();
              
                
@@ -147,7 +169,7 @@ public class OffReader3DVertices {
           // new TestIO().copieFichierTexte("essai.txt","output.txt");
           OffReader3DVertices toto=new OffReader3DVertices(); 
          TreeSet<Double>lesDistances=new TreeSet<Double>(); 
-          toto.afficheFichierTexte("disdyakis_dodecahedron");
+          toto.afficheFichierTexte("dodecahedron");
           for(int i=0;i<toto.vertices.size();i++){
         	  Vertex v1=toto.vertices.get(i); 
         	  for(int j=i+1;j<toto.vertices.size();j++){
@@ -159,7 +181,7 @@ public class OffReader3DVertices {
           HashMap <Double,DistList> distAndCouples=new HashMap<Double,DistList>(); 
           
           for(Double d:lesDistances){
-        	  	System.out.println(d); 
+        	  	System.out.println("**"+d); 
           		distAndCouples.put(d,new DistList(d));
           }
           for(int i=0;i<toto.vertices.size();i++){
@@ -182,34 +204,34 @@ public class OffReader3DVertices {
         for(DistList dl:distAndCouples.values()){
         	ArrayList<VertexCouple> lc=dl.getLesCouples(); 
         	VertexCouple vc=lc.get(0); 
-        	System.out.println(i+" "+vc.distance()+" "+lc.size());
+        	System.out.println(i+" *  "+vc.distance()+" "+lc.size());
         	if(i==roulette){
         		for(VertexCouple wc:lc){
         		if(!dejavu.contains(wc.getV1())){
-        			 toto.output.println("sphere{"+wc.getV1()+",diam  texture{T1} finish{F1}}");
+        			// toto.output.println("sphere{"+wc.getV1()+",diam  texture{T1} finish{F1}}");
         			 dejavu.add(wc.getV1());
         		}
         		if(!dejavu.contains(wc.getV2())){
-       			 toto.output.println("sphere{"+wc.getV2()+",diam  texture{T1} finish{F1}}");
+       			 //toto.output.println("sphere{"+wc.getV2()+",diam  texture{T1} finish{F1}}");
        			 dejavu.add(wc.getV2());
        		}
-        			toto.output.println("cylinder{"+wc.getV1()+","+wc.getV2()+",diam texture{T1} finish{F1}}"); 
+        			//toto.output.println("cylinder{"+wc.getV1()+","+wc.getV2()+",diam texture{T1} finish{F1}}"); 
         		}
         	}
         	 ///*
         		if(i==roulette2){
             		for(VertexCouple wc:lc){
             			if(!dejavu.contains(wc.getV1())){
-               			 toto.output.println("sphere{"+wc.getV1()+",diam  texture{T2} finish{F2}}");
+               			 //toto.output.println("sphere{"+wc.getV1()+",diam  texture{T2} finish{F2}}");
                			 dejavu.add(wc.getV1());
                		}
                		if(!dejavu.contains(wc.getV2())){
-              			 toto.output.println("sphere{"+wc.getV2()+",diam  texture{T2} finish{F2}}");
+              			 //toto.output.println("sphere{"+wc.getV2()+",diam  texture{T2} finish{F2}}");
               			 dejavu.add(wc.getV2());
               		}
             		
             		
-            			toto.output.println("cylinder{"+wc.getV1()+","+wc.getV2()+",diam texture{T2} finish{F2}}"); 
+            			//toto.output.println("cylinder{"+wc.getV1()+","+wc.getV2()+",diam texture{T2} finish{F2}}"); 
             		}
             		
         		}
@@ -219,7 +241,7 @@ public class OffReader3DVertices {
         	i++; 
         }
         System.out.println(i-1); 
-      toto.output.close();
+      //toto.output.close();
         
 	  }// main
 	
