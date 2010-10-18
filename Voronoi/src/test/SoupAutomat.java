@@ -113,18 +113,25 @@ public class SoupAutomat {
 		
 		
 		//String s="........................................................................................2..................."; 
-		String s="9186543724..............";
+
+		String s="9186543724.............."; 
+			
 		PrintStream output;  
 		int dist=120;
+
 		SoupAutomat sa=new SoupAutomat(200,dist,s); 
 
 		try{
+
 			  output=new PrintStream("F:/Povray/soupautomat4.txt");
 			//output=new PrintStream("/tmp/soupautomat2.txt");
+
 			//output=new PrintStream("/tmp/soupautomat.txt");
 		System.out.println("\""+sa+"\""); 
 		output.println("\""+sa+"\","+sa.minligne+","+sa.maxligne+",");
+
 		int maxiter=100; 
+
 		for(int i=0;i<maxiter;i++){
 			sa.mutate(); 
 			System.out.println("\""+sa+"\""+"\n"+sa.minligne+" "+sa.maxligne); 
