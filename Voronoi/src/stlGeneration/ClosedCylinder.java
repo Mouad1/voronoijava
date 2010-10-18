@@ -16,7 +16,7 @@ public class ClosedCylinder {
 		PrintStream issue=new PrintStream("F:/Povray/closedCylinderv2.stl"); 
 		double radius=10;
 		double length=50; 
-		int n=10; 
+		int n=100; 
 		double a=Math.sqrt(3)*2*Math.PI*radius/(2*n); 
 		double j1; 
 		double x0=0; // bout du cylindre
