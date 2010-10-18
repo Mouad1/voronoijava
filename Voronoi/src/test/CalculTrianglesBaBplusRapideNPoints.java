@@ -30,9 +30,13 @@ public class CalculTrianglesBaBplusRapideNPoints {
 						if(minx<MAXISCHUTZ) return; 
 					}
 			for(int i=0;i<nbpoints;i++)
-				System.out.print(P[i]+" "); 
+				System.out.println("drawTriangle(new double[]"+lesTriangles.get(P[i]).lesX()+",new double[]"+lesTriangles.get(P[i]).lesY()+");");
+			
+				//System.out.print(P[i]+" "); 
 			System.out.println(minx+" "+MAXISCHUTZ); 
 			if(minx>MAXISCHUTZ) MAXISCHUTZ=minx; 
+			
+				
 			return; 
 		}
 		else
@@ -54,42 +58,7 @@ public class CalculTrianglesBaBplusRapideNPoints {
 		
 		
 	}
-	static void enumere(int P[],int indice,int nbpoints,int taille,double minactu){
 	
-		if(indice==nbpoints){
-			dubdub++; 
-			
-			if(minactu>MAXISCHUTZ) {
-			
-				MAXISCHUTZ=minactu;
-				System.out.println("\t\t\t\t "+minactu);
-			}
-			
-			for(int i=0;i<nbpoints;i++)
-				System.out.print(P[i]+" "); 
-			System.out.println(); 
-		//}
-			return; 
-		}
-
-		// else
-		
-		for(int k=P[indice-1]+1; k<taille-nbpoints+indice+1;k++){
-			double min=minactu; 
-			P[indice]=k; 
-			for(int u=0;u<indice-2;u++)
-				for(int v=0;v<indice-1;v++){
-					double s=surfaceElem(P[u],P[v],P[indice]); 
-					//System.out.println(s); 
-					if(s<min)  min=s; 
-					//if(min<MAXISCHUTZ) return; 
-				}
-			
-			enumere(P,indice+1,nbpoints,taille,min); 
-			
-		}//k
-		
-	}
 	
 	static public double surfaceElem(int i,int j,int k){
 		Triangle T0=lesTriangles.get(i); 
@@ -126,7 +95,11 @@ public class CalculTrianglesBaBplusRapideNPoints {
 	
 	static ArrayList<Triangle> lesTriangles=new ArrayList<Triangle>(); 
 	public static void main(String[] args) {
+
+
 		int N=10; 
+
+
 		double r2=Math.sqrt(2);
 	
 		
@@ -158,10 +131,12 @@ public class CalculTrianglesBaBplusRapideNPoints {
 		P[0]=i; 			
 		enumere2(P,1,NBPOINTS,TAILLE);
 		}
+
 		System.out.println(MAXISCHUTZ+" "+dubdub+" "+TAILLE);
 		for(int i=0;i<NBPOINTS;i++){
 			System.out.println("drawTriangle(new double[]"+lesTriangles.get(P[i]).lesX()+",new double[]"+lesTriangles.get(P[i]).lesY()+");");
 		}
+
 	}
 }
 		
