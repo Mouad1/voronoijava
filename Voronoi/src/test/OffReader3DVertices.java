@@ -136,7 +136,7 @@ public class OffReader3DVertices {
                 	  Double y=rl.nextDouble();
                 	  Double z=rl.nextDouble();
                 	  vertices.add(new Vertex(x,y,z)); 
-                	  System.out.println("#declare V"+i+"=<"+x+","+y+","+z+">*imax;");
+                	  System.out.println("#declare V"+i+"=<"+0+","+y+","+z+">*imax;");
                 	
                   }
                   
