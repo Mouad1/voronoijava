@@ -64,8 +64,18 @@ public class FaceTriangulaire {
 		return ic;
 	}
 
+	public String pythonValue(){
+		String s ="";
+		s+="f=NMesh.Face()\n";
+		s+="f.v.append(me.verts["+ia+"])\n"; 
+		s+="f.v.append(me.verts["+ib+"])\n"; 
+		s+="f.v.append(me.verts["+ic+"])\n"; 
+		return s ; 
+	}
+	
 	public String toString(){
-		return "<"+ia+","+ib+","+ic+">";
+		//return "<"+ia+","+ib+","+ic+">";
+		return pythonValue(); 
 	}
 	
 	public double surface(){
