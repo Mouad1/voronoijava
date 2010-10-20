@@ -20,7 +20,7 @@ import utils.Transfo;
 import utils.Vertex;
 import utils.Pos3D; 
 
-public class OffReader3DMeshV2 {
+public class OffReader3DMeshToPython {
 	
 	private Random generator=new Random(); 
 	private  ArrayList<Vertex> lesCentresDesFaces=new ArrayList<Vertex>(); 
@@ -31,39 +31,6 @@ public class OffReader3DMeshV2 {
 		Locale.setDefault(Locale.US);
 	}
 	
-	protected int nn=0; 
-	public  int  maxsize=55; 
-	public  ArrayList<Vertex> trajet(ArrayList<Vertex> deja,ArrayList<Vertex> reste,Vertex v){
-		nn++;
-		if(reste.isEmpty()){
-			System.out.println("Houra !"); 
-			return deja; 
-		}
-		Iterator<Vertex> it=v.getIterator(); 
-		while(it.hasNext()){
-			Vertex q=it.next();
-			if(!deja.contains(q)){
-				ArrayList<Vertex> dejax=new ArrayList<Vertex>(deja);
-				ArrayList<Vertex> restex=new ArrayList<Vertex>(reste);
-				dejax.add(v);
-				restex.remove(q); 
-				ArrayList<Vertex> presu=trajet(dejax,restex,q); 
-				if(nn>10e6) return presu; 
-			}
-		}
-			if(deja.size()>maxsize){
-				maxsize=deja.size(); 
-				System.out.println("\t\t\t\t\t\t\t\t nouvelle taille max "+deja.size()+"("+nn+")"+nbVertices);
-				
-				for(int i=0;i<deja.size();i++){
-					
-					System.out.println(deja.get(i)+",diamsphere,");
-				}
-				
-	 	
-			}
-			return deja; 
-	}
 	
 	
 	private ArrayList<Vertex> vertices=new ArrayList<Vertex>();
@@ -79,21 +46,6 @@ public class OffReader3DMeshV2 {
 }
 	//private PrintStream output; 
 	
-	public void mix(){
-		System.out.println("entree dans mix "+vertices.size()+" "+nbVertices); 
-		ArrayList<Vertex> verpro=new ArrayList<Vertex>();
-		ArrayList<Integer> sac=new ArrayList<Integer>();
-		for(int i=0;i<nbVertices;i++)
-			sac.add(i); 
-		System.out.println("***"+sac.size());
-		for(int i=0;i<nbVertices;i++){
-			int gene=generator.nextInt(sac.size()); 
-			verpro.add(vertices.get(gene));
-			sac.remove(gene);
-		}
-		System.out.println("--->"+sac.size()+" "+verpro.size());
-		vertices=verpro;
-	}
 	
 	
 	public void afficheFichierTexte(String nomFichierSource) {
@@ -104,7 +56,7 @@ public class OffReader3DMeshV2 {
           try {
         	// output=new PrintStream("../../../../pearls/scene/geometry/polyhedra/archimedean/archi.txt");
         	//  output=new PrintStream("../pearls/scene/geometry/playingcards/archimedean/"+nomFichierSource+".inc");
-        	  output=new PrintStream(nomFichierSource+".inc");
+        	  output=new PrintStream(nomFichierSource+".py");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
                   while(ligne.charAt(0)=='#') ligne=in.readLine();
@@ -261,8 +213,8 @@ public class OffReader3DMeshV2 {
                   output.println(lesFacesTriangulaires.size()+","); 
                   for(FaceTriangulaire f:lesFacesTriangulaires)
                 	  if(lesFacesTriangulaires.indexOf(f)!=lesFacesTriangulaires.size()-1){
-                	//	System.out.println(f+","+ provi.indexOf(roundDecimals(f.surface()))+",");
-                  		output.println(f+","+ provi.indexOf(roundDecimals(f.surface()))+",");
+                		System.out.println(f+","+ provi.indexOf(roundDecimals(f.surface()))+",");
+                  	//	output.println(f+","+ provi.indexOf(roundDecimals(f.surface()))+",");
                 	  }
                 	  else{
                 		//  System.out.println(f+" "+provi.indexOf(roundDecimals(f.surface()))+"\n } \n }");
