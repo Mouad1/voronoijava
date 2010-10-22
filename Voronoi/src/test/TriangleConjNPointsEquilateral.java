@@ -93,7 +93,7 @@ public class TriangleConjNPointsEquilateral {
 					if(min<MAXISCHUTZ) return 0; 
 				}
 
-			evaluer(q,indice+1,min,al1,al2);
+		//	evaluer(q,indice+1,min,al1,al2);
 
 		}
 		
@@ -113,11 +113,9 @@ public class TriangleConjNPointsEquilateral {
 	
 	
 	public static void main(String args[]) {
-<<<<<<< .mine
-		int NBPOINTS=8; 
-=======
+
 		int NBPOINTS=9; 
->>>>>>> .r155
+
 		Point p[]=new Point[NBPOINTS];
 		
 		
