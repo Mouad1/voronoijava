@@ -74,4 +74,9 @@ public class Vertex extends Pos3D {
 		return new Vertex(valx,valy,valz); 
 	}
 	
+	public String rawString(){
+		String s=x+","+y+","+z; 
+		return s; 
+	}
+	
 }

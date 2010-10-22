@@ -22,7 +22,7 @@ public class FacePolygonale {
 	}
 	
 	public void determineAxe(){
-		System.out.println("---------------------------------dimension --------->"+dim); 
+		//System.out.println("---------------------------------dimension --------->"+dim); 
 		// trouver l'axe pour la transformation selon la forme de la face......
 		// Regarder combien il y a de longueurs d'aretes differentes
 		TreeSet<Double> lengthAretes=new TreeSet<Double>();
@@ -35,9 +35,9 @@ public class FacePolygonale {
 			double ps=Vertex.produitScalaire(vect1,vect2); // angle droit : un carre
 			
 			if((dim!=4)||(Math.abs(ps)<1e-6)){ // polygone regulier 
-				System.out.println("----------------> cas1"); 
+				//System.out.println("----------------> cas1"); 
 				if(dim%2==0){ // nombre pair de cotes
-					System.out.println("----------------> cas2"); 
+					//System.out.println("----------------> cas2"); 
 					this.extrem1=lesSommets.get(0); 
 					this.extrem2=lesSommets.get(dim/2); 
 		
@@ -45,7 +45,7 @@ public class FacePolygonale {
 				
 				else{ 
 					
-					System.out.println("----------------> cas3"); 
+					//System.out.println("----------------> cas3"); 
 					this.extrem1=lesSommets.get(0); 
 					this.extrem2=Vertex.middle(lesSommets.get(dim/2), lesSommets.get((dim+1)/2));	
 				}
