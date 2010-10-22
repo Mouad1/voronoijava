@@ -130,6 +130,7 @@ public class OffReader3DMeshToPython {
                   while(true){
                 	  int c0=rl.nextInt(); 
                 	  int c1=rl.nextInt(); 
+                	  
                 	  lesAretes.add(new Cylinder(vertices.get(c0),vertices.get(c1),c0,c1));
                 	  lengthAretes.add(roundDecimals(Pos3D.distance(vertices.get(c0), vertices.get(c1)))); 
                 	  ligne=in.readLine();
@@ -155,7 +156,7 @@ public class OffReader3DMeshToPython {
                  output.println("NMesh.PutRaw(me,\"polyhedron\",1)");
                  output.println("Blender.Redraw()"); 
                output.close(); 
-             
+            
                
                 
           } catch (Exception e) {System.out.println(e); 
