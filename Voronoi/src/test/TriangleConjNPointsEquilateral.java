@@ -168,44 +168,34 @@ public class TriangleConjNPointsEquilateral {
 				}
 				
 				
-<<<<<<< .mine
-			
-=======
+
 				double al1=0.1155917+0.000001*(0.5-gene.nextDouble()); 
 				
 				
 				
 				
->>>>>>> .r155
+
 				p[0]=new Point(al1*p1.x+(1-al1)*p2.x,al1*p1.y+(1-al1)*p2.y); 
 				p[1]=new Point(al1*p2.x+(1-al1)*p0.x,al1*p2.y+(1-al1)*p0.y); 
 				p[2]=new Point(al1*p0.x+(1-al1)*p1.x,al1*p0.y+(1-al1)*p1.y); 
 				
-<<<<<<< .mine
-				double al1=0.146+0.0005*(0.5-gene.nextDouble()); 
+
+			//	double al1=0.146+0.0005*(0.5-gene.nextDouble()); 
 				double al1p=al1; //0.1473+0.0005*(0.5-gene.nextDouble()); 
-=======
+				
 				double al2=1-al1; //0.884408+0.000001*(0.5-gene.nextDouble());
 				p[3]=new Point(al2*p1.x+(1-al2)*p2.x,al2*p1.y+(1-al2)*p2.y); 
 				p[4]=new Point(al2*p2.x+(1-al2)*p0.x,al2*p2.y+(1-al2)*p0.y); 
 				p[5]=new Point(al2*p0.x+(1-al2)*p1.x,al2*p0.y+(1-al2)*p1.y); 
->>>>>>> .r155
-				
-<<<<<<< .mine
+
 				p[1]=new Point(al1*p0.x+(1-al1)*p1.x,al1*p0.y+(1-al1)*p1.y); 
 				p[2]=new Point((1-al1p)*p2.x+al1p*p0.x,(1-al1p)*p2.y+al1p*p0.y); 
-=======
->>>>>>> .r155
-				
-<<<<<<< .mine
-				double al2=0.876+0.0005*(0.5-gene.nextDouble()); 
+
+				//double al2=0.876+0.0005*(0.5-gene.nextDouble()); 
 				p[3]=new Point(al2*p2.x+(1-al2)*p1.x,al2*p2.y+(1-al2)*p1.y); 
 				double al2p=al2; //gene.nextDouble(); 
 				p[4]=new Point(al2p*p1.x+(1-al2p)*p2.x,al2p*p1.y+(1-al2p)*p2.y); 
-=======
->>>>>>> .r155
-				
-<<<<<<< .mine
+
 			
 				/*
 				 for(int ii=0;ii<2;ii++){
@@ -243,7 +233,7 @@ public class TriangleConjNPointsEquilateral {
 				
 				
 				
-=======
+
 				double alpha=-Math.PI/3; //-2*Math.PI/3*gene.nextDouble(); 
 					
 					double 	x=u-h; //constd1/(Math.tan(alpha)-coefd1); 
@@ -257,13 +247,11 @@ public class TriangleConjNPointsEquilateral {
 
 					p[7]=rotation(2*Math.PI/3, p[6]); 
 					p[8]=rotation(4*Math.PI/3, p[6]); 
->>>>>>> .r155
-					
-<<<<<<< .mine
-				double min=evaluer(p,0,1.0,al1,al2);
-=======
-				double min=evaluer(p,0,1.0,alpha,radcoef,al1,al2);
->>>>>>> .r155
+
+				//double min=evaluer(p,0,1.0,al1,al2);
+
+				//double min=evaluer(p,0,1.0,alpha,radcoef,al1,al2);
+
 				
 				
 				}
