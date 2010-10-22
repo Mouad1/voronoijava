@@ -35,7 +35,7 @@ public class Transfo {
 		s+="#declare Victor=vrotate(Victor,<0,0,"+(-beta)+">);\n";
 		s+="#declare Victor=vrotate(Victor,<0,"+(-alpha)+",0>);\n";
 		s+="#declare Hugo=<0,0,1>;\n";
-		s+="#declare Hugo=vrotate(Hugo,<0,0,"+(-beta)+">);\n";
+		s+="#declare Hugo=vrotate(Hugo,<0,0,"+(-beta)+">);\n"; // TODO inutile ? 
 		s+="#declare Hugo=vrotate(Hugo,<0,"+(-alpha)+",0>);\n";
 		s+="#declare transy=<"+trans.x+","+trans.y+","+trans.z+">;\n";
 		s+="#declare provi=vdot(Hugo,transy)/sqrt(vdot(transy,transy));";

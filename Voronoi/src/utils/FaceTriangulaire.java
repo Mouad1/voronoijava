@@ -69,7 +69,7 @@ public class FaceTriangulaire {
 		s+="f=NMesh.Face()\n";
 		s+="f.v.append(me.verts["+ia+"])\n"; 
 		s+="f.v.append(me.verts["+ib+"])\n"; 
-		s+="f.v.append(me.verts["+ic+"])\n"; 
+		s+="f.v.append(me.verts["+ic+"])"; 
 		return s ; 
 	}
 	
@@ -84,7 +84,7 @@ public class FaceTriangulaire {
 		double cc=Pos3D.distance(a,b); 
 		double s=(ca+cb+cc)/2; 
 		double A=Math.sqrt(s*Math.abs((s-ca))*Math.abs((s-cb))*Math.abs((s-cc))); 
-		System.out.println("------------>"+ca+" "+cb+" "+cc+" "+s+" "+A); 
+		//System.out.println("------------>"+ca+" "+cb+" "+cc+" "+s+" "+A); 
 		return A; 
 	}
 	
