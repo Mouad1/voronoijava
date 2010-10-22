@@ -146,7 +146,7 @@ public class OffReader3DMeshToPython {
                   output.println("import Blender\nfrom Blender import NMesh"); 
                   output.println("me=NMesh.GetRaw()"); 
                   for(Vertex v:vertices){
-                	  output.println("v=NMesh.Vert"+v.pythonString()); 
+                	  output.println("v=NMesh.Vert("+v.rawString()+")"); 
                 	  output.println("me.verts.append(v)"); 
                   }
                   for(FaceTriangulaire f:lesFacesTriangulaires){
