@@ -46,13 +46,13 @@ public class ThreeDreader {
 	
 	public void afficheFichierTexte() {
 			//this.catena="C:/Documents and Settings/moi/workspace/Voronoi/src/test/"+nomFichierSource+".off";
-		//this.catena="/tmp/"+nomFichierSource+".off"; 
-		this.catena="f:/Povray/anamorphoses/quadri.txt"; 
+		this.catena="/tmp/quadri.txt"; 
+		//this.catena="f:/Povray/anamorphoses/quadri.txt"; 
           File source = new File(catena);
           HashSet<CoupleVertexDiam> sommets=new HashSet<CoupleVertexDiam>();
           try {
-        
-        	  output=new PrintStream("F:/Povray/spline.py");
+        	  output=new PrintStream("/tmp/spline.py"); 
+        	  //output=new PrintStream("F:/Povray/spline.py");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                 int u=0; 
                 boolean rooted=false; 
@@ -66,6 +66,7 @@ public class ThreeDreader {
                 	  String ligne=in.readLine();
                 	  if(ligne==null) {u=1; break;} 
                 	  Scanner rl=new Scanner(ligne); 
+                	  System.out.println("*"+ligne); 
                 	  rl.useLocale(Locale.US);
                 	  int indice=(int)rl.nextDouble(); 
                 	  diam[i]=rl.nextDouble();
@@ -134,7 +135,7 @@ public class ThreeDreader {
                   
                 
                output.close(); 
-               
+               System.out.println(sommets.size()); 
                
                 
           } catch (Exception e) {System.out.println(e); 
