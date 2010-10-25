@@ -61,6 +61,7 @@ def lineSegMe(p1,p2,dia=0.1,verts=16):
  length = dir.length
  
  # use Mesh.Primitives.Cylinder to create a mesh for the line
+ print dia
  me = Mesh.Primitives.Cylinder(verts,dia,length)
   
  ###############
