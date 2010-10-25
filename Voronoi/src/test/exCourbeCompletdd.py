@@ -38,6 +38,19 @@ import math
 ##############################################################
 # define function(s)
 
+def translate(p,r):
+ me=Mesh.Primitives.UVsphere(32,32,r)
+ dir=Vector(p)
+ A = Matrix(
+    [1,0,0,0],
+    [0,1,0,0],
+    [0,0,1,0],
+    [dir[0],dir[1],dir[2],1])
+ 
+ # apply the transform to the cylinder  
+ me.transform(A,True)
+ return me
+
  
 def lineSegMe(p1,p2,dia=0.1,verts=16):
  """
@@ -61,7 +74,7 @@ def lineSegMe(p1,p2,dia=0.1,verts=16):
  length = dir.length
  
  # use Mesh.Primitives.Cylinder to create a mesh for the line
- print dia
+ print dia 
  me = Mesh.Primitives.Cylinder(verts,dia,length)
   
  ###############
@@ -87,6 +100,8 @@ def lineSegMe(p1,p2,dia=0.1,verts=16):
   # find the orthonormal basis
   v = CrossVecs(u,uu)
   w = CrossVecs(u,v)
+  v.normalize()
+  w.normalize()
   # form the transform matrix:
   #   > The first 3 rows and 3 columns form
   #   a rotation matrix because the any vertex transformed by this
@@ -125,22 +140,7 @@ for ob in scene.objects:
    if (cmp(ob.getName(),'Cube')==0):
     scene.objects.unlink(ob)
 
-point0=Vector([-0.5044578100317,0.8582348272831,-0.1639082849669])
-point1=Vector([-0.3666297920772,0.8164965797983,-0.5046226872476])
-me=lineSegMe(point0,point1)
-ob=scene.objects.new(me,'arete0')
-point0=Vector([-0.5044578100317,0.8582348272831,-0.1639082849669])
-point1=Vector([-0.931841279804,0.4898979637948,-0.3027735826688])
-me=lineSegMe(point0,point1)
-localOb=scene.objects.new(me,'arete1')
-ob.join([localOb])
-scene.objects.unlink(localOb)
-point0=Vector([-0.5044578100317,0.8582348272831,-0.1639082849669])
-point1=Vector([-0.5932194585867,0.816496573595,0.1927486630816])
-me=lineSegMe(point0,point1)
-localOb=scene.objects.new(me,'arete2')
-ob.join([localOb])
-scene.objects.unlink(localOb)
+execfile("spline.py")
 
 
 
@@ -148,6 +148,7 @@ scene.objects.unlink(localOb)
 #######################################
 # render the image and save the image
 #
+
 context = scene.getRenderingContext()
 # enable seperate window for rendering
 Render.EnableDispWin()
@@ -158,7 +159,7 @@ context.render()
 # to the location specified by RenderPath
 # by default this will be a jpg file
 context.saveRenderedImage('PlotExampleQND.jpg')
- 
+
 Window.RedrawAll()
 #
 ########################################
