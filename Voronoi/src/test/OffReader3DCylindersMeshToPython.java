@@ -57,7 +57,7 @@ public class OffReader3DCylindersMeshToPython {
           try {
         	// output=new PrintStream("../../../../pearls/scene/geometry/polyhedra/archimedean/archi.txt");
         	//  output=new PrintStream("../pearls/scene/geometry/playingcards/archimedean/"+nomFichierSource+".inc");
-        	  output=new PrintStream("/tmp/"+nomFichierSource+".py");
+        	  output=new PrintStream("F:/Povray/"+nomFichierSource+".py");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
                   while(ligne.charAt(0)=='#') ligne=in.readLine();
@@ -67,7 +67,7 @@ public class OffReader3DCylindersMeshToPython {
                   
                   nbFaces=rl.nextInt();
                   System.out.println("#"+nbVertices+" "+nbFaces);
-                
+                  output.println("#"+nbVertices+" "+nbFaces);
                   // lire les sommets (vertices)
                   for(int i=0;i<nbVertices;i++){
                 	  ligne=in.readLine();
@@ -136,14 +136,26 @@ public class OffReader3DCylindersMeshToPython {
                 	  System.out.println("point0=Vector(["+vertices.get(c0).rawString()+"])");
                 	  System.out.println("point1=Vector(["+vertices.get(c1).rawString()+"])");
                 	  System.out.println("me=lineSegMe(point0,point1)");
+                	
+                	  output.println("point0=Vector(["+vertices.get(c0).rawString()+"])");
+                	  output.println("point1=Vector(["+vertices.get(c1).rawString()+"])");
+                	  output.println("me=lineSegMe(point0,point1)");
+                	  
                 	  if(!rooted){
                 	  System.out.println("ob=scene.objects.new(me,'arete"+index+"')");
+                	 
+                	  output.println("ob=scene.objects.new(me,'arete"+index+"')");
                 	  rooted=true; 
                 	  }
                 	  else{
                 		  System.out.println("localOb=scene.objects.new(me,'arete"+index+"')");
                 		  System.out.println("ob.join([localOb])"); 
                 		  System.out.println("scene.objects.unlink(localOb)");
+                		
+                		  output.println("localOb=scene.objects.new(me,'arete"+index+"')");
+                		  output.println("ob.join([localOb])"); 
+                		  output.println("scene.objects.unlink(localOb)");
+                		
                 	  }
                 	  index++;
                 	  lesAretes.add(new Cylinder(vertices.get(c0),vertices.get(c1),c0,c1));
@@ -160,11 +172,18 @@ public class OffReader3DCylindersMeshToPython {
                 	  System.out.println("localOb=scene.objects.new(me,'sphere"+index+"')");
             		  System.out.println("ob.join([localOb])"); 
             		  System.out.println("scene.objects.unlink(localOb)");
-                	  System.out.println("ob.join([localOb])"); 
-            		  System.out.println("scene.objects.unlink(localOb)");
+            		  
+            		  output.println("me=translate(["+v.rawString()+"])");
+                	  output.println("localOb=scene.objects.new(me,'sphere"+index+"')");
+            		  output.println("ob.join([localOb])"); 
+            		  output.println("scene.objects.unlink(localOb)");
+            		  
+            		  index++;
+            		  
                   }
                   
                   in.close();
+                  output.close();	
                   
              
             
