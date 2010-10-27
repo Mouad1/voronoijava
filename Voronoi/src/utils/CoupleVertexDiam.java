@@ -41,8 +41,9 @@ public class CoupleVertexDiam {
 	}
 	
 	public boolean equals(Object o){
-		if (!(o instanceof CoupleVertexDiam)) return false;  
-		return this.v.equals(o); 
+		if (!(o instanceof CoupleVertexDiam)) return false;
+		CoupleVertexDiam co =(CoupleVertexDiam)o;
+		return this.v.equals(co.v); 
 	}
 	
 	
