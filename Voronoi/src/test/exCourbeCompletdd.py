@@ -140,7 +140,7 @@ for ob in scene.objects:
    if (cmp(ob.getName(),'Cube')==0):
     scene.objects.unlink(ob)
 
-execfile("spline.py")
+execfile("splineX.py")
 
 
 
