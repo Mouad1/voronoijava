@@ -46,13 +46,13 @@ public class ThreeDreader {
 	
 	public void afficheFichierTexte() {
 			//this.catena="C:/Documents and Settings/moi/workspace/Voronoi/src/test/"+nomFichierSource+".off";
-		this.catena="/tmp/quadri.txt"; 
-		//this.catena="f:/Povray/anamorphoses/quadri.txt"; 
+		//this.catena="/tmp/quadri.txt"; 
+		this.catena="f:/Povray/anamorphoses/quadri.txt"; 
           File source = new File(catena);
           HashSet<CoupleVertexDiam> sommets=new HashSet<CoupleVertexDiam>();
           try {
-        	  output=new PrintStream("/tmp/spline.py"); 
-        	  //output=new PrintStream("F:/Povray/spline.py");
+        	  //output=new PrintStream("/tmp/spline.py"); 
+        	  output=new PrintStream("F:/Povray/splineX.py");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                 int u=0; 
                 boolean rooted=false; 
@@ -83,37 +83,31 @@ public class ThreeDreader {
                 		 Vertex p2=new Vertex(x[i+1],y[i+1],z[i+1]);
                 		 // un cylindre
                 		 System.out.println("point0=Vector(["+p1.rawString()+"])");
-                   	  System.out.println("point1=Vector(["+p2.rawString()+"])");
-                   	  System.out.println("me=lineSegMe(point0,point1"+10*diam[i+1]+")");
-                   	
-                   	  output.println("point0=Vector(["+p1.rawString()+"])");
-                   	  output.println("point1=Vector(["+p2.rawString()+"])");
-                   	  output.println("me=lineSegMe(point0,point1,"+10*diam[i+1]+")");
+                   	  	 System.out.println("point1=Vector(["+p2.rawString()+"])");
+                   	  
+                   	 
+                   	  	 output.println("point0=Vector(["+p1.rawString()+"])");
+                	  	 output.println("point1=Vector(["+p2.rawString()+"])");
+                   	 
                    	  
                    	  if(!rooted){
+                   	  System.out.println("me=lineSegMe(point0,point1,2,"+10*diam[i]+","+10*diam[i+1]+")");
                    	  System.out.println("ob=scene.objects.new(me,'arete"+i+"-"+cycle+"')");
                    	 
-                   	  output.println("ob=scene.objects.new(me,'arete"+i+"-"+cycle+"')");
+                   	  output.println("me=lineSegMe(point0,point1,2,"+10*diam[i]+","+10*diam[i+1]+")");
+                 	  output.println("ob=scene.objects.new(me,'arete"+i+"-"+cycle+"')");
                    	  rooted=true; 
                    	  }
                    	  else{
+                   		  System.out.println("me=lineSegMe(point0,point1,1,"+10*diam[i]+","+10*diam[i+1]+")");
                    		  System.out.println("localOb=scene.objects.new(me,'arete"+i+"-"+cycle+"')");
                    		  System.out.println("ob.join([localOb])"); 
                    		  System.out.println("scene.objects.unlink(localOb)");
                    		
-                   		  output.println("localOb=scene.objects.new(me,'arete"+i+"-"+cycle+"')");
-                   		  output.println("ob.join([localOb])"); 
-                   		  output.println("scene.objects.unlink(localOb)");
-                   		  /*
-                   		  output.println("me=translate(["+p1.rawString()+"],"+10*diam[i]+")");
-                   		  output.println("localOb=scene.objects.new(me,'sphere"+i+"-"+cycle+"')");
-                   		  output.println("ob.join([localOb])"); 
-                   		  output.println("scene.objects.unlink(localOb)");
-                   		  output.println("me=translate(["+p2.rawString()+"],"+10*diam[i+1]+")");
-                 		  output.println("localOb=scene.objects.new(me,'sphereb"+i+"-"+cycle+"')");
+                   		  output.println("me=lineSegMe(point0,point1,1,"+10*diam[i]+","+10*diam[i+1]+")");
+                 		  output.println("localOb=scene.objects.new(me,'arete"+i+"-"+cycle+"')");
                  		  output.println("ob.join([localOb])"); 
                  		  output.println("scene.objects.unlink(localOb)");
-                   		*/
                    	  }
                 		  
                 	  }// for
