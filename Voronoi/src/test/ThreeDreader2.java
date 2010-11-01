@@ -22,7 +22,7 @@ import utils.Transfo;
 import utils.Vertex;
 import utils.Pos3D; 
 
-public class ThreeDreader {
+public class ThreeDreader2 {
 	
 	
 	private String catena;
@@ -148,7 +148,7 @@ public class ThreeDreader {
   }
 	  public static void main(String args[]) {
           // new TestIO().copieFichierTexte("essai.txt","output.txt");
-          ThreeDreader toto=new ThreeDreader(); 
+          ThreeDreader2 toto=new ThreeDreader2(); 
          
           toto.afficheFichierTexte();
 
