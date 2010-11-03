@@ -60,11 +60,14 @@ public class ThreeDreader3 {
                 boolean u=true; 
                 boolean rooted=false; 
                 int cycle=0; 
+                int index=0;
+                double x[]=new double[21]; 
+            	double y[]=new double[21]; 
+            	double z[]=new double[21]; 
+                Vertex p1=null,p2=null; 
                 while(u){
-                	double diam[]=new double[21]; 
-                	double x[]=new double[21]; 
-                	double y[]=new double[21]; 
-                	double z[]=new double[21]; 
+                	//double diam[]=new double[21]; 
+                	
                   for(int i=0;i<21;i++){
                 	  String ligne=in.readLine();
                 	  if(ligne==null) {u=false; break;} 
@@ -72,7 +75,7 @@ public class ThreeDreader3 {
                 	  //System.out.println("*"+ligne); 
                 	  rl.useLocale(Locale.US);
                 	  int indice=(int)rl.nextDouble(); 
-                	  diam[i]=rl.nextDouble();
+                	 // diam[i]=rl.nextDouble();
                 	  x[i]=rl.nextDouble(); 
                 	  y[i]=rl.nextDouble();
                 	  z[i]=rl.nextDouble();
@@ -81,31 +84,30 @@ public class ThreeDreader3 {
                       cycle++;
                       System.out.println("meFinal=NMesh.GetRaw()"); 
                       output.println("meFinal=NMesh.GetRaw()"); 
-                      sommets.add(new CoupleVertexDiam(new Vertex(x[0], y[0], z[0]),ratio*2*diam[0]));
-                      sommets.add(new CoupleVertexDiam(new Vertex(x[20], y[20], z[20]),ratio*2*diam[14]));
-                	  for(int i=0;i<14;i++){
-                		 Vertex p1=new Vertex(x[i],y[i],z[i]);
-                		 Vertex p2=new Vertex(x[i+1],y[i+1],z[i+1]);
+                      sommets.add(new CoupleVertexDiam(new Vertex(x[0], y[0], z[0]),2));
+                      sommets.add(new CoupleVertexDiam(new Vertex(x[20], y[20], z[20]),2));
+                	  for(int i=0;i<20;i++){
+                		 p1=new Vertex(x[i],y[i],z[i]);
+                		 p2=new Vertex(x[i+1],y[i+1],z[i+1]);
                 		 // un cylindre
                 		 System.out.println("point0=Vector(["+p1.rawString()+"])");
                    	  	 System.out.println("point1=Vector(["+p2.rawString()+"])");
-                   	     System.out.println("meFinal.verts.extend(lineSegMe(point0,point1,"+ratio*diam[i]+",nbf)[1])");  
+                   	     System.out.println("meFinal.verts.extend(lineSegMe(point0,point1,diam,nbf)[3])");  
                    	     
                    	     output.println("point0=Vector(["+p1.rawString()+"])");
                 	  	 output.println("point1=Vector(["+p2.rawString()+"])");
                 	  	 if(i==0)
-                	     output.println("meFinal.verts.extend(lineSegMe(point0,point1,"+ratio*diam[i]+",nbf)[1])");
-                	  	 if((i>0)&&(i<20))
-                	     output.println("meFinal.verts.extend(lineSegMe(point0,point1,"+ratio*diam[i]+",nbf)[2])");
-                	  	 
-                   	     
+                	     output.println("meFinal.verts.extend(lineSegMe(point0,point1,diam,nbf)[3])");
+                	  	 if((i>0)&&(i<21))
+                	     output.println("meFinal.verts.extend(lineSegMe(point0,point1,diam,nbf)[3])");
+                	  	                   	     
                 	  }// for
                 	 
                 	  Vertex pfinal=new Vertex(x[20],y[20],z[20]);
-                	  Vertex pfinal2=new Vertex(x[20],y[20],z[20]);
+                	  Vertex pfinal2=new Vertex(x[0],y[0],z[0]);
                 	  System.out.println("point0=Vector(["+pfinal.rawString()+"])");
                 	  System.out.println("point1=Vector(["+pfinal2.rawString()+"])");
-                	  output.println("meFinal.verts.extend(lineSegMe(point0,point1,"+ratio*diam[20]+",nbf)[3])");  
+                	  output.println("meFinal.verts.extend(lineSegMe(point0,point1,diam,nbf)[3])");  
                 	  System.out.println("me=meshify(meFinal,nbf)");
                 	  System.out.println("localOb=scene.objects.new(me,'arete1-"+cycle+"')"); 
                 	  output.println("me=meshify(meFinal,nbf)");
@@ -119,22 +121,24 @@ public class ThreeDreader3 {
                 		 output.println("scene.objects.unlink(localOb)");
 
                 	  }
+                	 
+
                   }// if
                  
                 }// while
                  
                 System.out.println(sommets.size());
-                int i=0;
-                
-                for(CoupleVertexDiam cvm:sommets){
-                	  Vertex v=cvm.getV();	
-                	  output.println("me=translate(["+v.rawString()+"],"+cvm.getDiam()+")");
+              
+                /*
+                for(int i=0;i<21;i++){
+                	  Vertex v=new Vertex(x[i],y[i],z[i]);	
+                	  output.println("me=translate(["+v.rawString()+"],2*diam)");
               		  output.println("localOb=scene.objects.new(me,'sphere"+i+"')");
               		  output.println("ob.join([localOb])"); 
               		  output.println("scene.objects.unlink(localOb)");
-              		  i++; 
+              		
                 }
-                
+                */
                   in.close();
                   
                 
