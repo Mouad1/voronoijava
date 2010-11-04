@@ -56,8 +56,9 @@ public class OffReader3DCylindersMeshToPython {
           File source = new File(catena);
           try {
         	// output=new PrintStream("../../../../pearls/scene/geometry/polyhedra/archimedean/archi.txt");
-        	//  output=new PrintStream("../pearls/scene/geometry/playingcards/archimedean/"+nomFichierSource+".inc");
-        	  output=new PrintStream("F:/Povray/"+nomFichierSource+".py");
+        	// output=new PrintStream("../pearls/scene/geometry/playingcards/archimedean/"+nomFichierSource+".inc");
+        	  output=new PrintStream("/tmp/dd.txt"); 
+        	 // output=new PrintStream("F:/Povray/"+nomFichierSource+".py");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
                   while(ligne.charAt(0)=='#') ligne=in.readLine();
