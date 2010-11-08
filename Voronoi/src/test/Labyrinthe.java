@@ -116,11 +116,14 @@ public class Labyrinthe {
 	public static void main(String[] args) throws Exception{
 		//PrintStream out =new PrintStream("../pearls/scene/misc/desc.txt"); 
 		PrintStream out =new PrintStream("/tmp/desc.txt"); 
-		int mi=20; 
-		int mj=20; 
-		int mk=20; 
+		PrintStream outPY=new PrintStream("/tmp/laby.py"); 
+		int mi=8; 
+		int mj=8; 
+		int mk=8; 
 		Labyrinthe l = new Labyrinthe(mi,mj,mk);
 		l.generate();
+		int index=0; 
+		boolean rooted=false; 
 		for(int i=0;i<mi;i++)
 			for(int j=0;j<mj;j++)
 				for(int k=0;k<mk;k++){
@@ -130,6 +133,17 @@ public class Labyrinthe {
 					Case current=l.laby[i][j][k]; 
 					//out.println("sphere{<"+i+","+j+","+k+">,radio texture{pigment{color rgb <"+ci+","+cj+","+ck+">}} finish {fin1}}");
 					out.println("sphere{<"+i+","+j+","+k+">,radio texture{Tex1} finish {fin1}}");
+					outPY.println("me=translate(["+i+","+j+","+k+"])"); 
+					if(!rooted){
+						rooted=true; 
+						outPY.println("ob=scene.objects.new(me,'sphere"+index+"')");
+					}
+					else{
+						outPY.println("localOb=scene.objects.new(me,'sphere"+index+"')"); 
+						outPY.println("ob.join([localOb])");
+						outPY.println("scene.objects.unlink(localOb)");
+					}
+					index++; 
 					for(Direction d: Direction.values()){
 						Case voisine=current.getNeighbour(d); 
 						if(voisine!=null){
@@ -138,6 +152,13 @@ public class Labyrinthe {
 							int kp=voisine.getPosition().z; 
 							//out.println("cylinder{<"+i+","+j+","+k+">,<"+ip+","+jp+","+kp+">,radio texture{pigment{color rgb <"+ci+","+cj+","+ck+">}} finish {fin0}}");
 							out.println("cylinder{<"+i+","+j+","+k+">,<"+ip+","+jp+","+kp+">,radio texture{Tex1} finish {fin0}}");
+							outPY.println("point0=Vector(["+i+","+j+","+k+"])");
+							outPY.println("point1=Vector(["+ip+","+jp+","+kp+"])");
+							outPY.println("me=lineSegMe(point0,point1)"); 
+							outPY.println("localOb=scene.objects.new(me,'arete"+index+"')");
+							outPY.println("ob.join([localOb])");
+							outPY.println("scene.objects.unlink(localOb)");
+							index++; 
 							voisine.remove(d.getOpposite());
 						}
 					}
