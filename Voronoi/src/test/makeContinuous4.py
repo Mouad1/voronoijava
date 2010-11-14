@@ -264,9 +264,10 @@ for ob in scene.objects:
    if (cmp(ob.getName(),'Cube')==0):
     scene.objects.unlink(ob)
 
-nbf=100
+nbf=12
+diam=0.05
 
-execfile('f:/Povray/spline.py')
+execfile('f:/Povray/hamilton.py')
 
 
 
