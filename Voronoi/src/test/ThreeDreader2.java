@@ -47,7 +47,7 @@ public class ThreeDreader2 {
 	public void afficheFichierTexte() {
 			//this.catena="C:/Documents and Settings/moi/workspace/Voronoi/src/test/"+nomFichierSource+".off";
 		//this.catena="/tmp/quadri.txt"; 
-		double ratio=5; 
+		double ratio=1; 
 		this.catena="f:/Povray/anamorphoses/quadri.txt"; 
           File source = new File(catena);
           HashSet<CoupleVertexDiam> sommets=new HashSet<CoupleVertexDiam>();
