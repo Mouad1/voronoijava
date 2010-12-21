@@ -30,7 +30,7 @@ public class OffReader3DVertices {
 	private  ArrayList<Vertex> lesNormales=new ArrayList<Vertex>(); 
 	public int nbVertices,nbFaces,nbAretes;
 	private static int roulette=0; 
-	private static int roulette2=7; 
+	private static int roulette2=30; 
 	private String catena;
 	{
 		Locale.setDefault(Locale.US);
@@ -75,7 +75,7 @@ public class OffReader3DVertices {
 	//private ArrayList<FaceTriangulaire> lesFacesTriangulaires=new ArrayList<FaceTriangulaire>(); 
 	//private ArrayList<FacePolygonale> lesFacesPolygonales=new ArrayList<FacePolygonale>();
 
-	//private PrintStream output; 
+	private PrintStream output,outputBlender; 
 	
 
 	private static double roundDecimals(double d) {
@@ -108,7 +108,8 @@ public class OffReader3DVertices {
           File source = new File(catena);
           try {
         	// output=new PrintStream("../../../../pearls/scene/geometry/polyhedra/archimedean/archi.txt");
-        	 //=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Test"+roulette+"_"+roulette2+".inc");
+        	 output=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Test"+roulette+"_"+roulette2+".inc");
+        	 outputBlender=new PrintStream("F:/Povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+".py");
         	  //output=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Test"+roulette+".inc");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
@@ -169,7 +170,8 @@ public class OffReader3DVertices {
           // new TestIO().copieFichierTexte("essai.txt","output.txt");
           OffReader3DVertices toto=new OffReader3DVertices(); 
          TreeSet<Double>lesDistances=new TreeSet<Double>(); 
-          toto.afficheFichierTexte("dodecahedron");
+       
+          toto.afficheFichierTexte("snub_icosidodecahedron");
           for(int i=0;i<toto.vertices.size();i++){
         	  Vertex v1=toto.vertices.get(i); 
         	  for(int j=i+1;j<toto.vertices.size();j++){
@@ -194,11 +196,13 @@ public class OffReader3DVertices {
         	  }// j
           }//i
           
-          /*
+          
+        
+          
           for(Vertex v:toto.vertices){
         	  toto.output.println("sphere{"+v+",diam  texture{T1} finish{F1}}"); 
           }
-          */
+          int number=0;
           ArrayList<Vertex>dejavu=new ArrayList<Vertex>();
           int i=0; 
         for(DistList dl:distAndCouples.values()){
@@ -208,30 +212,121 @@ public class OffReader3DVertices {
         	if(i==roulette){
         		for(VertexCouple wc:lc){
         		if(!dejavu.contains(wc.getV1())){
-        			// toto.output.println("sphere{"+wc.getV1()+",diam  texture{T1} finish{F1}}");
+        			 toto.output.println("sphere{"+wc.getV1()+",diam  texture{T1} finish{F1}}");
         			 dejavu.add(wc.getV1());
+        			 
+        			 
+        			 //sphere
+        			 toto.outputBlender.println("me=translate(["+wc.getV1().rawString()+"],2*diam)");
+        			 if(number==0){
+        				 toto.outputBlender.println("ob=scene.objects.new(me,'sphere"+number+"')");
+        			 }
+        			 else{
+        			  toto.outputBlender.println("localOb=scene.objects.new(me,'sphere"+number+"')");
+        			  toto.outputBlender.println("ob.join([localOb])");
+            	      toto.outputBlender.println("scene.objects.unlink(localOb)");
+        			 }
+        		      number++;
+        		      
         		}
+        		
         		if(!dejavu.contains(wc.getV2())){
-       			 //toto.output.println("sphere{"+wc.getV2()+",diam  texture{T1} finish{F1}}");
+       			 toto.output.println("sphere{"+wc.getV2()+",diam  texture{T1} finish{F1}}");
        			 dejavu.add(wc.getV2());
-       		}
-        			//toto.output.println("cylinder{"+wc.getV1()+","+wc.getV2()+",diam texture{T1} finish{F1}}"); 
+       			 
+        	
+       			 //sphere
+    			 toto.outputBlender.println("me=translate(["+wc.getV2().rawString()+"],2*diam)");
+    			 if(number==0){
+    				 toto.outputBlender.println("ob=scene.objects.new(me,'sphere"+number+"')");
+    			 }
+    			 else{
+    			  toto.outputBlender.println("localOb=scene.objects.new(me,'sphere"+number+"')");
+    			  toto.outputBlender.println("ob.join([localOb])");
+        	      toto.outputBlender.println("scene.objects.unlink(localOb)");
+    			 }
+    		      number++;
+        		
+       			 
+        		}
+       			 // un cylindre
+          		  toto.outputBlender.println("meFinal=NMesh.GetRaw()"); 
+          		  toto.outputBlender.println("point0=Vector(["+wc.getV1().rawString()+"])");
+           	  	  toto.outputBlender.println("point1=Vector(["+wc.getV2().rawString()+"])");
+           	  	  toto.outputBlender.println("meFinal.verts.extend(lineSegMe(point0,point1,diam,nbf)[1])");  
+           	      toto.outputBlender.println("meFinal.verts.extend(lineSegMe(point0,point1,diam,nbf)[3])");  
+           	      toto.outputBlender.println("me=meshify(meFinal,nbf)");
+           	      if(number==0)
+           	    	  toto.outputBlender.println("ob=scene.objects.new(me,'piece"+number+"')");
+           	      else
+           	      {
+           	    	 toto.outputBlender.println("localOb=scene.objects.new(me,'piece"+number+"')");
+           	    	 toto.outputBlender.println("ob.join([localOb])");
+           	    	 toto.outputBlender.println("scene.objects.unlink(localOb)");
+           	      }
+           	      number++;
+       		
+        			toto.output.println("cylinder{"+wc.getV1()+","+wc.getV2()+",diam texture{T1} finish{F1}}"); 
         		}
         	}
         	 ///*
         		if(i==roulette2){
             		for(VertexCouple wc:lc){
             			if(!dejavu.contains(wc.getV1())){
-               			 //toto.output.println("sphere{"+wc.getV1()+",diam  texture{T2} finish{F2}}");
+               			 toto.output.println("sphere{"+wc.getV1()+",diam  texture{T2} finish{F2}}");
                			 dejavu.add(wc.getV1());
+               			 //sphere
+            			 toto.outputBlender.println("me=translate(["+wc.getV1().rawString()+"],2*diam)");
+            			 if(number==0){
+            				 toto.outputBlender.println("ob=scene.objects.new(me,'sphere"+number+"')");
+            			 }
+            			 else{
+            			  toto.outputBlender.println("localOb=scene.objects.new(me,'sphere"+number+"')");
+            			  toto.outputBlender.println("ob.join([localOb])");
+                	      toto.outputBlender.println("scene.objects.unlink(localOb)");
+            			 }
+            		      number++;
+               			 
+               			 
                		}
                		if(!dejavu.contains(wc.getV2())){
-              			 //toto.output.println("sphere{"+wc.getV2()+",diam  texture{T2} finish{F2}}");
+              			 toto.output.println("sphere{"+wc.getV2()+",diam  texture{T2} finish{F2}}");
               			 dejavu.add(wc.getV2());
+              			 //sphere
+            			 toto.outputBlender.println("me=translate(["+wc.getV2().rawString()+"],2*diam)");
+            			 if(number==0){
+            				 toto.outputBlender.println("ob=scene.objects.new(me,'sphere"+number+"')");
+            			 }
+            			 else{
+            			  toto.outputBlender.println("localOb=scene.objects.new(me,'sphere"+number+"')");
+            			  toto.outputBlender.println("ob.join([localOb])");
+                	      toto.outputBlender.println("scene.objects.unlink(localOb)");
+            			 }
+            		      number++;
               		}
             		
             		
-            			//toto.output.println("cylinder{"+wc.getV1()+","+wc.getV2()+",diam texture{T2} finish{F2}}"); 
+            			toto.output.println("cylinder{"+wc.getV1()+","+wc.getV2()+",diam texture{T2} finish{F2}}"); 
+            		
+            			 // un cylindre
+                		  toto.outputBlender.println("meFinal=NMesh.GetRaw()"); 
+                		  toto.outputBlender.println("point0=Vector(["+wc.getV1().rawString()+"])");
+                 	  	  toto.outputBlender.println("point1=Vector(["+wc.getV2().rawString()+"])");
+                 	  	  toto.outputBlender.println("meFinal.verts.extend(lineSegMe(point0,point1,diam,nbf)[1])");  
+                 	      toto.outputBlender.println("meFinal.verts.extend(lineSegMe(point0,point1,diam,nbf)[3])");  
+                 	      toto.outputBlender.println("me=meshify(meFinal,nbf)");
+                 	      if(number==0)
+                 	    	  toto.outputBlender.println("ob=scene.objects.new(me,'piece"+number+"')");
+                 	      else
+                 	      {
+                 	    	 toto.outputBlender.println("localOb=scene.objects.new(me,'piece"+number+"')");
+                 	    	 toto.outputBlender.println("ob.join([localOb])");
+                 	    	 toto.outputBlender.println("scene.objects.unlink(localOb)");
+                 	      }
+                 	      number++;
+            			
+            			
+            			
             		}
             		
         		}
@@ -241,6 +336,7 @@ public class OffReader3DVertices {
         	i++; 
         }
         System.out.println(i-1); 
+        System.out.println(roulette+" "+roulette2); 
       //toto.output.close();
         
 	  }// main
