@@ -29,8 +29,8 @@ public class OffReader3DVertices {
 	private  ArrayList<Vertex> lesCentresDesFaces=new ArrayList<Vertex>(); 
 	private  ArrayList<Vertex> lesNormales=new ArrayList<Vertex>(); 
 	public int nbVertices,nbFaces,nbAretes;
-	private static int roulette=0; 
-	private static int roulette2=30; 
+	private static int roulette=39; 
+	private static int roulette2=29; 
 	private String catena;
 	{
 		Locale.setDefault(Locale.US);
@@ -171,7 +171,7 @@ public class OffReader3DVertices {
           OffReader3DVertices toto=new OffReader3DVertices(); 
          TreeSet<Double>lesDistances=new TreeSet<Double>(); 
        
-          toto.afficheFichierTexte("snub_icosidodecahedron");
+          toto.afficheFichierTexte("truncated_icosidodecahedron");
           for(int i=0;i<toto.vertices.size();i++){
         	  Vertex v1=toto.vertices.get(i); 
         	  for(int j=i+1;j<toto.vertices.size();j++){
@@ -198,10 +198,11 @@ public class OffReader3DVertices {
           
           
         
-          
+          /*
           for(Vertex v:toto.vertices){
         	  toto.output.println("sphere{"+v+",diam  texture{T1} finish{F1}}"); 
           }
+          */
           int number=0;
           ArrayList<Vertex>dejavu=new ArrayList<Vertex>();
           int i=0; 
@@ -215,7 +216,7 @@ public class OffReader3DVertices {
         			 toto.output.println("sphere{"+wc.getV1()+",diam  texture{T1} finish{F1}}");
         			 dejavu.add(wc.getV1());
         			 
-        			 
+        			
         			 //sphere
         			 toto.outputBlender.println("me=translate(["+wc.getV1().rawString()+"],2*diam)");
         			 if(number==0){
@@ -234,7 +235,7 @@ public class OffReader3DVertices {
        			 toto.output.println("sphere{"+wc.getV2()+",diam  texture{T1} finish{F1}}");
        			 dejavu.add(wc.getV2());
        			 
-        	
+       			 
        			 //sphere
     			 toto.outputBlender.println("me=translate(["+wc.getV2().rawString()+"],2*diam)");
     			 if(number==0){
@@ -275,6 +276,8 @@ public class OffReader3DVertices {
             			if(!dejavu.contains(wc.getV1())){
                			 toto.output.println("sphere{"+wc.getV1()+",diam  texture{T2} finish{F2}}");
                			 dejavu.add(wc.getV1());
+               			 
+               			 
                			 //sphere
             			 toto.outputBlender.println("me=translate(["+wc.getV1().rawString()+"],2*diam)");
             			 if(number==0){
@@ -292,6 +295,8 @@ public class OffReader3DVertices {
                		if(!dejavu.contains(wc.getV2())){
               			 toto.output.println("sphere{"+wc.getV2()+",diam  texture{T2} finish{F2}}");
               			 dejavu.add(wc.getV2());
+              			 
+              			 
               			 //sphere
             			 toto.outputBlender.println("me=translate(["+wc.getV2().rawString()+"],2*diam)");
             			 if(number==0){
@@ -303,6 +308,7 @@ public class OffReader3DVertices {
                 	      toto.outputBlender.println("scene.objects.unlink(localOb)");
             			 }
             		      number++;
+            		      
               		}
             		
             		
