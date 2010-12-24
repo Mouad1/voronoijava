@@ -29,8 +29,8 @@ public class OffReader3DVertices {
 	private  ArrayList<Vertex> lesCentresDesFaces=new ArrayList<Vertex>(); 
 	private  ArrayList<Vertex> lesNormales=new ArrayList<Vertex>(); 
 	public int nbVertices,nbFaces,nbAretes;
-	private static int roulette=39; 
-	private static int roulette2=29; 
+	private static int roulette=22; 
+	private static int roulette2=30; 
 	private String catena;
 	{
 		Locale.setDefault(Locale.US);
@@ -171,7 +171,7 @@ public class OffReader3DVertices {
           OffReader3DVertices toto=new OffReader3DVertices(); 
          TreeSet<Double>lesDistances=new TreeSet<Double>(); 
        
-          toto.afficheFichierTexte("truncated_icosidodecahedron");
+          toto.afficheFichierTexte("kite_hexecontahedron");
           for(int i=0;i<toto.vertices.size();i++){
         	  Vertex v1=toto.vertices.get(i); 
         	  for(int j=i+1;j<toto.vertices.size();j++){
@@ -213,7 +213,8 @@ public class OffReader3DVertices {
         	if(i==roulette){
         		for(VertexCouple wc:lc){
         		if(!dejavu.contains(wc.getV1())){
-        			 toto.output.println("sphere{"+wc.getV1()+",diam  texture{T1} finish{F1}}");
+        			 toto.output.println("sphere{"+wc.getV1()+",diam*coef,rapo  texture{T1} finish{F1}}");
+        			// toto.output.println("normal {bumps 0.03 scale <1,0.25,0.25>*1 turbulence 0.6 }}");
         			 dejavu.add(wc.getV1());
         			 
         			
@@ -232,7 +233,7 @@ public class OffReader3DVertices {
         		}
         		
         		if(!dejavu.contains(wc.getV2())){
-       			 toto.output.println("sphere{"+wc.getV2()+",diam  texture{T1} finish{F1}}");
+       			 toto.output.println("sphere{"+wc.getV2()+",diam*coef,rapo  texture{T1} finish{F1}}");
        			 dejavu.add(wc.getV2());
        			 
        			 
@@ -267,14 +268,14 @@ public class OffReader3DVertices {
            	      }
            	      number++;
        		
-        			toto.output.println("cylinder{"+wc.getV1()+","+wc.getV2()+",diam texture{T1} finish{F1}}"); 
+        			toto.output.println("cylinder{"+wc.getV1()+","+wc.getV2()+",diam,rapo texture{T1} finish{F1}}"); 
         		}
         	}
         	 ///*
         		if(i==roulette2){
             		for(VertexCouple wc:lc){
             			if(!dejavu.contains(wc.getV1())){
-               			 toto.output.println("sphere{"+wc.getV1()+",diam  texture{T2} finish{F2}}");
+               			 toto.output.println("sphere{"+wc.getV1()+",diam*coef,rapo  texture{T2} finish{F2}}");
                			 dejavu.add(wc.getV1());
                			 
                			 
@@ -293,7 +294,7 @@ public class OffReader3DVertices {
                			 
                		}
                		if(!dejavu.contains(wc.getV2())){
-              			 toto.output.println("sphere{"+wc.getV2()+",diam  texture{T2} finish{F2}}");
+              			 toto.output.println("sphere{"+wc.getV2()+",diam*coef,rapo  texture{T2} finish{F2}}");
               			 dejavu.add(wc.getV2());
               			 
               			 
@@ -312,7 +313,7 @@ public class OffReader3DVertices {
               		}
             		
             		
-            			toto.output.println("cylinder{"+wc.getV1()+","+wc.getV2()+",diam texture{T2} finish{F2}}"); 
+            			toto.output.println("cylinder{"+wc.getV1()+","+wc.getV2()+",diam,rapo texture{T2} finish{F2}}"); 
             		
             			 // un cylindre
                 		  toto.outputBlender.println("meFinal=NMesh.GetRaw()"); 
