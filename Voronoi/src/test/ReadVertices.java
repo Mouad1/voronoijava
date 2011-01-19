@@ -94,6 +94,7 @@ public class ReadVertices {
   }
 	  public static void main(String args[]) {
           ReadVertices toto=new ReadVertices(); 
+
           toto.afficheFichierTexte("disdyakis_triacontahedron"); 
         
 	  }// main
