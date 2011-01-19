@@ -74,8 +74,8 @@ public class FaceTriangulaire {
 	}
 	
 	public String toString(){
-		//return "<"+ia+","+ib+","+ic+">";
-		return pythonValue(); 
+		return "<"+ia+","+ib+","+ic+">";
+		//return pythonValue(); 
 	}
 	
 	public double surface(){
