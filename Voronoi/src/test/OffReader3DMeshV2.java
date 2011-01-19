@@ -104,7 +104,7 @@ public class OffReader3DMeshV2 {
           try {
         	// output=new PrintStream("../../../../pearls/scene/geometry/polyhedra/archimedean/archi.txt");
         	//  output=new PrintStream("../pearls/scene/geometry/playingcards/archimedean/"+nomFichierSource+".inc");
-        	  output=new PrintStream(nomFichierSource+".inc");
+        	  output=new PrintStream("/tmp/"+nomFichierSource+".inc");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
                   while(ligne.charAt(0)=='#') ligne=in.readLine();
@@ -350,6 +350,17 @@ public class OffReader3DMeshV2 {
             	   output.println("#declare transface["+ui+"]="+t+";");
             	   ui++;
                }   
+               
+               System.out.println("#declare nbVertices="+vertices.size()+";"); 
+               output.println("#declare nbVertices="+vertices.size()+";");
+               System.out.println("#declare lesVertices=array[nbVertices];"); 
+               output.println("#declare lesVertices=array[nbVertices];"); 
+               int ind=0; 
+               for(Vertex v:vertices){
+            	   System.out.println("#declare lesVertices["+ind+"]="+vertices.get(ind)+";"); 
+            	   output.println("#declare lesVertices["+ind+"]="+vertices.get(ind)+";"); 
+            	   ind++; 
+               }
                
              
                output.close(); 
