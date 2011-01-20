@@ -104,7 +104,7 @@ public class OffReader3DMeshV2 {
           try {
         	// output=new PrintStream("../../../../pearls/scene/geometry/polyhedra/archimedean/archi.txt");
         	//  output=new PrintStream("../pearls/scene/geometry/playingcards/archimedean/"+nomFichierSource+".inc");
-        	  output=new PrintStream("/tmp/"+nomFichierSource+".inc");
+        	  output=new PrintStream(nomFichierSource+".inc");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
                   while(ligne.charAt(0)=='#') ligne=in.readLine();
@@ -247,26 +247,28 @@ public class OffReader3DMeshV2 {
                   // les textures
                   System.out.println("texture_list{\n"+provi.size()+","); 
                 
-                  output.println("texture_list{\n"+provi.size()+","); 
+                  output.println("/* \n texture_list{\n"+provi.size()+","); 
                 
                   for(int i=0;i<provi.size()-1;i++){
                 	  System.out.println("texture{texture"+i+"},");
                 	  output.println("texture{texture"+i+"},");
                   }
+                
                 // System.out.println("texture{texture"+(provi.size()-1)+"}\n }");
                  // System.out.println("face_indices{");
                   //System.out.println(lesFacesTriangulaires.size()+","); 
                   output.println("texture{texture"+(provi.size()-1)+"}\n }");
+                  output.println("*/"); 
                   output.println("face_indices{");
                   output.println(lesFacesTriangulaires.size()+","); 
                   for(FaceTriangulaire f:lesFacesTriangulaires)
                 	  if(lesFacesTriangulaires.indexOf(f)!=lesFacesTriangulaires.size()-1){
                 	//	System.out.println(f+","+ provi.indexOf(roundDecimals(f.surface()))+",");
-                  		output.println(f+","+ provi.indexOf(roundDecimals(f.surface()))+",");
+                  		output.println(f+",// ,"+ provi.indexOf(roundDecimals(f.surface()))+",");
                 	  }
                 	  else{
                 		//  System.out.println(f+" "+provi.indexOf(roundDecimals(f.surface()))+"\n } \n }");
-                		  output.println(f+" "+provi.indexOf(roundDecimals(f.surface()))+"\n } \n }");
+                		  output.println(f+" //"+provi.indexOf(roundDecimals(f.surface()))+"\n } \n }");
                 	  }
                   
                   // Les aretes 
@@ -375,7 +377,7 @@ public class OffReader3DMeshV2 {
           // new TestIO().copieFichierTexte("essai.txt","output.txt");
           OffReader3DMeshV2 toto=new OffReader3DMeshV2(); 
          
-          toto.afficheFichierTexte("octahedron");
+          toto.afficheFichierTexte("truncated_octahedron");
 
 
 
