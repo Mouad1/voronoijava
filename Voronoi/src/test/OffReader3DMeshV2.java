@@ -377,7 +377,7 @@ public class OffReader3DMeshV2 {
           // new TestIO().copieFichierTexte("essai.txt","output.txt");
           OffReader3DMeshV2 toto=new OffReader3DMeshV2(); 
          
-          toto.afficheFichierTexte("truncated_octahedron");
+          toto.afficheFichierTexte("icosidodecahedron");
 
 
 
