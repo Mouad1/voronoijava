@@ -67,6 +67,7 @@ public class OffReader3DMeshV2 {
 	
 	
 	private ArrayList<Vertex> vertices=new ArrayList<Vertex>();
+	private ArrayList<Vertex> trueVertices=new ArrayList<Vertex>();
 	private ArrayList<FaceTriangulaire> lesFacesTriangulaires=new ArrayList<FaceTriangulaire>(); 
 	private ArrayList<FacePolygonale> lesFacesPolygonales=new ArrayList<FacePolygonale>();
 
@@ -96,7 +97,7 @@ public class OffReader3DMeshV2 {
 	}
 	
 	
-	public void afficheFichierTexte(String nomFichierSource) {
+	public void afficheFichierTexte(String nomFichierSource,boolean veritable) {
 			//this.catena="C:/Documents and Settings/moi/workspace/Voronoi/src/test/"+nomFichierSource+".off";
 		//this.catena="/tmp/"+nomFichierSource+".off"; 
 		this.catena="./src/test/"+nomFichierSource+".off"; 
@@ -128,7 +129,7 @@ public class OffReader3DMeshV2 {
                 	  Double y=rl.nextDouble();
                 	  Double z=rl.nextDouble();
                 	  vertices.add(new Vertex(x,y,z)); 
-                	
+                	  trueVertices.add(new Vertex(x,y,z));
                   }
                   
                   for(int i=0;i<nbFaces;i++){
@@ -352,18 +353,29 @@ public class OffReader3DMeshV2 {
             	   output.println("#declare transface["+ui+"]="+t+";");
             	   ui++;
                }   
-               
-               System.out.println("#declare nbVertices="+vertices.size()+";"); 
-               output.println("#declare nbVertices="+vertices.size()+";");
+               if(veritable){
+               System.out.println("#declare nbVertices="+trueVertices.size()+";"); 
+               output.println("#declare nbVertices="+trueVertices.size()+";");
+               }
+               else{
+            	   System.out.println("#declare nbVertices="+vertices.size()+";"); 
+                   output.println("#declare nbVertices="+vertices.size()+";"); 
+          }
                System.out.println("#declare lesVertices=array[nbVertices];"); 
                output.println("#declare lesVertices=array[nbVertices];"); 
                int ind=0; 
-               for(Vertex v:vertices){
+               if(veritable)
+               for(Vertex v:trueVertices){
             	   System.out.println("#declare lesVertices["+ind+"]="+vertices.get(ind)+";"); 
             	   output.println("#declare lesVertices["+ind+"]="+vertices.get(ind)+";"); 
             	   ind++; 
                }
-               
+               else
+            	   for(Vertex v:vertices){
+                	   System.out.println("#declare lesVertices["+ind+"]="+vertices.get(ind)+";"); 
+                	   output.println("#declare lesVertices["+ind+"]="+vertices.get(ind)+";"); 
+                	   ind++; 
+                   }  
              
                output.close(); 
              
@@ -376,8 +388,9 @@ public class OffReader3DMeshV2 {
 	  public static void main(String args[]) {
           // new TestIO().copieFichierTexte("essai.txt","output.txt");
           OffReader3DMeshV2 toto=new OffReader3DMeshV2(); 
-         
-          toto.afficheFichierTexte("truncated_icosahedron");
+         // true : seulement les aretesd initiales
+          // false : ausi les centres des faces 
+          toto.afficheFichierTexte("truncated_dodecahedron",true);
 
 
 
