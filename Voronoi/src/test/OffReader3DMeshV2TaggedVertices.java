@@ -17,14 +17,15 @@ import utils.Cylinder;
 import utils.FacePolygonale;
 import utils.FaceTriangulaire;
 import utils.Transfo;
+import utils.TaggedVertex;
 import utils.Vertex;
 import utils.Pos3D; 
 
-public class OffReader3DMeshV2 {
+public class OffReader3DMeshV2TaggedVertices {
 	
 	private Random generator=new Random(); 
-	private  ArrayList<Vertex> lesCentresDesFaces=new ArrayList<Vertex>(); 
-	private  ArrayList<Vertex> lesNormales=new ArrayList<Vertex>(); 
+	private  ArrayList<TaggedVertex> lesCentresDesFaces=new ArrayList<TaggedVertex>(); 
+	private  ArrayList<TaggedVertex> lesNormales=new ArrayList<TaggedVertex>(); 
 	public int nbVertices,nbFaces;
 	private String catena;
 	{
@@ -33,40 +34,9 @@ public class OffReader3DMeshV2 {
 	
 	protected int nn=0; 
 	public  int  maxsize=55; 
-	public  ArrayList<Vertex> trajet(ArrayList<Vertex> deja,ArrayList<Vertex> reste,Vertex v){
-		nn++;
-		if(reste.isEmpty()){
-			System.out.println("Houra !"); 
-			return deja; 
-		}
-		Iterator<Vertex> it=v.getIterator(); 
-		while(it.hasNext()){
-			Vertex q=it.next();
-			if(!deja.contains(q)){
-				ArrayList<Vertex> dejax=new ArrayList<Vertex>(deja);
-				ArrayList<Vertex> restex=new ArrayList<Vertex>(reste);
-				dejax.add(v);
-				restex.remove(q); 
-				ArrayList<Vertex> presu=trajet(dejax,restex,q); 
-				if(nn>10e6) return presu; 
-			}
-		}
-			if(deja.size()>maxsize){
-				maxsize=deja.size(); 
-				System.out.println("\t\t\t\t\t\t\t\t nouvelle taille max "+deja.size()+"("+nn+")"+nbVertices);
-				
-				for(int i=0;i<deja.size();i++){
-					
-					System.out.println(deja.get(i)+",diamsphere,");
-				}
-				
-	 	
-			}
-			return deja; 
-	}
 	
 	
-	private ArrayList<Vertex> vertices=new ArrayList<Vertex>();
+	private ArrayList<TaggedVertex> vertices=new ArrayList<TaggedVertex>();
 	private ArrayList<FaceTriangulaire> lesFacesTriangulaires=new ArrayList<FaceTriangulaire>(); 
 	private ArrayList<FacePolygonale> lesFacesPolygonales=new ArrayList<FacePolygonale>();
 
@@ -78,7 +48,7 @@ public class OffReader3DMeshV2 {
 	return Double.valueOf(twoDForm.format(d));
 }
 	//private PrintStream output; 
-	
+	/*
 	public void mix(){
 		System.out.println("entree dans mix "+vertices.size()+" "+nbVertices); 
 		ArrayList<Vertex> verpro=new ArrayList<Vertex>();
@@ -94,7 +64,7 @@ public class OffReader3DMeshV2 {
 		System.out.println("--->"+sac.size()+" "+verpro.size());
 		vertices=verpro;
 	}
-	
+	*/
 	
 	public void afficheFichierTexte(String nomFichierSource) {
 			//this.catena="C:/Documents and Settings/moi/workspace/Voronoi/src/test/"+nomFichierSource+".off";
@@ -127,7 +97,7 @@ public class OffReader3DMeshV2 {
                 	  Double x=rl.nextDouble(); 
                 	  Double y=rl.nextDouble();
                 	  Double z=rl.nextDouble();
-                	  vertices.add(new Vertex(x,y,z)); 
+                	  vertices.add(new TaggedVertex(x,y,z)); 
                 	
                   }
                   
@@ -152,8 +122,9 @@ public class OffReader3DMeshV2 {
                 	  {
                 		  // calculer le milieu de l'ensemble des points c
                 		  Vertex center=new Vertex(0,0,0);
+                		  // TODO travail ici
                 		  for(int j=0;j<dim;j++) center= Vertex.add(vertices.get(coins[j]),center);
-                		  center=(Vertex) Vertex.mul(center,1.0/(dim+0.0)); 
+                		  center=(TaggedVertex) Vertex.mul(center,1.0/(dim+0.0)); 
                 		  vertices.add(center);
                 		  // Construire les dim triangles  (vi,v(i+1),c)
                 		  for(int j=0;j<dim;j++)
@@ -169,6 +140,7 @@ public class OffReader3DMeshV2 {
                 	  }
                 	  // Calculer les centres des faces (provisoire 05/2010)
                 	 
+                	  // TODO a changer
                 	  for(FaceTriangulaire f:lesFacesTriangulaires)
                 		  lesCentresDesFaces.add(f.getCenter()); 
                 	  
@@ -228,6 +200,7 @@ public class OffReader3DMeshV2 {
                 			  if(Math.abs(Vertex.produitScalaire(n,f.normal()))>epsilon)
                 			  n=Vertex.add(n,Vertex.mul(f.normal(),1)); 
                 	  }
+                	  // TODO Verifier
                 	  lesNormales.add(i,Vertex.mul(n,1));
                 	  
                   }// for v
@@ -375,9 +348,9 @@ public class OffReader3DMeshV2 {
   }
 	  public static void main(String args[]) {
           // new TestIO().copieFichierTexte("essai.txt","output.txt");
-          OffReader3DMeshV2 toto=new OffReader3DMeshV2(); 
+          OffReader3DMeshV2TaggedVertices toto=new OffReader3DMeshV2TaggedVertices(); 
          
-          toto.afficheFichierTexte("truncated_icosahedron");
+          toto.afficheFichierTexte("truncated_tetrahedron");
 
 
 
