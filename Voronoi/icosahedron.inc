@@ -32,32 +32,34 @@ normal_vectors{
 <0.0,0.0,0.0>,
 <0.0,0.0,0.0>
  }
-texture_list{
+/* 
+ texture_list{
 1,
 texture{texture0}
  }
+*/
 face_indices{
 20,
-<4,8,1>,0,
-<10,6,1>,0,
-<4,6,0>,0,
-<6,4,1>,0,
-<8,3,1>,0,
-<3,10,1>,0,
-<4,9,8>,0,
-<2,9,0>,0,
-<9,4,0>,0,
-<11,6,10>,0,
-<11,2,0>,0,
-<6,11,0>,0,
-<5,3,8>,0,
-<9,5,8>,0,
-<5,9,2>,0,
-<3,7,10>,0,
-<7,11,10>,0,
-<11,7,2>,0,
-<7,5,2>,0,
-<5,7,3> 0
+<4,8,1>,// ,0,
+<10,6,1>,// ,0,
+<4,6,0>,// ,0,
+<6,4,1>,// ,0,
+<8,3,1>,// ,0,
+<3,10,1>,// ,0,
+<4,9,8>,// ,0,
+<2,9,0>,// ,0,
+<9,4,0>,// ,0,
+<11,6,10>,// ,0,
+<11,2,0>,// ,0,
+<6,11,0>,// ,0,
+<5,3,8>,// ,0,
+<9,5,8>,// ,0,
+<5,9,2>,// ,0,
+<3,7,10>,// ,0,
+<7,11,10>,// ,0,
+<11,7,2>,// ,0,
+<7,5,2>,// ,0,
+<5,7,3> //0
  } 
  }
 #declare aretes=union{
@@ -562,3 +564,17 @@ object{sphere{<-0.6180339887499,-1.0,0.0>,diam1 }}
 #declare Hugo=vrotate(Hugo,<0,159.09484255211098,0>);
 #declare transy=<-0.25,-0.154508497187475,0.9045084971874751>;
 #declare provi=vdot(Hugo,transy)/sqrt(vdot(transy,transy));#declare provi=acos(provi)*180/pi;#if(transy.y>0) #declare provi=-provi; #end transform{translate 0.0*y scale 1.0 rotate -29.999999999999748*z rotate 159.09484255211098*y Axis_Rotate_Trans(Victor,provi)  translate <0.25,0.154508497187475,-0.9045084971874751>};
+#declare nbVertices=12;
+#declare lesVertices=array[nbVertices];
+#declare lesVertices[0]=<-1.0,0.0,0.6180339887499>;
+#declare lesVertices[1]=<1.0,0.0,0.6180339887499>;
+#declare lesVertices[2]=<-1.0,0.0,-0.6180339887499>;
+#declare lesVertices[3]=<1.0,0.0,-0.6180339887499>;
+#declare lesVertices[4]=<0.0,0.6180339887499,1.0>;
+#declare lesVertices[5]=<0.0,0.6180339887499,-1.0>;
+#declare lesVertices[6]=<0.0,-0.6180339887499,1.0>;
+#declare lesVertices[7]=<0.0,-0.6180339887499,-1.0>;
+#declare lesVertices[8]=<0.6180339887499,1.0,0.0>;
+#declare lesVertices[9]=<-0.6180339887499,1.0,0.0>;
+#declare lesVertices[10]=<0.6180339887499,-1.0,0.0>;
+#declare lesVertices[11]=<-0.6180339887499,-1.0,0.0>;
