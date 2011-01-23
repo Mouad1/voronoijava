@@ -16,16 +16,18 @@ normal_vectors{
 <0.0,0.0,0.0>,
 <0.0,0.0,0.0>
  }
-texture_list{
+/* 
+ texture_list{
 1,
 texture{texture0}
  }
+*/
 face_indices{
 4,
-<0,2,1>,0,
-<3,0,1>,0,
-<2,3,1>,0,
-<3,2,0> 0
+<0,2,1>,// ,0,
+<3,0,1>,// ,0,
+<2,3,1>,// ,0,
+<3,2,0> //0
  } 
  }
 #declare aretes=union{
@@ -138,3 +140,9 @@ object{sphere{<-1.0,-1.0,-1.0>,diam1 }}
 #declare Hugo=vrotate(Hugo,<0,153.43494882292202,0>);
 #declare transy=<-0.0,0.5,0.5>;
 #declare provi=vdot(Hugo,transy)/sqrt(vdot(transy,transy));#declare provi=acos(provi)*180/pi;#if(transy.y>0) #declare provi=-provi; #end transform{translate 0.0*y scale 1.0 rotate -114.09484255211072*z rotate 153.43494882292202*y Axis_Rotate_Trans(Victor,provi)  translate <0.0,-0.5,-0.5>};
+#declare nbVertices=4;
+#declare lesVertices=array[nbVertices];
+#declare lesVertices[0]=<1.0,1.0,-1.0>;
+#declare lesVertices[1]=<-1.0,1.0,1.0>;
+#declare lesVertices[2]=<1.0,-1.0,1.0>;
+#declare lesVertices[3]=<-1.0,-1.0,-1.0>;
