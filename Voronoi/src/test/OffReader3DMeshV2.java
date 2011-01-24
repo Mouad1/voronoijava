@@ -390,7 +390,8 @@ public class OffReader3DMeshV2 {
           OffReader3DMeshV2 toto=new OffReader3DMeshV2(); 
          // true : seulement les aretesd initiales
           // false : ausi les centres des faces 
-          toto.afficheFichierTexte("cuboctahedron",true);
+
+          toto.afficheFichierTexte("truncated_tetrahedron",true);
 
 
 
