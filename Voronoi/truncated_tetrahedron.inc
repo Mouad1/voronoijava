@@ -1,3 +1,4 @@
+
 #declare truncated_tetrahedron=mesh2{
 
 vertex_vectors{
@@ -370,3 +371,4 @@ object{sphere{<-1.0,-3.0,-1.0>,diam1 }}
 #declare lesVertices[13]=<1.0,1.0,1.0>;
 #declare lesVertices[14]=<-1.0,-1.0,1.0>;
 #declare lesVertices[15]=<1.0,-1.0,-1.0>;
+

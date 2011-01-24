@@ -391,7 +391,7 @@ public class OffReader3DMeshV2 {
          // true : seulement les aretesd initiales
           // false : ausi les centres des faces 
 
-          toto.afficheFichierTexte("truncated_tetrahedron",true);
+          toto.afficheFichierTexte("rhombicosidodecahedron",true);
 
 
 
