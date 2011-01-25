@@ -392,7 +392,7 @@ public class OffReader3DMeshV2 {
           // false : ausi les centres des faces 
 
 
-          toto.afficheFichierTexte("snub_icosidodecahedron",true);
+          toto.afficheFichierTexte("truncated_octahedron",true);
 
 
 
