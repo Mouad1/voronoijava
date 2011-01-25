@@ -687,7 +687,7 @@ object{sphere{<-2.0,-1.0,0.0>,diam1 }}
 #declare Hugo=vrotate(Hugo,<0,-0.0,0>);
 #declare transy=<-0.0,-0.0,-2.0>;
 #declare provi=vdot(Hugo,transy)/sqrt(vdot(transy,transy));#declare provi=acos(provi)*180/pi;#if(transy.y>0) #declare provi=-provi; #end transform{translate 0.0*y scale 1.0 rotate -90.0*z rotate -0.0*y Axis_Rotate_Trans(Victor,provi)  translate <0.0,0.0,2.0>};
-#declare nbVertices=38;
+#declare nbVertices=24;
 #declare lesVertices=array[nbVertices];
 #declare lesVertices[0]=<0.0,1.0,2.0>;
 #declare lesVertices[1]=<0.0,2.0,1.0>;
@@ -713,17 +713,3 @@ object{sphere{<-2.0,-1.0,0.0>,diam1 }}
 #declare lesVertices[21]=<-1.0,-2.0,0.0>;
 #declare lesVertices[22]=<-2.0,0.0,-1.0>;
 #declare lesVertices[23]=<-2.0,-1.0,0.0>;
-#declare lesVertices[24]=<0.0,2.0,0.0>;
-#declare lesVertices[25]=<-1.0,1.0,-1.0>;
-#declare lesVertices[26]=<-1.0,1.0,1.0>;
-#declare lesVertices[27]=<2.0,0.0,0.0>;
-#declare lesVertices[28]=<-2.0,0.0,0.0>;
-#declare lesVertices[29]=<1.0,1.0,-1.0>;
-#declare lesVertices[30]=<1.0,1.0,1.0>;
-#declare lesVertices[31]=<0.0,-2.0,0.0>;
-#declare lesVertices[32]=<-1.0,-1.0,-1.0>;
-#declare lesVertices[33]=<1.0,-1.0,-1.0>;
-#declare lesVertices[34]=<0.0,0.0,-2.0>;
-#declare lesVertices[35]=<-1.0,-1.0,1.0>;
-#declare lesVertices[36]=<1.0,-1.0,1.0>;
-#declare lesVertices[37]=<0.0,0.0,2.0>;
