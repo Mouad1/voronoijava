@@ -392,6 +392,7 @@ public class OffReader3DMeshV2 {
           // false : ausi les centres des faces 
 
 
+
           toto.afficheFichierTexte("truncated_icosahedron",true);
 
 
