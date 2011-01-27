@@ -80,246 +80,66 @@ texture{texture0}
 */
 face_indices{
 60,
-f=NMesh.Face()
-f.v.append(me.verts[1])
-f.v.append(me.verts[0])
-f.v.append(me.verts[2]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[0])
-f.v.append(me.verts[3])
-f.v.append(me.verts[2]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[1])
-f.v.append(me.verts[4])
-f.v.append(me.verts[0]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[2])
-f.v.append(me.verts[5])
-f.v.append(me.verts[1]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[6])
-f.v.append(me.verts[3])
-f.v.append(me.verts[0]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[7])
-f.v.append(me.verts[2])
-f.v.append(me.verts[3]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[8])
-f.v.append(me.verts[4])
-f.v.append(me.verts[1]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[9])
-f.v.append(me.verts[0])
-f.v.append(me.verts[4]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[7])
-f.v.append(me.verts[5])
-f.v.append(me.verts[2]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[10])
-f.v.append(me.verts[1])
-f.v.append(me.verts[5]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[6])
-f.v.append(me.verts[11])
-f.v.append(me.verts[3]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[0])
-f.v.append(me.verts[9])
-f.v.append(me.verts[6]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[3])
-f.v.append(me.verts[12])
-f.v.append(me.verts[7]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[8])
-f.v.append(me.verts[13])
-f.v.append(me.verts[4]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[1])
-f.v.append(me.verts[10])
-f.v.append(me.verts[8]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[4])
-f.v.append(me.verts[13])
-f.v.append(me.verts[9]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[7])
-f.v.append(me.verts[14])
-f.v.append(me.verts[5]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[5])
-f.v.append(me.verts[15])
-f.v.append(me.verts[10]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[16])
-f.v.append(me.verts[11])
-f.v.append(me.verts[6]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[12])
-f.v.append(me.verts[3])
-f.v.append(me.verts[11]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[16])
-f.v.append(me.verts[6])
-f.v.append(me.verts[9]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[17])
-f.v.append(me.verts[7])
-f.v.append(me.verts[12]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[18])
-f.v.append(me.verts[13])
-f.v.append(me.verts[8]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[19])
-f.v.append(me.verts[8])
-f.v.append(me.verts[10]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[20])
-f.v.append(me.verts[9])
-f.v.append(me.verts[13]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[17])
-f.v.append(me.verts[14])
-f.v.append(me.verts[7]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[15])
-f.v.append(me.verts[5])
-f.v.append(me.verts[14]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[19])
-f.v.append(me.verts[10])
-f.v.append(me.verts[15]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[16])
-f.v.append(me.verts[21])
-f.v.append(me.verts[11]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[11])
-f.v.append(me.verts[22])
-f.v.append(me.verts[12]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[9])
-f.v.append(me.verts[20])
-f.v.append(me.verts[16]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[12])
-f.v.append(me.verts[22])
-f.v.append(me.verts[17]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[18])
-f.v.append(me.verts[23])
-f.v.append(me.verts[13]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[8])
-f.v.append(me.verts[19])
-f.v.append(me.verts[18]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[13])
-f.v.append(me.verts[23])
-f.v.append(me.verts[20]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[17])
-f.v.append(me.verts[24])
-f.v.append(me.verts[14]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[14])
-f.v.append(me.verts[24])
-f.v.append(me.verts[15]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[15])
-f.v.append(me.verts[25])
-f.v.append(me.verts[19]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[26])
-f.v.append(me.verts[21])
-f.v.append(me.verts[16]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[22])
-f.v.append(me.verts[11])
-f.v.append(me.verts[21]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[26])
-f.v.append(me.verts[16])
-f.v.append(me.verts[20]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[27])
-f.v.append(me.verts[17])
-f.v.append(me.verts[22]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[28])
-f.v.append(me.verts[23])
-f.v.append(me.verts[18]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[28])
-f.v.append(me.verts[18])
-f.v.append(me.verts[19]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[26])
-f.v.append(me.verts[20])
-f.v.append(me.verts[23]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[27])
-f.v.append(me.verts[24])
-f.v.append(me.verts[17]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[25])
-f.v.append(me.verts[15])
-f.v.append(me.verts[24]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[28])
-f.v.append(me.verts[19])
-f.v.append(me.verts[25]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[26])
-f.v.append(me.verts[29])
-f.v.append(me.verts[21]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[21])
-f.v.append(me.verts[29])
-f.v.append(me.verts[22]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[22])
-f.v.append(me.verts[29])
-f.v.append(me.verts[27]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[28])
-f.v.append(me.verts[30])
-f.v.append(me.verts[23]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[23])
-f.v.append(me.verts[30])
-f.v.append(me.verts[26]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[27])
-f.v.append(me.verts[31])
-f.v.append(me.verts[24]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[24])
-f.v.append(me.verts[31])
-f.v.append(me.verts[25]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[25])
-f.v.append(me.verts[31])
-f.v.append(me.verts[28]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[30])
-f.v.append(me.verts[29])
-f.v.append(me.verts[26]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[31])
-f.v.append(me.verts[27])
-f.v.append(me.verts[29]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[31])
-f.v.append(me.verts[30])
-f.v.append(me.verts[28]),// ,0,
-f=NMesh.Face()
-f.v.append(me.verts[30])
-f.v.append(me.verts[31])
-f.v.append(me.verts[29]) //0
+<1,0,2>,// ,0,
+<0,3,2>,// ,0,
+<1,4,0>,// ,0,
+<2,5,1>,// ,0,
+<6,3,0>,// ,0,
+<7,2,3>,// ,0,
+<8,4,1>,// ,0,
+<9,0,4>,// ,0,
+<7,5,2>,// ,0,
+<10,1,5>,// ,0,
+<6,11,3>,// ,0,
+<0,9,6>,// ,0,
+<3,12,7>,// ,0,
+<8,13,4>,// ,0,
+<1,10,8>,// ,0,
+<4,13,9>,// ,0,
+<7,14,5>,// ,0,
+<5,15,10>,// ,0,
+<16,11,6>,// ,0,
+<12,3,11>,// ,0,
+<16,6,9>,// ,0,
+<17,7,12>,// ,0,
+<18,13,8>,// ,0,
+<19,8,10>,// ,0,
+<20,9,13>,// ,0,
+<17,14,7>,// ,0,
+<15,5,14>,// ,0,
+<19,10,15>,// ,0,
+<16,21,11>,// ,0,
+<11,22,12>,// ,0,
+<9,20,16>,// ,0,
+<12,22,17>,// ,0,
+<18,23,13>,// ,0,
+<8,19,18>,// ,0,
+<13,23,20>,// ,0,
+<17,24,14>,// ,0,
+<14,24,15>,// ,0,
+<15,25,19>,// ,0,
+<26,21,16>,// ,0,
+<22,11,21>,// ,0,
+<26,16,20>,// ,0,
+<27,17,22>,// ,0,
+<28,23,18>,// ,0,
+<28,18,19>,// ,0,
+<26,20,23>,// ,0,
+<27,24,17>,// ,0,
+<25,15,24>,// ,0,
+<28,19,25>,// ,0,
+<26,29,21>,// ,0,
+<21,29,22>,// ,0,
+<22,29,27>,// ,0,
+<28,30,23>,// ,0,
+<23,30,26>,// ,0,
+<27,31,24>,// ,0,
+<24,31,25>,// ,0,
+<25,31,28>,// ,0,
+<30,29,26>,// ,0,
+<31,27,29>,// ,0,
+<31,30,28>,// ,0,
+<30,31,29> //0
  } 
  }
 #declare aretes=union{

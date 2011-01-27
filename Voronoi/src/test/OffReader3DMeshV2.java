@@ -393,7 +393,7 @@ public class OffReader3DMeshV2 {
 
 
 
-          toto.afficheFichierTexte("truncated_icosahedron",true);
+          toto.afficheFichierTexte("kite_icositetrahedron",true);
 
 
 
