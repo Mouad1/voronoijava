@@ -393,7 +393,7 @@ public class OffReader3DMeshV2 {
 
 
 
-          toto.afficheFichierTexte("kite_icositetrahedron",true);
+          toto.afficheFichierTexte("kite_hexecontahedron",true);
 
 
 
