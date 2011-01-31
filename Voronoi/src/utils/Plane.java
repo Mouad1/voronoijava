@@ -27,6 +27,17 @@ public class Plane {
 		return a*X.x+b*X.y+c*X.z+d; 
 	}
 	
+	public Pos3D pointInter(Pos3D X,Pos3D Y){
+		// determiner alpha
+		double numer=relative(Y); 
+		double denom= relative(Y)-relative(X);
+		double alpha=numer/denom; 
+		Pos3D inter1=Pos3D.mul(X, alpha); 
+		Pos3D inter2=Pos3D.mul(Y, 1-alpha); 
+		return Pos3D.add(inter1,inter2); 
+	}
+	
+	
 	public String toString(){
 		return a+"X+"+b+"Y+"+c+"Z+"+d+"=0"; 
 	}
@@ -40,6 +51,13 @@ public class Plane {
 		System.out.println(p.relative(X)); 
 		System.out.println(p.relative(Y)); 
 		System.out.println(p.relative(Z)); 
+		
+		Pos3D ex1=new Pos3D(5,5,25); 
+		Pos3D ex2=new Pos3D(-5,-5,-50); 
+		Pos3D inter=p.pointInter(ex1,ex2); 
+		System.out.println(inter); 
+		System.out.println(p.relative(inter));
+		
 		
 	}
 
