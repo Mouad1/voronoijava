@@ -26,14 +26,38 @@ texture{texture0}
  }
 face_indices{
 8,
-<1,0,2>,0,
-<0,1,3>,0,
-<5,1,2>,0,
-<1,5,3>,0,
-<4,0,3>,0,
-<0,4,2>,0,
-<4,5,2>,0,
-<5,4,3> 0
+f=NMesh.Face()
+f.v.append(me.verts[1])
+f.v.append(me.verts[0])
+f.v.append(me.verts[2]),0,
+f=NMesh.Face()
+f.v.append(me.verts[0])
+f.v.append(me.verts[1])
+f.v.append(me.verts[3]),0,
+f=NMesh.Face()
+f.v.append(me.verts[5])
+f.v.append(me.verts[1])
+f.v.append(me.verts[2]),0,
+f=NMesh.Face()
+f.v.append(me.verts[1])
+f.v.append(me.verts[5])
+f.v.append(me.verts[3]),0,
+f=NMesh.Face()
+f.v.append(me.verts[4])
+f.v.append(me.verts[0])
+f.v.append(me.verts[3]),0,
+f=NMesh.Face()
+f.v.append(me.verts[0])
+f.v.append(me.verts[4])
+f.v.append(me.verts[2]),0,
+f=NMesh.Face()
+f.v.append(me.verts[4])
+f.v.append(me.verts[5])
+f.v.append(me.verts[2]),0,
+f=NMesh.Face()
+f.v.append(me.verts[5])
+f.v.append(me.verts[4])
+f.v.append(me.verts[3]) 0
  } 
  }
 #declare aretes=union{
@@ -244,3 +268,11 @@ object{sphere{<0.0,0.0,-1.0>,diam1 }}
 #declare Hugo=vrotate(Hugo,<0,116.56505117707799,0>);
 #declare transy=<-0.25,0.25,0.5>;
 #declare provi=vdot(Hugo,transy)/sqrt(vdot(transy,transy));#declare provi=acos(provi)*180/pi;#if(transy.y>0) #declare provi=-provi; #end transform{translate 0.0*y scale 1.0 rotate -65.90515744788931*z rotate 116.56505117707799*y Axis_Rotate_Trans(Victor,provi)  translate <0.25,-0.25,-0.5>};
+#declare nbVertices=6;
+#declare lesVertices=array[nbVertices];
+#declare lesVertices[0]=<0.0,0.0,1.0>;
+#declare lesVertices[1]=<0.0,1.0,0.0>;
+#declare lesVertices[2]=<-1.0,0.0,0.0>;
+#declare lesVertices[3]=<1.0,0.0,0.0>;
+#declare lesVertices[4]=<0.0,-1.0,0.0>;
+#declare lesVertices[5]=<0.0,0.0,-1.0>;
