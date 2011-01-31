@@ -110,4 +110,10 @@ public class Pos3D {
 	public static Pos3D sub(Pos3D v1,Pos3D v2){
 		return new Pos3D(v1.x-v2.x,v1.y-v2.y,v1.z-v2.z); 
 	}
+	
+	
+	public static Pos3D middle(Pos3D a,Pos3D b){
+		Pos3D m=new Pos3D((a.x+b.x)/2.0,(a.y+b.y)/2.0,(a.z+b.z)/2.0);
+		return m;
+	}
 }
