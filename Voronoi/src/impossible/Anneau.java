@@ -74,7 +74,7 @@ public class Anneau {
 		
 	}
 	
-	public Pos3D getVertex(int i){return vertices.get(i);}
+	public Pos3D getVertex(int i){return Pos3D.add(vertices.get(i),center);}
 	
 	
 	public Anneau(double s,double t,double e){
