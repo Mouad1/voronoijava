@@ -8,18 +8,18 @@ import utils.Pos3D;
 // Un anneau rectangulaire, represente par un mesh2 en povray
 
 public class Anneau {
-	private Pos3D center=new Pos3D(0,0,0);
+	protected Pos3D center=new Pos3D(0,0,0);
 	// taille du cote
-	private double side;
+	protected double side;
 	// epaisseur de la tranche
-	private double tranche; 
+	protected double tranche; 
 	// epaisseur de l'anneau
-	private double epaisseur;
+	protected double epaisseur;
 	
-	private ArrayList<Pos3D> vertices=new ArrayList<Pos3D>(); 
-	private ArrayList<Face> faces=new ArrayList<Face>();
+	protected ArrayList<Pos3D> vertices=new ArrayList<Pos3D>(); 
+	protected ArrayList<Face> faces=new ArrayList<Face>();
 	
-	private void setVertices(){
+	protected void setVertices(){
 		vertices.add(0,new Pos3D(-side,side,-tranche/2)); 
 		vertices.add(1,new Pos3D(side,side,-tranche/2));
 		vertices.add(2,new Pos3D(-side,side-epaisseur,-tranche/2)); 
@@ -36,7 +36,7 @@ public class Anneau {
 			vertices.add(12+i,Pos3D.add(vertices.get(i),new Pos3D(0,0,tranche)));
 	}
 	
-	private void makeFaces(int i,int j,int k,int l){
+	protected void makeFaces(int i,int j,int k,int l){
 		Pos3D mid1=Pos3D.middle(vertices.get(i),vertices.get(j));
 		Pos3D mid2=Pos3D.middle(vertices.get(k),vertices.get(l));
 		Pos3D mid=Pos3D.middle(mid1,mid2); 
@@ -49,33 +49,41 @@ public class Anneau {
 		
 	}
 	
-	// une face (ici, toujours des rectangles) est une suite de 4 sommets
-	private void setFaces(){
-		// Avant
-		makeFaces(0,1,5,2); 
-		makeFaces(2,3,7,6); 
-		makeFaces(4,5,9,8); 
-		makeFaces(6,9,11,10); 
-		//Interne
+	
+	
+	// une face (ici, toujours des rectangles ou des trapezes) est une suite de 4 sommets
+	// il faut la decouper en triangles	
+	protected void setFaces(){
+		// haut
+		makeFaces(0,1,4,3); 
+		makeFaces(12,13,16,15); 
+		makeFaces(0,1,13,12); 
+		makeFaces(3,4,16,15); 
+		//bas
+		makeFaces(10,7,8,11); 
+		makeFaces(22,19,20,23); 
+		makeFaces(10,22,23,11);
+		makeFaces(7,18,20,8); 
+		// gauche
+		makeFaces(0,3,7,10); 
+		makeFaces(12,15,19,22); 
 		makeFaces(3,15,19,7); 
-		makeFaces(4,16,20,8); 
-		makeFaces(3,15,16,4); 
-		makeFaces(7,19,20,8); 
-		// externes
-		makeFaces(0,12,13,1); 
-		makeFaces(1,13,23,11); 
-		makeFaces(11,23,22,10); 
 		makeFaces(0,12,22,10); 
-		//arrieres
-		makeFaces(12,13,17,14); 
-		makeFaces(14,15,19,18); 
-		makeFaces(16,17,21,20); 
-		makeFaces(18,21,23,22); 
+		// droite
+		makeFaces(1,11,8,4); 
+		makeFaces(13,23,20,16); 
+		makeFaces(1,13,23,11); 
+		makeFaces(4,16,20,8); 
 		
 	}
 	
+	
+	
+	
 	public Pos3D getVertex(int i){return Pos3D.add(vertices.get(i),center);}
 	
+	
+	public Anneau(){}
 	
 	public Anneau(double s,double t,double e){
 		this.side=s; 
