@@ -1,6 +1,6 @@
 package impossible;
 
-
+// comment
 import java.util.ArrayList;
 
 import utils.Pos3D;
