@@ -26,24 +26,41 @@ public class Intersection2 {
 	
 	
 	public static void main(String[] args) {
-	
+	System.out.println("#declare anneau1="+test1.toMesh2()); 
+	//System.out.println("#declare anneau2="+test2.toMesh2());
 	int b1=0; 
 	int b2=1; 
-	System.out.println(pointInter(0,10,b1,b2));
-	System.out.println(pointInter(12,22,b1,b2)); 
-	System.out.println(pointInter(15,19,b1,b2)); 
-	System.out.println(pointInter(3,7,b1,b2)); 
-	
+	Pos3D aretes[]=new Pos3D[8]; 
+	aretes[0]=pointInter(0,10,b1,b2); 
+	aretes[1]=pointInter(3,7,b1,b2); 
+	aretes[2]=pointInter(15,19,b1,b2); 
+	aretes[3]=pointInter(12,22,b1,b2); 
+	/*
+	System.out.println("sphere{"+pointInter(0,10,b1,b2)+",0.03 texture{pigment{color Green}}}");
+	System.out.println("sphere{"+pointInter(12,22,b1,b2)+",0.03 texture{pigment{color Green}}}");
+	System.out.println("sphere{"+pointInter(15,19,b1,b2)+",0.03 texture{pigment{color Green}}}");
+	System.out.println("sphere{"+pointInter(3,7,b1,b2)+",0.03 texture{pigment{color Green}}}");
+	*/
 	// les memes aretes verticales avec la barre (15,19) de l'anneau blanc
 	b1=15; 
 	b2=16; 
+	aretes[4]=pointInter(0,10,b1,b2); 
+	aretes[5]=pointInter(3,7,b1,b2); 
+	aretes[6]=pointInter(15,19,b1,b2); 
+	aretes[7]=pointInter(12,22,b1,b2);
+	/*
 	System.out.println("sphere{"+pointInter(0,10,b1,b2)+",0.03 texture{pigment{color Yellow}}}");
 	System.out.println("sphere{"+pointInter(12,22,b1,b2)+",0.03 texture{pigment{color Yellow}}}");
 	System.out.println("sphere{"+pointInter(15,19,b1,b2)+",0.03 texture{pigment{color Yellow}}}");
 	System.out.println("sphere{"+pointInter(3,7,b1,b2)+",0.03 texture{pigment{color Yellow}}}");
+	*/
+	AnneauCoupe t2Coupe=new AnneauCoupe(1,0.6,0.2,new Pos3D(1,1,1),3,aretes); 
+	System.out.println("#declare anneau2="+t2Coupe.toMesh2());
 	
-	
-	
+	System.out.println("sphere{"+aretes[0]+",0.03 texture{pigment{color Green}}}");
+	System.out.println("sphere{"+aretes[1]+",0.03 texture{pigment{color Green}}}");
+	System.out.println("sphere{"+aretes[2]+",0.03 texture{pigment{color Green}}}");
+	System.out.println("sphere{"+aretes[3]+",0.03 texture{pigment{color Green}}}");
 	
 	/*
 	  <0.2325581395348837,1.0,-0.3>
