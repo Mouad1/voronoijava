@@ -12,9 +12,9 @@ public class Intersection3 {
 	static private Pos3D visionPoint=new Pos3D(0.8,0.8,-3); 	
 	
 	static private Anneau test1=new Anneau(0.5,0.3,0.1); 
-	static private Anneau test2=new Anneau(0.5,0.3,0.1,new Pos3D(0.6,0.6,0.3));
-	static private Anneau test3=new Anneau(0.5,0.3,0.1,new Pos3D(1.2,1.2,0.6));
-	static private Anneau test4=new Anneau(0.5,0.3,0.1,new Pos3D(1.8,1.8,0.9));
+	static private Anneau test2=new Anneau(0.6,0.3,0.15,new Pos3D(0.6,0.6,0.3));
+	static private Anneau test3=new Anneau(0.7,0.3,0.20,new Pos3D(1.2,1.2,0.6));
+	static private Anneau test4=new Anneau(0.8,0.3,0.25,new Pos3D(1.8,1.8,0.9));
 	
 	
 	
@@ -79,7 +79,7 @@ public class Intersection3 {
 	aretes[6]=pointInter(13,23,b1,b2,test3,test2); 
 	aretes[7]=pointInter(16,20,b1,b2,test3,test2);
 	
-	AnneauCoupe test2Coupe=new AnneauCoupe(0.5,0.3,0.1,new Pos3D(0.6,0.6,0.3),1,aretes); 
+	AnneauCoupe test2Coupe=new AnneauCoupe(0.6,0.3,0.15,new Pos3D(0.6,0.6,0.3),1,aretes); 
 	System.out.println("#declare anneau2="+test2Coupe.toMesh2());
 	
 	// troisieme et quatrieme
@@ -99,7 +99,7 @@ public class Intersection3 {
 	aretes[6]=pointInter(13,23,b1,b2,test4,test3); 
 	aretes[7]=pointInter(16,20,b1,b2,test4,test3);
 	
-	AnneauCoupe test3Coupe=new AnneauCoupe(0.5,0.3,0.1,new Pos3D(1.2,1.2,0.6),1,aretes); 
+	AnneauCoupe test3Coupe=new AnneauCoupe(0.7,0.3,0.20,new Pos3D(1.2,1.2,0.6),1,aretes); 
 	System.out.println("#declare anneau3="+test3Coupe.toMesh2());
 	
 	
