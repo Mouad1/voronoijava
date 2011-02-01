@@ -38,10 +38,11 @@ public class Intersection3 {
 	
 	
 	public static void main(String[] args) {
-	System.out.println("#declare anneau2="+test2.toMesh2()); 
-	System.out.println("#declare anneau3="+test3.toMesh2()); 
+	
+	
 	System.out.println("#declare anneau4="+test4.toMesh2()); 
-	//System.out.println("#declare anneau2="+test2.toMesh2());
+	
+	// intersection du premier anneau avec le deuxieme
 	int b1=19; 
 	int b2=20; 
 	Pos3D aretes[]=new Pos3D[8]; 
@@ -58,8 +59,48 @@ public class Intersection3 {
 	aretes[6]=pointInter(13,23,b1,b2,test2,test1); 
 	aretes[7]=pointInter(16,20,b1,b2,test2,test1);
 	
-	AnneauCoupe test1Coupe=new AnneauCoupe(1,0.6,0.2,new Pos3D(0.6,0.6,0.3),1,aretes); 
+	AnneauCoupe test1Coupe=new AnneauCoupe(0.5,0.3,0.1,new Pos3D(0,0,0),1,aretes); 
 	System.out.println("#declare anneau1="+test1Coupe.toMesh2());
+	
+	// deuxieme et troisieme
+	b1=19; 
+	b2=20; 
+	aretes=new Pos3D[8]; 
+	aretes[0]=pointInter(4,8,b1,b2,test3,test2); 
+	aretes[1]=pointInter(1,11,b1,b2,test3,test2); 
+	aretes[2]=pointInter(13,23,b1,b2,test3,test2); 
+	aretes[3]=pointInter(16,20,b1,b2,test3,test2); 
+	
+	// les memes aretes verticales avec la barre (15,19) de l'anneau blanc
+	b1=10; 
+	b2=11; 
+	aretes[4]=pointInter(4,8,b1,b2,test3,test2); 
+	aretes[5]=pointInter(1,11,b1,b2,test3,test2); 
+	aretes[6]=pointInter(13,23,b1,b2,test3,test2); 
+	aretes[7]=pointInter(16,20,b1,b2,test3,test2);
+	
+	AnneauCoupe test2Coupe=new AnneauCoupe(0.5,0.3,0.1,new Pos3D(0.6,0.6,0.3),1,aretes); 
+	System.out.println("#declare anneau2="+test2Coupe.toMesh2());
+	
+	// troisieme et quatrieme
+	b1=7; 
+	b2=8; 
+	aretes=new Pos3D[8]; 
+	aretes[0]=pointInter(4,8,b1,b2,test4,test3); 
+	aretes[1]=pointInter(1,11,b1,b2,test4,test3); 
+	aretes[2]=pointInter(13,23,b1,b2,test4,test3); 
+	aretes[3]=pointInter(16,20,b1,b2,test4,test3); 
+	
+	// les memes aretes verticales avec la barre (15,19) de l'anneau blanc
+	b1=22; 
+	b2=23; 
+	aretes[4]=pointInter(4,8,b1,b2,test4,test3); 
+	aretes[5]=pointInter(1,11,b1,b2,test4,test3); 
+	aretes[6]=pointInter(13,23,b1,b2,test4,test3); 
+	aretes[7]=pointInter(16,20,b1,b2,test4,test3);
+	
+	AnneauCoupe test3Coupe=new AnneauCoupe(0.5,0.3,0.1,new Pos3D(1.2,1.2,0.6),1,aretes); 
+	System.out.println("#declare anneau3="+test3Coupe.toMesh2());
 	
 	
 	 

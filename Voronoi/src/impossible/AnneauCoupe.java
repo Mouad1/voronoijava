@@ -78,6 +78,19 @@ public class AnneauCoupe extends Anneau {
 		makeFaces(1,13,23,11); 
 		makeFaces(4,16,20,8); 
 		}
+		else{
+			makeFaces(4,24,25,1); 
+			makeFaces(1,25,26,13); 
+			makeFaces(13,26,27,16); 
+			makeFaces(16,27,24,4); 
+			makeFaces(24,25,26,27); 
+			
+			makeFaces(8,28,29,11);
+			makeFaces(11,29,30,23); 
+			makeFaces(23,30,31,20); 
+			makeFaces(20,31,28,8); 
+			makeFaces(28,29,30,31); 
+		}
 		
 	}
 	
