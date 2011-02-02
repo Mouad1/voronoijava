@@ -1,5 +1,7 @@
 package impossible;
 
+// quatre anneaux impossibles
+
 import utils.Plane;
 import utils.Pos3D;
 

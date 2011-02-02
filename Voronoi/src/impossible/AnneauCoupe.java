@@ -2,6 +2,9 @@ package impossible;
 
 import utils.Pos3D;
 
+// Un anneau avec une seule decoupe, sur l'une des branches. 
+// Pour le moment, seules les decoupes sur les branches droites et gauches sont implementees
+
 public class AnneauCoupe extends Anneau {
 	// 0-> barre du haut
 	// 1-> droite

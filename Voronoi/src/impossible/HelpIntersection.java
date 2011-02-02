@@ -1,5 +1,6 @@
 package impossible;
 
+// Pour verifier le placement des anneaux et de la camera avant de lancer le decoupage
 import utils.Pos3D;
 
 
