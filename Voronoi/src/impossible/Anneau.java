@@ -1,11 +1,11 @@
 package impossible;
 
-// comment
+
 import java.util.ArrayList;
 
 import utils.Pos3D;
 
-// Un anneau rectangulaire, represente par un mesh2 en povray
+// Un anneau carre, represente par un mesh2 en povray
 
 public class Anneau {
 	protected Pos3D center=new Pos3D(0,0,0);
