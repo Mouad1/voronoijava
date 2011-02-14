@@ -116,4 +116,10 @@ public class Pos3D {
 		Pos3D m=new Pos3D((a.x+b.x)/2.0,(a.y+b.y)/2.0,(a.z+b.z)/2.0);
 		return m;
 	}
+	// coef=0 -> v1 coef=1 -> v2
+	public static Pos3D barycenter(Pos3D v1,Pos3D v2,double coef){
+		return Pos3D.add(Pos3D.mul(v1, 1-coef), Pos3D.mul(v2,coef)); 
+		
+	}
+	
 }
