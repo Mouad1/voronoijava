@@ -1,7 +1,7 @@
 package utils;
 
 public class Pos3D {
-	
+	public static final Pos3D ZERO=new Pos3D(0,0,0); 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
