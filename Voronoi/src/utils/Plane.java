@@ -4,6 +4,7 @@ public class Plane {
 	// ax+by+cz+d=0
 	private double a,b,c,d; 
 	
+	
 	public Plane(double x,double y,double z,double t){
 		this.a=x; 
 		this.b=y;
@@ -24,7 +25,7 @@ public class Plane {
 	}
 	
 	public double relative(Pos3D X){
-		return a*X.x+b*X.y+c*X.z+d; 
+		return (a*X.x+b*X.y+c*X.z+d)/Math.sqrt(a*a+b*b+c*c); 
 	}
 	
 	public Pos3D pointInter(Pos3D X,Pos3D Y){
@@ -40,6 +41,10 @@ public class Plane {
 	
 	public String toString(){
 		return a+"X+"+b+"Y+"+c+"Z+"+d+"=0"; 
+	}
+	
+	public String toPovray(){
+		return "plane{<"+-a+","+-b+","+-c+">,"+this.relative(Pos3D.ZERO)+"}"; 
 	}
 	
 	public static void main(String[] args) {
