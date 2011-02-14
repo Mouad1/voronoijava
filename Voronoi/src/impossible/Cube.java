@@ -10,7 +10,7 @@ public class Cube {
 	
 	protected Pos3D center=new Pos3D(0,0,0);
 	// taille du cote
-	protected double side;
+	protected double sidex,sidey,sidez;
 	
 	
 	protected ArrayList<Pos3D> vertices=new ArrayList<Pos3D>(); 
@@ -30,14 +30,14 @@ public class Cube {
 	}
 	
 	protected void setVertices(){
-		vertices.add(0,new Pos3D(-side,-side,-side)); 
-		vertices.add(1,new Pos3D(-side,-side,side));
-		vertices.add(2,new Pos3D(-side,side,-side)); 
-		vertices.add(3,new Pos3D(-side,side,side)); 
-		vertices.add(4,new Pos3D(side,-side,-side)); 
-		vertices.add(5,new Pos3D(side,-side,side)); 
-		vertices.add(6,new Pos3D(side,side,-side)); 
-		vertices.add(7,new Pos3D(side,side,side)); 
+		vertices.add(0,new Pos3D(-sidex,-sidey,-sidez)); 
+		vertices.add(1,new Pos3D(-sidex,-sidey,sidez));
+		vertices.add(2,new Pos3D(-sidex,sidey,-sidez)); 
+		vertices.add(3,new Pos3D(-sidex,sidey,sidez)); 
+		vertices.add(4,new Pos3D(sidex,-sidey,-sidez)); 
+		vertices.add(5,new Pos3D(sidex,-sidey,sidez)); 
+		vertices.add(6,new Pos3D(sidex,sidey,-sidez)); 
+		vertices.add(7,new Pos3D(sidex,sidey,sidez)); 
 	}
 	
 	
@@ -47,15 +47,17 @@ public class Cube {
 	
 	public Cube(){}
 	
-	public Cube(double s){
-		this.side=s; 
+	public Cube(double sx,double sy,double sz){
+		this.sidex=sx;
+		this.sidey=sy; 
+		this.sidez=sz; 
 		
 		setVertices(); 
 		setFaces(); 
 	}
 	
 	
-	public void setFaces(){
+	protected void setFaces(){
 		makeFaces(0,1,3,2); 
 		makeFaces(0,4,6,2); 
 		makeFaces(0,1,5,4); 
@@ -65,8 +67,8 @@ public class Cube {
 	}
 	
 	
-	public Cube(double s, Pos3D c){
-		this(s);
+	public Cube(double sx,double sy,double sz, Pos3D c){
+		this(sx,sy,sz);
 		this.center=c; 
 	}
 	
@@ -83,7 +85,7 @@ public class Cube {
 	}
 	
 	public static void main(String[] args) {
-		Cube c1=new Cube(1); 
+		Cube c1=new Cube(1,1,1); 
 		System.out.println(c1.toMesh2()); 
 	}
 
