@@ -7,8 +7,11 @@ import utils.Pos3D;
 public class ChainOfCube {
 
 	public static void main(String[] args) {
-		Pos3D visionPoint=new Pos3D(2,1.5,-5); 	
-		int nbCubes=10; 
+
+		//Pos3D visionPoint=new Pos3D(2,1.5,-5); 	
+		Pos3D visionPoint=new Pos3D(2*0.7,1.5,-5*0.7); 	
+		int nbCubes=11; 
+
 		Cube listOfCubes[]=new Cube[nbCubes];
 		double xinit=1; 
 		double yinit=1; 
@@ -18,9 +21,9 @@ public class ChainOfCube {
 		double ycour=yinit; 
 		double zcour=zinit; 
 		
-		double xcoef=0.6; 
-		double ycoef=0.85; 
-		double zcoef=0.6; 
+		double xcoef=0.75; 
+		double ycoef=0.95; 
+		double zcoef=0.68; 
 	
 		listOfCubes[0]=new Cube(xcour,ycour,zcour);  
 		double decalez=zinit; 
@@ -47,14 +50,15 @@ public class ChainOfCube {
 		try{	
 		//output=new PrintStream("../pearls/scene/impossible/lescubes.txt");
 		output=new PrintStream("/tmp/lescubes.txt"); 	
-		output.println("camera{ location "+visionPoint+"\n look_at 0}"); 
+		output.println("#declare visionPoint="+visionPoint+";\n");
+		//output.println("camera{ location "+visionPoint+"\n look_at 0}"); 
 		for(int i=0;i<nbCubes;i++){
 			output.println("#declare cube"+i+"="+listOfCubes[i].toMesh2()); 
 			output.println("intersection{" +
 			 		//"intersection{\n object{cube"+i+" texture{pigment{color rgb<"+(0.5+0.5*(nbCubes-i+0.0)/nbCubes)+",0,"+(0.5+0.5*(i+0.0)/nbCubes)+">}}}\n"
-			 		"intersection{\n object{cube"+i+" texture{pigment{color rgb<1,0,0>}}}\n"
-					+"object{"+ref.toPovray()+" texture{pigment{color rgb<1,0,0>}}}\n" 
-					+"object{"+ref2.toPovray()+" texture{pigment{color rgb<1,0,0>}}}}}");
+			 		"intersection{\n object{cube"+i+" }\n"
+					+"object{"+ref.toPovray()+" texture{T0}}\n" 
+					+"object{"+ref2.toPovray()+" texture{T2}}}}");
 		}
 		output.close(); 
 	}
