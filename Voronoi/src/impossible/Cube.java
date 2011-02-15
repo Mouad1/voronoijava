@@ -80,7 +80,7 @@ public class Cube {
 		s+="face_indices{\n"+faces.size()+",\n"; 
 		for(int i=0;i<faces.size()-1;i++)
 			s+=faces.get(i)+",\n"; 
-		s+=faces.get(faces.size()-1)+"\n}\n}"; 
+		s+=faces.get(faces.size()-1)+"}\n inside_vector <1,1,1>\n}"; 
 		return s; 
 	}
 	
