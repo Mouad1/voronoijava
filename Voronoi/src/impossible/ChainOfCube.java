@@ -8,11 +8,11 @@ public class ChainOfCube {
 
 	public static void main(String[] args) {
 		Pos3D visionPoint=new Pos3D(2,1.5,-5); 	
-		int nbCubes=3; 
+		int nbCubes=10; 
 		Cube listOfCubes[]=new Cube[nbCubes];
 		double xinit=1; 
 		double yinit=1; 
-		double zinit=1; 
+		double zinit=0.5; 
 		
 		double xcour=xinit; 
 		double ycour=yinit; 
@@ -45,7 +45,8 @@ public class ChainOfCube {
 		
 		PrintStream output; 		
 		try{	
-		output=new PrintStream("../pearls/scene/impossible/lescubes.txt"); 
+		//output=new PrintStream("../pearls/scene/impossible/lescubes.txt");
+		output=new PrintStream("/tmp/lescubes.txt"); 	
 		output.println("camera{ location "+visionPoint+"\n look_at 0}"); 
 		for(int i=0;i<nbCubes;i++){
 			output.println("#declare cube"+i+"="+listOfCubes[i].toMesh2()); 
