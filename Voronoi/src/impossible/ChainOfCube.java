@@ -10,7 +10,7 @@ public class ChainOfCube {
 
 		//Pos3D visionPoint=new Pos3D(2,1.5,-5); 	
 		Pos3D visionPoint=new Pos3D(2*0.7,1.5,-5*0.7); 	
-		int nbCubes=11; 
+		int nbCubes=15; 
 
 		Cube listOfCubes[]=new Cube[nbCubes];
 		double xinit=1; 
@@ -21,9 +21,11 @@ public class ChainOfCube {
 		double ycour=yinit; 
 		double zcour=zinit; 
 		
-		double xcoef=0.75; 
-		double ycoef=0.95; 
-		double zcoef=0.68; 
+		double xcoef=0.8; 
+		double ycoef=0.99; 
+		double zcoef=0.7;  // 0.68
+		
+		double coefcoef=1.0005; 
 	
 		listOfCubes[0]=new Cube(xcour,ycour,zcour);  
 		double decalez=zinit; 
@@ -32,6 +34,9 @@ public class ChainOfCube {
 			xcour=xcour*xcoef; 
 			ycour=ycour*ycoef; 
 			zcour=zcour*zcoef;
+			xcoef*=coefcoef; 
+			
+			zcoef*=coefcoef; 
 			decalez=decalez+zcour*0.707; 
 			Pos3D center=new Pos3D(xinit-xcour,ycour-yinit,-decalez);
 			decalez=decalez+zcour*0.707; 
@@ -48,8 +53,8 @@ public class ChainOfCube {
 		
 		PrintStream output; 		
 		try{	
-		//output=new PrintStream("../pearls/scene/impossible/lescubes.txt");
-		output=new PrintStream("/tmp/lescubes.txt"); 	
+		output=new PrintStream("../pearls/scene/impossible/lescubes.txt");
+		//output=new PrintStream("/tmp/lescubes.txt"); 	
 		output.println("#declare visionPoint="+visionPoint+";\n");
 		//output.println("camera{ location "+visionPoint+"\n look_at 0}"); 
 		for(int i=0;i<nbCubes;i++){

@@ -98,7 +98,8 @@ public class Cube {
 		+" texture{pigment{color Black} finish{reflection 0.5}}}\n"; 
 		s+="cylinder{"+Pos3D.add(vertices.get(7),this.center)+","+Pos3D.add(vertices.get(3),this.center)+",0.01*"+sidex
 		+" texture{pigment{color Black} finish{reflection 0.5}}}\n"; 
-		s+="}"; 
+		s+="}";
+	
 		return s; 
 	}
 	
