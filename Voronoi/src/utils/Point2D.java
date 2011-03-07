@@ -2,6 +2,7 @@ package utils;
 
 public class Point2D {
 	protected double x,y;
+	
 
 	public Point2D(double x, double y) {
 		super();
@@ -84,6 +85,9 @@ public class Point2D {
 	}
 	public String toString(){
 		return "("+x+","+y+")"; 
+	}
+	public String toPovray(){
+		return "<"+x+","+"0,"+y+">"; 
 	}
 	
 }
