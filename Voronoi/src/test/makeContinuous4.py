@@ -267,7 +267,7 @@ for ob in scene.objects:
 nbf=12
 diam=0.05
 
-execfile('f:/Povray/hamilton.py')
+execfile('C:\Users\decomite\Pictures\povray\output povray\spline.py')
 
 
 

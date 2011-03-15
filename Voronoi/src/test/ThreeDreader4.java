@@ -50,14 +50,14 @@ public class ThreeDreader4 {
 
 		double ratio=1; 
 		//this.catena="f:/Povray/anamorphoses/quadri.txt";
-		this.catena="/tmp/quadri.txt";
+		this.catena="C:/Users/decomite/Pictures/povray/output povray/anamo.txt";
 
           File source = new File(catena);
           HashSet<CoupleVertexDiam> sommets=new HashSet<CoupleVertexDiam>();
           try {
 
         	  //output=new PrintStream("/tmp/spline.py"); 
-        	  output=new PrintStream("/tmp/spline.py");
+        	  output=new PrintStream("C:/Users/decomite/Pictures/povray/output povray/spline.py");
 
                 BufferedReader in = new BufferedReader(new FileReader(source));
                 boolean u=true; 
