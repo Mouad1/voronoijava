@@ -35,6 +35,7 @@ public class OffReader3DCylindersMeshToPython {
 	
 	
 	private ArrayList<Vertex> vertices=new ArrayList<Vertex>();
+	private ArrayList<Vertex> verticesCenter=new ArrayList<Vertex>();
 	private ArrayList<FaceTriangulaire> lesFacesTriangulaires=new ArrayList<FaceTriangulaire>(); 
 	private ArrayList<FacePolygonale> lesFacesPolygonales=new ArrayList<FacePolygonale>();
 
@@ -57,7 +58,7 @@ public class OffReader3DCylindersMeshToPython {
           try {
         	// output=new PrintStream("../../../../pearls/scene/geometry/polyhedra/archimedean/archi.txt");
         	// output=new PrintStream("../pearls/scene/geometry/playingcards/archimedean/"+nomFichierSource+".inc");
-        	  output=new PrintStream("/tmp/dd.py"); 
+        	  output=new PrintStream("dd.py"); 
         	 // output=new PrintStream("F:/Povray/"+nomFichierSource+".py");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
@@ -104,6 +105,7 @@ public class OffReader3DCylindersMeshToPython {
                 		  for(int j=0;j<dim;j++) center= Vertex.add(vertices.get(coins[j]),center);
                 		  center=(Vertex) Vertex.mul(center,1.0/(dim+0.0)); 
                 		  vertices.add(center);
+                		  verticesCenter.add(center); 
                 		  // Construire les dim triangles  (vi,v(i+1),c)
                 		  for(int j=0;j<dim;j++)
                 			  lesFacesTriangulaires.add(new FaceTriangulaire(vertices.get(coins[j]),vertices.get(coins[(j+1)%dim]),center,coins[j],coins[(j+1)%dim],vertices.indexOf(center)));
@@ -168,6 +170,8 @@ public class OffReader3DCylindersMeshToPython {
                   double meilleur=lengthAretes.last(); 
                  index=0;
                   for(Vertex v:vertices){
+                	  if(!verticesCenter.contains(v))
+                	  {
                 	  // des petites spheres
                 	  System.out.println("me=translate(["+v.rawString()+"])");
                 	  System.out.println("localOb=scene.objects.new(me,'sphere"+index+"')");
@@ -180,7 +184,7 @@ public class OffReader3DCylindersMeshToPython {
             		  output.println("scene.objects.unlink(localOb)");
             		  
             		  index++;
-            		  
+                	  }
                   }
                   
                   in.close();
@@ -198,7 +202,7 @@ public class OffReader3DCylindersMeshToPython {
           // new TestIO().copieFichierTexte("essai.txt","output.txt");
           OffReader3DCylindersMeshToPython toto=new OffReader3DCylindersMeshToPython(); 
          
-          toto.afficheFichierTexte("disdyakis_triacontahedron");
+          toto.afficheFichierTexte("pentagonal_icositetrahedron");
 
 
 

@@ -38,7 +38,7 @@ import math
 ##############################################################
 # define function(s)
 
-def translate(p,r):
+def translate(p,r=0.1):
  me=Mesh.Primitives.UVsphere(32,32,r)
  dir=Vector(p)
  A = Matrix(
@@ -140,9 +140,9 @@ for ob in scene.objects:
    if (cmp(ob.getName(),'Cube')==0):
     scene.objects.unlink(ob)
 
-execfile("splineX.py")
+#execfile("splineX.py")
 
-
+execfile('C:\Users\decomite\workspace\Voronoi\dd.py')
 
  
 #######################################

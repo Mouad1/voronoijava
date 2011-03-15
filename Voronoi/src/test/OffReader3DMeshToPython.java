@@ -56,7 +56,8 @@ public class OffReader3DMeshToPython {
           try {
         	// output=new PrintStream("../../../../pearls/scene/geometry/polyhedra/archimedean/archi.txt");
         	//  output=new PrintStream("../pearls/scene/geometry/playingcards/archimedean/"+nomFichierSource+".inc");
-        	  output=new PrintStream("/tmp/"+nomFichierSource+".py");
+        	  System.out.println("xxx");
+        	  output=new PrintStream(nomFichierSource+".py");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
                   while(ligne.charAt(0)=='#') ligne=in.readLine();
@@ -159,7 +160,7 @@ public class OffReader3DMeshToPython {
             
                
                 
-          } catch (Exception e) {System.out.println(e); 
+          } catch (Exception e) {System.out.println("----------->"+e); 
                   e.printStackTrace(); System.exit(0);
           }
   }

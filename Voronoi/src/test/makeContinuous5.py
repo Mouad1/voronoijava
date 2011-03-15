@@ -267,8 +267,10 @@ for ob in scene.objects:
 nbf=12
 diam=0.05
 
-execfile('f:/Povray/spline.py')
 
+#execfile('C:\Users\decomite\Pictures\povray\output povray\spline.py')
+
+execfile('C:\Users\decomite\workspace\Voronoi\dd.py')
 
 
 
