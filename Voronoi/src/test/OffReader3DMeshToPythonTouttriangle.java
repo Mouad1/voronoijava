@@ -14,13 +14,13 @@ import java.util.Scanner;
 import java.util.TreeSet;
 
 import utils.Cylinder;
-import utils.FacePolygonale;
+//import utils.FacePolygonale;
 import utils.FaceTriangulaire;
 import utils.Transfo;
 import utils.Vertex;
 import utils.Pos3D; 
 
-public class OffReader3DMeshToPython {
+public class OffReader3DMeshToPythonTouttriangle {
 	
 	private Random generator=new Random(); 
 	private  ArrayList<Vertex> lesCentresDesFaces=new ArrayList<Vertex>(); 
@@ -35,7 +35,7 @@ public class OffReader3DMeshToPython {
 	
 	private ArrayList<Vertex> vertices=new ArrayList<Vertex>();
 	private ArrayList<FaceTriangulaire> lesFacesTriangulaires=new ArrayList<FaceTriangulaire>(); 
-	private ArrayList<FacePolygonale> lesFacesPolygonales=new ArrayList<FacePolygonale>();
+	
 
 	private PrintStream output; 
 	
@@ -77,7 +77,7 @@ public class OffReader3DMeshToPython {
                 	  Double y=rl.nextDouble();
                 	  Double z=rl.nextDouble();
                 	  vertices.add(new Vertex(x,y,z)); 
-                	
+                	  System.out.println(ligne); 
                   }
                   
                   for(int i=0;i<nbFaces;i++){
@@ -85,16 +85,13 @@ public class OffReader3DMeshToPython {
                 	  rl=new Scanner(ligne); 
                 	  rl.useLocale(Locale.US);
                 	  int dim=rl.nextInt(); 
-                	  
-                	  FacePolygonale faceEnCours=new FacePolygonale(dim);
+                	  System.out.println(ligne); 
+                	 
                 	  int coins[]=new int[dim];
                 	  for(int j=0;j<dim;j++){
                 		  coins[j]=rl.nextInt(); 
                 	  }
-                	  for(int toto=0;toto<dim;toto++)
-                		  faceEnCours.add(vertices.get(coins[toto]),coins[toto]);
-                	  faceEnCours.determineAxe();
-                	  lesFacesPolygonales.add(faceEnCours);
+                	  if(dim!=3){System.out.println("dim!=3"); System.exit(0); }
                 	  if(dim==3)                	
                 	  lesFacesTriangulaires.add(new FaceTriangulaire(vertices.get(coins[0]),vertices.get(coins[1]),vertices.get(coins[2]),coins[0],coins[1],coins[2]));
                 	  else // la face n'est pas un triangle
@@ -123,25 +120,6 @@ public class OffReader3DMeshToPython {
                 	  
                   }
                 
-                	// On doit encore s'occuper des aretes
-                  TreeSet<Double> lengthAretes=new TreeSet<Double>();
-                  ArrayList<Cylinder> lesAretes=new ArrayList<Cylinder>();
-                
-                  ligne=in.readLine(); 
-                  rl=new Scanner(ligne); 
-                  while(true){
-                	  int c0=rl.nextInt(); 
-                	  int c1=rl.nextInt(); 
-                	  
-                	  lesAretes.add(new Cylinder(vertices.get(c0),vertices.get(c1),c0,c1));
-                	  lengthAretes.add(roundDecimals(Pos3D.distance(vertices.get(c0), vertices.get(c1)))); 
-                	  ligne=in.readLine();
-                	  if(ligne==null) break;
-                	  rl=new Scanner(ligne); 
-                  }
-                  double meilleur=lengthAretes.last(); 
-                 
-                
                   in.close();
                   
                   // construire le mesh
@@ -161,15 +139,15 @@ public class OffReader3DMeshToPython {
             
                
                 
-          } catch (Exception e) {System.out.println("----------->"+e); 
+          } catch (Exception e) {System.out.println("-------****---->"+e); 
                   e.printStackTrace(); System.exit(0);
           }
   }
 	  public static void main(String args[]) {
           // new TestIO().copieFichierTexte("essai.txt","output.txt");
-          OffReader3DMeshToPython toto=new OffReader3DMeshToPython(); 
+          OffReader3DMeshToPythonTouttriangle toto=new OffReader3DMeshToPythonTouttriangle(); 
          
-          toto.afficheFichierTexte("dolphin");
+          toto.afficheFichierTexte("octopus");
 
 
 
