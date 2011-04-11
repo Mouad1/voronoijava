@@ -26,9 +26,9 @@ public class Gaussbell {
 		double xmax=1; 
 		double xmin=0;
 		double k=5.0; 
-		double epaisseur=0.05; 
-		int nbTranches=100; 
-		int nbTriangles=100; 
+		double epaisseur=0.0005; 
+		int nbTranches=9; 
+		int nbTriangles=20; 
 		int indicePoint=0; 
 		double step=(xmax-xmin)/nbTranches; 
 		boolean ferme=false; 
@@ -60,15 +60,15 @@ public class Gaussbell {
 			int depl=i*nbTriangles; 
 			for(int j=0;j<nbTriangles;j++){
 			if(i%2==0){
-				int jd1; 
-				if(j==nbTriangles-1)jd1=depl; else jd1=j+depl+1; 
+				int jfin; 
+				if(j==nbTriangles-1) jfin=j+depl+2*nbTriangles-1; else jfin=j+depl+nbTriangles-1; 
 				FaceTriangulaire ft=new FaceTriangulaire(null,
 														 null,
 														 null,
-														 j+depl,jd1,j+depl+nbTriangles+1); //j+depl,j+depl+1,j+depl+nbTriangles+1);
+														 j+depl,j+depl+nbTriangles,jfin); 
 				//lesFaces1.add(ft);
 				
-				int jfin; 
+			
 				if(j==0) jfin= j+depl+2*nbTriangles-1; 
 				else jfin=j+depl+nbTriangles-1; 
 				int jdeb; 
@@ -92,7 +92,7 @@ public class Gaussbell {
 						 null,
 						 null,
 						 j+depl,jdepl,j+depl+nbTriangles);//j+depl,j+depl+1,j+depl+nbTriangles); // ok
-				lesFaces1.add(ft);
+				//lesFaces1.add(ft);
 				
 				if(j==0) jfin= j+depl+2*nbTriangles-1; 
 				else jfin=j+depl+nbTriangles-1; 
@@ -100,7 +100,7 @@ public class Gaussbell {
 						null,
 						null,
 						j+depl,jfin,j+nbTriangles+depl);//j+depl,j+depl+nbTriangles-1,j+nbTriangles+depl);
-				lesFaces2.add(ft2);
+				//lesFaces2.add(ft2);
 			}
 			}// for j
 			
