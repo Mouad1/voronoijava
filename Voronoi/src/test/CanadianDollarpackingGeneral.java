@@ -1,9 +1,11 @@
 package test;
-// cf Mathematical recreations / Klarner : la solution depend de l'ordre des pieces !
-public class EuropackingGeneral extends EuroPacking {
+
+public class CanadianDollarpackingGeneral extends EuroPacking {
 	
-	private static int nb=0;
-	private static int trouve=0; 
+	private static int nb=0; 
+	protected static double diam[]={19.05,21.2,18.03,23.88,27.13,26.5,28}; 
+	protected static String name[]={"1 cent","5 cents", "10 cents","25 cents","50 cents","1 dollar","2 dollars"}; 
+	
 	
 	static void verify(int t[]){
 		for(int i=0;i<t.length;i++)
@@ -11,9 +13,10 @@ public class EuropackingGeneral extends EuroPacking {
 			System.out.println();
 	}
 	
-	
 	static void compute(int t[]){
-		for(int i=0;i<8;i++){
+	
+	
+		for(int i=0;i<7;i++){
 			// choisir la piece centrale
 			double cr=diam[i];
 			// sommer les angles
@@ -27,22 +30,19 @@ public class EuropackingGeneral extends EuroPacking {
 				sumAngles+=angle; 
 			}// j	
 			
-			if(Math.abs(sumAngles-2*Math.PI)<0.0000065){
-				trouve++; 
+			if(Math.abs(sumAngles-2*Math.PI)<0.00001){
+				nb++; 
 				for(int k=0;k<t.length;k++)
 					System.out.print(name[t[k]]+" "); 
 				System.out.println("\n Avec au centre "+name[i]+ " "+sumAngles); 
-				
 			}
 		}// for i
 		
 	}
 	
 	static protected void remplir(int tableau[]){
-		
-	
 		if(tableau==null){
-			for(int i=0;i<8;i++){
+			for(int i=0;i<7;i++){
 				int t[]={i};
 				remplir(t); 
 			}// for i
@@ -54,11 +54,12 @@ public class EuropackingGeneral extends EuroPacking {
 			if(nb%100000==0)
 				System.out.println(nb); 
 			compute(tableau);
+			//verify(tableau); 
 			return; 
 		}
 		
 	// ici, on est en cours de construction
-		for(int j=0;j<8;j++){
+		for(int j=0;j<7;j++){
 			int tp[]=new int[tableau.length+1]; 
 			System.arraycopy(tableau, 0, tp, 0,tableau.length); 
 			tp[tp.length-1]=j; 
@@ -68,7 +69,7 @@ public class EuropackingGeneral extends EuroPacking {
 	
 	public static void main(String[] args) {
 		remplir(null); 
-		System.out.println(nb+" "+trouve); 
+		System.out.println(nb); 
 
 	}
 
