@@ -6,6 +6,7 @@ public class DollarpackingGeneral extends EuroPacking {
 	protected static double diam[]={19.00,19.05,21.21,17.91,24.26,30.61,26.5}; 
 	protected static String name[]={"1 cent","1 cent_redesigned", "5 cents", "10 cents","25 cents","50 cents","1 dollar"}; 
 	
+	
 	static void verify(int t[]){
 		for(int i=0;i<t.length;i++)
 			System.out.print(t[i]+" "); 
@@ -50,7 +51,7 @@ public class DollarpackingGeneral extends EuroPacking {
 			return;
 		}	
 		//System.out.println("remplir " +tableau.length); 
-		if(tableau.length==5){
+		if(tableau.length==8){
 			compute(tableau);
 			return; 
 		}
