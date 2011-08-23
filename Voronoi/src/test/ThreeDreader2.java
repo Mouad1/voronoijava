@@ -54,7 +54,7 @@ public class ThreeDreader2 {
           try {
 
         	  //output=new PrintStream("/tmp/spline.py"); 
-        	  output=new PrintStream("F:/Povray/spline.py");
+        	  output=new PrintStream("F:/Povray/spline2.py");
 
                 BufferedReader in = new BufferedReader(new FileReader(source));
                 boolean u=true; 
