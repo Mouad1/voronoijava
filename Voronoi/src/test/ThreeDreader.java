@@ -47,7 +47,7 @@ public class ThreeDreader {
 	public void afficheFichierTexte() {
 			//this.catena="C:/Documents and Settings/moi/workspace/Voronoi/src/test/"+nomFichierSource+".off";
 		//this.catena="/tmp/quadri.txt"; 
-		double ratio=5; 
+		double ratio=1; 
 		this.catena="f:/Povray/anamorphoses/quadri.txt"; 
           File source = new File(catena);
           HashSet<CoupleVertexDiam> sommets=new HashSet<CoupleVertexDiam>();
@@ -59,17 +59,20 @@ public class ThreeDreader {
                 BufferedReader in = new BufferedReader(new FileReader(source));
                 boolean u=true; 
                 boolean rooted=false; 
-                int cycle=0; 
+                int cycle=0;
+                String line1=in.readLine();
+                Scanner r1=new Scanner(line1); 
+                int dim=(int)r1.nextInt(); 
                 while(u){
-                	double diam[]=new double[15]; 
-                	double x[]=new double[15]; 
-                	double y[]=new double[15]; 
-                	double z[]=new double[15]; 
-                  for(int i=0;i<15;i++){
+                	double diam[]=new double[dim]; 
+                	double x[]=new double[dim]; 
+                	double y[]=new double[dim]; 
+                	double z[]=new double[dim]; 
+                  for(int i=0;i<dim;i++){
                 	  String ligne=in.readLine();
                 	  if(ligne==null) {u=false; break;} 
                 	  Scanner rl=new Scanner(ligne); 
-                	  //System.out.println("*"+ligne); 
+                	  System.out.println("*"+ligne); 
                 	  rl.useLocale(Locale.US);
                 	  int indice=(int)rl.nextDouble(); 
                 	  diam[i]=rl.nextDouble();
@@ -82,8 +85,8 @@ public class ThreeDreader {
                       System.out.println("meFinal=NMesh.GetRaw()"); 
                       output.println("meFinal=NMesh.GetRaw()"); 
                       sommets.add(new CoupleVertexDiam(new Vertex(x[0], y[0], z[0]),ratio*2*diam[0]));
-                      sommets.add(new CoupleVertexDiam(new Vertex(x[14], y[14], z[14]),ratio*2*diam[14]));
-                	  for(int i=0;i<14;i++){
+                      sommets.add(new CoupleVertexDiam(new Vertex(x[dim-1], y[dim-1], z[dim-1]),ratio*2*diam[dim-1]));
+                	  for(int i=0;i<dim-1;i++){
                 		 Vertex p1=new Vertex(x[i],y[i],z[i]);
                 		 Vertex p2=new Vertex(x[i+1],y[i+1],z[i+1]);
                 		 // un cylindre
@@ -95,17 +98,17 @@ public class ThreeDreader {
                 	  	 output.println("point1=Vector(["+p2.rawString()+"])");
                 	  	 if(i==0)
                 	     output.println("meFinal.verts.extend(lineSegMe(point0,point1,"+ratio*diam[i]+",nbf)[1])");
-                	  	 if((i>0)&&(i<14))
+                	  	 if((i>0)&&(i<dim-1))
                 	     output.println("meFinal.verts.extend(lineSegMe(point0,point1,"+ratio*diam[i]+",nbf)[2])");
                 	  	 
                    	     
                 	  }// for
                 	 
-                	  Vertex pfinal=new Vertex(x[14],y[14],z[14]);
-                	  Vertex pfinal2=new Vertex(x[14],y[14],z[14]);
+                	  Vertex pfinal=new Vertex(x[dim-1],y[dim-1],z[dim-1]);
+                	  Vertex pfinal2=new Vertex(x[dim-1],y[dim-1],z[dim-1]);
                 	  System.out.println("point0=Vector(["+pfinal.rawString()+"])");
                 	  System.out.println("point1=Vector(["+pfinal2.rawString()+"])");
-                	  output.println("meFinal.verts.extend(lineSegMe(point0,point1,"+ratio*diam[14]+",nbf)[3])");  
+                	  output.println("meFinal.verts.extend(lineSegMe(point0,point1,"+ratio*diam[dim-1]+",nbf)[3])");  
                 	  System.out.println("me=meshify(meFinal,nbf)");
                 	  System.out.println("localOb=scene.objects.new(me,'arete1-"+cycle+"')"); 
                 	  output.println("me=meshify(meFinal,nbf)");
