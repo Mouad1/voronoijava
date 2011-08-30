@@ -3,8 +3,8 @@ package test;
 public class CanadianDollarpackingGeneral extends EuroPacking {
 	
 	private static int nb=0; 
-	protected static double diam[]={19.05,21.2,18.03,23.88,27.13,26.5,28}; 
-	protected static String name[]={"1 cent","5 cents", "10 cents","25 cents","50 cents","1 dollar","2 dollars"}; 
+	protected static double diam[]={19.05,21.2,18.03,27.13,26.5,28}; 
+	protected static String name[]={"1 cent","5 cents", "10 cents","25 cents","1 dollar","2 dollars"}; 
 	
 	
 	static void verify(int t[]){
@@ -16,7 +16,7 @@ public class CanadianDollarpackingGeneral extends EuroPacking {
 	static void compute(int t[]){
 	
 	
-		for(int i=0;i<7;i++){
+		for(int i=0;i<diam.length;i++){
 			// choisir la piece centrale
 			double cr=diam[i];
 			// sommer les angles
@@ -30,7 +30,7 @@ public class CanadianDollarpackingGeneral extends EuroPacking {
 				sumAngles+=angle; 
 			}// j	
 			
-			if(Math.abs(sumAngles-2*Math.PI)<0.00001){
+			if(Math.abs(sumAngles-2*Math.PI)<0.1){
 				nb++; 
 				for(int k=0;k<t.length;k++)
 					System.out.print(name[t[k]]+" "); 
@@ -42,14 +42,14 @@ public class CanadianDollarpackingGeneral extends EuroPacking {
 	
 	static protected void remplir(int tableau[]){
 		if(tableau==null){
-			for(int i=0;i<7;i++){
+			for(int i=0;i<diam.length;i++){
 				int t[]={i};
 				remplir(t); 
 			}// for i
 			return;
 		}	
 		//System.out.println("remplir " +tableau.length); 
-		if(tableau.length==7){
+		if(tableau.length==8){
 			nb++; 
 			if(nb%100000==0)
 				System.out.println(nb); 
@@ -59,7 +59,7 @@ public class CanadianDollarpackingGeneral extends EuroPacking {
 		}
 		
 	// ici, on est en cours de construction
-		for(int j=0;j<7;j++){
+		for(int j=0;j<diam.length;j++){
 			int tp[]=new int[tableau.length+1]; 
 			System.arraycopy(tableau, 0, tp, 0,tableau.length); 
 			tp[tp.length-1]=j; 
