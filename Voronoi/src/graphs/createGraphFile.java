@@ -24,7 +24,7 @@ public class createGraphFile {
 		}
 		// tableau cree, on le sauve
 		try{
-			PrintStream output=new PrintStream("mygraph.gv");  
+			PrintStream output=new PrintStream("C:/Users/decomite/Documents/tampongraphes/mygraph.gv");  
 			output.println("graph g {"); 
 			for(int i=0;i<n1;i++){
 				for(int j=0;j<n2;j++){
@@ -42,7 +42,7 @@ public class createGraphFile {
 	
 	public static void main(String[] args) {
 		createGraphFile mine=new createGraphFile(); 
-		mine.creer(10,10,0.3,30); 
+		mine.creer(50,50,0.5,100); 
 	}
 
 }
