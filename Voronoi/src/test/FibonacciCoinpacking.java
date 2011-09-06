@@ -1,11 +1,12 @@
 package test;
+import java.util.ArrayList; 
 
 public class FibonacciCoinpacking extends EuroPacking {
 	
-	private static int nb=0; 
-	protected static double diam[]={19.05,21.2,18.03,27.13,26.5,28}; 
-	protected static String name[]={"1 cent","5 cents", "10 cents","25 cents","1 dollar","2 dollars"}; 
-	
+	private static int nb=0,rnb=0; 
+	protected static double diam[]={1,2,3,5,8,13,21}; 
+	protected static String name[]={"1 Fibo","2 Fibos", "3 Fibos","5 Fibos", "8 Fibos", "13 Fibos","21 Fibos"}; 
+	private static ArrayList<Couronne> resultats=new ArrayList<Couronne>(); 
 	
 	static void verify(int t[]){
 		for(int i=0;i<t.length;i++)
@@ -13,7 +14,7 @@ public class FibonacciCoinpacking extends EuroPacking {
 			System.out.println();
 	}
 	
-	static void compute(int t[]){
+	 static void compute(int t[]){
 	
 	
 		for(int i=0;i<diam.length;i++){
@@ -30,8 +31,14 @@ public class FibonacciCoinpacking extends EuroPacking {
 				sumAngles+=angle; 
 			}// j	
 			
-			if(Math.abs(sumAngles-2*Math.PI)<0.1){
+			if(Math.abs(sumAngles-2*Math.PI)==0){
 				nb++; 
+				Couronne candidat=new Couronne(i,t);
+				
+				if (!resultats.contains(candidat)){ 
+					resultats.add(candidat);	
+				}
+				else System.out.println("deja vu"); 
 				for(int k=0;k<t.length;k++)
 					System.out.print(name[t[k]]+" "); 
 				System.out.println("\n Avec au centre "+name[i]+ " "+sumAngles); 
@@ -49,10 +56,10 @@ public class FibonacciCoinpacking extends EuroPacking {
 			return;
 		}	
 		//System.out.println("remplir " +tableau.length); 
-		if(tableau.length==8){
-			nb++; 
-			if(nb%100000==0)
-				System.out.println(nb); 
+		if(tableau.length==7){
+			rnb++; 
+			if(rnb%100000==0)
+				System.out.println(rnb); 
 			compute(tableau);
 			//verify(tableau); 
 			return; 
@@ -70,6 +77,9 @@ public class FibonacciCoinpacking extends EuroPacking {
 	public static void main(String[] args) {
 		remplir(null); 
 		System.out.println(nb); 
+		for(Couronne c: resultats)
+			System.out.println(c); 
+		System.out.println(resultats.size()); 
 
 	}
 
