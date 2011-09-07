@@ -115,7 +115,7 @@ public class CoinEnumerator<E extends FiboCoin> {
  public static void main(String[] args) {
 	 System.out.println("debut");
 	 CoinEnumerator<EuroCoin> toto=new CoinEnumerator<EuroCoin>(); 
-	 toto.enumerate(7);
+	 toto.enumerate(8);
 	 for(Solution e: toto.lesSolutions)
 		 System.out.println(e); 
 	 System.out.println(toto.lesSolutions.size()+" "+toto.compteur); 
