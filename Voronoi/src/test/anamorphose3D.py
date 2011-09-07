@@ -228,30 +228,47 @@ def rotate(an):
 def meshify(meche,nbFaces):
  nbtranches=(len(meche.verts)-1)/nbFaces
  for j in range(0,nbtranches-1):
-  print j," ",len(meche.verts)	
+  print j," ",len(meche.verts)
+  dmin=50	
+  kcandidat=1
+  x1=Vector(meche.verts[1+j*nbFaces])
+  for k in range(0,nbFaces,1):
+  x2=Vector(meche.verts[1+k+(j+1)*nbFaces])
+  x3=x2-x1
+  candidat=x3.length
+  if(candidat<dmin):
+   dmin=candidat
+   kcandidat=k
+
   for i in range(0,nbFaces):
+# c'est ici qu'il va falloir changer des trucs
+# prendre 1+j*nbFaces et (i+k)%nbFAces+(j+1)*nbFaces
+# pour k variant entre 0 et nbFaces-1
+#garder le k qui minimise la distance entre les deux sommets
    face=NMesh.Face()
    face.append(meche.verts[1+i+j*nbFaces])
    face.append(meche.verts[1+j*nbFaces+((i+1)%nbFaces)])
-   face.append(meche.verts[1+(j+1)*nbFaces+((1+i)%nbFaces)])  
-   face.append(meche.verts[1+(j+1)*nbFaces+i])
+   #face.append(meche.verts[1+(j+1)*nbFaces+((1+i)%nbFaces)])  
+   #face.append(meche.verts[1+(j+1)*nbFaces+i])
+   face.append(meche.verts[1+(j+1)*nbFaces+((1+i+kcandidat)%nbFaces)])  
+   face.append(meche.verts[1+(j+1)*nbFaces+(i+kcandidat)%nbFaces])
    meche.faces.append(face)
  #face du depart
- for i in range(0,nbFaces):
-  face=NMesh.Face()
-  face.append(meche.verts[1+i])
-  face.append(meche.verts[1+(i+1)%nbFaces])
-  face.append(meche.verts[0])
-  meche.faces.append(face)
+  for i in range(0,nbFaces):
+   face=NMesh.Face()
+   face.append(meche.verts[1+i])
+   face.append(meche.verts[1+(i+1)%nbFaces])
+   face.append(meche.verts[0])
+   meche.faces.append(face)
 
  #face d'arrivee
- taille=len(meche.verts)
- for i in range(0,nbFaces):
-  face=NMesh.Face()
-  face.append(meche.verts[taille-nbFaces-1+i])
-  face.append(meche.verts[taille-nbFaces-1+(i+1)%nbFaces])
-  face.append(meche.verts[taille-1])
-  meche.faces.append(face)
+  taille=len(meche.verts)
+  for i in range(0,nbFaces):
+   face=NMesh.Face()
+   face.append(meche.verts[taille-nbFaces-1+i])
+   face.append(meche.verts[taille-nbFaces-1+(i+1)%nbFaces])
+   face.append(meche.verts[taille-1])
+   meche.faces.append(face)
 
  return meche
 
