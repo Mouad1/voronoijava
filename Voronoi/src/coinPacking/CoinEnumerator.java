@@ -18,7 +18,6 @@ public class CoinEnumerator<E extends FiboCoin> {
 	}
 
 	protected void verify(ArrayList<E> t){
-		System.out.print("Candidat ");
 		for(E e: t)
 			System.out.print(e+",");
 		System.out.println(); 
@@ -34,19 +33,20 @@ public class CoinEnumerator<E extends FiboCoin> {
 	}
 	
 	private boolean bonneSolution(Solution p){
-		int taille=E.listOfCoins.length; 
+		int taille=p.getList().size(); 
+		ArrayList<E> t=p.getList(); 
 		double cr=p.getCenter().getSize();
 		double sumAngles=0; 
-		for(int j=0;j<E.listOfCoins.length;j++){
-			double resu=(cr+E.listOfCoins[j].getSize())*(cr+E.listOfCoins[j].getSize()); 
-			resu+=(cr+E.listOfCoins[(j+1)%taille].getSize())*(cr+E.listOfCoins[(j+1)%taille].getSize()); 
-			resu-=(E.listOfCoins[j].getSize()+E.listOfCoins[(j+1)%taille].getSize())*(E.listOfCoins[j].getSize()+E.listOfCoins[(j+1)%taille].getSize());
-			resu/=2*(cr+E.listOfCoins[j].getSize())*(cr+E.listOfCoins[(j+1)%taille].getSize());
+		for(int j=0;j<taille;j++){
+			double resu=(cr+t.get(j).getSize())*(cr+t.get(j).getSize()); 
+			resu+=(cr+t.get((j+1)%taille).getSize())*(cr+t.get((j+1)%taille).getSize()); 
+			resu-=(t.get(j).getSize()+t.get((j+1)%taille).getSize())*(t.get(j).getSize()+t.get((j+1)%taille).getSize()); 
+			resu/=2*(cr+t.get(j).getSize())*(cr+t.get((j+1)%taille).getSize());
 			double angle=Math.acos(resu); 
 			sumAngles+=angle;
 		}// for j
 		
-		return (Math.abs(sumAngles-2*Math.PI)==0); 
+		return (Math.abs(sumAngles-2*Math.PI)<1e-8); 
 	}
 	
 	/*
@@ -89,7 +89,7 @@ public class CoinEnumerator<E extends FiboCoin> {
 		if(tableau.size()==n){
 			//compute(tableau);
 			compteur++; 
-			verify(tableau); 
+		
 			for(int i=0;i<E.nbCoins;i++){
 			Solution provi=new Solution(tableau,(E)E.listOfCoins[i]); 
 			if(!lesSolutions.contains(provi))
