@@ -4,22 +4,22 @@ package coinPacking;
 
 import java.util.ArrayList;
 
-public class Solution<E extends FiboCoin> {
+public class SolutionV2 {
 	
-	private ArrayList<E> laCouronne; 
-	private E leCentre; 
+	private ArrayList<Coin> laCouronne; 
+	private Coin leCentre; 
 	
-	public E getCenter(){return leCentre; }
-	public ArrayList<E> getList(){return laCouronne;}
+	public Coin getCenter(){return leCentre; }
+	public ArrayList<Coin> getList(){return laCouronne;}
 	
-	public Solution(ArrayList<E> laRonde, E center){
-		this.laCouronne=new ArrayList<E>(laRonde); 
+	public SolutionV2(ArrayList<Coin> laRonde, Coin center){
+		this.laCouronne=new ArrayList<Coin>(laRonde); 
 		this.leCentre=center; 
 	}
 	
 	public String toString(){
 		String s=""; 
-		for(E e: this.laCouronne)
+		for(Coin e: this.laCouronne)
 			s+=e+","; 
 		s+=" avec au centre "+this.leCentre; 
 		return s; 
@@ -31,8 +31,8 @@ public class Solution<E extends FiboCoin> {
 		s+="#declare rc="+this.leCentre.getSize()+";\n"; 
 		s+="#declare ang=0;\n"; 
 		for(int i=0;i<this.laCouronne.size();i++){
-			E p1=this.laCouronne.get(i); 
-			E p2=this.laCouronne.get((i+1)%this.laCouronne.size()); 
+			Coin p1=this.laCouronne.get(i); 
+			Coin p2=this.laCouronne.get((i+1)%this.laCouronne.size()); 
 			s+="object{"+p1.getPovrayName()+" translate(rc+"+p1.getSize()+")*z rotate ang*y}\n"; 
 			s+="#declare ang=ang+centerAngle(rc,"+p1.getSize()+","+p2.getSize()+");\n"; 
 		}
@@ -59,7 +59,7 @@ public class Solution<E extends FiboCoin> {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Solution other = (Solution) obj;
+		SolutionV2 other = (SolutionV2) obj;
 		if (leCentre == null) {
 			if (other.leCentre != null)
 				return false;

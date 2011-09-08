@@ -1,5 +1,6 @@
 // La methode enumerate(n) construit tous les ensembles possibles 
 // de pieces d'un set de pieces donne...
+// Nouvelle version : on fixe la liste de piece au depart
 
 package coinPacking;
 
@@ -8,17 +9,27 @@ import java.util.ArrayList;
 
 import test.Couronne;
 
-public class CoinEnumerator<E extends FiboCoin> {
+public class CoinEnumeratorV2 {
 	
-	public ArrayList<Solution<E>> lesSolutions=new ArrayList<Solution<E>>(); 
+	public ArrayList<SolutionV2> lesSolutions=new ArrayList<SolutionV2>(); 
 	
+	private int nbCoins; 
+	private Coin[] listOfCoins; 
 	private int compteur=0; 
 	public void enumerate(int n){
 		remplir(null,n); 
 	}
+	
+	public CoinEnumeratorV2(String[] names,String[] povrayNames,double[] values){
+		this.nbCoins=names.length;
+		this.listOfCoins=new Coin[this.nbCoins]; 
+		for(int i=0;i<nbCoins;i++)
+			this.listOfCoins[i]=new Coin(names[i],povrayNames[i],values[i]); 
+	}
+	
 
-	protected void verify(ArrayList<E> t){
-		for(E e: t)
+	protected void verify(ArrayList<Coin> t){
+		for(Coin e: t)
 			System.out.print(e+",");
 		System.out.println(); 
 		
@@ -27,14 +38,14 @@ public class CoinEnumerator<E extends FiboCoin> {
 	
 	protected void imprimeSolution(){
 		System.out.println("*************"); 
-		for(Solution s : lesSolutions)
+		for(SolutionV2 s : lesSolutions)
 			System.out.println(s); 
 		System.out.println("***************"); 
 	}
 	
-	private boolean bonneSolution(Solution p){
+	private boolean bonneSolution(SolutionV2 p){
 		int taille=p.getList().size(); 
-		ArrayList<E> t=p.getList(); 
+		ArrayList<Coin> t=p.getList(); 
 		double cr=p.getCenter().getSize();
 		double sumAngles=0; 
 		for(int j=0;j<taille;j++){
@@ -54,11 +65,11 @@ public class CoinEnumerator<E extends FiboCoin> {
 	
 	
 	
-	protected void remplir(ArrayList<E> tableau,int n){
+	protected void remplir(ArrayList<Coin> tableau,int n){
 		if(tableau==null){
-			for(int i=0;i<E.nbCoins;i++){
-				ArrayList<E> t=new ArrayList<E>(); 
-				t.add(0,(E) E.listOfCoins[i]); 
+			for(int i=0;i<nbCoins;i++){
+				ArrayList<Coin> t=new ArrayList<Coin>(); 
+				t.add(0,listOfCoins[i]); 
 				remplir(t,n);
 				
 			}// for i
@@ -69,8 +80,8 @@ public class CoinEnumerator<E extends FiboCoin> {
 			//compute(tableau);
 			compteur++; 
 			if(compteur%1000000==0) System.out.println(compteur); 
-			for(int i=0;i<E.nbCoins;i++){
-			Solution provi=new Solution(tableau,(E)E.listOfCoins[i]); 
+			for(int i=0;i<nbCoins;i++){
+			SolutionV2 provi=new SolutionV2(tableau,listOfCoins[i]); 
 			if(!lesSolutions.contains(provi))
 				// tester
 			if(bonneSolution(provi)){
@@ -83,20 +94,23 @@ public class CoinEnumerator<E extends FiboCoin> {
 		}
 		
 	// ici, on est en cours de construction
-		for(int j=0;j<E.nbCoins;j++){
-			ArrayList<E> tp=new ArrayList<E>(); 
+		for(int j=0;j<nbCoins;j++){
+			ArrayList<Coin> tp=new ArrayList<Coin>(); 
 			for(int i=0;i<tableau.size();i++)
 			tp.add(i,tableau.get(i));  
-			tp.add(tableau.size(),(E)E.listOfCoins[j]);
+			tp.add(tableau.size(),listOfCoins[j]);
 			remplir(tp,n); 
 		}// for j
 	}
 
  public static void main(String[] args) {
 	 System.out.println("debut");
-	 CoinEnumerator<FiboCoin> toto=new CoinEnumerator<FiboCoin>(); 
-	 toto.enumerate(11);
-	 for(Solution e: toto.lesSolutions)
+	 String names[]={"un euro","deux euros","trois euros"}; 
+	 String povnames[]={"oneEuro","twoEuros","threeEuros"}; 
+	 double diam[]={1.0,2.0,3.0}; 
+	 CoinEnumeratorV2 toto=new CoinEnumeratorV2(names,povnames,diam); 
+	 toto.enumerate(8);
+	 for(SolutionV2 e: toto.lesSolutions)
 		 System.out.println(e.toPovray()); 
 	 System.out.println(toto.lesSolutions.size()+" "+toto.compteur); 
 	

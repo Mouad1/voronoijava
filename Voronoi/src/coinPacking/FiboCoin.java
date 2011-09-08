@@ -1,21 +1,29 @@
 package coinPacking;
 
 public class FiboCoin {
-	public static final FiboCoin oneFibo =new FiboCoin("1 Fibo",1);
-	public static final FiboCoin twoFibos =new FiboCoin("2 Fibos", 2);
-	public static final FiboCoin threeFibos=new FiboCoin ("3 Fibos",3);
-	public static final FiboCoin fiveFibos=new FiboCoin ("5 Fibos",5);
-	public static final FiboCoin eightFibos=new FiboCoin ("8 Fibos",8);
-	public static final FiboCoin thirteenFibos =new FiboCoin("13 Fibos", 13);
-	public static final FiboCoin twentyOneFibos=new FiboCoin("21 Fibos",21); 
+	public static final FiboCoin oneFibo =new FiboCoin("1 Fibo",1,"oneFibo");
+	public static final FiboCoin twoFibos =new FiboCoin("2 Fibos", 2,"twoFibos");
+	public static final FiboCoin threeFibos=new FiboCoin ("3 Fibos",3,"threeFibos");
+	public static final FiboCoin fiveFibos=new FiboCoin ("5 Fibos",5,"fiveFibos");
+	public static final FiboCoin eightFibos=new FiboCoin ("8 Fibos",8,"eightFibos");
+	public static final FiboCoin thirteenFibos =new FiboCoin("13 Fibos", 13,"thirteenFibos");
+	public static final FiboCoin twentyOneFibos=new FiboCoin("21 Fibos",21,"twentyOneFibos"); 
 	
 	
+	public String getPovrayName() {
+		return PovrayName;
+	}
+
+
+
 	protected String name; 
 	protected double size; 
+	protected String PovrayName; 
 
-	protected FiboCoin(String n,double diam){
+	protected FiboCoin(String n,double diam,String f){
 		this.name=n; 
 		this.size=diam;
+		this.PovrayName=f; 
 	}
 	
 	
