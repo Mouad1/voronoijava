@@ -7,7 +7,7 @@ public class EuroCoin extends FiboCoin{
 	
 	
 	protected EuroCoin(String n, double diam){
-		super(n,diam); 
+		super(n,diam,null); 
 	}
 	
 	public static int nbCoins=2; 
