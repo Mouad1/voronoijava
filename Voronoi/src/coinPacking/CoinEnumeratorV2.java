@@ -107,9 +107,9 @@ public class CoinEnumeratorV2 {
 	 System.out.println("debut");
 	 String names[]={"un","deux","trois","quatre","cinq","six","sept"}; 
 	 String povnames[]={"one","two","three","four","five","six","seven"}; 
-	 double diam[]={1.0,2.0,3.0,4.0,5.0,6.0,7.0}; 
+	 double diam[]={1,Math.sqrt(2),Math.sqrt(3),Math.sqrt(4),Math.sqrt(5),Math.sqrt(6),Math.sqrt(7)}; 
 	 CoinEnumeratorV2 toto=new CoinEnumeratorV2(names,povnames,diam); 
-	 toto.enumerate(10);
+	 toto.enumerate(6);
 	 for(SolutionV2 e: toto.lesSolutions)
 		 System.out.println(e.toPovray()); 
 	 System.out.println(toto.lesSolutions.size()+" "+toto.compteur); 
