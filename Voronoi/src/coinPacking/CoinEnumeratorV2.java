@@ -105,11 +105,11 @@ public class CoinEnumeratorV2 {
 
  public static void main(String[] args) {
 	 System.out.println("debut");
-	 String names[]={"un euro","deux euros","trois euros"}; 
-	 String povnames[]={"oneEuro","twoEuros","threeEuros"}; 
-	 double diam[]={1.0,2.0,3.0}; 
+	 String names[]={"un","deux","trois","quatre","cinq","six","sept"}; 
+	 String povnames[]={"one","two","three","four","five","six","seven"}; 
+	 double diam[]={1.0,2.0,3.0,4.0,5.0,6.0,7.0}; 
 	 CoinEnumeratorV2 toto=new CoinEnumeratorV2(names,povnames,diam); 
-	 toto.enumerate(8);
+	 toto.enumerate(10);
 	 for(SolutionV2 e: toto.lesSolutions)
 		 System.out.println(e.toPovray()); 
 	 System.out.println(toto.lesSolutions.size()+" "+toto.compteur); 
