@@ -45,6 +45,8 @@ public class ThreeDreader {
 	
 	
 	public void afficheFichierTexte() {
+		 double diamMin=10; 
+         double diamMax=-2;
 			//this.catena="C:/Documents and Settings/moi/workspace/Voronoi/src/test/"+nomFichierSource+".off";
 		//this.catena="/tmp/quadri.txt"; 
 		double ratio=1; 
@@ -64,6 +66,7 @@ public class ThreeDreader {
                 String line1=in.readLine();
                 Scanner r1=new Scanner(line1); 
                 int dim=(int)r1.nextInt(); 
+               
                 while(u){
                 	double diam[]=new double[dim]; 
                 	double x[]=new double[dim]; 
@@ -78,6 +81,8 @@ public class ThreeDreader {
                 	  rl.useLocale(Locale.US);
                 	  int indice=(int)rl.nextDouble(); 
                 	  diam[i]=rl.nextDouble();
+                	  if(diam[i]<diamMin) diamMin=diam[i];
+                	  if(diam[i]>diamMax) diamMax=diam[i];
                 	  x[i]=rl.nextDouble(); 
                 	  y[i]=rl.nextDouble();
                 	  z[i]=rl.nextDouble();
@@ -150,6 +155,7 @@ public class ThreeDreader {
           } catch (Exception e) {System.out.println(e); 
                   e.printStackTrace(); System.exit(0);
           }
+          System.out.println(diamMin+" "+diamMax);
   }
 	  public static void main(String args[]) {
           // new TestIO().copieFichierTexte("essai.txt","output.txt");
