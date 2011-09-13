@@ -59,7 +59,7 @@ def translate(p,r):
     [0,0,1,0],
     [dir[0],dir[1],dir[2],1])
  
- # apply the transform to the cylinder  
+ # apply the transform to the sphere
  me.transform(A,True)
  return me
 
@@ -233,12 +233,12 @@ def meshify(meche,nbFaces):
   kcandidat=1
   x1=Vector(meche.verts[1+j*nbFaces])
   for k in range(0,nbFaces,1):
-  x2=Vector(meche.verts[1+k+(j+1)*nbFaces])
-  x3=x2-x1
-  candidat=x3.length
-  if(candidat<dmin):
-   dmin=candidat
-   kcandidat=k
+   x2=Vector(meche.verts[1+k+(j+1)*nbFaces])
+   x3=x2-x1
+   candidat=x3.length
+   if(candidat<dmin):
+    dmin=candidat
+    kcandidat=k
 
   for i in range(0,nbFaces):
 # c'est ici qu'il va falloir changer des trucs
