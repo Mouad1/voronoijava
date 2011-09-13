@@ -40,13 +40,13 @@ public class DollarpackingGeneral extends EuroPacking {
 		
 	}
 	
-	static protected void remplir(int tableau[],int lastIndex){
+	static protected void remplir(int tableau[]){
 		
 	
 		if(tableau==null){
 			for(int i=0;i<7;i++){
 				int t[]={i};
-				remplir(t,i); 
+				remplir(t); 
 			}// for i
 			return;
 		}	
@@ -57,16 +57,16 @@ public class DollarpackingGeneral extends EuroPacking {
 		}
 		
 	// ici, on est en cours de construction
-		for(int j=lastIndex;j<7;j++){
+		for(int j=0;j<7;j++){
 			int tp[]=new int[tableau.length+1]; 
 			System.arraycopy(tableau, 0, tp, 0,tableau.length); 
 			tp[tp.length-1]=j; 
-			remplir(tp,j); 
+			remplir(tp); 
 		}// for j
 	}
 	
 	public static void main(String[] args) {
-		remplir(null,0); 
+		remplir(null); 
 		System.out.println(nb); 
 
 	}
