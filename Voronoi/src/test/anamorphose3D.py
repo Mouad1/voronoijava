@@ -290,8 +290,9 @@ rati=0.3
 #Pour les slides together
 #execfile('C:/users/decomite/pictures/povray/t4b.txt')
 #Pour les anamorphoses
-execfile('C:/users/decomite/pictures/povray/spline.py')
-
+#execfile('C:/users/decomite/pictures/povray/spline.py')
+#Pour les cadres en couleur
+execfile('C:/users/decomite/pictures/povray/color.txt')
 
 
 """
