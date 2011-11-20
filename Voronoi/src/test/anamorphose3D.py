@@ -291,9 +291,11 @@ rati=0.3
 #execfile('C:/users/decomite/pictures/povray/t4b.txt')
 #Pour les anamorphoses
 #execfile('C:/users/decomite/pictures/povray/spline.py')
-#Pour les cadres en couleur
-execfile('C:/users/decomite/pictures/povray/color.txt')
-
+#Pour les cadres en couleur*
+# Portable
+#execfile('C:/users/decomite/pictures/povray/color.txt')
+#Maison	
+execfile('F:\Povray\jp.txt')
 
 """
 #######################################
