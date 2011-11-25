@@ -131,6 +131,7 @@ def couronne(d1,nbFaces,l):
  me.verts.append(vertex)
 
  for i in range(0,nbFaces,1):
+  print "couronne ",i," nbfaces ",nbFaces	
   vertex=NMesh.Vert(d1*cos(2*i*pi/nbFaces),d1*sin(2*i*pi/nbFaces),0)
   me.verts.append(vertex)
  for i in range(0,nbFaces,1):
@@ -210,7 +211,7 @@ def lineSegMe(p1,p2,d1,nbFaces):
  
  me.transform(A,True)
  
- return me,me.verts[0:nbFaces+1],me.verts[1:nbFaces+1],me.verts[1+nbFaces:1+1+2*nbFaces]
+ return me.verts,me.verts[0:nbFaces+1],me.verts[1:nbFaces+1],me.verts[1+nbFaces:1+1+2*nbFaces]
 
  
 def rotate(an):
@@ -227,8 +228,9 @@ def rotate(an):
 
 def meshify(meche,nbFaces):
  nbtranches=(len(meche.verts)-1)/nbFaces
+ print "xxx---->",nbtranches
  for j in range(0,nbtranches-1):
-  print j," ",len(meche.verts)
+  #print j," ",len(meche.verts)
   dmin=50	
   kcandidat=1
   x1=Vector(meche.verts[1+j*nbFaces])
@@ -283,7 +285,7 @@ for ob in scene.objects:
 
 nbf=12
 diam=0.05
-rati=0.3
+rati=0.2
 
 #execfile('C:\Users\decomite\Pictures\povray\output povray\spline.py')
 
@@ -295,7 +297,9 @@ rati=0.3
 # Portable
 #execfile('C:/users/decomite/pictures/povray/color.txt')
 #Maison	
-execfile('F:\Povray\jp.txt')
+#execfile('F:\Povray\jp.txt')
+#Pour les labyrinthes
+execfile('C:/users/decomite/pictures/povray/laby.py')
 
 """
 #######################################
