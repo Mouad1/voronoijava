@@ -24,7 +24,7 @@ public class ReadPlainFileSphereSweep {
 	private double spreadX=0,spreadY=0,maxi=0; 
 	private String chemin; 
 	public void afficheFichierTexte() {		
-	this.chemin="C:/Users/decomite/Documents/tampongraphes/plaingraph.plain"; 
+	this.chemin="C:/Users/decomite/Documents/tampongraphes/out.plain"; 
       File source = new File(chemin);
       int nbnoeuds=0; 
       try{
@@ -84,15 +84,27 @@ public class ReadPlainFileSphereSweep {
     	   if(noeuds[i]!=null){
     	//  	System.out.println("#declare Position["+i+"]=<kx*"+noeuds[i].getX()+",ky*"+noeuds[i].getY()+",kz*"+noeuds[i].getZ()+">;"); 
       	//	System.out.println("sphere{Position["+i+"],diams texture{T2} finish{F2}}");
+    		   String s; 
+    	    	  if(generator.nextDouble()<=0.5)s="femme"; else s="homme"; 
+    	    	  //System.out.println("cylinder{Position["+origine+"],Position["+arrivee+"],diam texture{T1} finish{F1}}"); 
+    	    	  //out.println("sphere{Position["+origine+"],diams texture{T2} finish{F2}}");
+    	    	  double cr=(0.5+0.5*generator.nextDouble()); 
+    	    	  double cg=(0.5+0.5*generator.nextDouble()); 
+    	    	  double cb=(0.5+0.5*generator.nextDouble()); 
+    	    	  double roti=360*generator.nextDouble(); 
       		out.println("#declare Position["+i+"]=<"+noeuds[i].getX()+","+noeuds[i].getY()+","+noeuds[i].getZ()+">;"); 
+      		 out.println("object{"+s+" (rgb<"+cr+","+cg+","+cb+">) scale scg rotate "+roti+"*y ");
+       	  out.println("finish{phong ph specular sp} ");
+       	  out.println( "translate radio*y "); 
+       	  out.println("Reorient_Trans(y,Position["+i+"])}"); 
       		//out.println("sphere{Position["+i+"],diams texture{T2} finish{F2}}");
     	   }
       for(Couple c:edges){
     	  int origine=c.getI(); 
     	  int arrivee=c.getJ(); 
-    	  //System.out.println("cylinder{Position["+origine+"],Position["+arrivee+"],diam texture{T1} finish{F1}}"); 
-    	  //out.println("sphere{Position["+origine+"],diams texture{T2} finish{F2}}");
-    	  out.println("#torusLink(Position["+origine+"],Position["+arrivee+"],echelle)"); 
+    	
+    	 
+    	  out.println("#torusLink(Position["+origine+"],Position["+arrivee+"],radio,diam)"); 
     	
       }// c
       out.close();
