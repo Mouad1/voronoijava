@@ -24,7 +24,7 @@ public class ReadPlainFileSphereSweep {
 	private double spreadX=0,spreadY=0,maxi=0; 
 	private String chemin; 
 	public void afficheFichierTexte() {		
-	this.chemin="C:/Users/decomite/Documents/tampongraphes/out.plain"; 
+	this.chemin="C:/Users/decomite/Documents/tampongraphes/mygraph.plain"; 
       File source = new File(chemin);
       int nbnoeuds=0; 
       try{

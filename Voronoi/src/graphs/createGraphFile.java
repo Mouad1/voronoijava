@@ -42,7 +42,7 @@ public class createGraphFile {
 	
 	public static void main(String[] args) {
 		createGraphFile mine=new createGraphFile(); 
-		mine.creer(100,100,0.5,100); 
+		mine.creer(100,100,0.5,300); 
 	}
 
 }
