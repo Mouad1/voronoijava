@@ -125,7 +125,8 @@ public class OffReader3DMeshV2TaggedVertices {
                 		  // TODO travail ici
                 		  for(int j=0;j<dim;j++) center= Vertex.add(vertices.get(coins[j]),center);
                 		  center=(TaggedVertex) Vertex.mul(center,1.0/(dim+0.0)); 
-                		  vertices.add(center);
+                		  // TODO correction hasardeuse
+                		  vertices.add((TaggedVertex)center);
                 		  // Construire les dim triangles  (vi,v(i+1),c)
                 		  for(int j=0;j<dim;j++)
                 			  lesFacesTriangulaires.add(new FaceTriangulaire(vertices.get(coins[j]),vertices.get(coins[(j+1)%dim]),center,coins[j],coins[(j+1)%dim],vertices.indexOf(center)));
@@ -142,7 +143,8 @@ public class OffReader3DMeshV2TaggedVertices {
                 	 
                 	  // TODO a changer
                 	  for(FaceTriangulaire f:lesFacesTriangulaires)
-                		  lesCentresDesFaces.add(f.getCenter()); 
+                		  // TODO correction vertex->TagedVertex hasardeuxe
+                		  lesCentresDesFaces.add((TaggedVertex)f.getCenter()); 
                 	  
                   }
                 
@@ -200,8 +202,8 @@ public class OffReader3DMeshV2TaggedVertices {
                 			  if(Math.abs(Vertex.produitScalaire(n,f.normal()))>epsilon)
                 			  n=Vertex.add(n,Vertex.mul(f.normal(),1)); 
                 	  }
-                	  // TODO Verifier
-                	  lesNormales.add(i,Vertex.mul(n,1));
+                	  // TODO Verifier Vertex->taggedvertex hasardeuse
+                	  lesNormales.add(i,(TaggedVertex)Vertex.mul(n,1));
                 	  
                   }// for v
                   
