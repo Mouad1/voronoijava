@@ -296,10 +296,11 @@ rati=0.2
 #Pour les cadres en couleur*
 # Portable
 #execfile('C:/users/decomite/pictures/povray/color.txt')
+execfile('C:/users/decomite/pictures/povray/cage.txt')
 #Maison	
 #execfile('F:\Povray\jp.txt')
 #Pour les labyrinthes
-execfile('C:/users/decomite/pictures/povray/laby.py')
+#execfile('C:/users/decomite/pictures/povray/laby.py')
 
 """
 #######################################
