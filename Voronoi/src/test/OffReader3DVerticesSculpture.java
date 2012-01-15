@@ -34,7 +34,7 @@ public class OffReader3DVerticesSculpture {
 	private  ArrayList<Vertex> lesCentresDesFaces=new ArrayList<Vertex>(); 
 	private  ArrayList<Vertex> lesNormales=new ArrayList<Vertex>(); 
 	public int nbVertices,nbFaces,nbAretes;
-	private static int roulette=3; 
+	private static int roulette=0; 
 	private String catena;
 	{
 		Locale.setDefault(Locale.US);
@@ -127,7 +127,7 @@ public class OffReader3DVerticesSculpture {
           OffReader3DVerticesSculpture toto=new OffReader3DVerticesSculpture(); 
          TreeSet<Double>lesDistances=new TreeSet<Double>(); 
        
-          toto.afficheFichierTexte("icosidodecahedron");
+          toto.afficheFichierTexte("snub_cuboctahedron");
           for(int i=0;i<toto.vertices.size();i++){
         	  Vertex v1=toto.vertices.get(i); 
         	  for(int j=i+1;j<toto.vertices.size();j++){
