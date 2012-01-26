@@ -5,37 +5,130 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.PrintStream;
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class DEMReader {
 	
 	public static void afficheFichierTexte(String nomFichierSource) {
-	
+		PrintStream output; 
 	   String catena=nomFichierSource; 
       File source = new File(catena);
-      char buffer[]=new char[144]; 
+      int planeUnitCode;
+      int elevationUnitCode; 
+      int numberOfSides; 
+      double minElevation,maxElevation; 
+      double angle; 
+      
+      
+      char buffer[]=new char[145]; 
       try {
-              BufferedReader in = new BufferedReader(new FileReader(source));
-            	  in.read(buffer,0,144);
+              BufferedReader in = new BufferedReader(new FileReader(source+".dem"));
+            	  in.read(buffer,0,145);
             	
              
               System.out.println("**"+String.copyValueOf(buffer)+"**"); 
+             
              Scanner r=new Scanner(in); 
-             Pattern p = Pattern.compile(".");
-             for(int i=0;i<3;i++)System.out.println(r.nextInt());
-             for(int i=0;i<10;i++){
-             String u=r.next(p);
-             System.out.println("*"+u+"*");
-      }
-             for(int i=0;i<15;i++)System.out.println(r.nextFloat());
+             r.useLocale(Locale.US); 
+             for(int i=0;i<4;i++){
+             int n1=r.nextInt(); 
+             System.out.println(n1); 
+             }
+             for(int i=0;i<15;i++){
+                 double n1=r.nextDouble(); 
+                // System.out.println("-->"+n1+"<---"); 
+                 }
+             planeUnitCode=r.nextInt(); 
+             System.out.println("Plane unit code : "+planeUnitCode);
+             elevationUnitCode=r.nextInt(); 
+             System.out.println("Elevation unit code : "+elevationUnitCode);
+             numberOfSides=r.nextInt();
+             System.out.println("Number of Sides : "+numberOfSides);
+             
+             for(int i=0;i<8;i++)
+            	 System.out.println("-->"+r.nextDouble()+"<--"); 
+             minElevation=r.nextDouble(); 
+             maxElevation=r.nextDouble(); 
+             System.out.println("Min elevation "+minElevation+" max Elevation "+maxElevation);
+             angle=r.nextDouble(); 
+             System.out.println("Angle "+angle);
+             
+             // Un entier et 3 flottants colles ensemble
+             String pass=r.next(); 
+             System.out.println(pass); 
+             
+             int row=r.nextInt(); 
+             int columns=r.nextInt(); 
+             System.out.println("Rows : "+row+" Columns : " +columns); 
+             int nbRow=r.nextInt(); 
+             int curs=r.nextInt(); 
+             System.out.println(nbRow+" "+curs); 
+             while(curs!=columns){
+            	 nbRow=curs; 
+            	 curs=r.nextInt();
+            	 System.out.println(nbRow+" "+curs); 
+             }
+             System.out.println("--->"+r.nextInt()); // une colonne, on jette
+             double coordA=r.nextDouble(); 
+             double coordB=r.nextDouble(); 
+             double elevLocalDatum=r.nextDouble(); 
+             System.out.println(coordA+" "+coordB+" "+elevLocalDatum);
+             double minElev=r.nextDouble(); 
+             double maxElev=r.nextDouble(); 
+             System.out.println((int)minElev+" "+(int)maxElev);
             
+             int valeurs[][]=new int[columns][columns];
+             
+             for(int k=0;k<columns;k++){
+            	 System.out.println("K " +k); 
+             for(int i=0;i<columns;i++)
+            	 valeurs[k][i]=r.nextInt();
+            // passer les debuts de lignes	
+             if(k<columns-1){
+             for(int i=0;i<4;i++){int u=r.nextInt(); if(i==1) System.out.println("U "+u); }
+             for(int i=0;i<5;i++)r.nextDouble();
+             }
+             }
+            
+            /* 
+            output=new PrintStream("devil.inc");
+            output.println("#declare mountain=union{"); 
+            for(int i=0;i<columns;i++)
+            	for(int j=0;j<columns;j++)
+            		output.println("sphere{<"+i+","+valeurs[i][j]+","+j+">,diam texture{T0} finish{F0}}"); 
+             
+             output.println("}"); 
+             output.close(); 
+             */
+             output=new PrintStream("../pearls/scene/divers/devilProfil.inc");
+             //output=new PrintStream("devilProfil.inc"); 
+             output.println("#declare mountain=union{"); 
+             for(int i=0;i<10;i++){
+            	 // un profil
+            	 output.println("prism{ \n linear_spline\n 0, ep,"+503+""); 
+            	 output.println("<0,"+minElevation+">,"); 
+            	 for(int k=0;k<500;k++){
+            		 output.println("<"+(2*k)+","+valeurs[2*i][2*k]+">,"); 
+            	 }//k
+            	 output.println("<"+1000+","+minElevation+">,"); 
+            	 output.println("<0,"+minElevation+">"); 
+            	 output.println("translate "+i+"*100*ep*y");
+            	 output.println("texture{pigment{color rgb <"+((i+0.0)/columns)+","+((columns-i-0.0)/columns)+",0>}}}");
+             }// i
+             output.println("}// union");
+             output.close(); 
+             
+             
       }
       catch(Exception e){System.out.println("Probleme "+e); System.exit(0); }
       }
 	
 	public static void main(String[] args) {
-		afficheFichierTexte("C:/Users/decomite/Downloads/032g/032g_0100_deme.dem");
+		//afficheFichierTexte("C:/Users/decomite/Downloads/032g/032g_0100_deme.dem");
+		afficheFichierTexte("C:/Users/decomite/Downloads/083c07/083c07_0101_deme"); 
+		
 	}
 	
 
