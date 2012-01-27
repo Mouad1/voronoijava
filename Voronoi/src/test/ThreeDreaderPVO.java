@@ -22,7 +22,7 @@ import utils.Transfo;
 import utils.Vertex;
 import utils.Pos3D; 
 
-public class ThreeDreader {
+public class ThreeDreaderPVO {
 	
 	
 	private String catena;
@@ -45,11 +45,10 @@ public class ThreeDreader {
 	
 	
 	public void afficheFichierTexte() {
-		 double diamMin=10; 
-         double diamMax=-2;
+	
 			//this.catena="C:/Documents and Settings/moi/workspace/Voronoi/src/test/"+nomFichierSource+".off";
 		//this.catena="/tmp/quadri.txt"; 
-		double ratio=1; 
+	
 		//this.catena="f:/Povray/anamorphoses/quadri.txt"; 
 		this.catena="c:/users/decomite/pictures/povray/cage.txt"; 
           File source = new File(catena);
@@ -69,7 +68,7 @@ public class ThreeDreader {
                System.out.println("dim : "+dim); 
                	int nligne=0; 
                 while(u){
-                	double diam[]=new double[dim]; 
+                	
                 	double x[]=new double[dim]; 
                 	double y[]=new double[dim]; 
                 	double z[]=new double[dim]; 
@@ -84,9 +83,7 @@ public class ThreeDreader {
                 	  System.out.println(nligne+" * "+ligne); 
                 	  rl.useLocale(Locale.US);
                 	  int indice=(int)rl.nextDouble(); 
-                	  diam[i]=rl.nextDouble();
-                	  if(diam[i]<diamMin) diamMin=diam[i];
-                	  if(diam[i]>diamMax) diamMax=diam[i];
+                	 
                 	  x[i]=rl.nextDouble(); 
                 	  y[i]=rl.nextDouble();
                 	  z[i]=rl.nextDouble();
@@ -97,8 +94,8 @@ public class ThreeDreader {
                       cycle++;
                       //System.out.println("meFinal=NMesh.GetRaw()"); 
                       output.println("meFinal=NMesh.GetRaw()"); 
-                      sommets.add(new CoupleVertexDiam(new Vertex(x[0], y[0], z[0]),2*diam[0]));
-                      sommets.add(new CoupleVertexDiam(new Vertex(x[dim-1], y[dim-1], z[dim-1]),2*diam[dim-1]));
+                      sommets.add(new CoupleVertexDiam(new Vertex(x[0], y[0], z[0]),0));
+                      sommets.add(new CoupleVertexDiam(new Vertex(x[dim-1], y[dim-1], z[dim-1]),0));
                 	  for(int i=0;i<dim-1;i++){
                 		 Vertex p1=new Vertex(x[i],y[i],z[i]);
                 		 Vertex p2=new Vertex(x[i+1],y[i+1],z[i+1]);
@@ -111,9 +108,9 @@ public class ThreeDreader {
                    	     output.println("point0=Vector(["+p1.rawString()+"])");
                 	  	 output.println("point1=Vector(["+p2.rawString()+"])");
                 	  	 if(i==0)
-                	     output.println("meFinal.verts.extend(lineSegMe(point0,point1,rati*"+diam[i]+",nbf)[1])");
+                	     output.println("meFinal.verts.extend(lineSegMe(point0,point1,rati*diam,nbf)[1])");
                 	  	 if((i>0)&&(i<dim-1))
-                	     output.println("meFinal.verts.extend(lineSegMe(point0,point1,rati*"+diam[i]+",nbf)[2])");
+                	     output.println("meFinal.verts.extend(lineSegMe(point0,point1,rati*diam,nbf)[2])");
                 	  	 
                    	     
                 	  }// for
@@ -124,7 +121,7 @@ public class ThreeDreader {
                 	  System.out.println("point0=Vector(["+pfinal.rawString()+"])");
                 	  System.out.println("point1=Vector(["+pfinal2.rawString()+"])");
                 	  */
-                	  output.println("meFinal.verts.extend(lineSegMe(point0,point1,rati*"+diam[dim-1]+",nbf)[3])");  
+                	  output.println("meFinal.verts.extend(lineSegMe(point0,point1,rati*diam,nbf)[3])");  
                 	  //System.out.println("me=meshify(meFinal,nbf)");
                 	  //System.out.println("localOb=scene.objects.new(me,'arete1-"+cycle+"')"); 
                 	  output.println("me=meshify(meFinal,nbf)");
@@ -147,7 +144,7 @@ public class ThreeDreader {
                 
                 for(CoupleVertexDiam cvm:sommets){
                 	  Vertex v=cvm.getV();	
-                	  output.println("me=translate(["+v.rawString()+"],rati*"+cvm.getDiam()+")");
+                	  output.println("me=translate(["+v.rawString()+"],rati*2*diam)");
               		  output.println("localOb=scene.objects.new(me,'sphere"+i+"')");
               		  output.println("ob.join([localOb])"); 
               		  output.println("scene.objects.unlink(localOb)");
@@ -164,11 +161,11 @@ public class ThreeDreader {
           } catch (Exception e) {System.out.println(e); 
                   e.printStackTrace(); System.exit(0);
           }
-          System.out.println(diamMin+" "+diamMax);
+         
   }
 	  public static void main(String args[]) {
           // new TestIO().copieFichierTexte("essai.txt","output.txt");
-          ThreeDreader toto=new ThreeDreader(); 
+          ThreeDreaderPVO toto=new ThreeDreaderPVO(); 
          
           toto.afficheFichierTexte();
 
