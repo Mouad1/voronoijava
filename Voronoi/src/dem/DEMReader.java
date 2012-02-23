@@ -18,13 +18,13 @@ public class DEMReader {
       int planeUnitCode;
       int elevationUnitCode; 
       int numberOfSides; 
-      double minElevation,maxElevation; 
-      double angle; 
+      String minElevation,maxElevation; 
+      String angle; 
       
       
       char buffer[]=new char[145]; 
       try {
-              BufferedReader in = new BufferedReader(new FileReader(source+".dem"));
+              BufferedReader in = new BufferedReader(new FileReader(source));
             	  in.read(buffer,0,145);
             	
              
@@ -37,8 +37,8 @@ public class DEMReader {
              System.out.println(n1); 
              }
              for(int i=0;i<15;i++){
-                 double n1=r.nextDouble(); 
-                // System.out.println("-->"+n1+"<---"); 
+                 String n1=r.next(); 
+                 System.out.println("-->"+n1+"<---"); 
                  }
              planeUnitCode=r.nextInt(); 
              System.out.println("Plane unit code : "+planeUnitCode);
@@ -48,11 +48,16 @@ public class DEMReader {
              System.out.println("Number of Sides : "+numberOfSides);
              
              for(int i=0;i<8;i++)
-            	 System.out.println("-->"+r.nextDouble()+"<--"); 
-             minElevation=r.nextDouble(); 
-             maxElevation=r.nextDouble(); 
+            	 System.out.println("-->"+r.next()+"<--"); 
+             minElevation=r.next(); 
+             int posD=minElevation.indexOf("D+"); 
+             int exposant=Integer.parseInt(minElevation.substring(posD+2)); 
+             int minElevationInt=Integer.parseInt(minElevation.substring(2,exposant+1)); 
+             maxElevation=r.next(); 
+             exposant=Integer.parseInt(maxElevation.substring(posD+2)); 
+             int maxElevationInt=Integer.parseInt(maxElevation.substring(2,exposant+1)); 
              System.out.println("Min elevation "+minElevation+" max Elevation "+maxElevation);
-             angle=r.nextDouble(); 
+             angle=r.next(); 
              System.out.println("Angle "+angle);
              
              // Un entier et 3 flottants colles ensemble
@@ -71,13 +76,13 @@ public class DEMReader {
             	 System.out.println(nbRow+" "+curs); 
              }
              System.out.println("--->"+r.nextInt()); // une colonne, on jette
-             double coordA=r.nextDouble(); 
-             double coordB=r.nextDouble(); 
-             double elevLocalDatum=r.nextDouble(); 
+             String coordA=r.next(); 
+             String coordB=r.next(); 
+             String elevLocalDatum=r.next(); 
              System.out.println(coordA+" "+coordB+" "+elevLocalDatum);
-             double minElev=r.nextDouble(); 
-             double maxElev=r.nextDouble(); 
-             System.out.println((int)minElev+" "+(int)maxElev);
+             String minElev=r.next(); 
+             String maxElev=r.next(); 
+             System.out.println(minElev+" "+maxElev);
             
              int valeurs[][]=new int[columns][columns];
              
@@ -88,7 +93,7 @@ public class DEMReader {
             // passer les debuts de lignes	
              if(k<columns-1){
              for(int i=0;i<4;i++){int u=r.nextInt(); if(i==1) System.out.println("U "+u); }
-             for(int i=0;i<5;i++)r.nextDouble();
+             for(int i=0;i<5;i++)r.next();
              }
              }
             
@@ -105,16 +110,16 @@ public class DEMReader {
              output=new PrintStream("../pearls/scene/divers/devilProfil.inc");
              //output=new PrintStream("devilProfil.inc"); 
              output.println("#declare mountain=union{"); 
-             for(int i=0;i<10;i++){
+             for(int i=0;i<columns;i++){
             	 // un profil
-            	 output.println("prism{ \n linear_spline\n 0, ep,"+503+""); 
-            	 output.println("<0,"+minElevation+">,"); 
-            	 for(int k=0;k<500;k++){
-            		 output.println("<"+(2*k)+","+valeurs[2*i][2*k]+">,"); 
+            	 output.println("prism{ \n linear_spline\n 0, ep,"+(columns+3)+""); 
+            	 output.println("<0,"+minElevationInt+">,"); 
+            	 for(int k=0;k<columns;k++){
+            		 output.println("<"+k+","+valeurs[i][k]+">,"); 
             	 }//k
-            	 output.println("<"+1000+","+minElevation+">,"); 
-            	 output.println("<0,"+minElevation+">"); 
-            	 output.println("translate "+i+"*100*ep*y");
+            	 output.println("<"+columns+","+minElevationInt+">,"); 
+            	 output.println("<0,"+minElevationInt+">"); 
+            	 output.println("translate "+i+"*ep2*y");
             	 output.println("texture{pigment{color rgb <"+((i+0.0)/columns)+","+((columns-i-0.0)/columns)+",0>}}}");
              }// i
              output.println("}// union");
@@ -127,7 +132,8 @@ public class DEMReader {
 	
 	public static void main(String[] args) {
 		//afficheFichierTexte("C:/Users/decomite/Downloads/032g/032g_0100_deme.dem");
-		afficheFichierTexte("C:/Users/decomite/Downloads/083c07/083c07_0101_deme"); 
+		//afficheFichierTexte("C:/Users/decomite/Downloads/083c07/083c07_0101_deme"); 
+		afficheFichierTexte("C:/Users/decomite/Downloads/grand_rapids-w/grand_rapids-w");
 		
 	}
 	
