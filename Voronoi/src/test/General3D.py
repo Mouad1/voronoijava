@@ -177,23 +177,25 @@ def couronneFermee(d1,nbFaces,l):
  #faces
  #fond
  
- face=NMesh.Face()
+ 
  for i in range(0,nbFaces):
+  face=NMesh.Face()
   face.append(me.verts[i+1])
   face.append(me.verts[(i+1)%nbFaces+1])
   #print " XX ",i+1," ",(i+1)%nbFaces+1
   face.append(me.verts[0])
   me.faces.append(face)
- """
+ 
  #couvercle 
- face=NMesh.Face()
+ 
  for i in range(0,nbFaces):
+  face=NMesh.Face()
   face.append(me.verts[nbFaces+i+1])
   face.append(me.verts[(i+1)%nbFaces+nbFaces+1])
   #print " ** ",nbFaces+i+1," ",(i+1)%nbFaces+nbFaces+1
   face.append(me.verts[2*nbFaces+1])
   me.faces.append(face)
- """ 
+ 
  for i in range(1,nbFaces+1):
   face=NMesh.Face()
   face.append(me.verts[i])
