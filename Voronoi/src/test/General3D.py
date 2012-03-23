@@ -153,7 +153,60 @@ def couronne(d1,nbFaces,l):
 #on n'a besoin que des vertices. 
  return me
 
+# une couronne fermee
+def couronneFermee(d1,nbFaces,l):
+ #coneType : 0->ouvert aux deux bouts, 1->ouvert en P1 seulement, 2-> ouvert en P2 seulement, 3->ferme
+ me=NMesh.GetRaw()
 
+ #vertices
+ #vertex 0 : centre de la face du bas
+ #vertex 2nbFaces : centre de la face du haut
+ vertex=NMesh.Vert(0,0,0)
+ me.verts.append(vertex)
+
+ for i in range(0,nbFaces,1):
+  #print "couronne ",i," nbfaces ",nbFaces	
+  vertex=NMesh.Vert(d1*cos(2*i*pi/nbFaces),d1*sin(2*i*pi/nbFaces),0)
+  me.verts.append(vertex)
+ for i in range(0,nbFaces,1):
+  vertex=NMesh.Vert(d1*cos(2*i*pi/nbFaces),d1*sin(2*i*pi/nbFaces),l)
+  me.verts.append(vertex)
+ vertex=NMesh.Vert(0,0,l)
+ me.verts.append(vertex) 
+
+ #faces
+ #fond
+ 
+ face=NMesh.Face()
+ for i in range(0,nbFaces):
+  face.append(me.verts[i+1])
+  face.append(me.verts[(i+1)%nbFaces+1])
+  #print " XX ",i+1," ",(i+1)%nbFaces+1
+  face.append(me.verts[0])
+  me.faces.append(face)
+ """
+ #couvercle 
+ face=NMesh.Face()
+ for i in range(0,nbFaces):
+  face.append(me.verts[nbFaces+i+1])
+  face.append(me.verts[(i+1)%nbFaces+nbFaces+1])
+  #print " ** ",nbFaces+i+1," ",(i+1)%nbFaces+nbFaces+1
+  face.append(me.verts[2*nbFaces+1])
+  me.faces.append(face)
+ """ 
+ for i in range(1,nbFaces+1):
+  face=NMesh.Face()
+  face.append(me.verts[i])
+  face.append(me.verts[i%nbFaces+1])
+  face.append(me.verts[i%nbFaces+nbFaces+1])  
+  face.append(me.verts[i+nbFaces])
+  #print "final ",i," ",i%nbFaces+1," ",i%nbFaces+nbFaces+1," ",i+nbFaces
+  print face
+  me.faces.append(face)
+ 
+# on n'a besoin que des sommets d'un cote : on retourne une tranche de la liste des vertices
+#on n'a besoin que des vertices. 
+ return me
 
 
 
@@ -176,8 +229,8 @@ def lineSegMe(p1,p2,d1,nbFaces):
  length = dir.length
  
 
- me=couronne(d1,nbFaces,length)
-
+ #me=couronne(d1,nbFaces,length)
+ me=couronneFermee(d1,nbFaces,length) 
  dir.normalize()
  u = dir
  uu = Vector([0,0,1.0])
@@ -283,7 +336,7 @@ for ob in scene.objects:
    if (cmp(ob.getName(),'Cube')==0):
     scene.objects.unlink(ob)
 
-nbf=12
+nbf=6
 diam=0.05
 rati=0.2
 

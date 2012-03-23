@@ -44,31 +44,45 @@ public class ThreeDreaderRuledSurface {
           File source = new File(catena);
           HashSet<CoupleVertexDiam> sommets=new HashSet<CoupleVertexDiam>();
           try {
-        	  output=new PrintStream("C:/Users/decomite/pictures/Povray/Ruled.py");
+        	  output=new PrintStream("C:/Users/decomite/pictures/povray/ruled.py");
                 BufferedReader in = new BufferedReader(new FileReader(source));
                 boolean u=true; 
                 boolean rooted=false; 
-                int cycle=0;
+             
                 String line1=in.readLine();
                 Scanner r1=new Scanner(line1); 
                 r1.useLocale(Locale.US);
                 int subdiv=(int)r1.nextInt(); 
-               System.out.println("Subdiv : "+subdiv); 
-               	int nligne=0; 
+               
+                int nbligne=0;
                 while(u){
                 	line1=in.readLine();
+                	if(line1==null) {u=false; break;} 
                     r1=new Scanner(line1); 
                 	Vertex origin=new Vertex(r1.nextDouble(),r1.nextDouble(),r1.nextDouble()); 
                 	line1=in.readLine();
                     r1=new Scanner(line1); 
                 	Vertex end=new Vertex(r1.nextDouble(),r1.nextDouble(),r1.nextDouble()); 
+                	output.println("meFinal=NMesh.GetRaw()");	
+                	 output.println("point0=Vector(["+origin.rawString()+"])");
+               	  	 output.println("point1=Vector(["+end.rawString()+"])");
+               	  	 output.println("me=lineSegMe(point0,point1,diam,nbf)[4]");
+               	  	 if(!rooted){
+               	  	output.println("ob=scene.objects.new(me,'cylindre"+nbligne+"')");
+               	  	rooted=true;
+               	  	 }
+               	  	 else{
+               	  	output.println("localOb=scene.objects.new(me,'cylindre"+nbligne+"')");
+               	    output.println("ob.join([localOb])"); 
+                    output.println("scene.objects.unlink(localOb)");
+               	  	 }
+                	
                 	Vertex listedebut[]=new Vertex[subdiv+1];
                 	Vertex listefin[]=new Vertex[subdiv+1];
+                	//output.println("Cylindre principal : "+origin+" "+end); 
                   for(int i=0;i<=subdiv;i++){
                 	  String ligne=in.readLine();
                 	  
-                	  if(ligne!=null)
-                	  System.out.println("*** "+ligne.length()+"\\"+ligne+"\\"+nligne); 
                 	  if(ligne==null) {u=false; break;} 
                 	  
                 	  r1=new Scanner(ligne); 
@@ -79,8 +93,18 @@ public class ThreeDreaderRuledSurface {
                 	  r1=new Scanner(ligne); 
                 	  r1.useLocale(Locale.US);
                 	  listefin[i]=new Vertex(r1.nextDouble(),r1.nextDouble(),r1.nextDouble()); 
-                	  System.out.println(listedebut[i]+"  "+listefin[i]); 
+                	  //output.println(listedebut[i]+"  "+listefin[i]); 
+                	  /*
+                	  output.println("meFinal=NMesh.GetRaw()");	
+                 	  output.println("point0=Vector(["+listedebut[i].rawString()+"])");
+                	  output.println("point1=Vector(["+listefin[i].rawString()+"])");
+                	  output.println("me=lineSegMe(point0,point1,diam,nbf)[4]");
+                	  output.println("localOb=scene.objects.new(me,'traverse"+nbligne+"_"+i+"')");
+                 	  output.println("ob.join([localOb])"); 
+                      output.println("scene.objects.unlink(localOb)");
+                      */
                 	  }
+                  nbligne++;
                   }
                
                 
@@ -90,16 +114,16 @@ public class ThreeDreaderRuledSurface {
                output.close(); 
               
           } 
-          catch (Exception e) {System.out.println(e); 
+          catch (Exception e){System.out.println(e); 
                   e.printStackTrace(); System.exit(0);
           }
   }
 	  public static void main(String args[]) {
           // new TestIO().copieFichierTexte("essai.txt","output.txt");
-          ThreeDreader toto=new ThreeDreader(); 
+          ThreeDreaderRuledSurface toto=new ThreeDreaderRuledSurface(); 
          
           toto.afficheFichierTexte();
-
+          System.out.println("fini"); 
 
 
 	  }
