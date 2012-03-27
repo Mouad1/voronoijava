@@ -71,6 +71,7 @@ public class ThreeDreaderRuledSurface {
                	  	output.println("ob=scene.objects.new(me,'cylindre"+nbligne+"')");
                	  	rooted=true;
                	  	 }
+               	  	 
                	  	 else{
                	  	output.println("localOb=scene.objects.new(me,'cylindre"+nbligne+"')");
                	    output.println("ob.join([localOb])"); 
