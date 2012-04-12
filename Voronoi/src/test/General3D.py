@@ -131,7 +131,7 @@ def couronne(d1,nbFaces,l):
  me.verts.append(vertex)
 
  for i in range(0,nbFaces,1):
-  print "couronne ",i," nbfaces ",nbFaces	
+  #print "couronne ",i," nbfaces ",nbFaces	
   vertex=NMesh.Vert(d1*cos(2*i*pi/nbFaces),d1*sin(2*i*pi/nbFaces),0)
   me.verts.append(vertex)
  for i in range(0,nbFaces,1):
@@ -203,7 +203,7 @@ def couronneFermee(d1,nbFaces,l):
   face.append(me.verts[i%nbFaces+nbFaces+1])  
   face.append(me.verts[i+nbFaces])
   #print "final ",i," ",i%nbFaces+1," ",i%nbFaces+nbFaces+1," ",i+nbFaces
-  print face
+  #print face
   me.faces.append(face)
  
 # on n'a besoin que des sommets d'un cote : on retourne une tranche de la liste des vertices
@@ -283,7 +283,7 @@ def rotate(an):
 
 def meshify(meche,nbFaces):
  nbtranches=(len(meche.verts)-1)/nbFaces
- print "xxx---->",nbtranches
+ #print "xxx---->",nbtranches
  for j in range(0,nbtranches-1):
   #print j," ",len(meche.verts)
   dmin=50	

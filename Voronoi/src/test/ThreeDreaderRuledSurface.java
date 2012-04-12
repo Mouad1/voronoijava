@@ -1,5 +1,5 @@
 package test;
-// Polygones quelconques, presence de commentaires, aretes 
+// lis les donnees issues de ruledsinus.pov (ruled.txt)
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
