@@ -101,7 +101,7 @@ public class SearchingSolution {
 	}
 	
 	public static void main(String[] args) {
-		construireChaine("ab");
+		construireChaine("aa");
 		
 	
 		
