@@ -12,7 +12,7 @@ public class SearchingSolution {
 			if(isbalanced(s)){
 			 if(isAcceptable(s)){	
 			  System.out.println("------------------------>"+s+" "+nb); 
-		
+			  System.exit(0); 
 			 }
 			}
 			nb++; 
@@ -101,7 +101,7 @@ public class SearchingSolution {
 	}
 	
 	public static void main(String[] args) {
-		construireChaine("aa");
+		construireChaine("a");
 		
 	
 		
