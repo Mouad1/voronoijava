@@ -1,26 +1,35 @@
 package demaine;
 
-public class SearchingSolution {
+public class SearchingSolution2 {
 	private static int nbCarac=5; 
 	private static String carac="abcdeABCDE"; 
 	private static int nb=0;
 	private static int superNB=0; 
-	private static int taille=24; 
+	private static int taille=20; 
 	
-	public static void construireChaine(String s){
+	public static void construireChaine(String s,int[] compte,int indis){
+		/*
+		System.out.print("(1) "+s+" "+indis+"\n(2) "); 
+		for(int u=0;u<nbCarac;u++)System.out.print(compte[u]+" "); 
+		System.out.println("\n");
+		*/ 
+		if(indis>taille-s.length()) {
+			//System.out.println("rejet "+s); 
+			return;
+			} 
 		if(s.length()==taille) {
 			if(isbalanced(s)){
 			 if(isAcceptable(s)){	
-			  System.out.println("------------------------>"+s+" "+nb); 
-			  System.exit(0); 
+			  System.out.println("\n------------------------>"+s+" "+nb); 
 			 }
 			}
 			nb++; 
-			if(nb==10000000) 
+			if(nb==1000000) 
 			{
 				superNB++; 
 				nb=0;
-				System.out.println(superNB+"("+s+")"); }
+				System.out.print("."); }
+			 
 			
 			return;
 			}
@@ -34,8 +43,21 @@ public class SearchingSolution {
 			}
 			
 			
-			for(int i=0;i<nbCarac*2;i++)
-				construireChaine(s+carac.charAt(i)); 
+			for(int i=0;i<nbCarac*2;i++){
+				//System.out.println("Caractere courant :"+carac.charAt(i)); 
+				int ncompte[]=new int[nbCarac];
+				int id=0; 
+				for(int j=0;j<nbCarac;j++)ncompte[j]=compte[j]; 
+				if(i<nbCarac){
+					ncompte[i]++;
+				}
+					else {
+						ncompte[i-nbCarac]--;
+				}
+				
+				for(int u=0;u<nbCarac;u++) id=id+Math.abs(ncompte[u]); 
+				construireChaine(s+carac.charAt(i),ncompte,id);
+			}
 		return;
 	}
 	
@@ -101,7 +123,8 @@ public class SearchingSolution {
 	}
 	
 	public static void main(String[] args) {
-		construireChaine("abcdeCDEBAba");
+		int[] cc={0,0,0,0,0};
+		construireChaine("",cc,0);
 		
 	
 		
