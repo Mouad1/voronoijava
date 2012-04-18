@@ -40,11 +40,13 @@ public class ThreeDreaderRuledSurface {
 		 double diamMin=10; 
          double diamMax=-2;
 		double ratio=1; 
-		this.catena="c:/users/decomite/pictures/povray/ruled.txt"; 
+		this.catena="F:/Povray/anamorphoses/skull.txt"; 
+		//this.catena="c:/users/decomite/pictures/povray/ruled.txt"; 
           File source = new File(catena);
           HashSet<CoupleVertexDiam> sommets=new HashSet<CoupleVertexDiam>();
           try {
-        	  output=new PrintStream("C:/Users/decomite/pictures/povray/ruled.py");
+        	  output=new PrintStream("F:/Povray/ruled.py");
+        	  //output=new PrintStream("C:/Users/decomite/pictures/povray/ruled.py");
                 BufferedReader in = new BufferedReader(new FileReader(source));
                 boolean u=true; 
                 boolean rooted=false; 
