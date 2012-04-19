@@ -29,7 +29,7 @@ public class SearchingSolution2 {
 				superNB++; 
 				nb=0;
 				System.out.print("."); }
-			 
+			 	if(superNB==100) {System.out.println();superNB=0; } 
 			
 			return;
 			}
