@@ -232,6 +232,7 @@ def lineSegMe(p1,p2,d1,nbFaces):
  
 
  #me=couronne(d1,nbFaces,length)
+ #version courante pour les conoids : pas bon
  me=couronneFermee(d1,nbFaces,length) 
  dir.normalize()
  u = dir

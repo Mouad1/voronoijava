@@ -9,7 +9,7 @@ import java.util.*;
 
 
 
-public class Labyrinthe {
+public class Laby2 {
 
 	private Case[][][] laby;
 
@@ -22,7 +22,7 @@ public class Labyrinthe {
 	/**
 	 * 
 	 */
-	public Labyrinthe(int width, int height,int hauteur) {
+	public Laby2(int width, int height,int hauteur) {
 		this.width = width;
 		this.height = height;
 		this.hauteur=hauteur; 
@@ -59,24 +59,21 @@ public class Labyrinthe {
 		int startY = Math.abs(alea.nextInt()) % this.height;
 		int startZ = Math.abs(alea.nextInt()) % this.hauteur;
 		// et on la visite 
-		visit(startX, startY,startZ);
+		visit(startX, startY,startZ,0);
 	}
 
-	/** on visite la case de coordonnees x et y et on cherche a aller vers ses voisins (si non vus)
+	/** on visite la case de coordonnees x et y et on cherhce a aller vers ses voisins (si non vus)
 	 * @param x x courant
 	 * @param y y courant
 	 */
-	private void visit(int x, int y,int z) {
+	private void visit(int x, int y,int z,int level) {
 		System.out.println("visite de la case "+laby[x][y][z]);
 		// visitee donc vue
 		laby[x][y][z].visit();
 		// on parcourt les 4 cases autour pour trouver les "not seen" 
-		
-		{
 		Direction[] allDirections = Direction.shuffleAllDirections();
 		for (int dir = 0; dir < allDirections.length; dir++) {
-			testDirection(allDirections[dir], x, y,z);
-		}
+			testDirection(allDirections[dir], x, y,z,level+1);
 		}
 	}
 
@@ -85,7 +82,7 @@ public class Labyrinthe {
 	 * @param x x courant
 	 * @param y y courant
 	 */
-	private void testDirection(Direction direction, int x, int y,int z) {
+	private void testDirection(Direction direction, int x, int y,int z,int level) {
 		int dx = direction.getShiftX();
 		int dy = direction.getShiftY();
 		int dz=direction.getShiftZ(); 
@@ -100,8 +97,8 @@ public class Labyrinthe {
 			laby[x][y][z].addNeighbour(direction, laby[x + dx][y + dy][z+dz]);
 			laby[x + dx][y + dy][z+dz].addNeighbour(direction.getOpposite(), laby[x][y][z]);
 			// et on la visite
-			
-			visit(x + dx, y + dy,z+dz);
+			if(level<15)
+			visit(x + dx, y + dy,z+dz,level+1);
 		}
 	}
 
@@ -119,22 +116,12 @@ public class Labyrinthe {
 
 	public static void main(String[] args) throws Exception{
 		//PrintStream out =new PrintStream("../pearls/scene/misc/desc.txt"); 
-		// Linux
-		/*
 		PrintStream out =new PrintStream("/tmp/desc.txt"); 
-		PrintStream outPY=new PrintStream("/tmp/laby.py");
-		*/
-		// Portable
-		PrintStream out =new PrintStream("C:/Users/decomite/pictures/povray/desc.txt"); 
-		PrintStream outPY=new PrintStream("C:/Users/decomite/pictures/povray/laby.py");
-		int mi=12; 
-		int mj=12; 
-		int mk=12; 
-		Labyrinthe l = new Labyrinthe(mi,mj,mk);
+		int mi=20; 
+		int mj=20; 
+		int mk=20; 
+		Laby2 l = new Laby2(mi,mj,mk);
 		l.generate();
-		int index=0; 
-		boolean rooted=false; 
-		
 		for(int i=0;i<mi;i++)
 			for(int j=0;j<mj;j++)
 				for(int k=0;k<mk;k++){
@@ -144,20 +131,6 @@ public class Labyrinthe {
 					Case current=l.laby[i][j][k]; 
 					//out.println("sphere{<"+i+","+j+","+k+">,radio texture{pigment{color rgb <"+ci+","+cj+","+ck+">}} finish {fin1}}");
 					out.println("sphere{<"+i+","+j+","+k+">,radio texture{Tex1} finish {fin1}}");
-					outPY.println("me=translate(["+i+","+j+","+k+"],2*rati)"); 
-					if(!rooted){
-						//outPY.println("me=translate(["+i+","+j+","+k+"],2*rati)"); 
-						rooted=true; 
-						outPY.println("ob=scene.objects.new(me,'sphere"+index+"')");
-					}
-					
-					else{
-						outPY.println("localOb=scene.objects.new(me,'sphere"+index+"')"); 
-						outPY.println("ob.join([localOb])");
-						outPY.println("scene.objects.unlink(localOb)");
-					}
-					
-					index++; 
 					for(Direction d: Direction.values()){
 						Case voisine=current.getNeighbour(d); 
 						if(voisine!=null){
@@ -166,15 +139,6 @@ public class Labyrinthe {
 							int kp=voisine.getPosition().z; 
 							//out.println("cylinder{<"+i+","+j+","+k+">,<"+ip+","+jp+","+kp+">,radio texture{pigment{color rgb <"+ci+","+cj+","+ck+">}} finish {fin0}}");
 							out.println("cylinder{<"+i+","+j+","+k+">,<"+ip+","+jp+","+kp+">,radio texture{Tex1} finish {fin0}}");
-							outPY.println("meFinal=NMesh.GetRaw()");
-							outPY.println("point0=Vector(["+i+","+j+","+k+"])");
-							outPY.println("point1=Vector(["+ip+","+jp+","+kp+"])");
-							outPY.println("meFinal.verts.extend(lineSegMe(point0,point1,rati,nbf)[0])"); 
-							outPY.println("me=meshify(meFinal,nbf)");
-							outPY.println("localOb=scene.objects.new(me,'arete"+index+"')");
-							outPY.println("ob.join([localOb])");
-							outPY.println("scene.objects.unlink(localOb)");
-							index++; 
 							voisine.remove(d.getOpposite());
 						}
 					}

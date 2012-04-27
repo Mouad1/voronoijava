@@ -19,6 +19,8 @@ public class Case {
 	private Position position;
 
 	private boolean visited;
+	
+	private static int nbVisited=0;
 
 	
 	/** cree une case pour la position donnee, initialement non vue
@@ -32,6 +34,8 @@ public class Case {
 	}
 
 	public boolean isVisited() {
+		nbVisited++; 
+		System.out.println(nbVisited);
 		return this.visited;
 	}
 
