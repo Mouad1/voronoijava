@@ -51,7 +51,7 @@ from math import pi,cos,sin
 
 
 def translate(p,r):
- me=Mesh.Primitives.UVsphere(14,14,r)
+ me=Mesh.Primitives.UVsphere(12,12,r)
  dir=Vector(p)
  A = Matrix(
     [1,0,0,0],
@@ -131,7 +131,7 @@ def couronne(d1,nbFaces,l):
  me.verts.append(vertex)
 
  for i in range(0,nbFaces,1):
-  #print "couronne ",i," nbfaces ",nbFaces	
+  print "couronne ",i," nbfaces ",nbFaces	
   vertex=NMesh.Vert(d1*cos(2*i*pi/nbFaces),d1*sin(2*i*pi/nbFaces),0)
   me.verts.append(vertex)
  for i in range(0,nbFaces,1):
@@ -338,17 +338,17 @@ for ob in scene.objects:
    if (cmp(ob.getName(),'Cube')==0):
     scene.objects.unlink(ob)
 
-nbf=6
+nbf=12
 diam=0.05
-rati=0.2
+rati=1.6
 
 #execfile('C:\Users\decomite\Pictures\povray\output povray\spline.py')
 
-execfile('C:/Users/decomite/Pictures/povray/ruled.py')
+#execfile('C:/Users/decomite/Pictures/povray/ruled.py')
 #Pour les slides together
 #execfile('C:/users/decomite/pictures/povray/t4b.txt')
 #Pour les anamorphoses
-#execfile('C:/users/decomite/pictures/povray/spline.py')
+execfile('C:/users/decomite/pictures/povray/spline.py')
 #Pour les cadres en couleur*
 # Portable
 #execfile('C:/users/decomite/pictures/povray/color.txt')
