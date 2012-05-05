@@ -125,11 +125,16 @@ public class Labyrinthe {
 		PrintStream outPY=new PrintStream("/tmp/laby.py");
 		*/
 		// Portable
-		PrintStream out =new PrintStream("C:/Users/decomite/pictures/povray/desc.txt"); 
-		PrintStream outPY=new PrintStream("C:/Users/decomite/pictures/povray/laby.py");
-		int mi=12; 
-		int mj=12; 
-		int mk=12; 
+
+		//PrintStream out =new PrintStream("C:/Users/decomite/pictures/povray/desc.txt"); 
+		//PrintStream outPY=new PrintStream("C:/Users/decomite/pictures/povray/laby.py");
+		// Maison
+		PrintStream out =new PrintStream("C:/Users/pépère/pictures/povray/desc.txt"); 
+		PrintStream outPY=new PrintStream("C:/Users/pépère/pictures/povray/laby.py");
+		int mi=10; 
+		int mj=10; 
+		int mk=10; 
+
 		Labyrinthe l = new Labyrinthe(mi,mj,mk);
 		l.generate();
 		int index=0; 
