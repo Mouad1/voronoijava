@@ -50,15 +50,15 @@ public class ThreeDreader {
 			//this.catena="C:/Documents and Settings/moi/workspace/Voronoi/src/test/"+nomFichierSource+".off";
 		//this.catena="/tmp/quadri.txt"; 
 		double ratio=1; 
-		//this.catena="f:/Povray/anamorphoses/quadri.txt"; 
-		this.catena="c:/users/decomite/pictures/povray/spheres.txt"; 
+		this.catena="F:/povray/anamorphoses/spheres.txt"; 
+		//this.catena="c:/users/decomite/pictures/povray/spheres.txt"; 
           File source = new File(catena);
           HashSet<CoupleVertexDiam> sommets=new HashSet<CoupleVertexDiam>();
           try {
 
         	  //output=new PrintStream("/tmp/spline.py"); 
-        	  //output=new PrintStream("F:/Povray/spline.py");
-        	  output=new PrintStream("C:/Users/decomite/pictures/Povray/spline.py");
+        	  output=new PrintStream("F:/Povray/spline.py");
+        	  //output=new PrintStream("C:/Users/decomite/pictures/Povray/spline.py");
                 BufferedReader in = new BufferedReader(new FileReader(source));
                 boolean u=true; 
                 boolean rooted=false; 
