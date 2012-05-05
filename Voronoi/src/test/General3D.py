@@ -357,8 +357,10 @@ execfile('C:/users/decomite/pictures/povray/spline.py')
 #Maison	
 #execfile('F:\Povray\jp.txt')
 #Pour les labyrinthes
+#portable
 #execfile('C:/users/decomite/pictures/povray/laby.py')
-
+#maison
+execfile('C:/users/pépère/pictures/povray/laby.py')
 """
 #######################################
 # render the image and save the image
