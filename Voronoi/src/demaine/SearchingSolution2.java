@@ -1,11 +1,11 @@
 package demaine;
 
 public class SearchingSolution2 {
-	private static int nbCarac=5; 
-	private static String carac="abcdeABCDE"; 
+	private static int nbCarac=4; 
+	private static String carac="abcdABCD"; 
 	private static int nb=0;
 	private static int superNB=0; 
-	private static int taille=20; 
+	private static int taille=16; 
 	
 	public static void construireChaine(String s,int[] compte,int indis){
 		/*
@@ -123,8 +123,8 @@ public class SearchingSolution2 {
 	}
 	
 	public static void main(String[] args) {
-		int[] cc={0,0,0,0,0};
-		construireChaine("",cc,0);
+		int[] cc={1,0,0,0};
+		construireChaine("a",cc,1);
 		
 	
 		
