@@ -5,9 +5,9 @@ public class SearchingSolution2 {
 	private static String carac="abcdABCD"; 
 	private static int nb=0;
 	private static int superNB=0; 
-	private static int taille=16; 
+	private static int taille=22; 
 	
-	public static void construireChaine(String s,int[] compte,int indis){
+	public static void construireChaine(String s,int[] compte,int indis,int indMax){
 		/*
 		System.out.print("(1) "+s+" "+indis+"\n(2) "); 
 		for(int u=0;u<nbCarac;u++)System.out.print(compte[u]+" "); 
@@ -20,15 +20,16 @@ public class SearchingSolution2 {
 		if(s.length()==taille) {
 			if(isbalanced(s)){
 			 if(isAcceptable(s)){	
-			  System.out.println("\n------------------------>"+s+" "+nb); 
+			  System.out.print("\n------------------------>"+s+" "+nb); 
 			 }
 			}
 			nb++; 
-			if(nb==1000000) 
+			if(nb==100000) 
 			{
 				superNB++; 
 				nb=0;
-				System.out.print("."); }
+				System.out.print(".");
+				 }
 			 	if(superNB==100) {System.out.println();superNB=0; } 
 			
 			return;
@@ -43,7 +44,9 @@ public class SearchingSolution2 {
 			}
 			
 			
-			for(int i=0;i<nbCarac*2;i++){
+			for(int i=0;i<nbCarac*2;i++){ // i : caractere a ajouter
+				// seulement si on est dans l'ordre (pas de d si pas deja c)
+				if((i<=indMax)||((i>=nbCarac)&&(i<=indMax+nbCarac))){
 				//System.out.println("Caractere courant :"+carac.charAt(i)); 
 				int ncompte[]=new int[nbCarac];
 				int id=0; 
@@ -56,7 +59,11 @@ public class SearchingSolution2 {
 				}
 				
 				for(int u=0;u<nbCarac;u++) id=id+Math.abs(ncompte[u]); 
-				construireChaine(s+carac.charAt(i),ncompte,id);
+				if(i==indMax)
+				construireChaine(s+carac.charAt(i),ncompte,id,indMax+1);
+				else
+					construireChaine(s+carac.charAt(i),ncompte,id,indMax);	
+			}
 			}
 		return;
 	}
@@ -123,8 +130,8 @@ public class SearchingSolution2 {
 	}
 	
 	public static void main(String[] args) {
-		int[] cc={1,0,0,0};
-		construireChaine("a",cc,1);
+		int[] cc={0,0,0,0};
+		construireChaine("",cc,0,0);
 		
 	
 		
