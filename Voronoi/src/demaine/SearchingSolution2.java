@@ -6,10 +6,10 @@ public class SearchingSolution2 {
 	private static int nb=0;
 	private static int superNB=0; 
 
-	private static int taille=20; 
+	private static int taille=16; 
 
 	
-	public static void construireChaine(String s,int[] compte,int indis,int indMax){
+	public static void construireChaine(String s,int[] compte,boolean[] pos,int indis,int indMax){
 		/*
 		System.out.print("(1) "+s+" "+indis+"\n(2) "); 
 		for(int u=0;u<nbCarac;u++)System.out.print(compte[u]+" "); 
@@ -22,7 +22,7 @@ public class SearchingSolution2 {
 		if(s.length()==taille) {
 			if(isbalanced(s)){ // if(indis==0) devrait marcher
 			 if(isAcceptable(s)){	
-			  System.out.print("\n------------------------>"+s+" "+nb); 
+			  System.out.println(s); 
 			 }
 			}
 			nb++; 
@@ -30,9 +30,11 @@ public class SearchingSolution2 {
 			{
 				superNB++; 
 				nb=0;
-				System.out.print(".");
+				//System.out.print(".");
 				 }
-			 	if(superNB==100) {System.out.println("**"+s+"**");superNB=0; } 
+			 	if(superNB==100) {
+			 		//System.out.println("**"+s+"**");
+			 		superNB=0; } 
 			
 			return;
 			}
@@ -48,7 +50,7 @@ public class SearchingSolution2 {
 			
 			for(int i=0;i<nbCarac*2;i++){ // i : caractere a ajouter
 				// seulement si on est dans l'ordre (pas de d si pas deja c)
-				if((i<=indMax)||((i>=nbCarac)&&(i<=indMax+nbCarac))){
+				if((i<=indMax)||((i>=nbCarac)&&(pos[i-nbCarac]))){
 				//System.out.println("Caractere courant :"+carac.charAt(i)); 
 				int ncompte[]=new int[nbCarac];
 				int id=0; 
@@ -61,10 +63,14 @@ public class SearchingSolution2 {
 				}
 				
 				for(int u=0;u<nbCarac;u++) id=id+Math.abs(ncompte[u]); 
-				if(i==indMax)
-				construireChaine(s+carac.charAt(i),ncompte,id,indMax+1);
+				if(i==indMax){
+				boolean npos[]=new boolean[nbCarac]; 
+				for(int j=0;j<nbCarac;j++) npos[j]=pos[j]; 
+				npos[i]=true; 
+				construireChaine(s+carac.charAt(i),ncompte,npos,id,Math.min(indMax+1,nbCarac-1));
+				}
 				else
-					construireChaine(s+carac.charAt(i),ncompte,id,indMax);	
+					construireChaine(s+carac.charAt(i),ncompte,pos,id,indMax);	
 			}
 			}
 		return;
@@ -132,8 +138,14 @@ public class SearchingSolution2 {
 	}
 	
 	public static void main(String[] args) {
-		int[] cc={0,0,0,0};
-		construireChaine("",cc,0,0);
+		int[] cc=new int[nbCarac];
+		// vrai si le caractere minuscule a deja ete rencontre
+		boolean pos[]=new boolean[nbCarac];
+		for(int i=0;i<nbCarac;i++){
+			cc[i]=0; 
+			pos[i]=false; 
+		}
+		construireChaine("",cc,pos,0,0);
 		
 	
 		
