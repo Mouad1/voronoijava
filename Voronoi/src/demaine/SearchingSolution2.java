@@ -1,12 +1,12 @@
 package demaine;
 
 public class SearchingSolution2 {
-	private static int nbCarac=4; 
-	private static String carac="abcdABCD"; 
+	private static int nbCarac=5; 
+	private static String carac="abcdeABCDE"; 
 	private static int nb=0;
 	private static int superNB=0; 
 
-	private static int taille=16; 
+	private static int taille=22; 
 
 	
 	public static void construireChaine(String s,int[] compte,boolean[] pos,int indis,int indMax){
