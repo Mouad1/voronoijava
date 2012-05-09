@@ -1,11 +1,11 @@
 package demaine;
 
 public class SearchingSolution2 {
-	private static int nbCarac=3; 
-	private static String carac="abcABC"; 
+	private static int nbCarac=4; 
+	private static String carac="abcdABCD"; 
 	private static int nb=0;
 	private static int superNB=0; 
-	private static int taille=10; 
+	private static int taille=20; 
 	
 	public static void construireChaine(String s,int[] compte,int indis,int indMax){
 		/*
@@ -18,7 +18,7 @@ public class SearchingSolution2 {
 			return;
 			} 
 		if(s.length()==taille) {
-			if(isbalanced(s)){
+			if(isbalanced(s)){ // if(indis==0) devrait marcher
 			 if(isAcceptable(s)){	
 			  System.out.print("\n------------------------>"+s+" "+nb); 
 			 }
@@ -30,7 +30,7 @@ public class SearchingSolution2 {
 				nb=0;
 				System.out.print(".");
 				 }
-			 	if(superNB==100) {System.out.println();superNB=0; } 
+			 	if(superNB==100) {System.out.println("**"+s+"**");superNB=0; } 
 			
 			return;
 			}
@@ -130,7 +130,7 @@ public class SearchingSolution2 {
 	}
 	
 	public static void main(String[] args) {
-		int[] cc={0,0,0};
+		int[] cc={0,0,0,0};
 		construireChaine("",cc,0,0);
 		
 	
