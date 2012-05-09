@@ -5,7 +5,9 @@ public class SearchingSolution2 {
 	private static String carac="abcdABCD"; 
 	private static int nb=0;
 	private static int superNB=0; 
+
 	private static int taille=20; 
+
 	
 	public static void construireChaine(String s,int[] compte,int indis,int indMax){
 		/*
