@@ -6,7 +6,9 @@ public class SearchingSolution2 {
 	private static int nb=0;
 	private static int superNB=0; 
 
+
 	private static int taille=36; 
+
 
 	
 	public static void construireChaine(String s,int[] compte,boolean[] pos,int indis,int indMax){
