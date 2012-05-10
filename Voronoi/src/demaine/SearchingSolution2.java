@@ -1,13 +1,17 @@
 package demaine;
 
+import java.io.PrintStream;
+
 public class SearchingSolution2 {
-	private static int nbCarac=5; 
-	private static String carac="abcdeABCDE"; 
+	private static int nbCarac=4; 
+	private static String carac="abcdABCD"; 
 	private static int nb=0;
 	private static int superNB=0; 
 
 
-	private static int taille=36; 
+	private static int taille=16; 
+	
+	private static PrintStream out; 
 
 
 	
@@ -25,6 +29,7 @@ public class SearchingSolution2 {
 			if(isbalanced(s)){ // if(indis==0) devrait marcher
 			 if(isAcceptable(s)){	
 			  System.out.println(s); 
+			  out.println(s); 
 			 }
 			}
 			nb++; 
@@ -32,10 +37,11 @@ public class SearchingSolution2 {
 			{
 				superNB++; 
 				nb=0;
-				//System.out.print(".");
+				System.out.print(".");
 				 }
 			 	if(superNB==100) {
-			 		//System.out.println("**"+s+"**");
+			 		System.out.println("**"+s+"**");
+			 		out.println("**"+s+"**");
 			 		superNB=0; } 
 			
 			return;
@@ -147,6 +153,10 @@ public class SearchingSolution2 {
 			cc[i]=0; 
 			pos[i]=false; 
 		}
+		try{
+			out=new PrintStream("C:/Users/decomite/Dropbox/results.txt"); 
+		}
+		catch(Exception e){System.out.println(e); }
 		construireChaine("",cc,pos,0,0);
 		
 	
