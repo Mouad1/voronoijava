@@ -3,13 +3,13 @@ package demaine;
 import java.io.PrintStream;
 
 public class SearchingSolution2 {
-	private static int nbCarac=4; 
-	private static String carac="abcdABCD"; 
+	private static int nbCarac=5; 
+	private static String carac="abcdeABCDE"; 
 	private static int nb=0;
 	private static int superNB=0; 
 
 
-	private static int taille=16; 
+	private static int taille=30; 
 	
 	private static PrintStream out; 
 
