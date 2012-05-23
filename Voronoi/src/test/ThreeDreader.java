@@ -50,8 +50,10 @@ public class ThreeDreader {
 			//this.catena="C:/Documents and Settings/moi/workspace/Voronoi/src/test/"+nomFichierSource+".off";
 		//this.catena="/tmp/quadri.txt"; 
 		double ratio=1; 
-		this.catena="F:/povray/anamorphoses/spheres.txt"; 
-		//this.catena="c:/users/decomite/pictures/povray/spheres.txt"; 
+
+		//this.catena="f:/Povray/anamorphoses/quadri.txt"; 
+		this.catena="c:/users/decomite/pictures/povray/color.txt"; 
+
           File source = new File(catena);
           HashSet<CoupleVertexDiam> sommets=new HashSet<CoupleVertexDiam>();
           try {
