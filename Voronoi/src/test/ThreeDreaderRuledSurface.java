@@ -97,15 +97,16 @@ public class ThreeDreaderRuledSurface {
                 	  r1.useLocale(Locale.US);
                 	  listefin[i]=new Vertex(r1.nextDouble(),r1.nextDouble(),r1.nextDouble()); 
                 	  //output.println(listedebut[i]+"  "+listefin[i]); 
-                	  
+                	  /*
                 	  output.println("meFinal=NMesh.GetRaw()");	
                  	  output.println("point0=Vector(["+listedebut[i].rawString()+"])");
                 	  output.println("point1=Vector(["+listefin[i].rawString()+"])");
                 	  output.println("me=lineSegMe(point0,point1,diam,nbf)[4]");
+                	
                 	  output.println("localOb=scene.objects.new(me,'traverse"+nbligne+"_"+i+"')");
                  	  output.println("ob.join([localOb])"); 
                       output.println("scene.objects.unlink(localOb)");
-                      
+                  */
                 	  }
                   nbligne++;
                   }
