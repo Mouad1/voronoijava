@@ -40,13 +40,13 @@ public class ThreeDreaderRuledSurface {
 		 double diamMin=10; 
          double diamMax=-2;
 		double ratio=1; 
-		this.catena="F:/Povray/anamorphoses/skull.txt"; 
-		//this.catena="c:/users/decomite/pictures/povray/ruled.txt"; 
+		//this.catena="F:/Povray/anamorphoses/skull.txt"; 
+		this.catena="c:/users/decomite/pictures/povray/objects.txt"; 
           File source = new File(catena);
           HashSet<CoupleVertexDiam> sommets=new HashSet<CoupleVertexDiam>();
           try {
-        	  output=new PrintStream("F:/Povray/ruled.py");
-        	  //output=new PrintStream("C:/Users/decomite/pictures/povray/ruled.py");
+        	  //output=new PrintStream("F:/Povray/ruled.py");
+        	  output=new PrintStream("C:/Users/decomite/pictures/povray/ruled.py");
                 BufferedReader in = new BufferedReader(new FileReader(source));
                 boolean u=true; 
                 boolean rooted=false; 
@@ -55,6 +55,10 @@ public class ThreeDreaderRuledSurface {
                 Scanner r1=new Scanner(line1); 
                 r1.useLocale(Locale.US);
                 int subdiv=(int)r1.nextInt(); 
+                line1=in.readLine();
+                r1=new Scanner(line1); 
+                r1.useLocale(Locale.US);
+                int increment=(int)r1.nextInt(); 
                
                 int nbligne=0;
                 while(u){
@@ -80,10 +84,10 @@ public class ThreeDreaderRuledSurface {
                     output.println("scene.objects.unlink(localOb)");
                	  	 }
                 	
-                	Vertex listedebut[]=new Vertex[subdiv+1];
-                	Vertex listefin[]=new Vertex[subdiv+1];
+                	Vertex listedebut[]=new Vertex[subdiv];
+                
                 	//output.println("Cylindre principal : "+origin+" "+end); 
-                  for(int i=0;i<=subdiv;i++){
+                  for(int i=0;i<subdiv;i++){
                 	  String ligne=in.readLine();
                 	  
                 	  if(ligne==null) {u=false; break;} 
@@ -92,10 +96,7 @@ public class ThreeDreaderRuledSurface {
                 	  r1.useLocale(Locale.US);
                 	  listedebut[i]=new Vertex(r1.nextDouble(),r1.nextDouble(),r1.nextDouble()); 
                 	  
-                	  ligne=in.readLine();
-                	  r1=new Scanner(ligne); 
-                	  r1.useLocale(Locale.US);
-                	  listefin[i]=new Vertex(r1.nextDouble(),r1.nextDouble(),r1.nextDouble()); 
+                	
                 	  //output.println(listedebut[i]+"  "+listefin[i]); 
                 	  /*
                 	  output.println("meFinal=NMesh.GetRaw()");	
