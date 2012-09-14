@@ -65,7 +65,9 @@ public class ThreeDreaderRuledSurface {
                
                 int nbligne=0;
                 Vertex listeArmature[][]=new Vertex[360/increment][subdiv];
-                Vertex cylindresExtr[][]=new Vertex[360/increment][2]; 
+                Vertex cylindresExtr[][]=new Vertex[360/increment][2];
+                //Nombre de cotes sur le tube
+                int nbCotes=6; 
                 while(u){
                 	line1=in.readLine();
                 	if(line1==null) {u=false; break;} 
@@ -136,7 +138,7 @@ public class ThreeDreaderRuledSurface {
                 	
                 	double angle=Math.atan2(e1.getX(),e1.getZ());
                 	double redux=0.05; 
-                	for(int k=0;k<6;k++){
+                	for(int k=0;k<nbCotes;k++){
                 		Pos3D glintch=new Pos3D(redux*Math.cos(2*k*Math.PI/6),redux*Math.sin(2*k*Math.PI/6),0); 
                 		Pos3D rotateGlintch=new Pos3D(glintch.getX()*Math.cos(angle),glintch.getY(),-glintch.getX()*Math.sin(angle));
                 		Pos3D translateGlintch=new Pos3D(rotateGlintch.getX()+Ainter.getX(),rotateGlintch.getY()+Ainter.getY(),rotateGlintch.getZ()+Ainter.getZ());
