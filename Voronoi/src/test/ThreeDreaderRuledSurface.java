@@ -16,11 +16,14 @@ import java.util.TreeSet;
 
 import utils.CoupleVertexDiam;
 import utils.Cylinder;
+import utils.Determinant3;
 import utils.FacePolygonale;
 import utils.FaceTriangulaire;
+import utils.Plane;
 import utils.Transfo;
 import utils.Vertex;
 import utils.Pos3D; 
+import utils.Vecteur; 
 
 public class ThreeDreaderRuledSurface {
 	
@@ -61,14 +64,20 @@ public class ThreeDreaderRuledSurface {
                 int increment=(int)r1.nextInt(); 
                
                 int nbligne=0;
+                Vertex listeArmature[][]=new Vertex[360/increment][subdiv];
+                Vertex cylindresExtr[][]=new Vertex[360/increment][2]; 
                 while(u){
                 	line1=in.readLine();
                 	if(line1==null) {u=false; break;} 
                     r1=new Scanner(line1); 
                 	Vertex origin=new Vertex(r1.nextDouble(),r1.nextDouble(),r1.nextDouble()); 
+                	// cylindresExtr[i][] les deux extremites d'un cylindre (0-> exterieur)
+                	cylindresExtr[nbligne][0]=origin; 
                 	line1=in.readLine();
                     r1=new Scanner(line1); 
                 	Vertex end=new Vertex(r1.nextDouble(),r1.nextDouble(),r1.nextDouble()); 
+                	cylindresExtr[nbligne][1]=end; 
+                	System.out.println(origin+" "+end); 
                 	output.println("meFinal=NMesh.GetRaw()");	
                 	 output.println("point0=Vector(["+origin.rawString()+"])");
                	  	 output.println("point1=Vector(["+end.rawString()+"])");
@@ -84,9 +93,6 @@ public class ThreeDreaderRuledSurface {
                     output.println("scene.objects.unlink(localOb)");
                	  	 }
                 	
-                	Vertex listedebut[]=new Vertex[subdiv];
-                
-                	//output.println("Cylindre principal : "+origin+" "+end); 
                   for(int i=0;i<subdiv;i++){
                 	  String ligne=in.readLine();
                 	  
@@ -94,24 +100,55 @@ public class ThreeDreaderRuledSurface {
                 	  
                 	  r1=new Scanner(ligne); 
                 	  r1.useLocale(Locale.US);
-                	  listedebut[i]=new Vertex(r1.nextDouble(),r1.nextDouble(),r1.nextDouble()); 
-                	  
+                	 
+                	  listeArmature[nbligne][i]=new Vertex(r1.nextDouble(),r1.nextDouble(),r1.nextDouble()); 
+                	  System.out.println(" "+nbligne+" "+i+" "+listeArmature[nbligne][i]); 
                 	
-                	  //output.println(listedebut[i]+"  "+listefin[i]); 
-                	  /*
-                	  output.println("meFinal=NMesh.GetRaw()");	
-                 	  output.println("point0=Vector(["+listedebut[i].rawString()+"])");
-                	  output.println("point1=Vector(["+listefin[i].rawString()+"])");
-                	  output.println("me=lineSegMe(point0,point1,diam,nbf)[4]");
-                	
-                	  output.println("localOb=scene.objects.new(me,'traverse"+nbligne+"_"+i+"')");
-                 	  output.println("ob.join([localOb])"); 
-                      output.println("scene.objects.unlink(localOb)");
-                  */
                 	  }
                   nbligne++;
                   }
-               
+               // A ce niveau, on a tous les points de l'armature, faut en faire un boudin continu
+                for(int i=0;i<subdiv;i++){
+                	// fabriquer le boudin de niveau i (0-> exterieur) avec les listeArmature[j][i]
+                	for(int j=0;j<360/increment;j++){
+                	// calcul de l'equation du plan
+                	// On utilise les deux points origin(A) et end(B), plus le point C <0,10,0>
+                	Vertex A=cylindresExtr[j][0]; 
+                	Vertex B=cylindresExtr[j][1];
+                	Pos3D Ainter=Vertex.barycenter(A, B, (i+0.0)/subdiv); 
+                	Vertex C=new Vertex(0, 10, 0); 
+                	Plane ploplo=Plane.computePlane(A, B, C); 
+                	
+                	Vecteur e1=ploplo.getVecteurNormal();
+                	e1.normalize(); 
+                	Vecteur e2=new Vecteur(0,1,0); 
+                	Vecteur e3=Vecteur.produitVectoriel(e1, e2); 
+                	/*
+                	System.out.println(e1.norme()+" "+e2.norme()+" "+e3.norme());
+                	System.out.println("e1:"+e1); 
+                	System.out.println("e2:"+e2); 
+                	System.out.println("e3:"+e3);
+                */
+                	// en fait tout est beaucoup plus simple
+                	// e1 et e3 sont tres similaires et definissent une rotation
+                	// autour de l'axe vertical
+                	// La transformation se resume a une rotation, suivie d'une translation jusqu'a p
+                	
+                	double angle=Math.atan2(e1.getX(),e1.getZ());
+                	double redux=0.05; 
+                	for(int k=0;k<6;k++){
+                		Pos3D glintch=new Pos3D(redux*Math.cos(2*k*Math.PI/6),redux*Math.sin(2*k*Math.PI/6),0); 
+                		Pos3D rotateGlintch=new Pos3D(glintch.getX()*Math.cos(angle),glintch.getY(),-glintch.getX()*Math.sin(angle));
+                		Pos3D translateGlintch=new Pos3D(rotateGlintch.getX()+Ainter.getX(),rotateGlintch.getY()+Ainter.getY(),rotateGlintch.getZ()+Ainter.getZ());
+                		System.out.println("sphere{"+translateGlintch+",mydiam texture{pigment{color rgb<"+3*i+","+10*i+","+100*i+">}}}"); 
+                	}
+                	
+                	
+                	// definir la matrice de changement de base (pour passer de la nouvelle a la standard)
+                	
+                
+                	}//j 
+                }//i
                 
                   in.close();
                   
