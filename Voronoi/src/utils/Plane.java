@@ -28,6 +28,23 @@ public class Plane {
 		return (a*X.x+b*X.y+c*X.z+d)/Math.sqrt(a*a+b*b+c*c); 
 	}
 	
+	public double getA() {
+		return a;
+	}
+
+	public double getB() {
+		return b;
+	}
+
+	public double getC() {
+		return c;
+	}
+
+	public double getD() {
+		return d;
+	}
+
+	// TODO que fait cette fonction ??? 
 	public Pos3D pointInter(Pos3D X,Pos3D Y){
 		// determiner alpha
 		double numer=relative(Y); 
@@ -38,6 +55,9 @@ public class Plane {
 		return Pos3D.add(inter1,inter2); 
 	}
 	
+	public Vecteur getVecteurNormal(){
+		return new Vecteur(a,b,c); 
+	}
 	
 	public String toString(){
 		return a+"X+"+b+"Y+"+c+"Z+"+d+"=0"; 
