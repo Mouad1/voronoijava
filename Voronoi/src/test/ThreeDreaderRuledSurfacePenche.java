@@ -25,7 +25,7 @@ import utils.Vertex;
 import utils.Pos3D; 
 import utils.Vecteur; 
 
-public class ThreeDreaderRuledSurface {
+public class ThreeDreaderRuledSurfacePenche {
 	
 	private String catena;
 	{
@@ -80,7 +80,7 @@ public class ThreeDreaderRuledSurface {
                     r1=new Scanner(line1); 
                 	Vertex end=new Vertex(r1.nextDouble(),r1.nextDouble(),r1.nextDouble()); 
                 	cylindresExtr[nbligne][1]=end; 
-                	System.out.println(origin+" "+end); 
+                	System.out.println("Bornes "+origin+" "+end); 
                 	//output.println("meFinal=NMesh.GetRaw()");	
                 	 output.println("point0=Vector(["+origin.rawString()+"])");
                	  	 output.println("point1=Vector(["+end.rawString()+"])");
@@ -110,7 +110,7 @@ public class ThreeDreaderRuledSurface {
                 	  }
                   nbligne++;
                   }
-                
+              
                 int nbCotesArmature=12; 
                // A ce niveau, on a tous les points de l'armature, faut en faire un boudin continu
                 for(int i=0;i<subdiv;i++){
@@ -121,6 +121,10 @@ public class ThreeDreaderRuledSurface {
                 	// On utilise les deux points origin(A) et end(B), plus le point C <0,10,0>
                 	Vertex A=cylindresExtr[j][0]; 
                 	Vertex B=cylindresExtr[j][1];
+                	double nu=Vertex.sub(A,B).norme();
+                	double ptitAngle=Math.acos(Math.abs(B.getY()-A.getY())/nu); 
+                	System.out.println("---->"+180*ptitAngle/Math.PI);
+                	
                 	Pos3D Ainter=Vertex.barycenter(A, B, (i+0.0)/subdiv); 
                 	Vertex C=new Vertex(0, 10, 0); 
                 	Plane ploplo=Plane.computePlane(A, B, C); 
@@ -148,14 +152,17 @@ public class ThreeDreaderRuledSurface {
                 	// doit prendre la meme valeur que diam dans General3D.py 
                 	// non, probleme d'angle
                 	double redux=0.03; 
-                	
+                	ptitAngle=Math.PI/4; 
                 	for(int k=0;k<nbCotesArmature;k++){
-                		Pos3D glintch=new Pos3D(redux*Math.cos(2*k*Math.PI/nbCotesArmature),redux*Math.sin(2*k*Math.PI/nbCotesArmature),0); 
-                		Pos3D rotateGlintch=new Pos3D(glintch.getX()*Math.cos(angle),glintch.getY(),-glintch.getX()*Math.sin(angle));
+                		Pos3D glintch=new Pos3D(redux*Math.cos(2*k*Math.PI/nbCotesArmature),redux*Math.sin(2*k*Math.PI/nbCotesArmature),0);
+                		
+                		Pos3D glintchZero=new Pos3D(glintch.getZ(),-glintch.getY()*Math.cos(Math.PI/2*ptitAngle),glintch.getY()*Math.sin(Math.PI/2*ptitAngle));
+                		
+                		Pos3D rotateGlintch=new Pos3D(glintchZero.getX()*Math.cos(angle),glintchZero.getY(),-glintchZero.getX()*Math.sin(angle));
                 		Pos3D translateGlintch=new Pos3D(rotateGlintch.getX()+Ainter.getX(),rotateGlintch.getY()+Ainter.getY(),rotateGlintch.getZ()+Ainter.getZ());
                 		// translateGlinch est un des points de la couronne autour d'une intersection
                 		// On peut prendre ces couronnes comme base pour un mesh
-                		System.out.println("sphere{"+translateGlintch+",mydiam texture{pigment{color rgb<"+3*i+","+10*i+","+100*i+">}}}");
+                		//System.out.println("sphere{"+translateGlintch+",mydiam texture{pigment{color rgb<"+3*i+","+10*i+","+100*i+">}}}");
                 		outputPovray.println("sphere{"+translateGlintch+",mydiam texture{pigment{color rgb<"+3*i+","+10*i+","+100*i+">}}}"); 
                 		output.println("vertex=NMesh.Vert("+translateGlintch.getX()+","+translateGlintch.getY()+","+translateGlintch.getZ()+")");
                         output.println("me.verts.append(vertex)");
@@ -220,7 +227,7 @@ public class ThreeDreaderRuledSurface {
   }
 	  public static void main(String args[]) {
           // new TestIO().copieFichierTexte("essai.txt","output.txt");
-          ThreeDreaderRuledSurface toto=new ThreeDreaderRuledSurface(); 
+          ThreeDreaderRuledSurfacePenche toto=new ThreeDreaderRuledSurfacePenche(); 
          
           toto.afficheFichierTexte();
           System.out.println("fini"); 
