@@ -32,7 +32,7 @@ public class ThreeDreaderRuledSurface {
 		Locale.setDefault(Locale.US);
 	}
 
-	private PrintStream output; 
+	private PrintStream output,outputPovray; 
 	
 
 	private double roundDecimals(double d) {
@@ -50,6 +50,7 @@ public class ThreeDreaderRuledSurface {
           try {
         	  //output=new PrintStream("F:/Povray/ruled.py");
         	  output=new PrintStream("C:/Users/decomite/pictures/povray/ruled.py");
+        	  outputPovray=new PrintStream("C:/Users/decomite/pictures/povray/plots.inc");
                 BufferedReader in = new BufferedReader(new FileReader(source));
                 boolean u=true; 
                 boolean rooted=false; 
@@ -66,8 +67,8 @@ public class ThreeDreaderRuledSurface {
                 int nbligne=0;
                 Vertex listeArmature[][]=new Vertex[360/increment][subdiv];
                 Vertex cylindresExtr[][]=new Vertex[360/increment][2];
-                //Nombre de cotes sur le tube
-                int nbCotes=6; 
+              
+               
                 while(u){
                 	line1=in.readLine();
                 	if(line1==null) {u=false; break;} 
@@ -80,7 +81,7 @@ public class ThreeDreaderRuledSurface {
                 	Vertex end=new Vertex(r1.nextDouble(),r1.nextDouble(),r1.nextDouble()); 
                 	cylindresExtr[nbligne][1]=end; 
                 	System.out.println(origin+" "+end); 
-                	output.println("meFinal=NMesh.GetRaw()");	
+                	//output.println("meFinal=NMesh.GetRaw()");	
                 	 output.println("point0=Vector(["+origin.rawString()+"])");
                	  	 output.println("point1=Vector(["+end.rawString()+"])");
                	  	 output.println("me=lineSegMe(point0,point1,diam,nbf)[4]");
@@ -109,8 +110,11 @@ public class ThreeDreaderRuledSurface {
                 	  }
                   nbligne++;
                   }
+                
+                int nbCotesArmature=24; 
                // A ce niveau, on a tous les points de l'armature, faut en faire un boudin continu
                 for(int i=0;i<subdiv;i++){
+                	output.println("me=NMesh.GetRaw()");	
                 	// fabriquer le boudin de niveau i (0-> exterieur) avec les listeArmature[j][i]
                 	for(int j=0;j<360/increment;j++){
                 	// calcul de l'equation du plan
@@ -123,8 +127,8 @@ public class ThreeDreaderRuledSurface {
                 	
                 	Vecteur e1=ploplo.getVecteurNormal();
                 	e1.normalize(); 
-                	Vecteur e2=new Vecteur(0,1,0); 
-                	Vecteur e3=Vecteur.produitVectoriel(e1, e2); 
+                	//Vecteur e2=new Vecteur(0,1,0); 
+                	//Vecteur e3=Vecteur.produitVectoriel(e1, e2); 
                 	/*
                 	System.out.println(e1.norme()+" "+e2.norme()+" "+e3.norme());
                 	System.out.println("e1:"+e1); 
@@ -136,25 +140,74 @@ public class ThreeDreaderRuledSurface {
                 	// autour de l'axe vertical
                 	// La transformation se resume a une rotation, suivie d'une translation jusqu'a p
                 	
+                	
                 	double angle=Math.atan2(e1.getX(),e1.getZ());
-                	double redux=0.05; 
-                	for(int k=0;k<nbCotes;k++){
-                		Pos3D glintch=new Pos3D(redux*Math.cos(2*k*Math.PI/6),redux*Math.sin(2*k*Math.PI/6),0); 
+                	// redux : rayon de la couronne
+                	// doit prendre la meme valeur que diam dans General3D.py 
+                	double redux=0.01; 
+                	
+                	for(int k=0;k<nbCotesArmature;k++){
+                		Pos3D glintch=new Pos3D(redux*Math.cos(2*k*Math.PI/nbCotesArmature),redux*Math.sin(2*k*Math.PI/nbCotesArmature),0); 
                 		Pos3D rotateGlintch=new Pos3D(glintch.getX()*Math.cos(angle),glintch.getY(),-glintch.getX()*Math.sin(angle));
                 		Pos3D translateGlintch=new Pos3D(rotateGlintch.getX()+Ainter.getX(),rotateGlintch.getY()+Ainter.getY(),rotateGlintch.getZ()+Ainter.getZ());
-                		System.out.println("sphere{"+translateGlintch+",mydiam texture{pigment{color rgb<"+3*i+","+10*i+","+100*i+">}}}"); 
+                		// translateGlinch est un des points de la couronne autour d'une intersection
+                		// On peut prendre ces couronnes comme base pour un mesh
+                		System.out.println("sphere{"+translateGlintch+",mydiam texture{pigment{color rgb<"+3*i+","+10*i+","+100*i+">}}}");
+                		outputPovray.println("sphere{"+translateGlintch+",mydiam texture{pigment{color rgb<"+3*i+","+10*i+","+100*i+">}}}"); 
+                		output.println("vertex=NMesh.Vert("+translateGlintch.getX()+","+translateGlintch.getY()+","+translateGlintch.getZ()+")");
+                        output.println("me.verts.append(vertex)");
+                	}
+                	
+                	}//j 
+                	
+                	/* tous les sommets sont enregistres : 
+                	nbCotesArmature*(360/increment)
+                	maintenant fabriquer les faces
+                */
+                	/*
+                	 *  face=NMesh.Face()
+  face.append(me.verts[i+1])
+  face.append(me.verts[(i+1)%nbFaces+1])
+  #print " XX ",i+1," ",(i+1)%nbFaces+1
+  face.append(me.verts[0])
+  me.faces.append(face)
+                	 * */
+                	for(int j=0;j<360/increment;j++){// fabriquer les faces
+                		for(int k=0;k<nbCotesArmature;k++){
+                			output.println("face=NMesh.Face()");
+                			
+                			output.println("face.append(me.verts["+(((j+1)%(360/increment)*nbCotesArmature)+k)+"])");
+                			output.println("face.append(me.verts["+(j*nbCotesArmature+(k+1)%nbCotesArmature)+"])");
+                			output.println("face.append(me.verts["+(j*nbCotesArmature+k)+"])");
+                			
+                			output.println("me.faces.append(face)"); 
+                			
+                			output.println("face=NMesh.Face()");
+                			output.println("face.append(me.verts["+(((j+1)%(360/increment)*nbCotesArmature)+k)+"])");
+                			
+                			output.println("face.append(me.verts["+(((j+1)%(360/increment)*nbCotesArmature)+(k+1)%nbCotesArmature)+"])");
+                			output.println("face.append(me.verts["+(j*nbCotesArmature+(k+1)%nbCotesArmature)+"])");
+                			output.println("me.faces.append(face)"); 
+                		}
+                			
                 	}
                 	
                 	
-                	// definir la matrice de changement de base (pour passer de la nouvelle a la standard)
-                	
-                
-                	}//j 
+                	 if(!rooted){
+                    	  	output.println("ob=scene.objects.new(me,'armature"+i+"')");
+                    	  	rooted=true;
+                    	  	 }
+                    	  	 
+                    	  	 else{
+                    	  	output.println("localOb=scene.objects.new(me,'armature"+i+"')");
+                    	    output.println("ob.join([localOb])"); 
+                            output.println("scene.objects.unlink(localOb)");
+                    	  	 }
                 }//i
                 
                   in.close();
                   
-                
+               outputPovray.close();  
                output.close(); 
               
           } 

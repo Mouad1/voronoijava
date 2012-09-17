@@ -232,7 +232,6 @@ def lineSegMe(p1,p2,d1,nbFaces):
  
 
  #me=couronne(d1,nbFaces,length)
- #version courante pour les conoids : pas bon
  me=couronneFermee(d1,nbFaces,length) 
  dir.normalize()
  u = dir
@@ -339,17 +338,18 @@ for ob in scene.objects:
    if (cmp(ob.getName(),'Cube')==0):
     scene.objects.unlink(ob)
 
-nbf=12
-diam=0.05
-rati=1.6
+nbf=24
+diam=0.01
+#rati=1.6
+
 
 #execfile('C:\Users\decomite\Pictures\povray\output povray\spline.py')
 
-#execfile('C:/Users/decomite/Pictures/povray/ruled.py')
+execfile('C:/Users/decomite/Pictures/povray/ruled.py')
 #Pour les slides together
 #execfile('C:/users/decomite/pictures/povray/t4b.txt')
 #Pour les anamorphoses
-execfile('C:/users/decomite/pictures/povray/spline.py')
+#execfile('C:/users/decomite/pictures/povray/spline.py')
 #Pour les cadres en couleur*
 # Portable
 #execfile('C:/users/decomite/pictures/povray/color.txt')
@@ -357,10 +357,8 @@ execfile('C:/users/decomite/pictures/povray/spline.py')
 #Maison	
 #execfile('F:\Povray\jp.txt')
 #Pour les labyrinthes
-#portable
 #execfile('C:/users/decomite/pictures/povray/laby.py')
-#maison
-execfile('C:/users/pépère/pictures/povray/laby.py')
+
 """
 #######################################
 # render the image and save the image
