@@ -152,14 +152,17 @@ public class ThreeDreaderRuledSurfacePenche {
                 	// doit prendre la meme valeur que diam dans General3D.py 
                 	// non, probleme d'angle
                 	double redux=0.03; 
-                	ptitAngle=Math.PI/4; 
+                	//ptitAngle=Math.PI/4; 
                 	for(int k=0;k<nbCotesArmature;k++){
                 		Pos3D glintch=new Pos3D(redux*Math.cos(2*k*Math.PI/nbCotesArmature),redux*Math.sin(2*k*Math.PI/nbCotesArmature),0);
+                		System.out.println("1 : "+glintch.norme()); 
+                		Pos3D glintchZero=new Pos3D(glintch.getX(),glintch.getY()*Math.sin(ptitAngle),-glintch.getY()*Math.cos(ptitAngle)); 
+                		System.out.println("2 : "+glintchZero.norme()); 
                 		
-                		Pos3D glintchZero=new Pos3D(glintch.getZ(),-glintch.getY()*Math.cos(Math.PI/2*ptitAngle),glintch.getY()*Math.sin(Math.PI/2*ptitAngle));
-                		
-                		Pos3D rotateGlintch=new Pos3D(glintchZero.getX()*Math.cos(angle),glintchZero.getY(),-glintchZero.getX()*Math.sin(angle));
+                		Pos3D rotateGlintch=new Pos3D(glintchZero.getX()*Math.cos(angle)-glintchZero.getZ()*Math.sin(angle),glintchZero.getY(),glintchZero.getX()*Math.sin(angle)+glintchZero.getZ()*Math.cos(angle));
+                		System.out.println("3 : "+rotateGlintch.norme()); 
                 		Pos3D translateGlintch=new Pos3D(rotateGlintch.getX()+Ainter.getX(),rotateGlintch.getY()+Ainter.getY(),rotateGlintch.getZ()+Ainter.getZ());
+                		
                 		// translateGlinch est un des points de la couronne autour d'une intersection
                 		// On peut prendre ces couronnes comme base pour un mesh
                 		//System.out.println("sphere{"+translateGlintch+",mydiam texture{pigment{color rgb<"+3*i+","+10*i+","+100*i+">}}}");
