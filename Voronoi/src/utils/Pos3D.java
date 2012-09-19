@@ -122,4 +122,8 @@ public class Pos3D {
 		
 	}
 	
+	public double norme(){
+		return Math.sqrt(x*x+y*y+z*z); 
+	}
+	
 }
