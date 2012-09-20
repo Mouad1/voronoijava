@@ -121,8 +121,11 @@ public class ThreeDreaderRuledSurfacePenche {
                 	// On utilise les deux points origin(A) et end(B), plus le point C <0,10,0>
                 	Vertex A=cylindresExtr[j][0]; 
                 	Vertex B=cylindresExtr[j][1];
-                	double nu=Vertex.sub(A,B).norme();
-                	double ptitAngle=Math.acos(Math.abs(B.getY()-A.getY())/nu); 
+                	Vertex dir=Vertex.sub(B,A);
+                	Vertex vertic=new Vertex(0,1,0);
+                	double nu=dir.norme();
+                	double cosAngle=Vertex.produitScalaire(dir,vertic)/nu; 
+                	double ptitAngle=Math.acos(cosAngle); 
                 	System.out.println("---->"+180*ptitAngle/Math.PI);
                 	
                 	Pos3D Ainter=Vertex.barycenter(A, B, (i+0.0)/subdiv); 
@@ -156,10 +159,12 @@ public class ThreeDreaderRuledSurfacePenche {
                 	for(int k=0;k<nbCotesArmature;k++){
                 		Pos3D glintch=new Pos3D(redux*Math.cos(2*k*Math.PI/nbCotesArmature),redux*Math.sin(2*k*Math.PI/nbCotesArmature),0);
                 		System.out.println("1 : "+glintch.norme()); 
-                		Pos3D glintchZero=new Pos3D(glintch.getX(),glintch.getY()*Math.sin(ptitAngle),-glintch.getY()*Math.cos(ptitAngle)); 
+                		
+                		Pos3D glintchZero=new Pos3D(glintch.getX(),glintch.getY()*Math.sin(ptitAngle),glintch.getY()*Math.cos(ptitAngle)); 
                 		System.out.println("2 : "+glintchZero.norme()); 
                 		
-                		Pos3D rotateGlintch=new Pos3D(glintchZero.getX()*Math.cos(angle)-glintchZero.getZ()*Math.sin(angle),glintchZero.getY(),glintchZero.getX()*Math.sin(angle)+glintchZero.getZ()*Math.cos(angle));
+                		Pos3D rotateGlintch=new Pos3D(glintchZero.getX()*Math.cos(angle)-glintchZero.getZ()*Math.sin(angle),glintchZero.getY(),-glintchZero.getX()*Math.sin(angle)+glintchZero.getZ()*Math.cos(angle));
+                		
                 		System.out.println("3 : "+rotateGlintch.norme()); 
                 		Pos3D translateGlintch=new Pos3D(rotateGlintch.getX()+Ainter.getX(),rotateGlintch.getY()+Ainter.getY(),rotateGlintch.getZ()+Ainter.getZ());
                 		
