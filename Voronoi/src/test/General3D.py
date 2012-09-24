@@ -338,13 +338,13 @@ for ob in scene.objects:
    if (cmp(ob.getName(),'Cube')==0):
     scene.objects.unlink(ob)
 
-nbf=24
-diam=0.01
-#rati=1.6
-
+nbf=12
+diam=0.05
+rati=1.6
 
 #execfile('C:\Users\decomite\Pictures\povray\output povray\spline.py')
 
+#Pluecker
 execfile('C:/Users/decomite/Pictures/povray/ruled.py')
 #Pour les slides together
 #execfile('C:/users/decomite/pictures/povray/t4b.txt')

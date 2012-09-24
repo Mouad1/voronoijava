@@ -122,6 +122,8 @@ public class ThreeDreaderRuledSurfaceCylindres {
                 	Vertex B=listeArmature[(j+1)%(360/increment)][i];
                 
                 	
+                	
+                	
                 
                 	 output.println("point0=Vector(["+A.rawString()+"])");
               	  	 output.println("point1=Vector(["+B.rawString()+"])");
@@ -136,6 +138,12 @@ public class ThreeDreaderRuledSurfaceCylindres {
               	    output.println("ob.join([localOb])"); 
                    output.println("scene.objects.unlink(localOb)");
               	  	 }
+              	  	 
+              	  	// et une petite sphere
+              	  	 output.println("me=translate(point0,coef*diam)");
+              	  	output.println("localOb=scene.objects.new(me,'sphere"+nbligne+"')");
+              	    output.println("ob.join([localOb])"); 
+                   output.println("scene.objects.unlink(localOb)");
                 	nbligne++; 
                 	
                 	}//j 
