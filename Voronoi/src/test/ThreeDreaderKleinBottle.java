@@ -68,8 +68,9 @@ public class ThreeDreaderKleinBottle {
                 int roller=0; 
                 Vertex couches[][]=new Vertex[nbCouches][nbCotes]; 
               
-              
-                while(u){
+                System.out.println(nbCouches+" "+nbCotes); 
+                for(int i=0;i<nbCouches*nbCotes;i++){
+                	System.out.println(i); 
                 	line1=in.readLine();
                 	if(line1==null) {u=false; break;} 
                     r1=new Scanner(line1); 
@@ -77,10 +78,55 @@ public class ThreeDreaderKleinBottle {
                 	// cylindresExtr[i][] les deux extremites d'un cylindre (0-> exterieur)
                 	couches[nbligne][roller++]=origin;
                 	if(roller==nbCotes){roller=0; nbligne++; }
-                	line1=in.readLine();
                 }
                 
                   in.close();
+                  
+                  
+               // fabriquer les cercles horizontaux
+                  for(int i=0;i<nbCouches;i++){
+                	  for(int j=0;j<nbCotes;j++){
+                		  output.println("point0=Vector(["+couches[i][j].rawString()+"])");
+                    	  output.println("point1=Vector(["+couches[i][(j+3)%nbCotes].rawString()+"])");
+                    	  output.println("me=lineSegMe(point0,point1,diam,nbf)[4]");
+                    	  if(!rooted){
+                         	  	output.println("ob=scene.objects.new(me,'cylindre"+i+"_"+j+"')");
+                         	  	rooted=true;
+                         	  	 }
+                         	  	 
+                         	  	 else{
+                         	  	output.println("localOb=scene.objects.new(me,'cylindre"+i+"_"+j+"')");
+                         	    output.println("ob.join([localOb])"); 
+                              output.println("scene.objects.unlink(localOb)");
+                         	  	 }
+                    	  
+                    		 output.println("me=translate(point0,coef*diam)");
+                       	  	output.println("localOb=scene.objects.new(me,'sphere"+u+"_"+j+"')");
+                       	    output.println("ob.join([localOb])"); 
+                            output.println("scene.objects.unlink(localOb)");
+                		  
+                	  }//j
+                  }// i
+                  
+                  // armatures verticales
+                  for(int i=0;i<nbCouches-1;i++){
+                	  for(int j=0;j<nbCotes;j++){
+                		  output.println("point0=Vector(["+couches[i][j].rawString()+"])");
+                    	  output.println("point1=Vector(["+couches[i+1][j].rawString()+"])");
+                    	  output.println("me=lineSegMe(point0,point1,diam,nbf)[4]");
+                    	  if(!rooted){
+                         	  	output.println("ob=scene.objects.new(me,'armature"+i+"_"+j+"')");
+                         	  	rooted=true;
+                         	  	 }
+                         	  	 
+                         	  	 else{
+                         	  	output.println("localOb=scene.objects.new(me,'armature"+i+"_"+j+"')");
+                         	    output.println("ob.join([localOb])"); 
+                              output.println("scene.objects.unlink(localOb)");
+                         	  	 }
+                		  
+                	  }//j
+                  }// i
                   
                outputPovray.close();  
                output.close(); 

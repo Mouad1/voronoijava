@@ -231,8 +231,8 @@ def lineSegMe(p1,p2,d1,nbFaces):
  length = dir.length
  
 
- #me=couronne(d1,nbFaces,length)
- me=couronneFermee(d1,nbFaces,length) 
+ me=couronne(d1,nbFaces,length)
+ #me=couronneFermee(d1,nbFaces,length) 
  dir.normalize()
  u = dir
  uu = Vector([0,0,1.0])
@@ -341,11 +341,15 @@ for ob in scene.objects:
 nbf=12
 diam=0.05
 rati=1.6
+coef=2
+
+
+
+execfile('C:/Users/decomite/pictures/povray/kleinBottle.py')
 
 #execfile('C:\Users\decomite\Pictures\povray\output povray\spline.py')
 
-#Pluecker
-execfile('C:/Users/decomite/Pictures/povray/ruled.py')
+#execfile('C:/Users/decomite/Pictures/povray/ruled.py')
 #Pour les slides together
 #execfile('C:/users/decomite/pictures/povray/t4b.txt')
 #Pour les anamorphoses
