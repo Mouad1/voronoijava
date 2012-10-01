@@ -29,8 +29,8 @@ public class OffReader3DVertices {
 	private  ArrayList<Vertex> lesCentresDesFaces=new ArrayList<Vertex>(); 
 	private  ArrayList<Vertex> lesNormales=new ArrayList<Vertex>(); 
 	public int nbVertices,nbFaces,nbAretes;
-	private static int roulette=8; 
-	private static int roulette2=17; 
+	private static int roulette=7; 
+	private static int roulette2=9; 
 	private String catena;
 	{
 		Locale.setDefault(Locale.US);
@@ -109,7 +109,8 @@ public class OffReader3DVertices {
           try {
         	// output=new PrintStream("../../../../pearls/scene/geometry/polyhedra/archimedean/archi.txt");
         	 output=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Test"+roulette+"_"+roulette2+".inc");
-        	 outputBlender=new PrintStream("F:/Povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+".py");
+        	 //outputBlender=new PrintStream("F:/Povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+".py");
+        	 outputBlender=new PrintStream("C:/users/decomite/pictures/povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+".py");
         	  //output=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Test"+roulette+".inc");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
@@ -259,10 +260,10 @@ public class OffReader3DVertices {
            	      toto.outputBlender.println("meFinal.verts.extend(lineSegMe(point0,point1,diam,nbf)[3])");  
            	      toto.outputBlender.println("me=meshify(meFinal,nbf)");
            	      if(number==0)
-           	    	  toto.outputBlender.println("ob=scene.objects.new(me,'piece"+number+"')");
+           	    	  toto.outputBlender.println("ob=scene.objects.new(me,'pieceA"+number+"')");
            	      else
            	      {
-           	    	 toto.outputBlender.println("localOb=scene.objects.new(me,'piece"+number+"')");
+           	    	 toto.outputBlender.println("localOb=scene.objects.new(me,'pieceA"+number+"')");
            	    	 toto.outputBlender.println("ob.join([localOb])");
            	    	 toto.outputBlender.println("scene.objects.unlink(localOb)");
            	      }
@@ -323,10 +324,10 @@ public class OffReader3DVertices {
                  	      toto.outputBlender.println("meFinal.verts.extend(lineSegMe(point0,point1,diam,nbf)[3])");  
                  	      toto.outputBlender.println("me=meshify(meFinal,nbf)");
                  	      if(number==0)
-                 	    	  toto.outputBlender.println("ob=scene.objects.new(me,'piece"+number+"')");
+                 	    	  toto.outputBlender.println("ob=scene.objects.new(me,'pieceB"+number+"')");
                  	      else
                  	      {
-                 	    	 toto.outputBlender.println("localOb=scene.objects.new(me,'piece"+number+"')");
+                 	    	 toto.outputBlender.println("localOb=scene.objects.new(me,'pieceB"+number+"')");
                  	    	 toto.outputBlender.println("ob.join([localOb])");
                  	    	 toto.outputBlender.println("scene.objects.unlink(localOb)");
                  	      }

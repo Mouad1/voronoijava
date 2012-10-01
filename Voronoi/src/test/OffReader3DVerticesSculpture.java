@@ -1,7 +1,7 @@
 package test;
 // Polygones quelconques, presence de commentaires, aretes 
 // But : lire les sommets d'un polyhedre, leurs distances respectives
-// et recuperer certains couples de sommets, calculre la transfo qui les fait passer
+// et recuperer certains couples de sommets, calculer la transfo qui les fait passer
 // du centre a leur position actuelle
 // je me comprends
 
