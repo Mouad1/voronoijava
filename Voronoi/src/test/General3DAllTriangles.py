@@ -1,8 +1,4 @@
-# Mauvaise version : les cylindres ne sont pas jointifs...
-# on essaie de corriger ça dans ce fichier
-#un probleme au depart des 'cylindres' (makeContinuous2.py est le meilleur pour le moment)
-#ok, c'est mieux, mais ce n'est pas manifold
-#on essaie de rajouter des capuchons au bout des cylindres
+#
 #!BPY
  
 __doc__ = """
@@ -307,17 +303,21 @@ def meshify(meche,nbFaces):
 # pour k variant entre 0 et nbFaces-1
 #garder le k qui minimise la distance entre les deux sommets
    face=NMesh.Face()
-   face.append(meche.verts[1+i+j*nbFaces])
-   face.append(meche.verts[1+(j+1)*nbFaces+(i+kcandidat)%nbFaces])
-   face.append(meche.verts[1+(j+1)*nbFaces+((1+i+kcandidat)%nbFaces)])
-   face.append(meche.verts[1+j*nbFaces+((i+1)%nbFaces)])
-     
+   face.append(meche.verts[1+i+j*nbFaces])  #A
+   face.append(meche.verts[1+(j+1)*nbFaces+(i+kcandidat)%nbFaces])  #B
+   face.append(meche.verts[1+(j+1)*nbFaces+((1+i+kcandidat)%nbFaces)]) #C
+   meche.faces.append(face)
+   face=NMesh.Face()
+   face.append(meche.verts[1+j*nbFaces+((i+1)%nbFaces)]) #D
+   face.append(meche.verts[1+i+j*nbFaces])  #A
+   face.append(meche.verts[1+(j+1)*nbFaces+((1+i+kcandidat)%nbFaces)]) #C  
+   meche.faces.append(face)
    
    meche.faces.append(face)
  #face du depart
   for i in range(0,nbFaces):
    face=NMesh.Face()
-   face.append(meche.verts[1+i])
+   face.append(meche.verts[1+i]) 
    face.append(meche.verts[1+(i+1)%nbFaces])
    face.append(meche.verts[0])
    meche.faces.append(face)
@@ -349,11 +349,11 @@ coef=2
 
 #execfile('C:\Users\decomite\Pictures\povray\output povray\spline.py')
 
-execfile('C:/Users/decomite/Pictures/povray/ruled.py')
+#execfile('C:/Users/decomite/Pictures/povray/ruled.py')
 #Pour les slides together
 #execfile('C:/users/decomite/pictures/povray/t4b.txt')
 #Pour les anamorphoses
-#execfile('C:/users/decomite/pictures/povray/spline.py')
+execfile('C:/users/decomite/pictures/povray/spline.py')
 #Pour les cadres en couleur*
 # Portable
 #execfile('C:/users/decomite/pictures/povray/color.txt')
