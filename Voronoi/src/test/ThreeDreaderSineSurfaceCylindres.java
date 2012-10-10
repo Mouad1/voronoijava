@@ -44,29 +44,20 @@ public class ThreeDreaderSineSurfaceCylindres {
          double diamMax=-2;
 		double ratio=1; 
 		//this.catena="F:/Povray/anamorphoses/skull.txt"; 
-		this.catena="c:/users/decomite/pictures/povray/objects.txt"; 
+		this.catena="c:/users/decomite/pictures/povray/sinesurface.txt"; 
           File source = new File(catena);
           HashSet<CoupleVertexDiam> sommets=new HashSet<CoupleVertexDiam>();
           try {
         	  //output=new PrintStream("F:/Povray/ruled.py");
-        	  output=new PrintStream("C:/Users/decomite/pictures/povray/ruled.py");
+        	  output=new PrintStream("C:/Users/decomite/pictures/povray/sinesurface.py");
         	  outputPovray=new PrintStream("C:/Users/decomite/pictures/povray/plots.inc");
                 BufferedReader in = new BufferedReader(new FileReader(source));
                 boolean u=true; 
                 boolean rooted=false; 
              
-                String line1=in.readLine();
-                Scanner r1=new Scanner(line1); 
-                r1.useLocale(Locale.US);
-                int subdiv=(int)r1.nextInt(); 
-                line1=in.readLine();
-                r1=new Scanner(line1); 
-                r1.useLocale(Locale.US);
-                int increment=(int)r1.nextInt(); 
-               
-                int nbligne=0;
-                Vertex listeArmature[][]=new Vertex[360/increment][subdiv];
-                Vertex cylindresExtr[][]=new Vertex[360/increment][2];
+            String line1; 
+            Scanner r1; 
+            int nbligne=0; 
               
                
                 while(u){
@@ -74,82 +65,42 @@ public class ThreeDreaderSineSurfaceCylindres {
                 	if(line1==null) {u=false; break;} 
                     r1=new Scanner(line1); 
                 	Vertex origin=new Vertex(r1.nextDouble(),r1.nextDouble(),r1.nextDouble()); 
-                	// cylindresExtr[i][] les deux extremites d'un cylindre (0-> exterieur)
-                	cylindresExtr[nbligne][0]=origin; 
+                	line1=in.readLine(); 
+                    r1=new Scanner(line1); 
+                	Vertex suivant=new Vertex(r1.nextDouble(),r1.nextDouble(),r1.nextDouble());
                 	line1=in.readLine();
                     r1=new Scanner(line1); 
-                	Vertex end=new Vertex(r1.nextDouble(),r1.nextDouble(),r1.nextDouble()); 
-                	cylindresExtr[nbligne][1]=end; 
-                	System.out.println(origin+" "+end); 
+                	Vertex pred=new Vertex(r1.nextDouble(),r1.nextDouble(),r1.nextDouble()); 
+                
                 	//output.println("meFinal=NMesh.GetRaw()");	
                 	 output.println("point0=Vector(["+origin.rawString()+"])");
-               	  	 output.println("point1=Vector(["+end.rawString()+"])");
+               	  	 output.println("point1=Vector(["+suivant.rawString()+"])");
                	  	 output.println("me=lineSegMe(point0,point1,diam,nbf)[4]");
                	  	 if(!rooted){
                	  	output.println("ob=scene.objects.new(me,'cylindre"+nbligne+"')");
                	  	rooted=true;
                	  	 }
-               	  	 
                	  	 else{
                	  	output.println("localOb=scene.objects.new(me,'cylindre"+nbligne+"')");
                	    output.println("ob.join([localOb])"); 
                     output.println("scene.objects.unlink(localOb)");
                	  	 }
-                	
-                  for(int i=0;i<subdiv;i++){
-                	  String ligne=in.readLine();
-                	  
-                	  if(ligne==null) {u=false; break;} 
-                	  
-                	  r1=new Scanner(ligne); 
-                	  r1.useLocale(Locale.US);
-                	 
-                	  listeArmature[nbligne][i]=new Vertex(r1.nextDouble(),r1.nextDouble(),r1.nextDouble()); 
-                	  System.out.println(" "+nbligne+" "+i+" "+listeArmature[nbligne][i]); 
-                	
-                	  }
-                  nbligne++;
-                  }
-                
-                int nbCotesArmature=12; 
-               // A ce niveau, on a tous les points de l'armature, faut en faire un boudin continu
-                for(int i=0;i<subdiv;i++){
-                	
-                	// fabriquer le boudin de niveau i (0-> exterieur) avec les listeArmature[j][i]
-                	for(int j=0;j<360/increment;j++){
-                	
-                	Vertex A=listeArmature[j][i]; 
-                	Vertex B=listeArmature[(j+1)%(360/increment)][i];
-                
-                	
-                	
-                	
-                
-                	 output.println("point0=Vector(["+A.rawString()+"])");
-              	  	 output.println("point1=Vector(["+B.rawString()+"])");
-              	  	 output.println("me=lineSegMe(point0,point1,diam,nbf)[4]");
-              	  	 if(!rooted){
-              	  	output.println("ob=scene.objects.new(me,'armature"+nbligne+"')");
-              	  	rooted=true;
-              	  	 }
-              	  	 
-              	  	 else{
-              	  	output.println("localOb=scene.objects.new(me,'armature"+nbligne+"')");
-              	    output.println("ob.join([localOb])"); 
-                   output.println("scene.objects.unlink(localOb)");
-              	  	 }
-              	  	 
+               	  	nbligne++; 
+               	    output.println("point0=Vector(["+origin.rawString()+"])");
+            	  	output.println("point1=Vector(["+pred.rawString()+"])");
+            	  	output.println("me=lineSegMe(point0,point1,diam,nbf)[4]");
+            	  	
+            	  	 
               	  	// et une petite sphere
-              	  	 output.println("me=translate(point0,coef*diam)");
+              	  	output.println("me=translate(point0,coef*diam)");
               	  	output.println("localOb=scene.objects.new(me,'sphere"+nbligne+"')");
               	    output.println("ob.join([localOb])"); 
-                   output.println("scene.objects.unlink(localOb)");
-                	nbligne++; 
+                    output.println("scene.objects.unlink(localOb)");
                 	
-                	}//j 
-                	
-                	
-                }//i
+               
+                  nbligne++;
+                  }
+              
                 
                   in.close();
                   
