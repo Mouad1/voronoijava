@@ -342,18 +342,19 @@ for ob in scene.objects:
    if (cmp(ob.getName(),'Cube')==0):
     scene.objects.unlink(ob)
 
-nbf=12
+nbf=6
 diam=0.05
 rati=1.6
 coef=2
 
 #execfile('C:\Users\decomite\Pictures\povray\output povray\spline.py')
 
+execfile('C:/Users/decomite/Pictures/povray/sinesurface.py')
 #execfile('C:/Users/decomite/Pictures/povray/ruled.py')
 #Pour les slides together
 #execfile('C:/users/decomite/pictures/povray/t4b.txt')
 #Pour les anamorphoses
-execfile('C:/users/decomite/pictures/povray/spline.py')
+#execfile('C:/users/decomite/pictures/povray/spline.py')
 #Pour les cadres en couleur*
 # Portable
 #execfile('C:/users/decomite/pictures/povray/color.txt')
