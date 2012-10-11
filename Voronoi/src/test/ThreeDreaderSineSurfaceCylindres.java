@@ -89,8 +89,11 @@ public class ThreeDreaderSineSurfaceCylindres {
                	    output.println("point0=Vector(["+origin.rawString()+"])");
             	  	output.println("point1=Vector(["+pred.rawString()+"])");
             	  	output.println("me=lineSegMe(point0,point1,diam,nbf)[4]");
+            		output.println("localOb=scene.objects.new(me,'cylindre"+nbligne+"')");
+               	    output.println("ob.join([localOb])"); 
+                    output.println("scene.objects.unlink(localOb)");
             	  	
-            	  	 
+                    output.println("print "+nbligne);
               	  	// et une petite sphere
               	  	output.println("me=translate(point0,coef*diam)");
               	  	output.println("localOb=scene.objects.new(me,'sphere"+nbligne+"')");
@@ -103,6 +106,7 @@ public class ThreeDreaderSineSurfaceCylindres {
               
                 
                   in.close();
+                  System.out.println(nbligne);
                   
                outputPovray.close();  
                output.close(); 
