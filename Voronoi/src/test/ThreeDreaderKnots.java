@@ -25,7 +25,7 @@ import utils.Vertex;
 import utils.Pos3D; 
 import utils.Vecteur; 
 
-public class ThreeDreaderKleinBottle {
+public class ThreeDreaderKnots {
 	
 	private String catena;
 	{
@@ -83,7 +83,7 @@ public class ThreeDreaderKleinBottle {
                   in.close();
                   
                   
-               // fabriquer les cercles horizontaux
+               // fabriquer les cercles horizontaux ou les etoiles
                   for(int i=0;i<nbCouches;i++){
                 	  for(int j=0;j<nbCotes;j++){
                 		  output.println("point0=Vector(["+couches[i][j].rawString()+"])");
@@ -100,6 +100,7 @@ public class ThreeDreaderKleinBottle {
                               output.println("scene.objects.unlink(localOb)");
                          	  	 }
                     	  
+                    	  // Plus une petite sphere
                     		 output.println("me=translate(point0,coef*diam)");
                        	  	output.println("localOb=scene.objects.new(me,'sphere"+u+"_"+j+"')");
                        	    output.println("ob.join([localOb])"); 
@@ -109,10 +110,22 @@ public class ThreeDreaderKleinBottle {
                   }// i
                   
                   // armatures verticales
-                  for(int i=0;i<nbCouches-1;i++){
+                  // reperer la distance minimale
+                  for(int i=0;i<nbCouches;i++){
+                	  // distance min ?
+                	  double distmin=1000; 
+                	  int indmin=-1; 
+                	  for(int j=0;j<nbCotes;j++){
+                		  double dist=Vertex.distance(couches[i][0], couches[(i+1)%nbCouches][j]);
+                		  if(dist<distmin){
+                			  indmin=j; 
+                			  distmin=dist; 
+                		  }
+                		  
+                	  }// j
                 	  for(int j=0;j<nbCotes;j++){
                 		  output.println("point0=Vector(["+couches[i][j].rawString()+"])");
-                    	  output.println("point1=Vector(["+couches[i+1][j].rawString()+"])");
+                    	  output.println("point1=Vector(["+couches[(i+1)%nbCouches][(j+indmin)%nbCotes].rawString()+"])");
                     	  output.println("me=lineSegMe(point0,point1,diam,nbf)[4]");
                     	  if(!rooted){
                          	  	output.println("ob=scene.objects.new(me,'armature"+i+"_"+j+"')");
@@ -138,7 +151,7 @@ public class ThreeDreaderKleinBottle {
   }
 	  public static void main(String args[]) {
           // new TestIO().copieFichierTexte("essai.txt","output.txt");
-          ThreeDreaderKleinBottle toto=new ThreeDreaderKleinBottle(); 
+          ThreeDreaderKnots toto=new ThreeDreaderKnots(); 
          
           toto.afficheFichierTexte();
           System.out.println("fini"); 
