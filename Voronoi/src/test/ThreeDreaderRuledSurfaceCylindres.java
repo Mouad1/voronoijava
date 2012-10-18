@@ -80,7 +80,7 @@ public class ThreeDreaderRuledSurfaceCylindres {
                     r1=new Scanner(line1); 
                 	Vertex end=new Vertex(r1.nextDouble(),r1.nextDouble(),r1.nextDouble()); 
                 	cylindresExtr[nbligne][1]=end; 
-                	System.out.println(origin+" "+end); 
+                	System.out.println(origin+"*"+end); 
                 	//output.println("meFinal=NMesh.GetRaw()");	
                 	 output.println("point0=Vector(["+origin.rawString()+"])");
                	  	 output.println("point1=Vector(["+end.rawString()+"])");
