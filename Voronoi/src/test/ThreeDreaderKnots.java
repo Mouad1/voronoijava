@@ -44,7 +44,7 @@ public class ThreeDreaderKnots {
          double diamMax=-2;
 		double ratio=1; 
 		//this.catena="F:/Povray/anamorphoses/skull.txt"; 
-		this.catena="c:/users/decomite/pictures/povray/knots.txt"; 
+		this.catena="c:/users/decomite/pictures/povray/knot.txt"; 
           File source = new File(catena);
         
           try {
