@@ -44,12 +44,12 @@ public class ThreeDreaderKnots {
          double diamMax=-2;
 		double ratio=1; 
 		//this.catena="F:/Povray/anamorphoses/skull.txt"; 
-		this.catena="c:/users/decomite/pictures/povray/objects.txt"; 
+		this.catena="c:/users/decomite/pictures/povray/knots.txt"; 
           File source = new File(catena);
         
           try {
         	  //output=new PrintStream("F:/Povray/ruled.py");
-        	  output=new PrintStream("C:/Users/decomite/pictures/povray/kleinBottle.py");
+        	  output=new PrintStream("C:/Users/decomite/pictures/povray/knot.py");
         	  outputPovray=new PrintStream("C:/Users/decomite/pictures/povray/plots.inc");
                 BufferedReader in = new BufferedReader(new FileReader(source));
                 boolean u=true; 
