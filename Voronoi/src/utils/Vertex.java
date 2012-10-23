@@ -74,9 +74,32 @@ public class Vertex extends Pos3D {
 		return new Vertex(valx,valy,valz); 
 	}
 	
+	public static double cosAngle(Vertex A,Vertex B){
+	return Vertex.produitScalaire(A, B)/(A.norme()*B.norme());
+	}
+	
+	public static double angle(Vertex A,Vertex B){
+		return Math.acos(cosAngle(A,B)); 
+	}
+	
 	public String rawString(){
 		String s=x+","+y+","+z; 
 		return s; 
+	}
+	
+	// rotation d'angle phi autour de l'axe N, passant par C, du point M 
+	public static Vertex rotateAroundAxis(Vertex M,Vertex C,Vertex N,double phi){
+		Vertex M1=Vertex.sub(M,C);
+		Vertex Resu=Vertex.mul(M1,Math.cos(phi)); // Premier terme
+		double coef2=(1-Math.cos(phi))*Vertex.produitScalaire(M1,N); 
+		Resu=Vertex.add(Resu,Vertex.mul(N,coef2));
+		Vertex dern=Vertex.mul(Vertex.produitVectoriel(N, M1),Math.sin(phi));
+		Resu=Vertex.add(Resu,dern); 
+		Resu=Vertex.mul(Resu, 4); 
+		Resu=Vertex.add(Resu,C);
+		return Resu;
+		
+		
 	}
 	
 }
