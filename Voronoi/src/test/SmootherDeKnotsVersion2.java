@@ -1,5 +1,6 @@
 package test;
-// lis les donnees issues de ruledsinus.pov (ruled.txt)
+// Dans SootherDeKnots, on voulait faire des lignes droites
+// maintenant, on veut minimiser la taille des liaisons
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -25,7 +26,7 @@ import utils.Vertex;
 import utils.Pos3D; 
 import utils.Vecteur; 
 
-public class SmootherDeKnots {
+public class SmootherDeKnotsVersion2 {
 	
 	private String catena;
 	{
@@ -109,45 +110,44 @@ public class SmootherDeKnots {
         	  System.out.println(center+" "+centers[i]); 
           }
         */	  
-          for(int tour=0;tour<100;tour++){
-        	  System.out.println(tour); 
-          double phi=Math.PI/100;
+          double phi=Math.PI/2; 
+          for(int tour=0;tour<100000;tour++){
+        	  if(tour%1000==0) System.out.println(tour); 
+          phi*=0.999;
           for(int i=0;i<nbCouches;i++){
-        	  // Les trois points plus ou moins alignes
+        	  // Le point et son successeur
         	  Vertex A=couches[(i-1+nbCouches)%nbCouches][0]; 
         	  Vertex B=couches[i][0]; 
-        	  Vertex C=couches[(i+1)%nbCouches][0];
+        	 
         	  Vertex centre=centers[i];
         	  // Un troisieme point dans le plan de l'armature centrale
         	  Vertex B1=couches[i][1];
         	  
-        	  double basicAngle=Vertex.angle(Vertex.sub(A,B),Vertex.sub(C,B)); 
-        	  double angleChoisi=basicAngle; 
-        	  double valAngle=0; 
-        	  System.out.print(i+" "+basicAngle/Math.PI); 
+        
+        	  double dist=Vertex.distance(A, B);
+        	  double valAngle=0;
+        	 
         	  Plane lePlan=Plane.computePlane(B, centre, B1); 
         	  Vertex N=lePlan.getVecteurNormal();
         	  Vertex posMoinsPhi=Vertex.rotateAroundAxis(B, centre, N, -phi);
-        	  double angleMoinsPhi=Vertex.angle(Vertex.sub(A,posMoinsPhi),Vertex.sub(C,posMoinsPhi)); 
-        	  System.out.print("   *** "+angleMoinsPhi/Math.PI); 
-        	  if(angleMoinsPhi>basicAngle){
-        		  angleChoisi=angleMoinsPhi;
-        		  valAngle=angleMoinsPhi; 
+        	   double distMoinsPhi=Vertex.distance(A,posMoinsPhi); 
+        	  if(distMoinsPhi<dist){
+        		  dist=distMoinsPhi;
+        		  valAngle=-phi; 
         	  }
         	  Vertex posPlusPhi=Vertex.rotateAroundAxis(B, centre, N, phi);
-        	  double anglePlusPhi=Vertex.angle(Vertex.sub(A,posPlusPhi),Vertex.sub(C,posPlusPhi)); 
-        	  System.out.print("   *** "+anglePlusPhi/Math.PI); 
-        	  if(anglePlusPhi>angleChoisi){
-        		  angleChoisi=anglePlusPhi;
-        		  valAngle=anglePlusPhi; 
+        	  double distPlusPhi=Vertex.distance(A,posPlusPhi); 
+        	  if(distPlusPhi<dist){
+        		  dist=distPlusPhi;
+        		  valAngle=phi; 
         	  }
-        	  System.out.println("   "+angleChoisi/Math.PI); 
+        	 
         	  if(valAngle!=0){ // faire tourner l'anneau central de valangle
-        		  System.out.println("Avant "+Vertex.distance(couches[i][0],couches[i][1])); 
+        		  
         		  for(int k=0;k<nbCotes;k++){
         			  couches[i][k]=Vertex.rotateAroundAxis(couches[i][k], centre, N, valAngle);
         		  }//k 
-        		  System.out.println("Apres "+Vertex.distance(couches[i][0],couches[i][1])); 
+        		 
         	  }
           } // i
           } // tour
@@ -159,8 +159,9 @@ public class SmootherDeKnots {
         	  
         	  for(int i=0;i<nbCouches;i++){
         		  	for(int j=0;j<nbCotes;j++){
-        		  		outputPovray.println("cylinder{"+couches[i][j].toString()+","+couches[(i+1)%nbCouches][j]+" diam texture{T2} finish{F2}}");
-        			  outputPovray.println("cylinder{"+couches[i][j].toString()+","+couches[i][(j+2)%nbCotes]+" diam texture{T1} finish{F1}}");
+        		  		outputPovray.println("cylinder{"+couches[i][j].toString()+","+couches[(i+1)%nbCouches][j]+" diam texture{T"+(j%5)+"} finish{F2}}");
+        			  outputPovray.println("cylinder{"+couches[i][j].toString()+","+couches[i][(j+2)%nbCotes]+" diam texture{Tc} finish{Fc}}");
+        			  outputPovray.println("sphere{"+couches[i][j].toString()+",diam*k texture{T1} finish{Fc}}");
         		  }
         	  }
         	  outputPovray.close(); 
@@ -175,7 +176,7 @@ public class SmootherDeKnots {
 	
 	  public static void main(String args[]) {
           // new TestIO().copieFichierTexte("essai.txt","output.txt");
-          SmootherDeKnots toto=new SmootherDeKnots(); 
+          SmootherDeKnotsVersion2 toto=new SmootherDeKnotsVersion2(); 
          
           toto.afficheFichierTexte();
           System.out.println("fini"); 
