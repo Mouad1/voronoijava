@@ -95,7 +95,6 @@ public class Vertex extends Pos3D {
 		Resu=Vertex.add(Resu,Vertex.mul(N,coef2));
 		Vertex dern=Vertex.mul(Vertex.produitVectoriel(N, M1),Math.sin(phi));
 		Resu=Vertex.add(Resu,dern); 
-		Resu=Vertex.mul(Resu, 4); 
 		Resu=Vertex.add(Resu,C);
 		return Resu;
 		
