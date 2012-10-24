@@ -90,15 +90,28 @@ public class Vertex extends Pos3D {
 	// rotation d'angle phi autour de l'axe N, passant par C, du point M 
 	public static Vertex rotateAroundAxis(Vertex M,Vertex C,Vertex N,double phi){
 		Vertex M1=Vertex.sub(M,C);
+	
 		Vertex Resu=Vertex.mul(M1,Math.cos(phi)); // Premier terme
 		double coef2=(1-Math.cos(phi))*Vertex.produitScalaire(M1,N); 
 		Resu=Vertex.add(Resu,Vertex.mul(N,coef2));
 		Vertex dern=Vertex.mul(Vertex.produitVectoriel(N, M1),Math.sin(phi));
 		Resu=Vertex.add(Resu,dern); 
 		Resu=Vertex.add(Resu,C);
+		
 		return Resu;
 		
 		
+	}
+	
+	public static void main(String[] args) {
+		// verifier la validite de rotateAroundAxis
+		Vertex follow=new Vertex(5,0,0);
+		Vertex centre=new Vertex(0,0,0);
+		Vertex axe=new Vertex(0,2,0);
+		for(int i=0;i<10;i++){
+			 follow=Vertex.rotateAroundAxis(follow, centre, axe, Math.PI); 
+		     System.out.println(follow.norme()); 
+		}
 	}
 	
 }
