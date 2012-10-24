@@ -56,7 +56,7 @@ public class Plane {
 	}
 	
 	public Vecteur getVecteurNormal(){
-		Vecteur emile=new Vecteur(a,b,c); 
+		Vecteur emile=new Vecteur(a,b,c);
 		emile.normalize(); 
 		return emile; 
 	}
