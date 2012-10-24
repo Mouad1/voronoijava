@@ -47,8 +47,8 @@ public class SmootherDeKnotsVersion2 {
 		int nbCouches=0, nbCotes=0; 
 		Vertex couches[][]=null,centers[]=null;
 		//this.catena="F:/Povray/anamorphoses/skull.txt"; 
-		//this.catena="c:/users/decomite/pictures/povray/knot.txt"; 
-		this.catena="C:/Users/pépère/Pictures/povray/knots.txt";
+		this.catena="c:/users/decomite/pictures/povray/knot.txt"; 
+		//this.catena="C:/Users/pï¿½pï¿½re/Pictures/povray/knots.txt";
           File source = new File(catena);
         
           try {
@@ -110,9 +110,9 @@ public class SmootherDeKnotsVersion2 {
         	  System.out.println(center+" "+centers[i]); 
           }
         */	  
-          double phi=Math.PI/2; 
+          double phi=Math.PI/10; 
           for(int tour=0;tour<100000;tour++){
-        	  if(tour%1000==0) System.out.println(tour); 
+        	  if(tour%10000==0) System.out.println(tour); 
           phi*=0.999;
           for(int i=0;i<nbCouches;i++){
         	  // Le point et son successeur
@@ -154,17 +154,50 @@ public class SmootherDeKnotsVersion2 {
           
           try {
         	  //output=new PrintStream("F:/Povray/ruled.py");
-        	  //output=new PrintStream("C:/Users/decomite/pictures/povray/knot.py");
-        	  outputPovray=new PrintStream("F:/Povray/plots.inc");
+        	  output=new PrintStream("C:/Users/decomite/pictures/povray/knotcage.py");
+        	  boolean rooted=false; 
+        	  //outputPovray=new PrintStream("F:/Povray/plots.inc");
+        	  outputPovray=new PrintStream("C:/Users/decomite/pictures/povray/plots.inc");
         	  
         	  for(int i=0;i<nbCouches;i++){
         		  	for(int j=0;j<nbCotes;j++){
-        		  		outputPovray.println("cylinder{"+couches[i][j].toString()+","+couches[(i+1)%nbCouches][j]+" diam texture{T"+(j%5)+"} finish{F2}}");
-        			  outputPovray.println("cylinder{"+couches[i][j].toString()+","+couches[i][(j+2)%nbCotes]+" diam texture{Tc} finish{Fc}}");
-        			  outputPovray.println("sphere{"+couches[i][j].toString()+",diam*k texture{T1} finish{Fc}}");
+        		  		// Povray
+        		  	outputPovray.println("cylinder{"+couches[i][j].toString()+","+couches[(i+1)%nbCouches][j]+" diam texture{T"+(j%5)+"} finish{F2}}");
+        			outputPovray.println("cylinder{"+couches[i][j].toString()+","+couches[i][(j+2)%nbCotes]+" diam texture{Tc} finish{Fc}}");
+        			outputPovray.println("sphere{"+couches[i][j].toString()+",diam*k texture{T1} finish{Fc}}");
+        				// Blender
+        				// Armature
+        			  output.println("point0=Vector(["+couches[i][j].rawString()+"])");
+                	  output.println("point1=Vector(["+couches[i][(j+2)%nbCotes].rawString()+"])");
+                	  output.println("me=lineSegMe(point0,point1,diam,nbf)[4]");
+                	  if(!rooted){
+                     	  	output.println("ob=scene.objects.new(me,'cylindre"+i+"_"+j+"')");
+                     	  	rooted=true;
+                     	  	 }
+                     	  	 
+                      else{
+                     	  	output.println("localOb=scene.objects.new(me,'cylindre"+i+"_"+j+"')");
+                     	    output.println("ob.join([localOb])"); 
+                            output.println("scene.objects.unlink(localOb)");
+                     	  	 }
+                	  
+                	  // Plus une petite sphere
+                		output.println("me=translate(point0,coef*diam)");
+                   	  	output.println("localOb=scene.objects.new(me,'sphere"+i+"_"+j+"')");
+                   	    output.println("ob.join([localOb])"); 
+                        output.println("scene.objects.unlink(localOb)");
+                        // Lien entre armatures
+                        output.println("point0=Vector(["+couches[i][j].rawString()+"])");
+                  	    output.println("point1=Vector(["+couches[(i+1)%nbCouches][j].rawString()+"])");
+                  	    output.println("me=lineSegMe(point0,point1,diam,nbf)[4]");
+                  	    output.println("localOb=scene.objects.new(me,'lien"+i+"_"+j+"')");
+             	        output.println("ob.join([localOb])"); 
+                        output.println("scene.objects.unlink(localOb)");  
+        			
         		  }
         	  }
         	  outputPovray.close(); 
+        	  output.close();
           } 
           catch (Exception e){System.out.println(e); 
                   e.printStackTrace(); System.exit(0);
