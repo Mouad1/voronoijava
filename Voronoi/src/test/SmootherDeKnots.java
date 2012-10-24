@@ -46,8 +46,8 @@ public class SmootherDeKnots {
 		int nbCouches=0, nbCotes=0; 
 		Vertex couches[][]=null,centers[]=null;
 		//this.catena="F:/Povray/anamorphoses/skull.txt"; 
-		//this.catena="c:/users/decomite/pictures/povray/knot.txt"; 
-		this.catena="C:/Users/pépère/Pictures/povray/knots.txt";
+		this.catena="c:/users/decomite/pictures/povray/knot.txt"; 
+		//this.catena="C:/Users/pï¿½pï¿½re/Pictures/povray/knots.txt";
           File source = new File(catena);
         
           try {
