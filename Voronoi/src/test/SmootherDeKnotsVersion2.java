@@ -47,8 +47,8 @@ public class SmootherDeKnotsVersion2 {
 		int nbCouches=0, nbCotes=0; 
 		Vertex couches[][]=null,centers[]=null;
 		//this.catena="F:/Povray/anamorphoses/skull.txt"; 
-		//this.catena="c:/users/decomite/pictures/povray/knot.txt"; 
-		this.catena="C:/Users/pépère/Pictures/povray/knots.txt";
+		this.catena="c:/users/decomite/pictures/povray/knot.txt"; 
+		//this.catena="C:/Users/pï¿½pï¿½re/Pictures/povray/knots.txt";
           File source = new File(catena);
         
           try {
@@ -111,9 +111,9 @@ public class SmootherDeKnotsVersion2 {
           }
         */	  
           double phi=Math.PI/10; 
-          for(int tour=0;tour<100000;tour++){
+          for(int tour=0;tour<600000;tour++){
         	  if(tour%10000==0) System.out.println(tour); 
-          phi*=0.999;
+          phi*=0.99999;
           for(int i=0;i<nbCouches;i++){
         	  // Le point et son successeur
         	  Vertex A=couches[(i-1+nbCouches)%nbCouches][0]; 
@@ -153,11 +153,11 @@ public class SmootherDeKnotsVersion2 {
           } // tour
           
           try {
-        	  output=new PrintStream("F:/Povray/knotCage.py");
-        	  //output=new PrintStream("C:/Users/decomite/pictures/povray/knotcage.py");
+        	  //output=new PrintStream("F:/Povray/knotCage.py");
+        	  output=new PrintStream("C:/Users/decomite/pictures/povray/knotcage2.py");
         	  boolean rooted=false; 
-        	  outputPovray=new PrintStream("F:/Povray/plots.inc");
-        	  //outputPovray=new PrintStream("C:/Users/decomite/pictures/povray/plots.inc");
+        	  //outputPovray=new PrintStream("F:/Povray/plots.inc");
+        	  outputPovray=new PrintStream("C:/Users/decomite/pictures/povray/plots.inc");
         	  
         	  for(int i=0;i<nbCouches;i++){
         		  	for(int j=0;j<nbCotes;j++){
