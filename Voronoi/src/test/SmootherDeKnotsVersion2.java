@@ -111,7 +111,7 @@ public class SmootherDeKnotsVersion2 {
           }
         */	  
           double phi=Math.PI/10; 
-          for(int tour=0;tour<600000;tour++){
+          for(int tour=0;tour<100000;tour++){
         	  if(tour%10000==0) System.out.println(tour); 
           phi*=0.99999;
           for(int i=0;i<nbCouches;i++){
