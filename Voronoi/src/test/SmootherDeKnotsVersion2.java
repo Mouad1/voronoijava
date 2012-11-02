@@ -47,8 +47,8 @@ public class SmootherDeKnotsVersion2 {
 		int nbCouches=0, nbCotes=0; 
 		Vertex couches[][]=null,centers[]=null;
 		//this.catena="F:/Povray/anamorphoses/skull.txt"; 
-		this.catena="c:/users/decomite/pictures/povray/knot.txt"; 
-		//this.catena="C:/Users/pï¿½pï¿½re/Pictures/povray/knots.txt";
+		//this.catena="c:/users/decomite/pictures/povray/knot.txt"; 
+		this.catena="C:/Users/pépère/Pictures/povray/knots.txt";
           File source = new File(catena);
         
           try {
@@ -153,11 +153,11 @@ public class SmootherDeKnotsVersion2 {
           } // tour
           
           try {
-        	  //output=new PrintStream("F:/Povray/knotCage.py");
-        	  output=new PrintStream("C:/Users/decomite/pictures/povray/knotcage2.py");
+        	  output=new PrintStream("F:/Povray/knotCage.py");
+        	  //output=new PrintStream("C:/Users/decomite/pictures/povray/knotcage2.py");
         	  boolean rooted=false; 
-        	  //outputPovray=new PrintStream("F:/Povray/plots.inc");
-        	  outputPovray=new PrintStream("C:/Users/decomite/pictures/povray/plots.inc");
+        	  outputPovray=new PrintStream("F:/Povray/plots.inc");
+        	  //outputPovray=new PrintStream("C:/Users/decomite/pictures/povray/plots.inc");
         	  
         	  for(int i=0;i<nbCouches;i++){
         		  	for(int j=0;j<nbCotes;j++){
