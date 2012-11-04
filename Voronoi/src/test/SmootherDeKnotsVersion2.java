@@ -163,12 +163,12 @@ public class SmootherDeKnotsVersion2 {
         		  	for(int j=0;j<nbCotes;j++){
         		  		// Povray
         		  	outputPovray.println("cylinder{"+couches[i][j].toString()+","+couches[(i+1)%nbCouches][j]+" diam texture{T"+(j%5)+"} finish{F2}}");
-        			outputPovray.println("cylinder{"+couches[i][j].toString()+","+couches[i][(j+2)%nbCotes]+" diam texture{Tc} finish{Fc}}");
+        			outputPovray.println("cylinder{"+couches[i][j].toString()+","+couches[i][(j+1)%nbCotes]+" diam texture{Tc} finish{Fc}}");
         			outputPovray.println("sphere{"+couches[i][j].toString()+",diam*k texture{T1} finish{Fc}}");
         				// Blender
         				// Armature
         			  output.println("point0=Vector(["+couches[i][j].rawString()+"])");
-                	  output.println("point1=Vector(["+couches[i][(j+2)%nbCotes].rawString()+"])");
+                	  output.println("point1=Vector(["+couches[i][(j+1)%nbCotes].rawString()+"])");
                 	  output.println("me=lineSegMe(point0,point1,diam,nbf)[4]");
                 	  if(!rooted){
                      	  	output.println("ob=scene.objects.new(me,'cylindre"+i+"_"+j+"')");
