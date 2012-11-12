@@ -95,7 +95,7 @@ public class CoinEnumerator<E extends FiboCoin> {
  public static void main(String[] args) {
 	 System.out.println("debut");
 	 CoinEnumerator<FiboCoin> toto=new CoinEnumerator<FiboCoin>(); 
-	 toto.enumerate(11);
+	 toto.enumerate(6);
 	 for(Solution e: toto.lesSolutions)
 		 System.out.println(e.toPovray()); 
 	 System.out.println(toto.lesSolutions.size()+" "+toto.compteur); 
