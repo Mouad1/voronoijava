@@ -50,7 +50,7 @@ public class ThreeDreaderKleinBottle {
           try {
         	  //output=new PrintStream("F:/Povray/ruled.py");
         	  output=new PrintStream("C:/Users/decomite/pictures/povray/kleinBottle.py");
-        	  outputPovray=new PrintStream("C:/Users/decomite/pictures/povray/plots.inc");
+        	 // outputPovray=new PrintStream("C:/Users/decomite/pictures/povray/plots.inc");
                 BufferedReader in = new BufferedReader(new FileReader(source));
                 boolean u=true; 
                 boolean rooted=false; 
@@ -128,7 +128,7 @@ public class ThreeDreaderKleinBottle {
                 	  }//j
                   }// i
                   
-               outputPovray.close();  
+               //outputPovray.close();  
                output.close(); 
               
           } 
