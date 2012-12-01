@@ -4,12 +4,12 @@ package test;
 
 public class faroOut {
 	public static void affiche(int t[]){
-		System.out.print("[");
+		System.out.print("{");
 		for(int i=0;i<t.length;i++){
 			System.out.print(t[i]+" "); 
 			if(i<t.length-1) System.out.print(","); 
 		}
-		System.out.println("]"); 
+		System.out.println("},"); 
 			
 	}
 	
@@ -22,10 +22,10 @@ public class faroOut {
 		return aux; 
 	}
 	public static void main(String[] args) {
-		int tab[]=new int[16]; 
+		int tab[]=new int[12]; 
 		for(int i=0;i<tab.length;i++) tab[i]=i; 
 		affiche(tab); 
-		for(int i=0;i<4;i++){
+		for(int i=0;i<10;i++){
 		tab=faro(tab); 
 		affiche(tab);
 		}
