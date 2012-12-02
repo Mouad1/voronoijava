@@ -22,10 +22,10 @@ public class faroOut {
 		return aux; 
 	}
 	public static void main(String[] args) {
-		int tab[]=new int[12]; 
+		int tab[]=new int[42]; 
 		for(int i=0;i<tab.length;i++) tab[i]=i; 
 		affiche(tab); 
-		for(int i=0;i<10;i++){
+		for(int i=0;i<42;i++){
 		tab=faro(tab); 
 		affiche(tab);
 		}
