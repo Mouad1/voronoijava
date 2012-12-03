@@ -18,10 +18,17 @@ public class GenerateExplosionV2 {
 	public void makeobject(int nb){
 		while(this.dejaVu.size()<nb){
 			int i=generator.nextInt(size); 
+			/*
+			int j=generator.nextInt(size); 
+			int k=generator.nextInt(size); 
+			*/
+			
 			int mk=(int)(Math.sqrt(0.5)*(1+size-i)); 
 			int j=generator.nextInt(mk); 
 			int k=generator.nextInt(mk);
-			Triplet nouveau=new Triplet(i, j+(size-mk)/2, k+(size-mk)/2); 
+			Triplet nouveau=new Triplet(i, j+(size-mk)/2, k+(size-mk)/2);
+			
+			//Triplet nouveau=new Triplet(i, j, k);
 			if(!this.dejaVu.contains(nouveau))dejaVu.add(nouveau);
 			
 		}// while
@@ -30,7 +37,8 @@ public class GenerateExplosionV2 {
 		GenerateExplosionV2 cube=new GenerateExplosionV2(100); 
 		cube.makeobject(50000); 
 		for(Triplet t:cube.dejaVu)System.out.println(t); 
-		output=new PrintStream("C:/Users/decomite/Pictures/povray/explosionV2.txt");
+		//output=new PrintStream("C:/Users/decomite/Pictures/povray/explosionV2.txt");
+		output=new PrintStream("F:/povray/explosionV2.txt");
 		for(Triplet t:cube.dejaVu){
 			output.print(t+","); 
 		}
