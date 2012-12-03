@@ -28,7 +28,7 @@ public class GenerateExplosionV2 {
 	}
 	public static void main(String[] args) throws FileNotFoundException {
 		GenerateExplosionV2 cube=new GenerateExplosionV2(100); 
-		cube.makeobject(500); 
+		cube.makeobject(50000); 
 		for(Triplet t:cube.dejaVu)System.out.println(t); 
 		output=new PrintStream("C:/Users/decomite/Pictures/povray/explosionV2.txt");
 		for(Triplet t:cube.dejaVu){
