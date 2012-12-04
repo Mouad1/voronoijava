@@ -34,11 +34,11 @@ public class GenerateExplosionV2 {
 		}// while
 	}
 	public static void main(String[] args) throws FileNotFoundException {
-		GenerateExplosionV2 cube=new GenerateExplosionV2(100); 
-		cube.makeobject(50000); 
+		GenerateExplosionV2 cube=new GenerateExplosionV2(200); 
+		cube.makeobject(100000); 
 		for(Triplet t:cube.dejaVu)System.out.println(t); 
-		//output=new PrintStream("C:/Users/decomite/Pictures/povray/explosionV2.txt");
-		output=new PrintStream("F:/povray/explosionV2.txt");
+		output=new PrintStream("C:/Users/decomite/Pictures/povray/explosionV3.txt");
+		//output=new PrintStream("F:/povray/explosionV2.txt");
 		for(Triplet t:cube.dejaVu){
 			output.print(t+","); 
 		}
