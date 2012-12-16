@@ -43,14 +43,14 @@ public class ThreeDreaderRuledSurface {
 		 double diamMin=10; 
          double diamMax=-2;
 		double ratio=1; 
-		//this.catena="F:/Povray/anamorphoses/skull.txt"; 
-		this.catena="c:/users/decomite/pictures/povray/objects.txt"; 
+		this.catena="F:/Povray/ruled.txt"; 
+		//this.catena="c:/users/decomite/pictures/povray/objects.txt"; 
           File source = new File(catena);
           HashSet<CoupleVertexDiam> sommets=new HashSet<CoupleVertexDiam>();
           try {
-        	  //output=new PrintStream("F:/Povray/ruled.py");
-        	  output=new PrintStream("C:/Users/decomite/pictures/povray/ruled.py");
-        	  outputPovray=new PrintStream("C:/Users/decomite/pictures/povray/plots.inc");
+        	  output=new PrintStream("F:/Povray/ruled.py");
+        	  //output=new PrintStream("C:/Users/decomite/pictures/povray/ruled.py");
+        	  //outputPovray=new PrintStream("C:/Users/decomite/pictures/povray/plots.inc");
                 BufferedReader in = new BufferedReader(new FileReader(source));
                 boolean u=true; 
                 boolean rooted=false; 
@@ -100,9 +100,9 @@ public class ThreeDreaderRuledSurface {
                 	  String ligne=in.readLine();
                 	  
                 	  if(ligne==null) {u=false; break;} 
-                	  
                 	  r1=new Scanner(ligne); 
                 	  r1.useLocale(Locale.US);
+        
                 	 
                 	  listeArmature[nbligne][i]=new Vertex(r1.nextDouble(),r1.nextDouble(),r1.nextDouble()); 
                 	  System.out.println(" "+nbligne+" "+i+" "+listeArmature[nbligne][i]); 
@@ -110,7 +110,7 @@ public class ThreeDreaderRuledSurface {
                 	  }
                   nbligne++;
                   }
-                
+                System.out.println("sortie"); 
                 int nbCotesArmature=12; 
                // A ce niveau, on a tous les points de l'armature, faut en faire un boudin continu
                 for(int i=0;i<subdiv;i++){
@@ -156,7 +156,7 @@ public class ThreeDreaderRuledSurface {
                 		// translateGlinch est un des points de la couronne autour d'une intersection
                 		// On peut prendre ces couronnes comme base pour un mesh
                 		System.out.println("sphere{"+translateGlintch+",mydiam texture{pigment{color rgb<"+3*i+","+10*i+","+100*i+">}}}");
-                		outputPovray.println("sphere{"+translateGlintch+",mydiam texture{pigment{color rgb<"+3*i+","+10*i+","+100*i+">}}}"); 
+                		//outputPovray.println("sphere{"+translateGlintch+",mydiam texture{pigment{color rgb<"+3*i+","+10*i+","+100*i+">}}}"); 
                 		output.println("vertex=NMesh.Vert("+translateGlintch.getX()+","+translateGlintch.getY()+","+translateGlintch.getZ()+")");
                         output.println("me.verts.append(vertex)");
                 	}
@@ -210,7 +210,7 @@ public class ThreeDreaderRuledSurface {
                 
                   in.close();
                   
-               outputPovray.close();  
+               //outputPovray.close();  
                output.close(); 
               
           } 
