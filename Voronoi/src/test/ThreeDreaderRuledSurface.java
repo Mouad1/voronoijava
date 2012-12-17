@@ -43,13 +43,13 @@ public class ThreeDreaderRuledSurface {
 		 double diamMin=10; 
          double diamMax=-2;
 		double ratio=1; 
-		this.catena="F:/Povray/ruled.txt"; 
-		//this.catena="c:/users/decomite/pictures/povray/objects.txt"; 
+		//this.catena="F:/Povray/ruled.txt"; 
+		this.catena="c:/users/decomite/pictures/povray/ruled.txt"; 
           File source = new File(catena);
           HashSet<CoupleVertexDiam> sommets=new HashSet<CoupleVertexDiam>();
           try {
-        	  output=new PrintStream("F:/Povray/ruled.py");
-        	  //output=new PrintStream("C:/Users/decomite/pictures/povray/ruled.py");
+        	  //output=new PrintStream("F:/Povray/ruled.py");
+        	  output=new PrintStream("C:/Users/decomite/pictures/povray/ruled.py");
         	  //outputPovray=new PrintStream("C:/Users/decomite/pictures/povray/plots.inc");
                 BufferedReader in = new BufferedReader(new FileReader(source));
                 boolean u=true; 
@@ -84,7 +84,10 @@ public class ThreeDreaderRuledSurface {
                 	//output.println("meFinal=NMesh.GetRaw()");	
                 	 output.println("point0=Vector(["+origin.rawString()+"])");
                	  	 output.println("point1=Vector(["+end.rawString()+"])");
-               	  	 output.println("me=lineSegMe(point0,point1,diam,nbf)[4]");
+               	  	 output.println("me=lineSegMe(point0,point1,diam,nbf)");
+               	  	 output.println("ob=bpy.data.objects.new('cylindre"+nbligne+"',me)");
+               	  	 output.println("scene.objects.link(ob)"); 
+               	  	 /*
                	  	 if(!rooted){
                	  	output.println("ob=scene.objects.new(me,'cylindre"+nbligne+"')");
                	  	rooted=true;
@@ -95,7 +98,7 @@ public class ThreeDreaderRuledSurface {
                	    output.println("ob.join([localOb])"); 
                     output.println("scene.objects.unlink(localOb)");
                	  	 }
-                	
+                	*/
                   for(int i=0;i<subdiv;i++){
                 	  String ligne=in.readLine();
                 	  
