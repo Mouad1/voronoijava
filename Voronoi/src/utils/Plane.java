@@ -12,6 +12,22 @@ public class Plane {
 		this.d=t; 
 	}
 	
+	public Plane (Pos3D X, Pos3D Y, Pos3D Z){
+		// vecteur XY
+		Pos3D vec1=new Pos3D(Y.x-X.x,Y.y-X.y,Y.z-X.z); 
+		//vecteur XZ
+		Pos3D vec2=new Pos3D(Z.x-X.x,Z.y-X.y,Z.z-X.z);
+		double rx=vec1.y*vec2.z-vec1.z*vec2.y; 
+		double ry=-(vec1.x*vec2.z-vec1.z*vec2.x);
+		double rz=vec1.x*vec2.y-vec1.y*vec2.x; 
+		double rd=rx*X.x+ry*X.y+rz*X.z; 
+		this.a=rx; 
+		this.b=ry; 
+		this.c=rz; 
+		this.d=rd; 
+		
+	}
+	
 	static public Plane computePlane(Pos3D X, Pos3D Y, Pos3D Z){
 		// vecteur XY
 		Pos3D vec1=new Pos3D(Y.x-X.x,Y.y-X.y,Y.z-X.z); 
