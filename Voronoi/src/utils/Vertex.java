@@ -83,7 +83,7 @@ public class Vertex extends Pos3D {
 	}
 	
 	public String rawString(){
-		String s=x+","+y+","+z; 
+		String s=x+","+y+","+z;
 		return s; 
 	}
 	

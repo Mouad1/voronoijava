@@ -64,6 +64,7 @@ public class ThreeDreaderRuledSurface {
                 r1.useLocale(Locale.US);
                 int increment=(int)r1.nextInt(); 
                
+                System.out.println(subdiv+" "+increment); 
                 int nbligne=0;
                 Vertex listeArmature[][]=new Vertex[360/increment][subdiv];
                 Vertex cylindresExtr[][]=new Vertex[360/increment][2];
@@ -80,7 +81,7 @@ public class ThreeDreaderRuledSurface {
                     r1=new Scanner(line1); 
                 	Vertex end=new Vertex(r1.nextDouble(),r1.nextDouble(),r1.nextDouble()); 
                 	cylindresExtr[nbligne][1]=end; 
-                	System.out.println(origin+" "+end); 
+                	//System.out.println(origin+" "+end); 
                 	//output.println("meFinal=NMesh.GetRaw()");	
                 	 output.println("point0=Vector(["+origin.rawString()+"])");
                	  	 output.println("point1=Vector(["+end.rawString()+"])");
@@ -108,23 +109,27 @@ public class ThreeDreaderRuledSurface {
         
                 	 
                 	  listeArmature[nbligne][i]=new Vertex(r1.nextDouble(),r1.nextDouble(),r1.nextDouble()); 
-                	  System.out.println(" "+nbligne+" "+i+" "+listeArmature[nbligne][i]); 
+                	  //System.out.println(" "+nbligne+" "+i+" "+listeArmature[nbligne][i]); 
                 	
                 	  }
                   nbligne++;
                   }
-                System.out.println("sortie"); 
+               
                 int nbCotesArmature=12; 
                // A ce niveau, on a tous les points de l'armature, faut en faire un boudin continu
                 for(int i=0;i<subdiv;i++){
-                	output.println("me=NMesh.GetRaw()");	
+                	
+                	output.println("me=bpy.data.meshes.new('armatures')");	
+                	output.println("coords=[]");
+                	 
                 	// fabriquer le boudin de niveau i (0-> exterieur) avec les listeArmature[j][i]
                 	for(int j=0;j<360/increment;j++){
                 	// calcul de l'equation du plan
                 	// On utilise les deux points origin(A) et end(B), plus le point C <0,10,0>
                 	Vertex A=cylindresExtr[j][0]; 
                 	Vertex B=cylindresExtr[j][1];
-                	Pos3D Ainter=Vertex.barycenter(A, B, (i+0.0)/subdiv); 
+                	Pos3D Ainter=Vertex.barycenter(A, B, (i+0.0)/subdiv);
+                	//output.println("sphere(("+Ainter.getX()+","+Ainter.getY()+","+Ainter.getZ()+"),0.007)");
                 	Vertex C=new Vertex(0, 10, 0); 
                 	Plane ploplo=Plane.computePlane(A, B, C); 
                 	
@@ -147,21 +152,25 @@ public class ThreeDreaderRuledSurface {
                 	
                 	
                 	double angle=Math.atan2(e1.getX(),e1.getZ());
+                	angle=angle; 
                 	// redux : rayon de la couronne
                 	// doit prendre la meme valeur que diam dans General3D.py 
                 	// non, probleme d'angle
-                	double redux=0.03; 
+                	double redux=0.005; 
                 	
                 	for(int k=0;k<nbCotesArmature;k++){
+                		
                 		Pos3D glintch=new Pos3D(redux*Math.cos(2*k*Math.PI/nbCotesArmature),redux*Math.sin(2*k*Math.PI/nbCotesArmature),0); 
                 		Pos3D rotateGlintch=new Pos3D(glintch.getX()*Math.cos(angle),glintch.getY(),-glintch.getX()*Math.sin(angle));
                 		Pos3D translateGlintch=new Pos3D(rotateGlintch.getX()+Ainter.getX(),rotateGlintch.getY()+Ainter.getY(),rotateGlintch.getZ()+Ainter.getZ());
+                		
+                		
                 		// translateGlinch est un des points de la couronne autour d'une intersection
                 		// On peut prendre ces couronnes comme base pour un mesh
-                		System.out.println("sphere{"+translateGlintch+",mydiam texture{pigment{color rgb<"+3*i+","+10*i+","+100*i+">}}}");
+                		//System.out.println("sphere{"+translateGlintch+",mydiam texture{pigment{color rgb<"+3*i+","+10*i+","+100*i+">}}}");
                 		//outputPovray.println("sphere{"+translateGlintch+",mydiam texture{pigment{color rgb<"+3*i+","+10*i+","+100*i+">}}}"); 
-                		output.println("vertex=NMesh.Vert("+translateGlintch.getX()+","+translateGlintch.getY()+","+translateGlintch.getZ()+")");
-                        output.println("me.verts.append(vertex)");
+                		output.println("coords.append(("+translateGlintch.getX()+","+translateGlintch.getY()+","+translateGlintch.getZ()+"))");
+                       
                 	}
                 	
                 	}//j 
@@ -170,45 +179,33 @@ public class ThreeDreaderRuledSurface {
                 	nbCotesArmature*(360/increment)
                 	maintenant fabriquer les faces
                 */
-                	/*
-                	 *  face=NMesh.Face()
-  face.append(me.verts[i+1])
-  face.append(me.verts[(i+1)%nbFaces+1])
-  #print " XX ",i+1," ",(i+1)%nbFaces+1
-  face.append(me.verts[0])
-  me.faces.append(face)
-                	 * */
+                	
+                	output.println("lesfaces=[]");
                 	for(int j=0;j<360/increment;j++){// fabriquer les faces
                 		for(int k=0;k<nbCotesArmature;k++){
-                			output.println("face=NMesh.Face()");
+                			output.println("faceCourante=[]");
                 			
-                			output.println("face.append(me.verts["+(((j+1)%(360/increment)*nbCotesArmature)+k)+"])");
-                			output.println("face.append(me.verts["+(j*nbCotesArmature+(k+1)%nbCotesArmature)+"])");
-                			output.println("face.append(me.verts["+(j*nbCotesArmature+k)+"])");
+                			output.println("faceCourante.append("+(((j+1)%(360/increment)*nbCotesArmature)+k)+")");
+                			output.println("faceCourante.append("+(j*nbCotesArmature+(k+1)%nbCotesArmature)+")");
+                			output.println("faceCourante.append("+(j*nbCotesArmature+k)+")");
                 			
-                			output.println("me.faces.append(face)"); 
+                			output.println("lesfaces.append(faceCourante)"); 
                 			
-                			output.println("face=NMesh.Face()");
-                			output.println("face.append(me.verts["+(((j+1)%(360/increment)*nbCotesArmature)+k)+"])");
-                			
-                			output.println("face.append(me.verts["+(((j+1)%(360/increment)*nbCotesArmature)+(k+1)%nbCotesArmature)+"])");
-                			output.println("face.append(me.verts["+(j*nbCotesArmature+(k+1)%nbCotesArmature)+"])");
-                			output.println("me.faces.append(face)"); 
+                			output.println("faceCourante=[]");
+                			output.println("faceCourante.append("+(((j+1)%(360/increment)*nbCotesArmature)+k)+")");
+                			output.println("faceCourante.append("+(((j+1)%(360/increment)*nbCotesArmature)+(k+1)%nbCotesArmature)+")");
+                			output.println("faceCourante.append("+(j*nbCotesArmature+(k+1)%nbCotesArmature)+")");
+                			output.println("lesfaces.append(faceCourante)"); 
                 		}
                 			
                 	}
                 	
-                	
-                	 if(!rooted){
-                    	  	output.println("ob=scene.objects.new(me,'armature"+i+"')");
-                    	  	rooted=true;
-                    	  	 }
+                			output.println("me.from_pydata(coords,[],lesfaces)"); 
+                			output.println("me.update(calc_edges=True)");
+                    	  	output.println("ob=bpy.data.objects.new('armature"+i+"',me)");
+                            output.println("scene.objects.link(ob)");
                     	  	 
-                    	  	 else{
-                    	  	output.println("localOb=scene.objects.new(me,'armature"+i+"')");
-                    	    output.println("ob.join([localOb])"); 
-                            output.println("scene.objects.unlink(localOb)");
-                    	  	 }
+                    	  	 
                 }//i
                 
                   in.close();
