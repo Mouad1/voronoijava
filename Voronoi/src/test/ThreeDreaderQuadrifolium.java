@@ -43,12 +43,12 @@ public class ThreeDreaderQuadrifolium {
 		 double diamMin=10; 
          double diamMax=-2;
 		double ratio=1; 
-		this.catena="F:/Povray/anamorphoses/quadrifolium.txt"; 
+		this.catena="F:/Povray/ellipses.txt"; 
 		//this.catena="c:/users/decomite/pictures/povray/quadrifolium.txt"; 
           File source = new File(catena);
          
           try {
-        	  output=new PrintStream("F:/Povray/quadrifolium.py");
+        	  output=new PrintStream("F:/Povray/ellipses.py");
         	  //output=new PrintStream("C:/Users/decomite/pictures/povray/quadrifolium.py");
                 BufferedReader in = new BufferedReader(new FileReader(source));
                 boolean u=true; 
@@ -75,33 +75,21 @@ public class ThreeDreaderQuadrifolium {
                     r1=new Scanner(line1); 
                 	Vertex end2=new Vertex(r1.nextDouble(),r1.nextDouble(),r1.nextDouble()); 
                 
-                	//output.println("meFinal=NMesh.GetRaw()");	
                 	 output.println("point0=Vector(["+origin.rawString()+"])");
                	  	 output.println("point1=Vector(["+end1.rawString()+"])");
-               	  	 output.println("me=lineSegMe(point0,point1,diam,nbf)[4]");
-               	  	 if(!rooted){
-               	  	output.println("ob=scene.objects.new(me,'cylindre"+nbligne+"')");
-               	  	rooted=true;
-               	  	 }
+               	  	 output.println("me=lineSegMe(point0,point1,diam,nbf)");
+               	  	 output.println("ob=bpy.data.objects.new('cylindre"+nbligne+"',me)");
+               	  	 output.println("scene.objects.link(ob)"); 
                	  	 
-               	  	 else{
-               	  	output.println("localOb=scene.objects.new(me,'cylindre"+nbligne+"')");
-               	    output.println("ob.join([localOb])"); 
-                    output.println("scene.objects.unlink(localOb)");
-               	  	 }
-                	
-               	  	 output.println("point0=Vector(["+origin.rawString()+"])");
+               	     output.println("point0=Vector(["+origin.rawString()+"])");
             	  	 output.println("point1=Vector(["+end2.rawString()+"])");
-            	  	 output.println("me=lineSegMe(point0,point1,diam,nbf)[4]");
-            	  	 output.println("localOb=scene.objects.new(me,'cylindre"+nbligne+"')");
-               	     output.println("ob.join([localOb])"); 
-                     output.println("scene.objects.unlink(localOb)");
+            	  	 output.println("me=lineSegMe(point0,point1,diam,nbf)");
+            	  	 output.println("ob=bpy.data.objects.new('cylindreX"+nbligne+"',me)");
+            	  	 output.println("scene.objects.link(ob)"); 
             	  	 
-                     
-                     output.println("me=translate(point0,coef*diam)");
-                	 output.println("localOb=scene.objects.new(me,'sphere_"+nbligne+"')");
-                	 output.println("ob.join([localOb])"); 
-                     output.println("scene.objects.unlink(localOb)");
+            	  	 //output.println("me=sphere(point0,diam)");
+            	  	 //output.println("ob=bpy.data.objects.new('sphere"+nbligne+"',me)");
+           	  	     //output.println("scene.objects.link(ob)"); 
             	  	 
             	  	 
                   nbligne++;
