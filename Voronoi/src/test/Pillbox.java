@@ -10,13 +10,14 @@ public class Pillbox {
 		double epaisseur=0.01; // epaisseur des murs
 		double hauteur=2.2; 
 		int nb=7; // nombre de compartiments
-		double Rmid=Rmax*Math.sqrt(1/2); // rayon median 
+		double Rmid=Rmax*Math.sqrt(1/2.0); // rayon median 
 		double Rmin=5*epaisseur; //rayon du moyeu
 		double alpha1=Math.asin(epaisseur/Rmax); 
 		double alpha3=Math.asin(epaisseur/Rmin);
 		double alpha2P=Math.asin(epaisseur/(Rmid+epaisseur/2)); 
 		double alpha2S=Math.asin(epaisseur/(Rmid-epaisseur/2));
 		
+	
 		Pos3D A[][]=new Pos3D[nb][16]; 
 		
 		for(int i=0;i<nb;i++){
@@ -50,5 +51,7 @@ public class Pillbox {
 				else System.out.println(); 
 			}// k
 		}// i
+		// construire les faces
+	 System.out.println("}\n face_indices{\n"+16*nb+",\n"); 
 	}
 }
