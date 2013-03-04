@@ -20,7 +20,7 @@ public class Pillbox {
 		Pos3D A[][]=new Pos3D[nb][16]; 
 		
 		for(int i=0;i<nb;i++){
-			// fabriquer les 16 sommets
+			// fabriquer les 16*nb sommets
 			A[i][0]=new Pos3D(Rmax*Math.cos(2*i*Math.PI-alpha1),hauteur,Rmax*Math.sin(2*i*Math.PI-alpha1));
 			A[i][8]=new Pos3D(Rmax*Math.cos(2*i*Math.PI+alpha1),hauteur,Rmax*Math.sin(2*i*Math.PI+alpha1));
 			A[i][7]=new Pos3D(Rmax*Math.cos(2*i*Math.PI-alpha1),0,Rmax*Math.sin(2*i*Math.PI-alpha1));
@@ -38,6 +38,17 @@ public class Pillbox {
 			
 			A[i][3]=new Pos3D(Rmin*Math.cos(2*i*Math.PI/nb-alpha3),hauteur,Rmin*Math.sin(2*i*Math.PI/nb-alpha3)); 
 			A[i][11]=new Pos3D(Rmin*Math.cos(2*i*Math.PI/nb+alpha3),hauteur,Rmin*Math.sin(2*i*Math.PI/nb+alpha3)); 
+			A[i][4]=new Pos3D(Rmin*Math.cos(2*i*Math.PI/nb-alpha3),0,Rmin*Math.sin(2*i*Math.PI/nb-alpha3)); 
+			A[i][12]=new Pos3D(Rmin*Math.cos(2*i*Math.PI/nb+alpha3),0,Rmin*Math.sin(2*i*Math.PI/nb+alpha3)); 
+			
 		} // for i
+		System.out.println("mesh2{\n vertex_vectors{\n"+16*nb+",\n"); 
+		for(int i=0;i<nb;i++){
+			for(int k=0;k<16;k++){
+				System.out.print(A[i][k]); 
+				if((i!=(nb-1))||(k!=15)) System.out.println(","); 
+				else System.out.println(); 
+			}// k
+		}// i
 	}
 }
