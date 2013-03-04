@@ -43,13 +43,13 @@ public class ThreeDreaderQuadrifolium {
 		 double diamMin=10; 
          double diamMax=-2;
 		double ratio=1; 
-		this.catena="F:/Povray/ellipses.txt"; 
-		//this.catena="c:/users/decomite/pictures/povray/quadrifolium.txt"; 
+		//this.catena="F:/Povray/ellipses.txt"; 
+		this.catena="c:/users/decomite/pictures/povray/ellipses.txt"; 
           File source = new File(catena);
          
           try {
-        	  output=new PrintStream("F:/Povray/ellipses.py");
-        	  //output=new PrintStream("C:/Users/decomite/pictures/povray/quadrifolium.py");
+        	  //output=new PrintStream("F:/Povray/ellipses.py");
+        	  output=new PrintStream("C:/Users/decomite/pictures/povray/ellipses.py");
                 BufferedReader in = new BufferedReader(new FileReader(source));
                 boolean u=true; 
                 boolean rooted=false; 
