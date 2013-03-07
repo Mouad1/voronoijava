@@ -43,6 +43,7 @@ public class Pillbox {
 			A[i][12]=new Pos3D(Rmin*Math.cos(2*i*Math.PI/nb+alpha3),0,Rmin*Math.sin(2*i*Math.PI/nb+alpha3)); 
 			
 		} // for i
+		nb=1; 
 		System.out.println("mesh2{\n vertex_vectors{\n"+16*nb+",\n"); 
 		for(int i=0;i<nb;i++){
 			for(int k=0;k<16;k++){
@@ -52,7 +53,7 @@ public class Pillbox {
 			}// k
 		}// i
 		// construire les faces
-	 System.out.println("}\n face_indices{\n"+24*nb+",\n");
+	 System.out.println("}\n face_indices{\n"+14*nb+",\n");
 	 for(int i=0;i<nb;i++){
 		 System.out.println("<"+(16*i+3)+","+(16*i+4)+","+(16*i+5)+">,");
 		 System.out.println("<"+(16*i+3)+","+(16*i+5)+","+(16*i+2)+">,");
@@ -71,7 +72,7 @@ public class Pillbox {
 		 
 		 System.out.println("<"+(16*i+10)+","+(16*i+11)+","+(16*i+12)+">,");
 		 System.out.println("<"+(16*i+10)+","+(16*i+13)+","+(16*i+12)+">,");
-		 
+		 /*
 		 System.out.println("<"+(16*i+2)+","+(16*((i+1)%nb)+10)+","+(16*((i+1)%nb)+9)+">,");
 		 System.out.println("<"+(16*i+2)+","+(16*((i+1)%nb)+9)+","+(16*((i+0)%nb)+1)+">,");
 		 
@@ -89,7 +90,7 @@ public class Pillbox {
 			 System.out.println("<"+(16*((i+0)%nb)+4)+","+(16*((i+1)%nb)+12)+","+(16*((i+0)%nb)+3)+">,");
 		 else
 			 System.out.println("<"+(16*((i+0)%nb)+4)+","+(16*((i+1)%nb)+12)+","+(16*((i+0)%nb)+3)+">}}");
-		 
+		 */
 	 }// i
 	}
 }
