@@ -7,7 +7,7 @@ public class Pillbox {
 	
 	public static void main(String[] args) {
 		double Rmax=3.7; // rayon externe
-		double epaisseur=0.01; // epaisseur des murs
+		double epaisseur=0.1; // epaisseur des murs
 		double hauteur=2.2; 
 		int nb=7; // nombre de compartiments
 		double Rmid=Rmax*Math.sqrt(1/2.0); // rayon median 
@@ -17,7 +17,7 @@ public class Pillbox {
 		double alpha2P=Math.asin(epaisseur/(Rmid+epaisseur/2)); 
 		double alpha2S=Math.asin(epaisseur/(Rmid-epaisseur/2));
 		
-	
+		
 		Pos3D A[][]=new Pos3D[nb][16]; 
 		
 		for(int i=0;i<nb;i++){
@@ -52,6 +52,44 @@ public class Pillbox {
 			}// k
 		}// i
 		// construire les faces
-	 System.out.println("}\n face_indices{\n"+16*nb+",\n"); 
+	 System.out.println("}\n face_indices{\n"+24*nb+",\n");
+	 for(int i=0;i<nb;i++){
+		 System.out.println("<"+(16*i+3)+","+(16*i+4)+","+(16*i+5)+">,");
+		 System.out.println("<"+(16*i+3)+","+(16*i+5)+","+(16*i+2)+">,");
+		 System.out.println("<"+(16*i+0)+","+(16*i+8)+","+(16*i+11)+">,");
+		 System.out.println("<"+(16*i+3)+","+(16*i+11)+","+(16*i+0)+">,");
+		 System.out.println("<"+(16*i+0)+","+(16*i+7)+","+(16*i+6)+">,");
+		 System.out.println("<"+(16*i+0)+","+(16*i+6)+","+(16*i+1)+">,");
+		 System.out.println("<"+(16*i+0)+","+(16*i+8)+","+(16*i+15)+">,");
+		 System.out.println("<"+(16*i+0)+","+(16*i+15)+","+(16*i+7)+">,");
+		 
+		 System.out.println("<"+(16*i+4)+","+(16*i+7)+","+(16*i+12)+">,");
+		 System.out.println("<"+(16*i+12)+","+(16*i+15)+","+(16*i+7)+">,");
+		 
+		 System.out.println("<"+(16*i+8)+","+(16*i+9)+","+(16*i+14)+">,");
+		 System.out.println("<"+(16*i+8)+","+(16*i+15)+","+(16*i+14)+">,");
+		 
+		 System.out.println("<"+(16*i+10)+","+(16*i+11)+","+(16*i+12)+">,");
+		 System.out.println("<"+(16*i+10)+","+(16*i+13)+","+(16*i+12)+">,");
+		 
+		 System.out.println("<"+(16*i+2)+","+(16*((i+1)%nb)+10)+","+(16*((i+1)%nb)+9)+">,");
+		 System.out.println("<"+(16*i+2)+","+(16*((i+1)%nb)+9)+","+(16*((i+0)%nb)+1)+">,");
+		 
+		 System.out.println("<"+(16*i+1)+","+(16*((i+1)%nb)+9)+","+(16*((i+1)%nb)+14)+">,");
+		 System.out.println("<"+(16*i+1)+","+(16*((i+1)%nb)+14)+","+(16*((i+1)%nb)+6)+">,");
+		 
+		 System.out.println("<"+(16*i+2)+","+(16*((i+1)%nb)+10)+","+(16*((i+1)%nb)+13)+">,");
+		 System.out.println("<"+(16*i+5)+","+(16*((i+1)%nb)+13)+","+(16*((i+0)%nb)+2)+">,");
+		 
+		 System.out.println("<"+(16*i+5)+","+(16*((i+1)%nb)+13)+","+(16*((i+1)%nb)+14)+">,");
+		 System.out.println("<"+(16*i+6)+","+(16*((i+1)%nb)+14)+","+(16*((i+0)%nb)+6)+">,");
+		 
+		 System.out.println("<"+(16*((i+0)%nb)+3)+","+(16*((i+1)%nb)+12)+","+(16*((i+1)%nb)+11)+">,");
+		 if(i!=nb-1)
+			 System.out.println("<"+(16*((i+0)%nb)+4)+","+(16*((i+1)%nb)+12)+","+(16*((i+0)%nb)+3)+">,");
+		 else
+			 System.out.println("<"+(16*((i+0)%nb)+4)+","+(16*((i+1)%nb)+12)+","+(16*((i+0)%nb)+3)+">}}");
+		 
+	 }// i
 	}
 }
