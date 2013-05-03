@@ -28,6 +28,7 @@ public class Persistance {
 	
 	// Pour un nombre donne, calcule le produit de ses chiffres
 	public static String suivant(String s){
+		if(s.contains("0"))return "0";
 		String init="1"; 
 		for(int i=0;i<s.length();i++){
 			init=mul(init,s.charAt(i));  
@@ -99,7 +100,7 @@ public class Persistance {
 					if(k%100==0)System.out.println("\t\t--->"+k); 
 			String s=suite('2',i)+suite('3',j)+suite('7',k); 
 			int longueur=persistance(s); 
-			if(longueur>2){
+			if(longueur>8){
 				System.out.println("les 2 ->"+i+" les 3 ->"+j+" les 7 ->"+k+" persistance "+longueur+" ");
 				output.println("les 2 ->"+i+" les 3 ->"+j+" les 7 ->"+k+" persistance "+longueur+" ");
 			}
