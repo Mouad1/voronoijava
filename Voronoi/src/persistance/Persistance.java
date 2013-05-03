@@ -7,13 +7,21 @@ public class Persistance {
 		String resu=""; 
 		int retenue=0; 
 		for(int i=s.length()-1;i>=0;i--){
-			System.out.println("--->"+i);
 			resu=(char)tables[retenue][s.charAt(i)][x]+resu; 
 			retenue=retenues[retenue][s.charAt(i)][x]; 
 		}// i
 		if(retenue!=0)
-			resu=(char)retenue+resu; 
+			resu=(char)(retenue+'0')+resu; 
 		return resu; 
+	}
+	
+	// Pour un nombre donne, calcule le produit de ses chiffres
+	public static String suivant(String s){
+		String init="1"; 
+		for(int i=0;i<s.length();i++){
+			init=mul(init,s.charAt(i));  
+		}// i
+		return init; 
 	}
 	
 	public static void main(String[] args) {
@@ -51,8 +59,14 @@ public class Persistance {
 		}
 		}
 		
-		System.out.println(mul("1230021334",'4'));
-		
+		String number="321469987"; 
+		int persistance=0; 
+		while(number.length()!=1){
+			System.out.println(number); 
+			persistance++; 
+			number=suivant(number); 
+		}
+		System.out.println(number+" "+persistance); 
 	}// main
 
 }
