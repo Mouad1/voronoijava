@@ -1,8 +1,14 @@
 package persistance;
+
+import java.io.PrintStream;
+
 // No classes
 public class Persistance {
 	public static int[][][] tables=new int[9][58][58]; 
 	public static int[][][] retenues=new int[9][58][58]; 
+	
+	public static PrintStream output; 
+	
 	
 	public static String mul(String s,char x){
 		if(x=='0')return "0"; 
@@ -47,7 +53,9 @@ public class Persistance {
 	}
 	
 	public static void main(String[] args) {
-		
+		try { output=new PrintStream("C:/Users/decomite/Dropbox/persistance.txt");}
+
+		catch(Exception e){System.out.println(e); System.exit(0); }
 		 
 		for(int k=0;k<9;k++)
 		for(int i='0';i<='9';i++)
@@ -82,17 +90,18 @@ public class Persistance {
 		
 		System.out.println("\n");
 		
-		for(int i=1000;i<1100;i++){
+		for(int i=1;i<1000;i++){
 			System.out.println("--->"+i); 
-			for(int j=1000;j<1100;j++){
+			for(int j=1;j<1000;j++){
 				if(j%10==0)System.out.println("\t--->"+j); 
-				for(int k=1000;k<1100;k++)
+				for(int k=1;k<1000;k++)
 				{
+					if(k%100==0)System.out.println("\t\t--->"+k); 
 			String s=suite('2',i)+suite('3',j)+suite('7',k); 
 			int longueur=persistance(s); 
-			if(longueur>10){
+			if(longueur>2){
 				System.out.println("les 2 ->"+i+" les 3 ->"+j+" les 7 ->"+k+" persistance "+longueur+" ");
-				 
+				output.println("les 2 ->"+i+" les 3 ->"+j+" les 7 ->"+k+" persistance "+longueur+" ");
 			}
 			}
 		}

@@ -86,6 +86,7 @@ public class PersistanceRandom {
 		
 		System.out.println("\n");
 		for(int nb=0;nb<1000;nb++){
+			if(nb%100==0) System.out.println("********** "+nb); 
 			int i=gene.nextInt(5000)+1000; 
 			int j=gene.nextInt(5000)+1000; 
 			int k=gene.nextInt(5000)+1000; 
@@ -96,10 +97,7 @@ public class PersistanceRandom {
 				 
 			}
 			}
-		}
-		
-		
-		
-	}// main
+		} //main		
+	}
 
-}
+
