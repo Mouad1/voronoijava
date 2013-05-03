@@ -1,8 +1,12 @@
 package persistance;
+
+import java.util.Random;
+
 // No classes
-public class Persistance {
+public class PersistanceRandom {
 	public static int[][][] tables=new int[9][58][58]; 
 	public static int[][][] retenues=new int[9][58][58]; 
+	public static Random gene=new Random();
 	
 	public static String mul(String s,char x){
 		if(x=='0')return "0"; 
@@ -81,13 +85,10 @@ public class Persistance {
 		}
 		
 		System.out.println("\n");
-		
-		for(int i=1000;i<1100;i++){
-			System.out.println("--->"+i); 
-			for(int j=1000;j<1100;j++){
-				if(j%10==0)System.out.println("\t--->"+j); 
-				for(int k=1000;k<1100;k++)
-				{
+		for(int nb=0;nb<1000;nb++){
+			int i=gene.nextInt(5000)+1000; 
+			int j=gene.nextInt(5000)+1000; 
+			int k=gene.nextInt(5000)+1000; 
 			String s=suite('2',i)+suite('3',j)+suite('7',k); 
 			int longueur=persistance(s); 
 			if(longueur>10){
@@ -96,7 +97,7 @@ public class Persistance {
 			}
 			}
 		}
-		}
+		
 		
 		
 	}// main
