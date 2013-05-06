@@ -92,10 +92,10 @@ public class PersistanceTranche {
 		 //System.out.println(mul("48123456123456",'7')); 
 		
 		
-		for(int i=1;i<1500;i++){
+		for(int i=0;i<1500;i++){
 			if(i%10==0)System.out.println("--->"+i); 
 			String lesDeux=suivant(suite('2',i)); 
-			for(int j=1;j<1000;j++){
+			for(int j=0;j<1000;j++){
 				//if(j%100==0)System.out.println("\t--->"+j); 
 				String deuxEtTrois=lesDeux; 
 				//System.out.println(lesDeux);
@@ -103,21 +103,24 @@ public class PersistanceTranche {
 					deuxEtTrois=mul(deuxEtTrois,'3'); 
 				//System.out.println("\t"+deuxEtTrois);
 				String s0=deuxEtTrois; 
-				for(int k=1;k<1000;k++)
+			
+				for(int k=0;k<1000;k++)
 				 {
 				 //if(k%100==0)System.out.println("\t\t--->"+k); 
-				 String s=mul(s0,'7');
-				 s0=s; 
-			     int longueur=persistance(s); 
+				
+			     int longueur=persistance(s0); 
+			    
 			     if(longueur>5){
-				  System.out.println("\t"+i+" "+j+" "+k+" persistance "+longueur+" ");
+				  System.out.println(s0+"\t"+i+" "+j+" "+k+" persistance "+longueur+" ");
 				 // output.println("les 3 ->"+i+" les 5 ->"+j+" les 7 ->"+k+" persistance "+longueur+" ");
 			}
+			     s0=mul(s0,'7'); 
 			}
 		}
 		}
 		
-	
+		System.out.println(persistance(chaineInit(0,3,3)) ); 
+		
 		
 	}// main
 
