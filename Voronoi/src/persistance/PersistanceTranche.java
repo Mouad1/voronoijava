@@ -67,7 +67,7 @@ public class PersistanceTranche {
 	}
 	
 	public static int persistance(String s){
-		int pers=0; 
+		int pers=1; 
 		while(s.length()!=1){
 			//System.out.println("\t"+s); 
 			pers++; 
@@ -87,8 +87,8 @@ public class PersistanceTranche {
 	
 	public static void main(String[] args) {
 		//try { output=new PrintStream("C:/Users/p�p�re/Dropbox/persistance2.txt");}
-		//try { output=new PrintStream("C:/Users/decomite/Dropbox/persistance3.txt");}
-		//catch(Exception e){System.out.println(e); System.exit(0); }
+		try { output=new PrintStream("C:/Users/decomite/Dropbox/persistance4.txt");}
+		catch(Exception e){System.out.println(e); System.exit(0); }
 		 //System.out.println(mul("48123456123456",'7')); 
 		
 		
@@ -111,7 +111,8 @@ public class PersistanceTranche {
 			     int longueur=persistance(s0); 
 			    
 			     if(longueur>5){
-				  System.out.println(s0+"\t"+i+" "+j+" "+k+" persistance "+longueur+" ");
+				  System.out.println(s0+"\t\t\t"+i+" "+j+" "+k+" persistance "+longueur+" ");
+				  output.println(s0+"\t\t\t"+i+" "+j+" "+k+" persistance "+longueur+" ");
 				 // output.println("les 3 ->"+i+" les 5 ->"+j+" les 7 ->"+k+" persistance "+longueur+" ");
 			}
 			     s0=mul(s0,'7'); 
