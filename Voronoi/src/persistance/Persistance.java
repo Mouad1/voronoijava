@@ -39,7 +39,7 @@ public class Persistance {
 	public static int persistance(String s){
 		int pers=0; 
 		while(s.length()!=1){
-			//System.out.println("\t"+s); 
+			System.out.println("\t"+s); 
 			pers++; 
 			s=suivant(s); 
 		}
@@ -54,8 +54,8 @@ public class Persistance {
 	}
 	
 	public static void main(String[] args) {
-		try { output=new PrintStream("C:/Users/pépère/Dropbox/persistance2.txt");}
-
+		//try { output=new PrintStream("C:/Users/pï¿½pï¿½re/Dropbox/persistance2.txt");}
+		try { output=new PrintStream("C:/Users/decomite/Dropbox/persistance3.txt");}
 		catch(Exception e){System.out.println(e); System.exit(0); }
 		 
 		for(int k=0;k<9;k++)
@@ -90,16 +90,16 @@ public class Persistance {
 		}
 		
 		System.out.println("\n");
-		
+		/*
 		for(int i=1;i<1300;i++){
 			System.out.println("--->"+i); 
-			String lesDeux=suivant(suite('2',i)); 
+			String lesDeux=suivant(suite('3',i)); 
 			for(int j=1;j<1300;j++){
 				if(j%100==0)System.out.println("\t--->"+j); 
 				String deuxEtTrois=lesDeux; 
 				//System.out.println(lesDeux);
 				for(int l=0;l<j;l++)
-					deuxEtTrois=mul(deuxEtTrois,'3'); 
+					deuxEtTrois=mul(deuxEtTrois,'5'); 
 				//System.out.println("\t"+deuxEtTrois);
 				String s0=deuxEtTrois; 
 				for(int k=1;k<1300;k++)
@@ -109,13 +109,14 @@ public class Persistance {
 				 s0=s; 
 			     int longueur=persistance(s); 
 			     if(longueur>5){
-				  System.out.println("les 2 ->"+i+" les 3 ->"+j+" les 7 ->"+k+" persistance "+longueur+" ");
-				  output.println("les 2 ->"+i+" les 3 ->"+j+" les 7 ->"+k+" persistance "+longueur+" ");
+				  System.out.println("les 3 ->"+i+" les 5 ->"+j+" les 7 ->"+k+" persistance "+longueur+" ");
+				  output.println("les 3 ->"+i+" les 5 ->"+j+" les 7 ->"+k+" persistance "+longueur+" ");
 			}
 			}
 		}
 		}
-		
+		*/
+		System.out.println(persistance(suite('2',1)+suite('3',1023)+suite('7',825))); 
 		
 	}// main
 
