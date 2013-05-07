@@ -86,13 +86,13 @@ public class PersistanceTranche {
 	}
 	
 	public static void main(String[] args) {
-		//try { output=new PrintStream("C:/Users/pï¿½pï¿½re/Dropbox/persistance2.txt");}
-		try { output=new PrintStream("C:/Users/decomite/Dropbox/persistance4.txt");}
+		try { output=new PrintStream("C:/Users/pépère/Dropbox/persistance5.txt");}
+		//try { output=new PrintStream("C:/Users/decomite/Dropbox/persistance4.txt");}
 		catch(Exception e){System.out.println(e); System.exit(0); }
 		 //System.out.println(mul("48123456123456",'7')); 
 		
 		
-		for(int i=0;i<1500;i++){
+		for(int i=1000;i<1500;i++){
 			if(i%10==0)System.out.println("--->"+i); 
 			String lesDeux=suivant(suite('2',i)); 
 			for(int j=0;j<1000;j++){
