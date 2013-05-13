@@ -3,7 +3,7 @@ package persistance;
 import java.io.PrintStream;
 
 // No classes
-public class PersistanceTranche {
+public class PersistanceTranche357 {
 	public static int[][][] tables=new int[9][58][58]; 
 	public static int[][][] retenues=new int[9][58][58]; 
 	public static int tranche=6; 
@@ -86,7 +86,7 @@ public class PersistanceTranche {
 	}
 	
 	public static void main(String[] args) {
-		try { output=new PrintStream("C:/Users/pépère/Dropbox/persistance.txt");}
+		try { output=new PrintStream("C:/Users/pépère/Dropbox/persistance357.txt");}
 		//try { output=new PrintStream("C:/Users/decomite/Dropbox/persistance4.txt");}
 		catch(Exception e){System.out.println(e); System.exit(0); }
 		 //System.out.println(mul("48123456123456",'7')); 
@@ -96,7 +96,7 @@ public class PersistanceTranche {
 			if(i%10==0)System.out.println("--->"+i); 
 			String lesDeux=suivant(suite('3',i)); 
 			for(int j=0;j<1000;j++){
-				//if(j%100==0)System.out.println("\t--->"+j); 
+				if(j%100==0)System.out.println("\t--->"+j); 
 				String deuxEtTrois=lesDeux; 
 				//System.out.println(lesDeux);
 				for(int l=0;l<j;l++)
@@ -118,6 +118,7 @@ public class PersistanceTranche {
 			     s0=mul(s0,'7'); 
 			}
 		}
+			output.flush(); 
 		}
 		
 		System.out.println(persistance(chaineInit(0,3,3)) ); 
