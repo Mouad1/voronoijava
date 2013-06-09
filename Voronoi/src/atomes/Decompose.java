@@ -44,13 +44,12 @@ public class Decompose {
 	
 	public static void main(String[] args) {
 		 ArrayList<ArrayList<Element>> debuts=new ArrayList<ArrayList<Element>>(); 
-		 
-		 ArrayList<Element> toto=new ArrayList<Element>(); 
-		 //toto.add(Element.ALUMINIUM); 
-		 debuts.add(toto);
-		  
-		decompose(debuts,"leopold"); 
-		
+		 for(Element e: Element.values()){
+			 debuts=new ArrayList<ArrayList<Element>>(); 
+			 ArrayList<Element> toto=new ArrayList<Element>(); 
+			 debuts.add(toto);
+			 decompose(debuts,e.getNomAnglais()); 
+		 }//for
 	}
 
 }
