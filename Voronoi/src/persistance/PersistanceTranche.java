@@ -86,14 +86,17 @@ public class PersistanceTranche {
 	}
 	
 	public static void main(String[] args) {
-		try { output=new PrintStream("C:/Users/pépère/Dropbox/persistance.txt");}
-		//try { output=new PrintStream("C:/Users/decomite/Dropbox/persistance4.txt");}
+
+		//try { output=new PrintStream("C:/Users/pï¿½pï¿½re/Dropbox/persistance2.txt");}
+		try { output=new PrintStream("C:/Users/decomite/Dropbox/persistance4_bis.txt");}
+
 		catch(Exception e){System.out.println(e); System.exit(0); }
 		 //System.out.println(mul("48123456123456",'7')); 
 		
 		
-		for(int i=0;i<1500;i++){
-			if(i%10==0)System.out.println("--->"+i); 
+		for(int i=100;i<1500;i++){
+			if(i%10==0)System.out.println("--->"+i);
+			if(i%100==0)output.println("--->"+i); 
 			String lesDeux=suivant(suite('3',i)); 
 			for(int j=0;j<1000;j++){
 				//if(j%100==0)System.out.println("\t--->"+j); 
@@ -120,7 +123,7 @@ public class PersistanceTranche {
 		}
 		}
 		
-		System.out.println(persistance(chaineInit(0,3,3)) ); 
+		
 		
 		
 	}// main
