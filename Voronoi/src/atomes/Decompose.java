@@ -21,7 +21,7 @@ public class Decompose {
 	static public void affiche(ArrayList<ArrayList<Element>> resultats){
 		//System.out.println("affiche "+resultats.size()) ; 
 		for(ArrayList<Element> solution : resultats){
-			
+			if(solution.size()>15)
 			afficheUneSolution(solution); 
 		}
 	}
@@ -65,7 +65,7 @@ public class Decompose {
 		 }//for
 		 */
 		 try{
-			 File source = new File("src/atomes/liste_francais.txt"); 
+			 File source = new File("src/atomes/wordsEn.txt"); 
 	         BufferedReader in = new BufferedReader(new FileReader(source));
 	         String ligne = in.readLine(); 
 	         while(true){
