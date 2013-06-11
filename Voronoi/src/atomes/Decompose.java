@@ -21,7 +21,7 @@ public class Decompose {
 	static public void affiche(ArrayList<ArrayList<Element>> resultats){
 		//System.out.println("affiche "+resultats.size()) ; 
 		for(ArrayList<Element> solution : resultats){
-			if(solution.size()>15)
+			if(solution.size()>23)
 			afficheUneSolution(solution); 
 		}
 	}
@@ -65,15 +65,15 @@ public class Decompose {
 		 }//for
 		 */
 		 try{
-			 File source = new File("src/atomes/wordsEn.txt"); 
+			 File source = new File("src/atomes/UKACD.txt"); 
 	         BufferedReader in = new BufferedReader(new FileReader(source));
-	         String ligne = in.readLine(); 
+	         String ligne = in.readLine().toLowerCase(); 
 	         while(true){
 	        	 debuts=new ArrayList<ArrayList<Element>>(); 
 				 toto=new ArrayList<Element>(); 
 				 debuts.add(toto);
 	        	 decompose(debuts,ligne); 
-	        	 ligne=in.readLine();
+	        	 ligne=in.readLine().toLowerCase();
 	         }
 			 
 		 }
