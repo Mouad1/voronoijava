@@ -50,17 +50,17 @@ public class Decompose {
 		 ArrayList<ArrayList<Element>> debuts=new ArrayList<ArrayList<Element>>();
 		 ArrayList<Element> toto=new ArrayList<Element>(); 
 		 debuts.add(toto);
-		 /*
+		 
 		 for(Element e: Element.values()){
 			 debuts=new ArrayList<ArrayList<Element>>(); 
-			 ArrayList<Element> toto=new ArrayList<Element>(); 
+			 toto=new ArrayList<Element>(); 
 			 debuts.add(toto);
-			 decompose(debuts,e.getNomAnglais()); 
+			 decompose(debuts,e.getNomFrancais()); 
 		 }//for
-		 */
+		 
 		 //decompose(debuts, "revolutionnaire");
 		 //decompose(debuts,"universite");
-		decompose(debuts,"pbo"); 
+		//decompose(debuts,"pbo"); 
 	}
 
 }
