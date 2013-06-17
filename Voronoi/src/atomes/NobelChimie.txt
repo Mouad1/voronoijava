@@ -1,0 +1,227 @@
+1901	Jacobus H. van't Hoff	Netherlands
+1902	Hermann Emil Fischer	Germany
+1903	Svante A. Arrhenius	Sweden
+1904	Sir William Ramsay	Great Britain
+1905	Adolf von Baeyer	Germany
+1906	Henri Moissan	France
+1907	Eduard Buchner	Germany
+1908	Ernest Rutherford	Great Britain
+1909	Wilhelm Ostwald	Germany
+1910	Otto Wallach	Germany
+1911	Marie Curie	Poland - France
+1912	Victor Grignard
+Paul Sabatier	France
+France
+1913	Alfred Werner	Switzerland
+1914	Theodore W. Richards	United States
+1915	Richard M. Willstätter	Germany
+1916	 	 
+1917	 	 
+1918	Fritz Haber	Germany
+1919	 	 
+1920	Walther H. Nernst	Germany
+1921	Frederick Soddy	Great Britain
+1922	Francis W. Aston	Great Britain
+1923	Fritz Pregl	Austria
+1924	 	 
+1925	Richard A. Zsigmondy	Germany
+1926	Theodor Svedberg	Sweden
+1927	Heinrich O. Wieland	Germany
+1928	Adolf O. R. Windaus	Germany
+1929	Sir Arthur Harden
+Hans von Euler-Chelpin	Great Britain
+Sweden
+1930	Hans Fischer	Germany
+1931	Friedrich Bergius
+Karl Bosch	Germany
+Germany
+1932	Irving Langmuir	United States
+1933	 	 
+1934	Harold C. Urey	United States
+1935	Jean Frédéric Joliot
+Iréne Joliot-Curie	France
+France
+1936	Peter J. W. Debye	Netherlands
+1937	Walter N. Haworth
+Paul Karrer	Great Britain
+Switzerland
+1938	Richard Kuhn	Germany
+1939	Adolf F. J. Butenandt
+Leopold Ruzicka	Germany
+Switzerland
+1940	 	 
+1941	 	 
+1942	 	 
+1943	Georg de Hevesy	Hungary
+1944	Otto Hahn	Germany
+1945	Artturi I. Virtanen	Finland
+1946	James B. Sumner
+John H. Northrop
+Wendell M. Stanley	United States
+United States
+United States
+1947	Sir Robert Robinson	Great Britain
+1948	Arne W. K. Tiselius	Sweden
+1949	William F. Giauque	United States
+1950	Kurt Alder
+Otto P. H. Diels	Germany
+Germany
+1951	Edwin M. McMillan
+Glenn T. Seaborg	United States
+United States
+1952	Archer J. P. Martin
+Richard L. M. Synge	Great Britain
+Great Britain
+1953	Hermann Staudinger	Germany
+1954	Linus C. Pauling	United States
+1955	Vincent du Vigneaud	United States
+1956	Sir Cyril N. Hinshelwood
+Nikolai N. Semenov	Great Britain
+Soviet Union
+1957	Sir Alexander R. Todd	Great Britain
+1958	Frederick Sanger	Great Britain
+1959	Jaroslav Heyrovsky	Czech Republic
+1960	Willard F. Libby	United States
+1961	Melvin Calvin	United States
+1962	John C. Kendrew
+Max F. Perutz	Great Britain
+Great Britain
+1963	Giulio Natta
+Karl Ziegler	Italy
+Germany
+1964	Dorothy C. Hodgkin	Great Britain
+1965	Robert B. Woodward	United States
+1966	Robert S. Mulliken	United States
+1967	Manfred Eigen
+Ronald G. W. Norrish
+George Porter	Germany
+Great Britain
+Great Britain
+1968	Lars Onsager	United States
+1969	Derek H. R. Barton
+Odd Hassel	Great Britain
+Norway
+1970	Luis F. Leloir	Argentina
+1971	Gerhard Herzberg	Canada
+1972	Christian B. Anfinsen
+Stanford Moore
+William H. Stein	United States
+United States
+United States
+1973	Ernst Otto Fischer
+Geoffrey Wilkinson	Germany
+Great Britain
+1974	Paul J. Flory	United States
+1975	Sir John Cornforth
+Vladimir Prelog	Australia - Great Britain
+Yugoslavia - Switzerland
+1976	William N. Lipscomb	United States
+1977	Ilya Prigogine	Belgium
+1978	Peter Mitchell	Great Britain
+1979	Herbert C. Brown
+George Wittig	United States
+Germany
+1980	Paul Berg
+Walter Gilbert
+Frederick Sanger	United States
+United States
+Great Britain
+1981	Kenichi Fukui
+Roald Hoffmann	Japan
+United States
+1982	Aaron Klug	South Africa
+1983	Henry Taube	Canada
+1984	Bruce Merrifield	United States
+1985	Herbert A. Hauptman
+Jerome Karle	United States
+United States
+1986	Dudley Herschbach
+Yuan T. Lee
+John C. Polanyi	United States
+United States
+Canada
+1987	Donald J. Cram
+Charles J. Pedersen
+Jean-Marie Lehn	United States
+United States
+France
+1988	Johann Deisenhofer
+Robert Huber
+Hartmut Michel	Germany
+Germany
+Germany
+1989	Thomas R. Cech
+Sidney Altman	United States
+United States
+1990	Elias James Corey	United States
+1991	Richard R. Ernst	Switzerland
+1992	Rudolph A. Marcus	Canada - United States
+1993	Kary B. Mullis
+Michael Smith	United States
+Great Britain - Canada
+1994	George A. Olah	United States
+1995	Paul Crutzen
+Mario Molina
+F. Sherwood Rowland	Netherlands
+Mexico - United States
+United States
+1996	Harold W. Kroto
+Robert F. Curl, Jr.
+Richard E. Smalley	Great Britain
+United States
+United States
+1997	Paul D. Boyer
+John E. Walker
+Jens C. Skou	United States
+Great Britain
+Denmark
+1998	Walter Kohn
+John A. Pople	United States
+Great Britain
+1999	Ahmed H. Zewail	Egypt-United States
+2000	Alan J. Heeger
+Alan G. MacDiarmid
+Hideki Shirakawa	United States
+United States - New Zealand
+Japan
+2001	William S. Knowles
+Ryoji Noyori
+K. Barry Sharpless	United States
+Japan
+United States
+2002	John B. Fenn
+Koichi Tanaka
+Kurt Wüthrich	United States
+Japan
+Switzerland
+2003	Peter Agre
+Roderick MacKinnon	United States
+United States
+2004	Aaron Ciechanover
+Avram Hershko
+Irwin Rose	Israel
+Israel
+United States
+2005	Yves Chauvin
+Robert H. Grubbs
+Richard R. Schrock	France
+United States
+United States
+2006	Roger D. Kornberg	United States
+2007	Gerhard Ertl	Germany
+2008	Gerhard Ertl
+Martin Chalfie
+Roger Y. Tsien	United States
+United States
+United States
+2009	Venkatraman Ramakrishnan
+Thomas A. Steitz
+Ada E. Yonath	United Kingdom
+United States
+Israel
+2010	Richard F. Heck
+Ei-ichi Negishi
+Akira Suzuki 	United States
+China
+Japan
+2011	Dan Shechtman 	Israel
