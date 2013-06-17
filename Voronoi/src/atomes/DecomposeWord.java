@@ -5,8 +5,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public class Decompose {
+public class DecomposeWord {
 	static public void afficheUneSolution(ArrayList<Element> s){
 		System.out.println("affiche solution "+s.size()); 
 		String symbols=""; 
@@ -18,18 +19,18 @@ public class Decompose {
 		System.out.println(symbols+"/"+names); 
 	}
 	
-	static public void affiche(ArrayList<ArrayList<Element>> resultats){
-		//System.out.println("affiche "+resultats.size()) ; 
+	static public void affiche(ArrayList<ArrayList<Element>> resultats,String ref){
+		System.out.println("affiche "+ref) ; 
 		for(ArrayList<Element> solution : resultats){
 			//if(solution.size()==9)
 			afficheUneSolution(solution); 
 		}
 	}
 	
-	static public void decompose(ArrayList<ArrayList<Element>> debuts,String reste){
-		//System.out.println("-->"+debuts.size()); 
+	static public void decompose(ArrayList<ArrayList<Element>> debuts,String reste,String ref){
+		//System.out.println("-->"+ref); 
 		if(reste.length()==0)
-			affiche(debuts); 
+			affiche(debuts,ref); 
 		for(Element e: Element.values()){
 			if (reste.startsWith(e.getSymbole())){
 				String nouveauReste=reste.substring(e.getSymbole().length()); 
@@ -40,7 +41,7 @@ public class Decompose {
 					newB.add(e); 
 					newDeb.add(newB); 
 				}
-				decompose(newDeb,nouveauReste); 
+				decompose(newDeb,nouveauReste,ref); 
 				
 			}//if
 					
@@ -65,30 +66,24 @@ public class Decompose {
 		 }//for
 		 */
 		 try{
-			 File source = new File("src/atomes/UKACD.txt"); 
+			 File source = new File("src/atomes/NobelChimie.txt"); 
 	         BufferedReader in = new BufferedReader(new FileReader(source));
 	         String ligne = in.readLine().toLowerCase(); 
 	         while(true){
 	        	 debuts=new ArrayList<ArrayList<Element>>(); 
 				 toto=new ArrayList<Element>(); 
 				 debuts.add(toto);
-	        	 //decompose(debuts,ligne); 
+				 Scanner r=new Scanner(ligne); 
+				 while(r.hasNext()){
+	        	 decompose(debuts,r.next(),ligne);
+				 }
 	        	 ligne=in.readLine().toLowerCase();
 	         }
 			 
 		 }
 		 catch(Exception e){System.out.println("fini "+e); }
 		 
-		 decompose(debuts, "lavoisier");
-		 /*
-		 debuts=new ArrayList<ArrayList<Element>>(); 
-		 toto=new ArrayList<Element>(); 
-		 debuts.add(toto);
-		 */
-		 decompose(debuts,"hevesy");
-		 decompose(debuts,"gaylussac");
-		decompose(debuts,"planck"); 
-		decompose(debuts,"svedberg"); 
+		 
 	}
 
 }
