@@ -131,7 +131,7 @@ def couronne(d1,nbFaces,l):
  me.verts.append(vertex)
 
  for i in range(0,nbFaces,1):
-  print "couronne ",i," nbfaces ",nbFaces	
+  #print "couronne ",i," nbfaces ",nbFaces	
   vertex=NMesh.Vert(d1*cos(2*i*pi/nbFaces),d1*sin(2*i*pi/nbFaces),0)
   me.verts.append(vertex)
  for i in range(0,nbFaces,1):
@@ -182,25 +182,44 @@ def lineSegMe(p1,p2,d1,nbFaces):
  u = dir
  uu = Vector([0,0,1.0])
  theta=AngleBetweenVecs(u,uu)
+ theta= theta/180*3.141592
+ print "theta ",theta
  if abs(AngleBetweenVecs(u,uu))>1e-6:
 
   v = CrossVecs(u,uu)
   w = CrossVecs(u,v)
   v.normalize()
   w.normalize()
-
   ux=v[0]
   uy=v[1]
   uz=v[2]
+ 
+  a11=ux*ux+(1-ux*ux)*cos(theta)
+  a12=ux*uy*(1-cos(theta))-uz*sin(theta)
+  a13=ux*uz*(1-cos(theta))+uy*sin(theta)
+  print "X ",a11," ",a12," ",a13
 
-  	
+  a21=ux*uy*(1-cos(theta))+uz*sin(theta)
+  a22=uy*uy+(1-uy*uy)*cos(theta)
+  a23=uy*uz*(1-cos(theta))-ux*sin(theta)
+
+  a31=ux*uz*(1-cos(theta))-uy*sin(theta)
+  a32=uy*uz*(1-cos(theta))+ux*sin(theta)
+  a33=uz*uz+(1-uz*uz)*cos(theta)		
+
+  
+
   A = Matrix(
-    [w[0],w[1],w[2],0],
-    [v[0],v[1],v[2],0],
-    [u[0],u[1],u[2],0],
+    #[w[0],w[1],w[2],0],
+    #[v[0],v[1],v[2],0],
+    #[u[0],u[1],u[2],0],
     #[dir[0]/2.0*length+p1[0],dir[1]/2.0*length+p1[1],dir[2]/2.0*length+p1[2],1])
+    [a11,a12,a13,0],
+    [a21,a22,a23,0],
+    [a31,a32,a33,0],
     [p1[0],p1[1],p1[2],1])
 
+ 
   
  else:
   
@@ -213,7 +232,7 @@ def lineSegMe(p1,p2,d1,nbFaces):
    
 
  # apply the transform to the cylinder  
- 
+
  me.transform(A,True)
  
  return me.verts,me.verts[0:nbFaces+1],me.verts[1:nbFaces+1],me.verts[1+nbFaces:1+1+2*nbFaces],me
@@ -233,7 +252,7 @@ def rotate(an):
 
 def meshify(meche,nbFaces):
  nbtranches=(len(meche.verts)-1)/nbFaces
- print "xxx---->",nbtranches
+ #print "xxx---->",nbtranches
  for j in range(0,nbtranches-1):
   #print j," ",len(meche.verts)
   dmin=50	
@@ -321,6 +340,7 @@ context.imageType = Render.JPEG
 # draw the image
 context.render()
 # save the image to disk
+
 # to the location specified by RenderPath
 # by default this will be a jpg file
 context.saveRenderedImage('PlotExampleQND.jpg')
