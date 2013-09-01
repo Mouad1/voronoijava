@@ -345,11 +345,10 @@ for ob in scene.objects:
 nbf=6
 diam=0.05
 rati=1.6
-coef=1.9
+coef=2
 
 #execfile('C:\Users\decomite\Pictures\povray\output povray\spline.py')
-
-execfile('C:/Users/decomite/Pictures/povray/knotcage.py')
+execfile('F:/Povray/knotCage.py')
 
 #execfile('C:/Users/decomite/Pictures/povray/sinesurface.py')
 #execfile('C:/Users/decomite/Pictures/povray/ruled.py')
