@@ -236,6 +236,10 @@ def lineSegMe(p1,p2,d1,nbFaces):
  dir.normalize()
  u = dir
  uu = Vector([0,0,1.0])
+ print AngleBetweenVecs(u,uu)
+ if ((abs(AngleBetweenVecs(u,uu))<1e-6)|(abs(AngleBetweenVecs(u,uu)-180)<1e-4)):
+  print "bingo \n"	
+  uu=Vector([1.0,0,0])	
  if abs(AngleBetweenVecs(u,uu))>1e-6:
 
   v = CrossVecs(u,uu)
@@ -342,13 +346,15 @@ for ob in scene.objects:
    if (cmp(ob.getName(),'Cube')==0):
     scene.objects.unlink(ob)
 
-nbf=6
-diam=0.05
+nbf=10
+diam=0.005
 rati=1.6
 coef=2
 
 #execfile('C:\Users\decomite\Pictures\povray\output povray\spline.py')
-execfile('F:/Povray/knotCage.py')
+#execfile('F:/Povray/knotCage.py')
+
+execfile('C:/Users/decomite/Pictures/povray/filaire.py')
 
 #execfile('C:/Users/decomite/Pictures/povray/sinesurface.py')
 #execfile('C:/Users/decomite/Pictures/povray/ruled.py')
