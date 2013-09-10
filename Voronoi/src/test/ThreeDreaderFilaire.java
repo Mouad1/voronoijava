@@ -43,13 +43,13 @@ public class ThreeDreaderFilaire {
 		 double diamMin=10; 
          double diamMax=-2;
 		double ratio=1; 
-		this.catena="F:/Povray/filaire.txt"; 
-		//this.catena="c:/users/decomite/pictures/povray/ruled.txt"; 
+		//this.catena="F:/Povray/filaire.txt"; 
+		this.catena="c:/users/decomite/pictures/povray/filaireCC.txt"; 
           File source = new File(catena);
           HashSet<CoupleVertexDiam> sommets=new HashSet<CoupleVertexDiam>();
           try {
-        	  output=new PrintStream("F:/Povray/filaire.py");
-        	  //output=new PrintStream("C:/Users/decomite/pictures/povray/ruled.py");
+        	  //output=new PrintStream("F:/Povray/filaire.py");
+        	  output=new PrintStream("C:/Users/decomite/pictures/povray/filaire.py");
         	  //outputPovray=new PrintStream("C:/Users/decomite/pictures/povray/plots.inc");
                 BufferedReader in = new BufferedReader(new FileReader(source));
                 boolean u=true; 
@@ -58,6 +58,31 @@ public class ThreeDreaderFilaire {
                 String line1;
                 Scanner r1;
                 int nbligne=0;
+                int nbsphere=0;
+                // Lire les sommets
+                // nombre de sommets
+                line1=in.readLine();
+                r1=new Scanner(line1); 
+                r1.useLocale(Locale.US);
+                int nbsomm=r1.nextInt(); 
+                for(int i=0;i<nbsomm;i++){
+                	line1=in.readLine();
+                	r1=new Scanner(line1); 
+                	Vertex sommy=new Vertex(r1.nextDouble(),r1.nextDouble(),r1.nextDouble());
+                	output.println("som=Vector(["+sommy.rawString()+"])");
+                	output.println("me=translate(som,coef*diam)");
+                	 if(!rooted){
+                    	  	output.println("ob=scene.objects.new(me,'sphere"+nbsphere+"')");
+                    	  	rooted=true;
+                    	  	 }
+                    	  	 
+                    	  	 else{
+                    	  	output.println("localOb=scene.objects.new(me,'sphere"+nbsphere+"')");
+                    	    output.println("ob.join([localOb])"); 
+                         output.println("scene.objects.unlink(localOb)");
+                    	  	 }
+                	 nbsphere++; 
+                }
                
                 while(u){
                 	line1=in.readLine();
