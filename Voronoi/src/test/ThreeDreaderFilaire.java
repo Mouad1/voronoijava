@@ -43,13 +43,13 @@ public class ThreeDreaderFilaire {
 		 double diamMin=10; 
          double diamMax=-2;
 		double ratio=1; 
-		//this.catena="F:/Povray/filaire.txt"; 
-		this.catena="c:/users/decomite/pictures/povray/filaireCC.txt"; 
+		this.catena="F:/Povray/filaire.txt"; 
+		//this.catena="c:/users/decomite/pictures/povray/filaireCC.txt"; 
           File source = new File(catena);
           HashSet<CoupleVertexDiam> sommets=new HashSet<CoupleVertexDiam>();
           try {
-        	  //output=new PrintStream("F:/Povray/filaire.py");
-        	  output=new PrintStream("C:/Users/decomite/pictures/povray/filaire.py");
+        	  output=new PrintStream("F:/Povray/filaire.py");
+        	  //output=new PrintStream("C:/Users/decomite/pictures/povray/filaire.py");
         	  //outputPovray=new PrintStream("C:/Users/decomite/pictures/povray/plots.inc");
                 BufferedReader in = new BufferedReader(new FileReader(source));
                 boolean u=true; 
