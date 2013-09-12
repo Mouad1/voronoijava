@@ -354,7 +354,8 @@ coef=2
 #execfile('C:\Users\decomite\Pictures\povray\output povray\spline.py')
 #execfile('F:/Povray/knotCage.py')
 
-execfile('C:/Users/decomite/Pictures/povray/filaire.py')
+#execfile('C:/Users/decomite/Pictures/povray/filaire.py')
+execfile('F:/Povray/filaire.py')
 
 #execfile('C:/Users/decomite/Pictures/povray/sinesurface.py')
 #execfile('C:/Users/decomite/Pictures/povray/ruled.py')
