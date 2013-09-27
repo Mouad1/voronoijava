@@ -19,6 +19,10 @@ public class GenerateExplosionV2 {
 	public void makeobject(int nb){
 		while(this.dejaVu.size()<nb){
 			int i=generator.nextInt(size)+1;
+			double pro=generator.nextDouble(); 
+			pro=Math.sqrt(pro);
+			//pro=pro*pro;
+			i=(int)(pro*i); 
 			
 			/*
 			int j=generator.nextInt(size); 
@@ -27,7 +31,7 @@ public class GenerateExplosionV2 {
 			int cote=(coteMax*i)/size; 
 			int j=2*generator.nextInt(1+cote/2)-cote/2; 
 			int k=2*generator.nextInt(1+cote/2)-cote/2; 
-			Triplet nouveau=new Triplet(j,k,i);
+			Triplet nouveau=new Triplet(j,k,size-i);
 			
 			//Triplet nouveau=new Triplet(i, j, k);
 			if(!this.dejaVu.contains(nouveau))dejaVu.add(nouveau);
@@ -35,7 +39,7 @@ public class GenerateExplosionV2 {
 		}// while
 	}
 	public static void main(String[] args) throws FileNotFoundException {
-		GenerateExplosionV2 cube=new GenerateExplosionV2(100); 
+		GenerateExplosionV2 cube=new GenerateExplosionV2(50); 
 		cube.makeobject(10000); 
 		for(Triplet t:cube.dejaVu)System.out.println(t); 
 		output=new PrintStream("C:/Users/decomite/Pictures/povray/explosionV4.txt");
