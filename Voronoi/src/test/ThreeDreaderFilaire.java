@@ -61,9 +61,11 @@ public class ThreeDreaderFilaire {
                 int nbsphere=0;
                 // Lire les sommets
                 // nombre de sommets
+                
                 line1=in.readLine();
                 r1=new Scanner(line1); 
                 r1.useLocale(Locale.US);
+         
                 int nbsomm=r1.nextInt(); 
                 for(int i=0;i<nbsomm;i++){
                 	line1=in.readLine();
@@ -90,6 +92,7 @@ public class ThreeDreaderFilaire {
                     r1=new Scanner(line1); 
                     r1.useLocale(Locale.US);
                 	Vertex origin=new Vertex(r1.nextDouble(),r1.nextDouble(),r1.nextDouble()); 
+                	  System.out.println("1 : point0=Vector(["+origin.rawString()+"])");
                 	line1=in.readLine();
                     r1=new Scanner(line1); 
                 	Vertex end=new Vertex(r1.nextDouble(),r1.nextDouble(),r1.nextDouble()); 
@@ -97,6 +100,10 @@ public class ThreeDreaderFilaire {
                 	 output.println("point0=Vector(["+origin.rawString()+"])");
                	  	 output.println("point1=Vector(["+end.rawString()+"])");
                	  	 output.println("me=lineSegMe(point0,point1,diam,nbf)[4]");
+               	  	 
+               	 
+            	  	 System.out.println("2 : point1=Vector(["+end.rawString()+"])");
+            	  	 System.out.println("me=lineSegMe(point0,point1,diam,nbf)[4]");
                	  	
                	  	 if(!rooted){
                	  	output.println("ob=scene.objects.new(me,'cylindre"+nbligne+"')");
