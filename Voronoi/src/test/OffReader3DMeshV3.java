@@ -100,14 +100,16 @@ public class OffReader3DMeshV3 {
 	public void afficheFichierTexte(String nomFichierSource,boolean veritable) {
 			//this.catena="C:/Documents and Settings/moi/workspace/Voronoi/src/test/"+nomFichierSource+".off";
 		//this.catena="/tmp/"+nomFichierSource+".off"; 
-		this.catena="./src/test/"+nomFichierSource+".off"; 
+		//this.catena="./src/test/"+nomFichierSource+".off"; 
+		this.catena="C:/Users/decomite/Pictures/shapeways/lizardd.off"; 
           File source = new File(catena);
           try {
         	// output=new PrintStream("../../../../pearls/scene/geometry/polyhedra/archimedean/archi.txt");
         	//  output=new PrintStream("../pearls/scene/geometry/playingcards/archimedean/"+nomFichierSource+".inc");
-        	  output=new PrintStream(nomFichierSource+".inc");
+        	  output=new PrintStream("lizardd.inc");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
+                  System.out.println(ligne); 
                   while(ligne.charAt(0)=='#') ligne=in.readLine();
                   ligne=in.readLine();
                   Scanner rl=new Scanner(ligne); 
@@ -125,6 +127,7 @@ public class OffReader3DMeshV3 {
                 	  ligne=in.readLine();
                 	  rl=new Scanner(ligne); 
                 	  rl.useLocale(Locale.US);
+                	  System.out.println(ligne); 
                 	  Double x=rl.nextDouble(); 
                 	  Double y=rl.nextDouble();
                 	  Double z=rl.nextDouble();
