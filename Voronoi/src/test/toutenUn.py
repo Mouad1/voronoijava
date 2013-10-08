@@ -4,6 +4,7 @@
 #ok, c'est mieux, mais ce n'est pas manifold
 #on essaie de rajouter des capuchons au bout des cylindres
 #!BPY
+# Je veux pouvoir colorer des cylindres, j'ai des problemes avec meshify, mvert, nmesh etc... (8/10/13)
  
 __doc__ = """
 SimplePlottingExample.py
@@ -159,7 +160,7 @@ def couronne(d1,nbFaces,l):
 
 
 
- 
+
 
 def lineSegMe(p1,p2,d1,nbFaces):
  
@@ -218,7 +219,7 @@ def lineSegMe(p1,p2,d1,nbFaces):
  
  return me.verts,me.verts[0:nbFaces+1],me.verts[1:nbFaces+1],me.verts[1+nbFaces:1+1+2*nbFaces],me
 
- 
+
 def rotate(an):
  me=taurus(10,2,200,60)
  A=Matrix(
@@ -229,18 +230,22 @@ def rotate(an):
  me.transform(A,True)
  return me
 
+def vectorize(coord):
+ return NMesh.Vert(coord.co.x,coord.co.y,coord.co.z)	
 
 
 def meshify(meche,nbFaces):
+ mechouille=NMesh.GetRaw()
  nbtranches=(len(meche.verts)-1)/nbFaces
  print "xxx---->",nbtranches
  for j in range(0,nbtranches-1):
-  #print j," ",len(meche.verts)
+  #print j," *** ",len(meche.verts)
   dmin=50	
   kcandidat=1
-  x1=Vector(meche.verts[1+j*nbFaces])
+  x1=meche.verts[1+j*nbFaces].co
+  print "x1 --->",x1
   for k in range(0,nbFaces,1):
-   x2=Vector(meche.verts[1+k+(j+1)*nbFaces])
+   x2=meche.verts[1+k+(j+1)*nbFaces].co
    x3=x2-x1
    candidat=x3.length
    if(candidat<dmin):
@@ -253,31 +258,34 @@ def meshify(meche,nbFaces):
 # pour k variant entre 0 et nbFaces-1
 #garder le k qui minimise la distance entre les deux sommets
    face=NMesh.Face()
-   face.append(meche.verts[1+i+j*nbFaces])
-   face.append(meche.verts[1+j*nbFaces+((i+1)%nbFaces)])
+   face.append(vectorize(meche.verts[1+i+j*nbFaces]))
+   print "index -----> ",meche.verts[1+i+j*nbFaces].index
+   face.append(vectorize(meche.verts[1+j*nbFaces+((i+1)%nbFaces)]))
    #face.append(meche.verts[1+(j+1)*nbFaces+((1+i)%nbFaces)])  
    #face.append(meche.verts[1+(j+1)*nbFaces+i])
-   face.append(meche.verts[1+(j+1)*nbFaces+((1+i+kcandidat)%nbFaces)])  
-   face.append(meche.verts[1+(j+1)*nbFaces+(i+kcandidat)%nbFaces])
-   meche.faces.append(face)
+   face.append(vectorize(meche.verts[1+(j+1)*nbFaces+((1+i+kcandidat)%nbFaces)])  )
+   face.append(vectorize(meche.verts[1+(j+1)*nbFaces+(i+kcandidat)%nbFaces]))
+   mechouille.faces.append(face)
  #face du depart
   for i in range(0,nbFaces):
    face=NMesh.Face()
-   face.append(meche.verts[1+i])
-   face.append(meche.verts[1+(i+1)%nbFaces])
-   face.append(meche.verts[0])
-   meche.faces.append(face)
+   face.append(vectorize(meche.verts[1+i]))
+   face.append(vectorize(meche.verts[1+(i+1)%nbFaces]))
+   face.append(vectorize(meche.verts[0]))
+   mechouille.faces.append(face)
 
  #face d'arrivee
   taille=len(meche.verts)
   for i in range(0,nbFaces):
    face=NMesh.Face()
-   face.append(meche.verts[taille-nbFaces-1+i])
-   face.append(meche.verts[taille-nbFaces-1+(i+1)%nbFaces])
-   face.append(meche.verts[taille-1])
-   meche.faces.append(face)
-
- return meche
+   face.append(vectorize(meche.verts[taille-nbFaces-1+i]))
+   face.append(vectorize(meche.verts[taille-nbFaces-1+(i+1)%nbFaces]))
+   face.append(vectorize(meche.verts[taille-1]))
+   mechouille.faces.append(face)
+   for item in face.v:
+    print "face courante :",item.index
+   print "\n"
+ return mechouille
 
 
 ##############################################################
@@ -293,7 +301,7 @@ diam=0.05
 rati=0.8
 
 #execfile('C:\Users\decomite\Pictures\povray\output povray\spline.py')
-execfile('C:/users/decomite/pictures/povray/snub_icosidodecahedronTest8_16_19.py')
+execfile('C:\Users\decomite\Pictures\povray\snub_icosidodecahedronTest8_16_19.py')
 #execfile('C:/Users/decomite/Pictures/povray/ruled.py')
 #Pour les slides together
 #execfile('C:/users/decomite/pictures/povray/t4b.txt')
