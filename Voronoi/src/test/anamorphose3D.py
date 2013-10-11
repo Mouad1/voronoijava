@@ -293,7 +293,7 @@ diam=0.05
 rati=0.8
 
 #execfile('C:\Users\decomite\Pictures\povray\output povray\spline.py')
-execfile('C:/users/decomite/pictures/povray/snub_icosidodecahedronTest8_16_19.py')
+execfile('C:/users/decomite/pictures/povray/snub_icosidodecahedronTest8_12_14.py')
 #execfile('C:/Users/decomite/Pictures/povray/ruled.py')
 #Pour les slides together
 #execfile('C:/users/decomite/pictures/povray/t4b.txt')

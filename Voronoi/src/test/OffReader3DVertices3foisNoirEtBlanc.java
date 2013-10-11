@@ -26,15 +26,15 @@ import utils.Vertex;
 import utils.Pos3D; 
 import utils.VertexCouple;
 
-public class OffReader3DVertices3fois {
+public class OffReader3DVertices3foisNoirEtBlanc {
 	
 	private Random generator=new Random(); 
 	private  ArrayList<Vertex> lesCentresDesFaces=new ArrayList<Vertex>(); 
 	private  ArrayList<Vertex> lesNormales=new ArrayList<Vertex>(); 
 	public int nbVertices,nbFaces,nbAretes;
-	private static int roulette=7; 
-	private static int roulette2=51; 
-	private static int roulette3=3; 
+	private static int roulette=8; 
+	private static int roulette2=16; 
+	private static int roulette3=19; 
 	private String catena;
 	{
 		Locale.setDefault(Locale.US);
@@ -173,10 +173,10 @@ public class OffReader3DVertices3fois {
   }
 	  public static void main(String args[]) {
           // new TestIO().copieFichierTexte("essai.txt","output.txt");
-          OffReader3DVertices3fois toto=new OffReader3DVertices3fois(); 
+          OffReader3DVertices3foisNoirEtBlanc toto=new OffReader3DVertices3foisNoirEtBlanc(); 
          TreeSet<Double>lesDistances=new TreeSet<Double>(); 
        
-          toto.afficheFichierTexte("pentagonal_hexecontahedron");
+          toto.afficheFichierTexte("snub_icosidodecahedron");
           for(int i=0;i<toto.vertices.size();i++){
         	  Vertex v1=toto.vertices.get(i); 
         	  for(int j=i+1;j<toto.vertices.size();j++){
@@ -269,16 +269,6 @@ public class OffReader3DVertices3fois {
            	      toto.outputBlender.println("me=meshify(meFinal,nbf)");
            	      
            	     
-           	      toto.outputBlender.println("if not me.materials:");          
-           	      toto.outputBlender.println(" newmat = Material.New()");         
-           		  toto.outputBlender.println("me.materials.append(newmat)");   
-
-        	      //print me.materials               # print the list of materials
-           		  toto.outputBlender.println("mat = me.materials[0]");       
-           		  toto.outputBlender.println("mat.R = 1.0");     
-           		  toto.outputBlender.println("mat.G = 0.0");     
-           		  toto.outputBlender.println("mat.B = 0.0");     
-           	      
            	      
            	     
            	      if(number==0)
@@ -296,7 +286,7 @@ public class OffReader3DVertices3fois {
         	}
         	 ///*
         		if(i==roulette2){
-        			number=0;
+        			
             		for(VertexCouple wc:lc){
             			if(!dejavu.contains(wc.getV1())){
                			 toto.output.println("sphere{"+wc.getV1()+",diam*coef  texture{T2} finish{F2}}");
@@ -304,15 +294,15 @@ public class OffReader3DVertices3fois {
                			 
                			 
                			 //sphere
-            			 toto.outputBlender.println("me2=translate(["+wc.getV1().rawString()+"],2*diam)");
+            			 toto.outputBlender.println("me=translate(["+wc.getV1().rawString()+"],2*diam)");
             			 
             			 
             			 if(number==0){
-            				 toto.outputBlender.println("ob2=scene.objects.new(me2,'sphere"+number+"')");
+            				 toto.outputBlender.println("ob=scene.objects.new(me,'sphere"+number+"')");
             			 }
             			 else{
-            			  toto.outputBlender.println("localOb=scene.objects.new(me2,'sphere"+number+"')");
-            			  toto.outputBlender.println("ob2.join([localOb])");
+            			  toto.outputBlender.println("localOb=scene.objects.new(me,'sphere"+number+"')");
+            			  toto.outputBlender.println("ob.join([localOb])");
                 	      toto.outputBlender.println("scene.objects.unlink(localOb)");
             			 }
             		      number++;
@@ -326,13 +316,13 @@ public class OffReader3DVertices3fois {
               			 
               			 
               			 //sphere
-            			 toto.outputBlender.println("me2=translate(["+wc.getV2().rawString()+"],2*diam)");
+            			 toto.outputBlender.println("me=translate(["+wc.getV2().rawString()+"],2*diam)");
             			 if(number==0){
-            				 toto.outputBlender.println("ob2=scene.objects.new(me2,'sphere"+number+"')");
+            				 toto.outputBlender.println("ob=scene.objects.new(me,'sphere"+number+"')");
             			 }
             			 else{
-            			  toto.outputBlender.println("localOb=scene.objects.new(me2,'sphere"+number+"')");
-            			  toto.outputBlender.println("ob2.join([localOb])");
+            			  toto.outputBlender.println("localOb=scene.objects.new(me,'sphere"+number+"')");
+            			  toto.outputBlender.println("ob.join([localOb])");
                 	      toto.outputBlender.println("scene.objects.unlink(localOb)");
             			 }
             		      number++;
@@ -343,30 +333,20 @@ public class OffReader3DVertices3fois {
             			toto.output.println("cylinder{"+wc.getV1()+","+wc.getV2()+",diam texture{T2} finish{F2}}"); 
             		
             			 // un cylindre
-                		  toto.outputBlender.println("meFinal2=NMesh.GetRaw()"); 
+                		  toto.outputBlender.println("meFinal=NMesh.GetRaw()"); 
                 		  toto.outputBlender.println("point0=Vector(["+wc.getV1().rawString()+"])");
                  	  	  toto.outputBlender.println("point1=Vector(["+wc.getV2().rawString()+"])");
-                 	  	  toto.outputBlender.println("meFinal2.verts.extend(lineSegMe(point0,point1,diam,nbf)[1])");  
-                 	      toto.outputBlender.println("meFinal2.verts.extend(lineSegMe(point0,point1,diam,nbf)[3])");  
-                 	      toto.outputBlender.println("me2=meshify(meFinal2,nbf)");
+                 	  	  toto.outputBlender.println("meFinal.verts.extend(lineSegMe(point0,point1,diam,nbf)[1])");  
+                 	      toto.outputBlender.println("meFinal.verts.extend(lineSegMe(point0,point1,diam,nbf)[3])");  
+                 	      toto.outputBlender.println("me=meshify(meFinal,nbf)");
                  	      
-                 	    
-                 	     toto.outputBlender.println("if not me2.materials:");          
-                  	      toto.outputBlender.println(" newmat = Material.New()");         
-                  		  toto.outputBlender.println("me2.materials.append(newmat)");   
-
-               	      //print me.materials               # print the list of materials
-                  		  toto.outputBlender.println("mat = me2.materials[0]");       
-                  		  toto.outputBlender.println("mat.R = 1.0");     
-                  		  toto.outputBlender.println("mat.G = 1.0");     
-                  		  toto.outputBlender.println("mat.B = 0.0");     
-                 	      
+                 	   
                  	      if(number==0)
-                 	    	  toto.outputBlender.println("ob2=scene.objects.new(me2,'Deux"+number+"')");
+                 	    	  toto.outputBlender.println("ob=scene.objects.new(me,'pieceB"+number+"')");
                  	      else
                  	      {
-                 	    	 toto.outputBlender.println("localOb=scene.objects.new(me2,'pieceA"+number+"')");
-                 	    	 toto.outputBlender.println("ob2.join([localOb])");
+                 	    	 toto.outputBlender.println("localOb=scene.objects.new(me,'pieceB"+number+"')");
+                 	    	 toto.outputBlender.println("ob.join([localOb])");
                  	    	 toto.outputBlender.println("scene.objects.unlink(localOb)");
                  	      }
                  	      number++;
@@ -379,7 +359,7 @@ public class OffReader3DVertices3fois {
         	//	*/
         		
         		if(i==roulette3){
-        			number=0; 
+        			
             		for(VertexCouple wc:lc){
             			if(!dejavu.contains(wc.getV1())){
                			 toto.output.println("sphere{"+wc.getV1()+",diam*coef  texture{T3} finish{F3}}");
@@ -387,13 +367,13 @@ public class OffReader3DVertices3fois {
                			 
                			 
                			 //sphere
-            			 toto.outputBlender.println("me3=translate(["+wc.getV1().rawString()+"],2*diam)");
+            			 toto.outputBlender.println("me=translate(["+wc.getV1().rawString()+"],2*diam)");
             			 if(number==0){
-            				 toto.outputBlender.println("ob3=scene.objects.new(me3,'sphere"+number+"')");
+            				 toto.outputBlender.println("ob=scene.objects.new(me,'sphere"+number+"')");
             			 }
             			 else{
-            			  toto.outputBlender.println("localOb=scene.objects.new(me3,'sphere"+number+"')");
-            			  toto.outputBlender.println("ob3.join([localOb])");
+            			  toto.outputBlender.println("localOb=scene.objects.new(me,'sphere"+number+"')");
+            			  toto.outputBlender.println("ob.join([localOb])");
                 	      toto.outputBlender.println("scene.objects.unlink(localOb)");
             			 }
             		      number++;
@@ -406,13 +386,13 @@ public class OffReader3DVertices3fois {
               			 
               			 
               			 //sphere
-            			 toto.outputBlender.println("me3=translate(["+wc.getV2().rawString()+"],2*diam)");
+            			 toto.outputBlender.println("me=translate(["+wc.getV2().rawString()+"],2*diam)");
             			 if(number==0){
-            				 toto.outputBlender.println("ob3=scene.objects.new(me3,'sphere"+number+"')");
+            				 toto.outputBlender.println("ob=scene.objects.new(me,'sphere"+number+"')");
             			 }
             			 else{
-            			  toto.outputBlender.println("localOb=scene.objects.new(me3,'sphere"+number+"')");
-            			  toto.outputBlender.println("ob3.join([localOb])");
+            			  toto.outputBlender.println("localOb=scene.objects.new(me,'sphere"+number+"')");
+            			  toto.outputBlender.println("ob.join([localOb])");
                 	      toto.outputBlender.println("scene.objects.unlink(localOb)");
             			 }
             		      number++;
@@ -426,30 +406,20 @@ public class OffReader3DVertices3fois {
             			
             		
             			 // un cylindre
-                		  toto.outputBlender.println("meFinal3=NMesh.GetRaw()"); 
+                		  toto.outputBlender.println("meFinal=NMesh.GetRaw()"); 
                 		  toto.outputBlender.println("point0=Vector(["+wc.getV1().rawString()+"])");
                  	  	  toto.outputBlender.println("point1=Vector(["+wc.getV2().rawString()+"])");
-                 	  	  toto.outputBlender.println("meFinal3.verts.extend(lineSegMe(point0,point1,diam,nbf)[1])");  
-                 	      toto.outputBlender.println("meFinal3.verts.extend(lineSegMe(point0,point1,diam,nbf)[3])");  
-                 	      toto.outputBlender.println("me3=meshify(meFinal3,nbf)");
+                 	  	  toto.outputBlender.println("meFinal.verts.extend(lineSegMe(point0,point1,diam,nbf)[1])");  
+                 	      toto.outputBlender.println("meFinal.verts.extend(lineSegMe(point0,point1,diam,nbf)[3])");  
+                 	      toto.outputBlender.println("me=meshify(meFinal,nbf)");
                  	      
                  	     
-                 	     toto.outputBlender.println("if not me3.materials:");          
-                 	      toto.outputBlender.println(" newmat = Material.New()");         
-                 		  toto.outputBlender.println("me3.materials.append(newmat)");   
-
-              	      //print me.materials               # print the list of materials
-                 		  toto.outputBlender.println("mat = me3.materials[0]");       
-                 		  toto.outputBlender.println("mat.R = 0.0");     
-                 		  toto.outputBlender.println("mat.G = 0.0");     
-                 		  toto.outputBlender.println("mat.B = 1.0");     
-           			
                  	      if(number==0)
-                 	    	  toto.outputBlender.println("ob3=scene.objects.new(me3,'Trois"+number+"')");
+                 	    	  toto.outputBlender.println("ob=scene.objects.new(me,'pieceB"+number+"')");
                  	      else
                  	      {
-                 	    	 toto.outputBlender.println("localOb=scene.objects.new(me3,'pieceB"+number+"')");
-                 	    	 toto.outputBlender.println("ob3.join([localOb])");
+                 	    	 toto.outputBlender.println("localOb=scene.objects.new(me,'pieceB"+number+"')");
+                 	    	 toto.outputBlender.println("ob.join([localOb])");
                  	    	 toto.outputBlender.println("scene.objects.unlink(localOb)");
                  	      }
                  	      number++;
