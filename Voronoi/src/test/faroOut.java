@@ -1,6 +1,6 @@
 package test;
 
-// commentaire test
+// commentaire test 2
 
 public class faroOut {
 	public static void affiche(int t[]){
