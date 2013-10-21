@@ -42,7 +42,7 @@ public class ReadInskscapeFile {
 }	
 	public void afficheFichierTexte() {
 		 ArrayList<Spline> lesSplines=new ArrayList<Spline>();
-		this.catena="c:/users/decomite/documents/tampon/mountain.pov"; 
+		this.catena="c:/users/decomite/documents/tampon/larose.pov"; 
         File source = new File(catena);
           try {
         	  //output=new PrintStream("F:/Povray/filaire.py");
@@ -113,7 +113,7 @@ public class ReadInskscapeFile {
                 		  int nbPoints=r1.nextInt(); 
                 		  int nbseq=nbPoints/4; 
                 		 
-                		  for(int i=0; i<nbseq;i++){ // lire une ligne, construire un spline
+                		  for(int i=0; i<nbseq-1;i++){ // lire une ligne, construire un spline
                 			  line1=in.readLine();
                 			  
                               //r1.useLocale(Locale.US);
