@@ -42,11 +42,13 @@ public class ReadInskscapeFile {
 }	
 	public void afficheFichierTexte() {
 		 ArrayList<Spline> lesSplines=new ArrayList<Spline>();
-		this.catena="c:/users/decomite/documents/tampon/larose.pov"; 
+		//this.catena="c:/users/decomite/documents/tampon/larose.pov"; 
+		this.catena="c:/users/francesco/documents/tampon/larose.pov"; 
         File source = new File(catena);
           try {
         	  //output=new PrintStream("F:/Povray/filaire.py");
-        	  outputPovray=new PrintStream("C:/Users/decomite/pictures/povray/splines.inc");
+        	  //outputPovray=new PrintStream("C:/Users/decomite/pictures/povray/splines.inc");
+        	  outputPovray=new PrintStream("C:/Users/francesco/pictures/povray/splines.inc");
                 BufferedReader in = new BufferedReader(new FileReader(source));
                 boolean u=true; 
              
