@@ -156,6 +156,7 @@ public class ReadInskscapeFile {
                }
                
                System.out.println(minx+" "+maxx+" "+miny+" "+maxy);
+               outputPovray.println("#declare nbSplines="+lesSplines.size()+";\n"); 
                outputPovray.close();  
              //output.close(); 
               
