@@ -1,5 +1,7 @@
 package utils;
 
+import java.text.DecimalFormat;
+
 public class Pos3D {
 	public static final Pos3D ZERO=new Pos3D(0,0,0); 
 	@Override
@@ -44,6 +46,12 @@ public class Pos3D {
 		this.x = x;
 		this.y = y;
 		this.z = z;
+	}
+	
+	public Pos3D(Pos3D src){
+		this.x=src.x; 
+		this.y=src.y; 
+		this.z=src.z; 
 	}
 
 	public static Pos3D add(Pos3D a,Pos3D b){
@@ -96,6 +104,16 @@ public class Pos3D {
 	public void setZ(double z) {
 		this.z = z;
 	} 
+	
+	private static String roundDecimals(double d) {
+    	DecimalFormat twoDForm = new DecimalFormat("#,########");
+    	return String.format("%.7g", d);
+}
+	
+	public String toStringRestrict(){
+		return "<"+roundDecimals(x)+","+roundDecimals(y)+","+roundDecimals(z)+">"; 
+	}
+	
 	public String toString(){
 		return "<"+x+","+y+","+z+">"; 
 	}
