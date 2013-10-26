@@ -54,6 +54,12 @@ public class Pos3D {
 		this.z=src.z; 
 	}
 
+	public Pos3D(Pos3D pos3d) {
+		this.x=pos3d.x; 
+		this.y=pos3d.y; 
+		this.z=pos3d.z; 
+	}
+
 	public static Pos3D add(Pos3D a,Pos3D b){
 		Pos3D resu=new Pos3D(a.x+b.x,a.y+b.y,a.z+b.z);
 		return resu; 
