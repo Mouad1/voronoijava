@@ -48,11 +48,7 @@ public class Pos3D {
 		this.z = z;
 	}
 	
-	public Pos3D(Pos3D src){
-		this.x=src.x; 
-		this.y=src.y; 
-		this.z=src.z; 
-	}
+
 
 	public Pos3D(Pos3D pos3d) {
 		this.x=pos3d.x; 
