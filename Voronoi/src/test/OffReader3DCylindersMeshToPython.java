@@ -188,6 +188,7 @@ public class OffReader3DCylindersMeshToPython {
                   }
                   
                   in.close();
+                  System.out.println(lesFacesPolygonales.get(0)); 
                   output.close();	
                   
              
@@ -202,7 +203,8 @@ public class OffReader3DCylindersMeshToPython {
           // new TestIO().copieFichierTexte("essai.txt","output.txt");
           OffReader3DCylindersMeshToPython toto=new OffReader3DCylindersMeshToPython(); 
          
-          toto.afficheFichierTexte("pentagonal_icositetrahedron");
+          toto.afficheFichierTexte("kite_hexecontahedron"); 
+         
 
 
 
