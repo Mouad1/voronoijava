@@ -112,7 +112,12 @@ public class FacePolygonale {
 			
 		}
 		
-	
+	public String toString(){
+		String s=""; 
+		for(int i=0;i<this.dim;i++)
+			s+=this.lesSommets.get(i)+"\n";
+		return s; 
+	}
 
 	private double roundDecimals(double d) {
     	DecimalFormat twoDForm = new DecimalFormat("#.#####");
