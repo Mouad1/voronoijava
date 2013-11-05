@@ -32,17 +32,18 @@ public class OffReader3DVertices3fois {
 	private  ArrayList<Vertex> lesCentresDesFaces=new ArrayList<Vertex>(); 
 	private  ArrayList<Vertex> lesNormales=new ArrayList<Vertex>(); 
 	public int nbVertices,nbFaces,nbAretes;
-	private static int roulette=30; 
-	private static int roulette2=11; 
-	private static int roulette3=55; 
+	private static int roulette=2; 
+	private static int roulette2=7; 
+	private static int roulette3=50; 
 	private String catena;
 	{
 		Locale.setDefault(Locale.US);
 	}
 	
 	protected int nn=0; 
-	public  int  maxsize=55; 
+	public  int  maxsize=0; 
 	public  ArrayList<Vertex> trajet(ArrayList<Vertex> deja,ArrayList<Vertex> reste,Vertex v){
+		System.out.println(nn); 
 		nn++;
 		if(reste.isEmpty()){
 			System.out.println("Houra !"); 
@@ -54,10 +55,10 @@ public class OffReader3DVertices3fois {
 			if(!deja.contains(q)){
 				ArrayList<Vertex> dejax=new ArrayList<Vertex>(deja);
 				ArrayList<Vertex> restex=new ArrayList<Vertex>(reste);
-				dejax.add(v);
+				dejax.add(q);
 				restex.remove(q); 
 				ArrayList<Vertex> presu=trajet(dejax,restex,q); 
-				if(nn>10e6) return presu; 
+				if(nn>10e9) return presu; 
 			}
 		}
 			if(deja.size()>maxsize){
@@ -111,10 +112,11 @@ public class OffReader3DVertices3fois {
 		this.catena="./src/test/"+nomFichierSource+".off"; 
           File source = new File(catena);
           try {
-        	// output=new PrintStream("../../../../pearls/scene/geometry/polyhedra/archimedean/archi.txt");
-        	 output=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".inc");
+        	 output=new PrintStream("../povray/scene/geometry/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".inc");
+        	// output=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".inc");
         	 //outputBlender=new PrintStream("F:/Povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+".py");
-        	 outputBlender=new PrintStream("C:/users/decomite/pictures/povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".py");
+        	 //outputBlender=new PrintStream("C:/users/decomite/pictures/povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".py");
+        	 outputBlender=new PrintStream("C:/users/francesco/pictures/povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".py");
         	  //output=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Test"+roulette+".inc");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
@@ -176,7 +178,10 @@ public class OffReader3DVertices3fois {
           OffReader3DVertices3fois toto=new OffReader3DVertices3fois(); 
          TreeSet<Double>lesDistances=new TreeSet<Double>(); 
        
-          toto.afficheFichierTexte("truncated_icosidodecahedron");
+          toto.afficheFichierTexte("kite_icositetrahedron");
+          
+         
+          
           for(int i=0;i<toto.vertices.size();i++){
         	  Vertex v1=toto.vertices.get(i); 
         	  for(int j=i+1;j<toto.vertices.size();j++){
