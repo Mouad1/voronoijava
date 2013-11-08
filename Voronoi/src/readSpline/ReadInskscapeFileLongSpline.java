@@ -43,7 +43,7 @@ public class ReadInskscapeFileLongSpline {
 	public void afficheFichierTexte() {
 		 ArrayList<BigSpline> lesSplines=new ArrayList<BigSpline>();
 		 ArrayList<Pos3D> controles=new ArrayList<Pos3D>();
-		this.catena="c:/users/decomite/documents/tampon/larose.pov"; 
+		this.catena="c:/users/decomite/documents/pro/stella.pov"; 
 		//this.catena="c:/users/francesco/documents/tampon/larose.pov"; 
         File source = new File(catena);
           try {
@@ -116,10 +116,10 @@ public class ReadInskscapeFileLongSpline {
                 		  int nbPoints=r1.nextInt(); 
                 		  int nbseq=nbPoints/4; 
                 		  controles=new ArrayList<Pos3D>();
-                		  for(int i=0; i<nbseq-1;i++){ // lire une ligne, construire un spline, ne pas lire la derniere ligne
+                		  for(int i=0; i<nbseq;i++){ // lire une ligne, construire un spline, ne pas lire la derniere ligne
                 			  						 // ne pas lire le premier d'une ligne sauf la premiere	
                 			  line1=in.readLine();
-                			  
+                			  System.out.println(line1);
                               //r1.useLocale(Locale.US);
                 			  line1=line1.substring(line1.indexOf("<")+1);
                 			  line1=line1.replace('<',' '); 
@@ -129,20 +129,13 @@ public class ReadInskscapeFileLongSpline {
                 			  r1=new Scanner(line1); 
                 			  r1.useLocale(Locale.US);
                 			 
-                			  Double debuts[]=new Double[4]; 
-                			  Double fins[]=new Double[4]; 
-                			  Pos3D pcontroles[]=new Pos3D[4]; 
-                			  int limit=0; 
-                			  if(i!=0) limit=1; 
-                			  for(int j=0;j<4;j++){
-                				  if(j<limit){ r1.nextDouble(); r1.nextDouble();}
-                				  else
-                				  {
-                				  debuts[j]=r1.nextDouble(); 
-                				  fins[j]=r1.nextDouble(); 
-                				  controles.add(new Pos3D(debuts[j],0,fins[j]));
-                				  }
-                			  }// for j
+                			
+                				  double debut=r1.nextDouble(); 
+                				  double fin=r1.nextDouble(); 
+                				  controles.add(new Pos3D(debut,0,fin));
+                				  System.out.println("ajouté "+new Pos3D(debut,0,fin));
+                				  
+                			 
                 			 
                 		  }// for i
                 		 // for(Pos3D conty:controles)System.out.println(conty); 
@@ -160,10 +153,10 @@ public class ReadInskscapeFileLongSpline {
                outputPovray.println("#declare lesSplines=array["+lesSplines.size()+"]\n;");
                int i=0; 
                for(BigSpline s: lesSplines){
-            	   System.out.println(s.toPovray(100,minx,maxx,miny,maxy) ); 
+            	   System.out.println(s.toPovray(3,minx,maxx,miny,maxy) ); 
             	   System.out.println("#declare lesSplines["+i+"]=Spline"+i+";\n");
             	  
-            	   outputPovray.println(s.toPovray(100,minx,maxx,miny,maxy) ); 
+            	   outputPovray.println(s.toPovray(3,minx,maxx,miny,maxy) ); 
             	   outputPovray.println("#declare lesSplines["+i+"]=Spline"+i+";\n");
             	   i++; 
                }
@@ -175,7 +168,7 @@ public class ReadInskscapeFileLongSpline {
              //output.close(); 
               
           } 
-          catch (Exception e){System.out.println(e); 
+          catch (Exception e){System.out.println("----->"+e); 
                   e.printStackTrace(); System.exit(0);
           }
   }

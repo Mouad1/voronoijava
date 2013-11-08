@@ -78,9 +78,10 @@ public class BigSpline {
 		
 		
 		resu+="#declare Spline"+numero+"=spline{\n"; 
-		resu+="natural_spline\n"; 
-		for(int i=0;i<=nbDiv;i++)
+		resu+="linear_spline\n"; 
+		for(int i=0;i<nbDiv;i++)
 		resu+=((i+0.0)/nbDiv)+","+vtrans(computePoint((i+0.0)/nbDiv),-xcenter,-ycenter,rap);  
+		resu+="1.0,"+vtrans(computePoint(0.0),-xcenter,-ycenter,rap);  
 		resu+="}\n";
 		return resu;
 	}
