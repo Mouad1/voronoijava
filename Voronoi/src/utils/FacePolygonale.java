@@ -138,5 +138,9 @@ public class FacePolygonale {
 	public Vertex getExtrem2() {
 		return extrem2;
 	}
+
+	public ArrayList<Vertex> getSommets() {
+		return this.lesSommets; 
+	}
 	
 }
