@@ -21,7 +21,7 @@ import utils.Transfo;
 import utils.Vertex;
 import utils.Pos3D; 
 
-public class OffReader3DCylindersMeshToPython {
+public class OffReader3DCylindersLamp {
 	
 	private Random generator=new Random(); 
 	private  ArrayList<Vertex> lesCentresDesFaces=new ArrayList<Vertex>(); 
@@ -39,7 +39,7 @@ public class OffReader3DCylindersMeshToPython {
 	private ArrayList<FaceTriangulaire> lesFacesTriangulaires=new ArrayList<FaceTriangulaire>(); 
 	private ArrayList<FacePolygonale> lesFacesPolygonales=new ArrayList<FacePolygonale>();
 
-	private PrintStream output; 
+	private PrintStream output,outputPovray; 
 	
 
 	private double roundDecimals(double d) {
@@ -58,8 +58,8 @@ public class OffReader3DCylindersMeshToPython {
           try {
         	// output=new PrintStream("../../../../pearls/scene/geometry/polyhedra/archimedean/archi.txt");
         	// output=new PrintStream("../pearls/scene/geometry/playingcards/archimedean/"+nomFichierSource+".inc");
-        	  output=new PrintStream("dd.py"); 
-        	 // output=new PrintStream("F:/Povray/"+nomFichierSource+".py");
+        	  output=new PrintStream("F:/Povray/dd.py"); 
+        	  outputPovray=new PrintStream("F:/Povray/"+nomFichierSource+".inc");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
                   while(ligne.charAt(0)=='#') ligne=in.readLine();
@@ -191,7 +191,14 @@ public class OffReader3DCylindersMeshToPython {
                   System.out.println(lesFacesPolygonales.get(0)); 
                   output.close();	
                   
-             
+                  for(FacePolygonale fp: lesFacesPolygonales){
+                	  //sortir les cylindres
+                	  //calculer le centre
+                	  Vertex centre=new Vertex(0,0,0);
+                	  for(Vertex v:fp.getSommets())
+                		  centre=Vertex.add(centre,v); 
+                	  Vertex.mul(centre, 0.2); 
+                  }
             
                
                 
@@ -201,7 +208,7 @@ public class OffReader3DCylindersMeshToPython {
   }
 	  public static void main(String args[]) {
           // new TestIO().copieFichierTexte("essai.txt","output.txt");
-          OffReader3DCylindersMeshToPython toto=new OffReader3DCylindersMeshToPython(); 
+          OffReader3DCylindersLamp toto=new OffReader3DCylindersLamp(); 
          
           toto.afficheFichierTexte("pentagonal_icositetrahedron"); 
          
