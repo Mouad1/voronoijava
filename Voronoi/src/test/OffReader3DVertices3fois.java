@@ -32,9 +32,9 @@ public class OffReader3DVertices3fois {
 	private  ArrayList<Vertex> lesCentresDesFaces=new ArrayList<Vertex>(); 
 	private  ArrayList<Vertex> lesNormales=new ArrayList<Vertex>(); 
 	public int nbVertices,nbFaces,nbAretes;
-	private static int roulette=2; 
-	private static int roulette2=7; 
-	private static int roulette3=50; 
+	private static int roulette=5; 
+	private static int roulette2=21; 
+	private static int roulette3=52; 
 	private String catena;
 	{
 		Locale.setDefault(Locale.US);
@@ -112,11 +112,11 @@ public class OffReader3DVertices3fois {
 		this.catena="./src/test/"+nomFichierSource+".off"; 
           File source = new File(catena);
           try {
-        	 output=new PrintStream("../povray/scene/geometry/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".inc");
-        	// output=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".inc");
+        	 //output=new PrintStream("../povray/scene/geometry/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".inc");
+        	output=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".inc");
         	 //outputBlender=new PrintStream("F:/Povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+".py");
-        	 //outputBlender=new PrintStream("C:/users/decomite/pictures/povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".py");
-        	 outputBlender=new PrintStream("C:/users/francesco/pictures/povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".py");
+        	 outputBlender=new PrintStream("C:/users/decomite/pictures/povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".py");
+        	 //outputBlender=new PrintStream("C:/users/francesco/pictures/povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".py");
         	  //output=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Test"+roulette+".inc");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
@@ -178,7 +178,7 @@ public class OffReader3DVertices3fois {
           OffReader3DVertices3fois toto=new OffReader3DVertices3fois(); 
          TreeSet<Double>lesDistances=new TreeSet<Double>(); 
        
-          toto.afficheFichierTexte("kite_icositetrahedron");
+          toto.afficheFichierTexte("pentagonal_hexecontahedron");
           
          
           
@@ -226,7 +226,7 @@ public class OffReader3DVertices3fois {
         	if(i==roulette){
         		for(VertexCouple wc:lc){
         		if(!dejavu.contains(wc.getV1())){
-        			 toto.output.println("sphere{"+wc.getV1()+",diam*coef  texture{T1} finish{F1}}");
+        			 toto.output.println("sphere{"+wc.getV1()+",diam*coef*2  texture{T1} finish{F1}}");
         		
         			 dejavu.add(wc.getV1());
         			 
@@ -246,7 +246,7 @@ public class OffReader3DVertices3fois {
         		}
         		
         		if(!dejavu.contains(wc.getV2())){
-       			 toto.output.println("sphere{"+wc.getV2()+",diam*coef  texture{T1} finish{F1}}");
+       			 toto.output.println("sphere{"+wc.getV2()+",diam*coef*2  texture{T1} finish{F1}}");
        			 dejavu.add(wc.getV2());
        			 
        			 
@@ -299,12 +299,12 @@ public class OffReader3DVertices3fois {
         			toto.output.println("cylinder{"+wc.getV1()+","+wc.getV2()+",diam texture{T1} finish{F1}}"); 
         		}
         	}
-        	 ///*
+   
         		if(i==roulette2){
         			number=0;
             		for(VertexCouple wc:lc){
             			if(!dejavu.contains(wc.getV1())){
-               			 toto.output.println("sphere{"+wc.getV1()+",diam*coef  texture{T2} finish{F2}}");
+               			 toto.output.println("sphere{"+wc.getV1()+",diam*coef*2  texture{T2} finish{F2}}");
                			 dejavu.add(wc.getV1());
                			 
                			 
@@ -326,7 +326,7 @@ public class OffReader3DVertices3fois {
                		}
                		if(!dejavu.contains(wc.getV2())){
                		
-              			 toto.output.println("sphere{"+wc.getV2()+",diam*coef  texture{T2} finish{F2}}");
+              			 toto.output.println("sphere{"+wc.getV2()+",diam*coef*2  texture{T2} finish{F2}}");
               			 dejavu.add(wc.getV2());
               			 
               			 
@@ -381,13 +381,13 @@ public class OffReader3DVertices3fois {
             		}
             		
         		}
-        	//	*/
+       
         		
         		if(i==roulette3){
         			number=0; 
             		for(VertexCouple wc:lc){
             			if(!dejavu.contains(wc.getV1())){
-               			 toto.output.println("sphere{"+wc.getV1()+",diam*coef  texture{T3} finish{F3}}");
+               			 toto.output.println("sphere{"+wc.getV1()+",diam*coef*2  texture{T3} finish{F3}}");
                			 dejavu.add(wc.getV1());
                			 
                			 
@@ -406,7 +406,7 @@ public class OffReader3DVertices3fois {
                			 
                		}
                		if(!dejavu.contains(wc.getV2())){
-              			 toto.output.println("sphere{"+wc.getV2()+",diam*coef  texture{T3} finish{F3}}");
+              			 toto.output.println("sphere{"+wc.getV2()+",diam*coef*2  texture{T3} finish{F3}}");
               			 dejavu.add(wc.getV2());
               			 
               			 
