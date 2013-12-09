@@ -32,9 +32,11 @@ public class OffReader3DVertices3fois {
 	private  ArrayList<Vertex> lesCentresDesFaces=new ArrayList<Vertex>(); 
 	private  ArrayList<Vertex> lesNormales=new ArrayList<Vertex>(); 
 	public int nbVertices,nbFaces,nbAretes;
+
 	private static int roulette=21; 
 	private static int roulette2=80; 
 	private static int roulette3=80; 
+
 	private String catena;
 	{
 		Locale.setDefault(Locale.US);
@@ -62,7 +64,7 @@ public class OffReader3DVertices3fois {
 			}
 		}
 			if(deja.size()>maxsize){
-				maxsize=deja.size(); 
+				maxsize=deja.size); 
 				System.out.println("\t\t\t\t\t\t\t\t nouvelle taille max "+deja.size()+"("+nn+")"+nbVertices);
 				
 				for(int i=0;i<deja.size();i++){
