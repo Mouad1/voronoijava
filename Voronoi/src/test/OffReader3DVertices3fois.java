@@ -33,8 +33,8 @@ public class OffReader3DVertices3fois {
 	private  ArrayList<Vertex> lesNormales=new ArrayList<Vertex>(); 
 	public int nbVertices,nbFaces,nbAretes;
 
-	private static int roulette=29; 
-	private static int roulette2=80; 
+	private static int roulette=0; 
+	private static int roulette2=1; 
 	private static int roulette3=80; 
 
 	private String catena;
