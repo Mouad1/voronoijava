@@ -1,0 +1,30 @@
+function distance(v1,v2){
+  return Math.sqrt((v1.x-v2.x)*(v1.x-v2.x)+(v1.y-v2.y)*(v1.y-v2.y)+(v1.z-v2.z)*(v1.z-v2.z));
+}
+
+// Gabriella 1
+function main(args) {
+  var radCirc = args[0]*MM;
+  var nbCircles = args[1];
+  var Rout=10*MM;
+  var Rin=0.15*MM;
+  var union=new Union();
+  var dim=16;
+  var grid = createGrid(-dim*MM,dim*MM,-dim*MM,dim*MM,-dim*MM,dim*MM,0.1*MM);
+  var origin=new Vector3d(radCirc,0,0);
+  for(var i=0; i<nbCircles;i++){
+    var u=new Vector3d(radCirc*Math.cos(2*i*Math.PI/(0.0+nbCircles)),radCirc*Math.sin(2*i*Math.PI/(0.0+nbCircles)),0);
+    var totor=new Torus(origin,distance(u,origin),Rin);
+    var ct=new CompositeTransform();
+    var coef=Math.abs(Math.cos(0.5*(i/(0.0+nbCircles))));
+    ct.add(new Rotation(u,2*coef*Math.PI));
+    ct.add(new Translation(u.x,u.y,u.z));
+    totor.setTransform(ct);
+    union.add(totor);
+  }
+
+  var maker = new GridMaker();
+  maker.setSource(union);
+  maker.makeGrid(grid);
+  return grid;
+} 
