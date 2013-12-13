@@ -91,7 +91,7 @@ scn = Scene.GetCurrent()
 
 
 
-epaisseur=0.025
+epaisseur=0.0125
 first=1
 #fichier=open('C:\Users\decomite\workspace\imageJ\cardioidBlender.txt')
 fichier=open('C:/users/decomite/pictures/povray/cardioidBlender.txt')
@@ -112,7 +112,8 @@ try:
    rotata=RotationMatrix(roto,4,"x")
    #rotata=RotationMatrix(roto*180/pi,4,"x")
    myMesh.transform(rotata)	
-   trans=TranslationMatrix(Vector(radio,0,0))
+   #trans=TranslationMatrix(Vector(radio,0,0))
+   trans=TranslationMatrix(Vector(1,0,0))
    myMesh.transform(trans)
    rotata=RotationMatrix(atan2(x1,y1)*180/pi,4,"z")	
    myMesh.transform(rotata)	
