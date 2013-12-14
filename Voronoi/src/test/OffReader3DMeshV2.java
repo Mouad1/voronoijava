@@ -393,7 +393,7 @@ public class OffReader3DMeshV2 {
 
 
 
-          toto.afficheFichierTexte("rhombic_dodecahedron",true);
+          toto.afficheFichierTexte("disdyakis_dodecahedron",true);
 
 
 
