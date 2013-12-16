@@ -393,7 +393,7 @@ public class OffReader3DMeshV2 {
 
 
 
-          toto.afficheFichierTexte("disdyakis_dodecahedron",true);
+          toto.afficheFichierTexte("kite_hexecontahedron",true);
 
 
 

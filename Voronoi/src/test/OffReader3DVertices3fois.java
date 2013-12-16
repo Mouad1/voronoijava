@@ -33,9 +33,10 @@ public class OffReader3DVertices3fois {
 	private  ArrayList<Vertex> lesNormales=new ArrayList<Vertex>(); 
 	public int nbVertices,nbFaces,nbAretes;
 
-	private static int roulette=25; 
-	private static int roulette2=30; 
-	private static int roulette3=39; 
+	private static int roulette=32; 
+	private static int roulette2=12; 
+	private static int roulette3=32; 
+	
 
 	private String catena;
 	{
@@ -114,11 +115,11 @@ public class OffReader3DVertices3fois {
 		this.catena="./src/test/"+nomFichierSource+".off"; 
           File source = new File(catena);
           try {
-        	 output=new PrintStream("../povray/scene/geometry/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".inc");
-        	//output=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".inc");
+        	 //output=new PrintStream("../povray/scene/geometry/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".inc");
+        	output=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".inc");
         	 //outputBlender=new PrintStream("F:/Povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+".py");
-        	 //outputBlender=new PrintStream("C:/users/decomite/pictures/povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".py");
-        	 outputBlender=new PrintStream("C:/users/francesco/pictures/povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".py");
+        	 outputBlender=new PrintStream("C:/users/decomite/pictures/povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".py");
+        	 //outputBlender=new PrintStream("C:/users/francesco/pictures/povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".py");
         	  //output=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Test"+roulette+".inc");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
@@ -179,8 +180,11 @@ public class OffReader3DVertices3fois {
           // new TestIO().copieFichierTexte("essai.txt","output.txt");
           OffReader3DVertices3fois toto=new OffReader3DVertices3fois(); 
          TreeSet<Double>lesDistances=new TreeSet<Double>(); 
-       
-          toto.afficheFichierTexte("truncated_icosidodecahedron");
+         
+       /* ------------------------------------ ICI ---------------------------------------------------------------------*/
+         
+         
+          toto.afficheFichierTexte("kite_hexecontahedron");
           
          
           
@@ -289,10 +293,10 @@ public class OffReader3DVertices3fois {
            	      
            	     
            	      if(number==0)
-           	    	  toto.outputBlender.println("ob=scene.objects.new(me,'pieceA"+number+"')");
+           	    	  toto.outputBlender.println("ob=scene.objects.new(me,'pieceU"+number+"')");
            	      else
            	      {
-           	    	 toto.outputBlender.println("localOb=scene.objects.new(me,'pieceA"+number+"')");
+           	    	 toto.outputBlender.println("localOb=scene.objects.new(me,'pieceU"+number+"')");
            	    	 toto.outputBlender.println("ob.join([localOb])");
            	    	 toto.outputBlender.println("scene.objects.unlink(localOb)");
            	      }
