@@ -33,9 +33,9 @@ public class OffReader3DVertices3fois {
 	private  ArrayList<Vertex> lesNormales=new ArrayList<Vertex>(); 
 	public int nbVertices,nbFaces,nbAretes;
 
-	private static int roulette=32; 
-	private static int roulette2=12; 
-	private static int roulette3=32; 
+	private static int roulette=3; 
+	private static int roulette2=14; 
+	private static int roulette3=18; 
 	
 
 	private String catena;
@@ -184,7 +184,7 @@ public class OffReader3DVertices3fois {
        /* ------------------------------------ ICI ---------------------------------------------------------------------*/
          
          
-          toto.afficheFichierTexte("kite_hexecontahedron");
+          toto.afficheFichierTexte("snub_icosidodecahedron");
           
          
           
