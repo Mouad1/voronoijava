@@ -91,7 +91,7 @@ scn = Scene.GetCurrent()
 
 
 
-epaisseur=0.0125
+epaisseur=0.025
 first=1
 #fichier=open('C:\Users\decomite\workspace\imageJ\cardioidBlender.txt')
 fichier=open('C:/users/decomite/pictures/povray/cardioidBlender.txt')
@@ -105,18 +105,20 @@ try:
   radio=float(listeNbrs[0])
   x1=float(listeNbrs[1])
   y1=float(listeNbrs[2])
-  roto=float(listeNbrs[3])	
+#Pour des vieilles versions (sinon roto est direct good en degres)
+  roto=180/pi*float(listeNbrs[3])*sqrt(2)	
   if (radio>epaisseur):
    #myMesh=ruban(radio,epaisseur,epaisseur,120)	
-   myMesh=myTorus(radio,epaisseur,80,8)	
+   myMesh=myTorus(radio,epaisseur,80,8)
+   
    rotata=RotationMatrix(roto,4,"x")
    #rotata=RotationMatrix(roto*180/pi,4,"x")
    myMesh.transform(rotata)	
    #trans=TranslationMatrix(Vector(radio,0,0))
-   trans=TranslationMatrix(Vector(1,0,0))
-   myMesh.transform(trans)
+   trans=TranslationMatrix(Vector(x1,y1,0))
+   myMesh.transform(trans)	
    rotata=RotationMatrix(atan2(x1,y1)*180/pi,4,"z")	
-   myMesh.transform(rotata)	
+   #myMesh.transform(rotata)	
   
    if(first==1):
     ob=scn.objects.new(myMesh,'basic')
