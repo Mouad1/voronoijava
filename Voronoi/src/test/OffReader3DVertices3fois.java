@@ -33,6 +33,7 @@ public class OffReader3DVertices3fois {
 	private  ArrayList<Vertex> lesNormales=new ArrayList<Vertex>(); 
 	public int nbVertices,nbFaces,nbAretes;
 
+
 	private static int roulette=3; 
 	private static int roulette2=14; 
 	private static int roulette3=18; 
@@ -180,12 +181,13 @@ public class OffReader3DVertices3fois {
           // new TestIO().copieFichierTexte("essai.txt","output.txt");
           OffReader3DVertices3fois toto=new OffReader3DVertices3fois(); 
          TreeSet<Double>lesDistances=new TreeSet<Double>(); 
+
          
        /* ------------------------------------ ICI ---------------------------------------------------------------------*/
          
          
-          toto.afficheFichierTexte("snub_icosidodecahedron");
-          
+          toto.afficheFichierTexte("pentagonal_icosidodecahedron");
+
          
           
           for(int i=0;i<toto.vertices.size();i++){
