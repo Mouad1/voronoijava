@@ -355,7 +355,7 @@ coef=2
 #execfile('F:/Povray/knotCage.py')
 
 #execfile('C:/Users/decomite/Pictures/povray/filaire.py')
-execfile('F:/Povray/filaire.py')
+#execfile('F:/Povray/filaire.py')
 
 #execfile('C:/Users/decomite/Pictures/povray/sinesurface.py')
 #execfile('C:/Users/decomite/Pictures/povray/ruled.py')
@@ -371,6 +371,7 @@ execfile('F:/Povray/filaire.py')
 #execfile('F:\Povray\jp.txt')
 #Pour les labyrinthes
 #execfile('C:/users/decomite/pictures/povray/laby.py')
+execfile('C:/users/francesco/pictures/povray/snub_cuboctahedronTest2_5_8.py')
 
 """
 #######################################
