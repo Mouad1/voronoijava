@@ -35,10 +35,9 @@ public class OffReader3DVertices3fois {
 
 
 
-	private static int roulette=3; 
-
-	private static int roulette2=14; 
-	private static int roulette3=19; 
+	private static int roulette=6;
+	private static int roulette2=12; 
+	private static int roulette3=22; 
 	
 
 	private String catena;
@@ -188,7 +187,7 @@ public class OffReader3DVertices3fois {
        /* ------------------------------------ ICI ---------------------------------------------------------------------*/
          
          
-          toto.afficheFichierTexte("pentagonal_icosidodecahedron");
+          toto.afficheFichierTexte("snub_icosidodecahedron");
 
          
           
