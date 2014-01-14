@@ -35,9 +35,9 @@ public class OffReader3DVertices3fois {
 
 
 
-	private static int roulette=6;
-	private static int roulette2=12; 
-	private static int roulette3=22; 
+	private static int roulette=11;
+	private static int roulette2=13; 
+	private static int roulette3=20; 
 	
 
 	private String catena;
