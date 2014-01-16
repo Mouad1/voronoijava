@@ -51,7 +51,7 @@ from math import pi,cos,sin
 
 
 def translate(p,r):
- me=Mesh.Primitives.UVsphere(14,14,r)
+ me=Mesh.Primitives.UVsphere(12,12,r)
  dir=Vector(p)
  A = Matrix(
     [1,0,0,0],
@@ -281,8 +281,8 @@ for ob in scene.objects:
    if (cmp(ob.getName(),'Cube')==0):
     scene.objects.unlink(ob)
 
-nbf=12
-diam=0.01
+nbf=8
+diam=0.022
 rati=0.3
 
 #execfile('C:\Users\decomite\Pictures\povray\output povray\spline.py')
@@ -293,7 +293,7 @@ rati=0.3
 #execfile('C:/users/decomite/pictures/povray/spline.py')
 #Pour les cadres en couleur
 #execfile('C:/users/decomite/pictures/povray/color.txt')
-execfile('C:/users/decomite/pictures/povray/pentagonal_hexecontahedronTest2_17_25.py')
+execfile('C:/users/decomite/pictures/povray/pentagonal_hexecontahedronTest39_17_63.py')
 
 """
 #######################################
