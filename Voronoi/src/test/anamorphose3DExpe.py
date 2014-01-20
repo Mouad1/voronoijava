@@ -162,7 +162,7 @@ def couronne(d1,nbFaces,l):
  
 
 def lineSegMe(p1,p2,d1,nbFaces):
- 
+ global number
  # use the class constructors from Blender to form vectors for p1 and p2
  p1 = Vector(p1)
  p2 = Vector(p2)
@@ -175,6 +175,7 @@ def lineSegMe(p1,p2,d1,nbFaces):
  # get the length of the line we want that goes from p1 to p2
  length = dir.length
  
+ 
 
  me=couronne(d1,nbFaces,length)
 
@@ -182,11 +183,18 @@ def lineSegMe(p1,p2,d1,nbFaces):
  u = dir
  uu = Vector([0,0,1.0])
  theta=AngleBetweenVecs(u,uu)
+ #print "theta degres ",theta
  theta= theta/180*3.141592
- print "theta ",theta
- if abs(AngleBetweenVecs(u,uu))>1e-6:
+ #print "theta ",theta
+ if(abs(AngleBetweenVecs(u,uu)<1e-5))|(abs(AngleBetweenVecs(u,uu)-180)<1e-5):
+  uu = Vector([1.0,0,0])	
+ if abs(AngleBetweenVecs(u,uu))>1e-9:
 
   v = CrossVecs(u,uu)
+  print "u ",u[0]," ",u[1]," ",u[2] 
+  print "uu ",uu[0]," ",uu[1]," ",uu[2]
+  print "Angle ", AngleBetweenVecs(u,uu)
+  print "les V ",v[0]," ",v[1]," ",v[2] 
   w = CrossVecs(u,v)
   v.normalize()
   w.normalize()
@@ -194,10 +202,12 @@ def lineSegMe(p1,p2,d1,nbFaces):
   uy=v[1]
   uz=v[2]
  
+  #print "lesU ",ux," ",uy," ",uz
+
   a11=ux*ux+(1-ux*ux)*cos(theta)
   a12=ux*uy*(1-cos(theta))-uz*sin(theta)
   a13=ux*uz*(1-cos(theta))+uy*sin(theta)
-  print "X ",a11," ",a12," ",a13
+  #print "X ",a11," ",a12," ",a13
 
   a21=ux*uy*(1-cos(theta))+uz*sin(theta)
   a22=uy*uy+(1-uy*uy)*cos(theta)
@@ -231,10 +241,12 @@ def lineSegMe(p1,p2,d1,nbFaces):
     [p1[0],p1[1],p1[2],1])
    
 
- # apply the transform to the cylinder  
-
+ # apply the transform to the cylinder 
+ if (number>29)&(number<40): 
+  print me.verts[1][0]
  me.transform(A,True)
- 
+ if (number>29)&(number<40):
+  print "after ",me.verts[1][0]
  return me.verts,me.verts[0:nbFaces+1],me.verts[1:nbFaces+1],me.verts[1+nbFaces:1+1+2*nbFaces],me
 
  
@@ -251,6 +263,9 @@ def rotate(an):
 
 
 def meshify(meche,nbFaces):
+ global number	
+ print "meshify ",number
+ number=number+1	
  nbtranches=(len(meche.verts)-1)/nbFaces
  #print "xxx---->",nbtranches
  for j in range(0,nbtranches-1):
@@ -262,15 +277,17 @@ def meshify(meche,nbFaces):
    x2=Vector(meche.verts[1+k+(j+1)*nbFaces])
    x3=x2-x1
    candidat=x3.length
+   #print "candidat ",candidat," ",x2
    if(candidat<dmin):
     dmin=candidat
     kcandidat=k
-
+  #print dmin 
   for i in range(0,nbFaces):
 # c'est ici qu'il va falloir changer des trucs
 # prendre 1+j*nbFaces et (i+k)%nbFAces+(j+1)*nbFaces
 # pour k variant entre 0 et nbFaces-1
 #garder le k qui minimise la distance entre les deux sommets
+   
    face=NMesh.Face()
    face.append(meche.verts[1+i+j*nbFaces])
    face.append(meche.verts[1+j*nbFaces+((i+1)%nbFaces)])
@@ -307,10 +324,12 @@ for ob in scene.objects:
    if (cmp(ob.getName(),'Cube')==0):
     scene.objects.unlink(ob)
 
-nbf=12
-diam=0.5
+nbf=8
+diam=0.02
 rati=0.8
+number=0
 
+execfile('C:/users/decomite/pictures/povray/icosidodecahedronTout.py')
 #execfile('C:\Users\decomite\Pictures\povray\output povray\spline.py')
 
 #execfile('C:/Users/decomite/Pictures/povray/ruled.py')
@@ -318,7 +337,7 @@ rati=0.8
 #execfile('C:/users/decomite/pictures/povray/t4b.txt')
 #Pour les anamorphoses
 #execfile('C:/users/decomite/pictures/povray/spline.py')
-execfile('F:/Povray/spline.py')
+#execfile('F:/Povray/spline.py')
 #Pour les cadres en couleur*
 # Portable
 #execfile('C:/users/decomite/pictures/povray/color.txt')
