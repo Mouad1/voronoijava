@@ -28,7 +28,7 @@ import utils.VertexCouple;
 
 public class OffReader3DVerticesToutes {
 	
-	private static Random generator=new Random(); 
+	private static Random generator=new Random(1215); 
 	private  ArrayList<Vertex> lesCentresDesFaces=new ArrayList<Vertex>(); 
 	private  ArrayList<Vertex> lesNormales=new ArrayList<Vertex>(); 
 	public int nbVertices,nbFaces,nbAretes;
@@ -187,7 +187,7 @@ public class OffReader3DVerticesToutes {
        /* ------------------------------------ ICI ---------------------------------------------------------------------*/
          
          
-          toto.afficheFichierTexte("icosidodecahedron");
+          toto.afficheFichierTexte("truncated_dodecahedron");
 
          
           
