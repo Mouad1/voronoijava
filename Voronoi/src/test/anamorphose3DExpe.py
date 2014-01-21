@@ -191,10 +191,10 @@ def lineSegMe(p1,p2,d1,nbFaces):
  if abs(AngleBetweenVecs(u,uu))>1e-9:
 
   v = CrossVecs(u,uu)
-  print "u ",u[0]," ",u[1]," ",u[2] 
-  print "uu ",uu[0]," ",uu[1]," ",uu[2]
-  print "Angle ", AngleBetweenVecs(u,uu)
-  print "les V ",v[0]," ",v[1]," ",v[2] 
+  #print "u ",u[0]," ",u[1]," ",u[2] 
+  #print "uu ",uu[0]," ",uu[1]," ",uu[2]
+  #print "Angle ", AngleBetweenVecs(u,uu)
+  #print "les V ",v[0]," ",v[1]," ",v[2] 
   w = CrossVecs(u,v)
   v.normalize()
   w.normalize()
@@ -242,11 +242,11 @@ def lineSegMe(p1,p2,d1,nbFaces):
    
 
  # apply the transform to the cylinder 
- if (number>29)&(number<40): 
-  print me.verts[1][0]
+ #if (number>29)&(number<40): 
+  #print me.verts[1][0]
  me.transform(A,True)
- if (number>29)&(number<40):
-  print "after ",me.verts[1][0]
+ #if (number>29)&(number<40):
+  #print "after ",me.verts[1][0]
  return me.verts,me.verts[0:nbFaces+1],me.verts[1:nbFaces+1],me.verts[1+nbFaces:1+1+2*nbFaces],me
 
  
@@ -329,7 +329,7 @@ diam=0.02
 rati=0.8
 number=0
 
-execfile('C:/users/decomite/pictures/povray/icosidodecahedronTout.py')
+execfile('C:/users/decomite/pictures/povray/truncated_icosidodecahedronTout.py')
 #execfile('C:\Users\decomite\Pictures\povray\output povray\spline.py')
 
 #execfile('C:/Users/decomite/Pictures/povray/ruled.py')
