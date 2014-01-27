@@ -188,7 +188,9 @@ public class OffReader3DVerticesToutes {
          
          
 
+
           toto.afficheFichierTexte("truncated_dodecahedron");
+
 
 
          
