@@ -264,7 +264,7 @@ def rotate(an):
 
 def meshify(meche,nbFaces):
  global number	
- print "meshify ",number
+ #print "meshify ",number
  number=number+1	
  nbtranches=(len(meche.verts)-1)/nbFaces
  #print "xxx---->",nbtranches
@@ -329,7 +329,7 @@ diam=0.02
 rati=0.8
 number=0
 
-execfile('C:/users/decomite/pictures/povray/truncated_icosidodecahedronTout.py')
+execfile('C:/users/decomite/pictures/povray/truncated_cubeTout.py')
 #execfile('C:\Users\decomite\Pictures\povray\output povray\spline.py')
 
 #execfile('C:/Users/decomite/Pictures/povray/ruled.py')
