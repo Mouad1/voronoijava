@@ -114,7 +114,12 @@ public class SoupAutomat {
 		
 		//String s="........................................................................................2..................."; 
 
-		String s="9186543724.............."; 
+		//String s="11111111111111111111111111111111111"; // m1
+		//String s="1.........3.....5";  // 0
+		//String s="887"; //1
+		//String s="274771"; // 2
+		//String s="22605055"; // 3
+		String s="88664422210137577998866442251013557799"; // 4
 			
 		PrintStream output;  
 		int dist=120;
@@ -123,10 +128,10 @@ public class SoupAutomat {
 
 		try{
 
-			  output=new PrintStream("F:/Povray/soupautomat4.txt");
-			//output=new PrintStream("/tmp/soupautomat2.txt");
+			  //output=new PrintStream("F:/Povray/soupautomat1.txt");
+			//output=new PrintStream("/tmp/soupautomatm1.txt");
 
-			//output=new PrintStream("/tmp/soupautomat.txt");
+			output=new PrintStream("/tmp/soupautomat4.txt");
 		System.out.println("\""+sa+"\""); 
 		output.println("\""+sa+"\","+sa.minligne+","+sa.maxligne+",");
 
