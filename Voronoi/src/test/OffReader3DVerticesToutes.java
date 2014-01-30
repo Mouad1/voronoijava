@@ -189,7 +189,8 @@ public class OffReader3DVerticesToutes {
          
 
 
-          toto.afficheFichierTexte("truncated_dodecahedron");
+          toto.afficheFichierTexte("j83_tridiminished_rhombicosidodecahedron");
+
 
 
 
