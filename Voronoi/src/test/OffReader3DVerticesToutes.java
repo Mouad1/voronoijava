@@ -189,7 +189,7 @@ public class OffReader3DVerticesToutes {
          
 
 
-          //toto.afficheFichierTexte("disdyakis_triacontahedron");
+
 
           toto.afficheFichierTexte("kite_hexecontahedron");
 
