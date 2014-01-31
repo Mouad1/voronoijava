@@ -1,8 +1,11 @@
 package test;
 // COnstruire tous les distance-sets d'un polyèdre
+
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.text.DecimalFormat;
@@ -26,18 +29,13 @@ import utils.Vertex;
 import utils.Pos3D; 
 import utils.VertexCouple;
 
-public class OffReader3DVerticesToutes {
+public class OffReader3DVerticesToutesJohnsonSerie {
 	
 	private static Random generator=new Random(1215); 
 	private  ArrayList<Vertex> lesCentresDesFaces=new ArrayList<Vertex>(); 
 	private  ArrayList<Vertex> lesNormales=new ArrayList<Vertex>(); 
 	public int nbVertices,nbFaces,nbAretes;
 
-	
-
-	private static int roulette=39;
-	private static int roulette2=17; 
-	private static int roulette3=63; 
 	
 
 	private String catena;
@@ -120,9 +118,9 @@ public class OffReader3DVerticesToutes {
         	 //output=new PrintStream("../povray/scene/geometry/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".inc");
         	output=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Tout.inc");
         	 //outputBlender=new PrintStream("F:/Povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+".py");
-        	 outputBlender=new PrintStream("C:/users/decomite/pictures/povray/"+nomFichierSource+"Tout.py");
+        	 //outputBlender=new PrintStream("C:/users/decomite/pictures/povray/"+nomFichierSource+"Tout.py");
         	 //outputBlender=new PrintStream("C:/users/francesco/pictures/povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".py");
-        	  //outputBlender=new PrintStream("/tmp/"+nomFichierSource+"Tout.inc");
+        	  outputBlender=new PrintStream("/tmp/"+nomFichierSource+"Tout.inc");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
                   while(ligne.charAt(0)=='#') ligne=in.readLine();
@@ -178,24 +176,51 @@ public class OffReader3DVerticesToutes {
                   e.printStackTrace(); System.exit(0);
           }
   }
-	  public static void main(String args[]) {
+	
+	
+	public static String condense(String s){
+		String liste[]=s.split(" "); 
+		String resu=liste[1]; 
+		for(int i=2;i<liste.length-1;i++)
+			resu=resu+"_"+liste[i]; 
+		return resu; 
+	}
+	  public static void main(String args[]) throws Exception {
           // new TestIO().copieFichierTexte("essai.txt","output.txt");
-          OffReader3DVerticesToutes toto=new OffReader3DVerticesToutes(); 
+          OffReader3DVerticesToutesJohnsonSerie toto=new OffReader3DVerticesToutesJohnsonSerie(); 
          TreeSet<Double>lesDistances=new TreeSet<Double>(); 
 
          
        /* ------------------------------------ ICI ---------------------------------------------------------------------*/
          
-         
+         File dir = new File("./src/test/JohnsonIn");
+		   
+		    File[] list= dir.listFiles(new FilenameFilter() {
+		        public boolean accept(File dir, String name) {
+		            return name.toLowerCase().endsWith(".off");
+		        }
+		    });
 
+
+		    
+		    for (File f:list) {
+		    	String s=f.getName();
+		    	int num=Integer.parseInt(s.substring(0,s.indexOf('.')))-44; 
+		    	System.out.println(f.getName()+" "+num); 
+		    	BufferedReader in = new BufferedReader(new FileReader(f));
+                String ligne = in.readLine();
+                ligne=condense(ligne); 
+                System.out.println(ligne); 
+                in.close();
+		    	f.renameTo(new File("./src/test/JohnsonOff/"+ligne+".off"));
+		    }
+
+	         System.exit(0); 
 
           //toto.afficheFichierTexte("disdyakis_triacontahedron");
 
-          toto.afficheFichierTexte("kite_hexecontahedron");
-
-
-
-         
+          //toto.afficheFichierTexte("./src/test/JohnsonOff/"+ligne);
+		   
           
           for(int i=0;i<toto.vertices.size();i++){
         	  Vertex v1=toto.vertices.get(i); 
