@@ -29,8 +29,8 @@ public class OffReader3DVertices {
 	private  ArrayList<Vertex> lesCentresDesFaces=new ArrayList<Vertex>(); 
 	private  ArrayList<Vertex> lesNormales=new ArrayList<Vertex>(); 
 	public int nbVertices,nbFaces,nbAretes;
-	private static int roulette=7; 
-	private static int roulette2=9; 
+	private static int roulette=38; 
+	private static int roulette2=90; 
 	private String catena;
 	{
 		Locale.setDefault(Locale.US);
@@ -104,13 +104,14 @@ public class OffReader3DVertices {
 	public void afficheFichierTexte(String nomFichierSource) {
 			//this.catena="C:/Documents and Settings/moi/workspace/Voronoi/src/test/"+nomFichierSource+".off";
 		//this.catena="/tmp/"+nomFichierSource+".off"; 
-		this.catena="./src/test/"+nomFichierSource+".off"; 
+		this.catena="./src/test/JohnsonOff/"+nomFichierSource+".off"; 
           File source = new File(catena);
           try {
         	// output=new PrintStream("../../../../pearls/scene/geometry/polyhedra/archimedean/archi.txt");
-        	 output=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Test"+roulette+"_"+roulette2+".inc");
-        	 //outputBlender=new PrintStream("F:/Povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+".py");
-        	 outputBlender=new PrintStream("C:/users/decomite/pictures/povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+".py");
+        	 //output=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Test"+roulette+"_"+roulette2+".inc");
+        	 output=new PrintStream("../povray/scene/geometry/"+nomFichierSource+"Test"+roulette+"_"+roulette2+".inc");
+        	 outputBlender=new PrintStream("H:/Povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+".py");
+        	 //outputBlender=new PrintStream("C:/users/decomite/pictures/povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+".py");
         	  //output=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Test"+roulette+".inc");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
@@ -172,7 +173,7 @@ public class OffReader3DVertices {
           OffReader3DVertices toto=new OffReader3DVertices(); 
          TreeSet<Double>lesDistances=new TreeSet<Double>(); 
        
-          toto.afficheFichierTexte("kite_hexecontahedron");
+          toto.afficheFichierTexte("gyroelongated_pentagonal_cupolarotunda");
           for(int i=0;i<toto.vertices.size();i++){
         	  Vertex v1=toto.vertices.get(i); 
         	  for(int j=i+1;j<toto.vertices.size();j++){
