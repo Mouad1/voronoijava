@@ -23,8 +23,7 @@ public class Position {
 		this.x = x;
 		this.y = y;
 		this.z=z; 
-	}
-	
+	} 
 	public boolean equals(Object o) {
 		if (! (o instanceof Position)) {
 			return false;
