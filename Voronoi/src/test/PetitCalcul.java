@@ -39,5 +39,11 @@ public class PetitCalcul {
 		alphaZ=num.getZ()/denom.getZ();
 		System.out.println("X "+alphaX+" Y "+alphaY+" Z "+alphaZ); 
 		
+		System.out.println(Pos3D.distance(P3, P7)); 
+		System.out.println(Pos3D.distance(P1, P7));
+		System.out.println(Pos3D.distance(P3, P5));
+		System.out.println(Pos3D.distance(P3, P5)/Pos3D.distance(P3, P7)); 
+		
+		
 	}
 }
