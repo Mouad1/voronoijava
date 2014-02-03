@@ -118,9 +118,11 @@ public class JohnsonConvert {
         	 //output=new PrintStream("../povray/scene/geometry/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".inc");
         	output=new PrintStream("../povray/scene/geometry/"+nomFichierSource+"Tout.inc");
         	 //outputBlender=new PrintStream("F:/Povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+".py");
-        	 //outputBlender=new PrintStream("C:/users/decomite/pictures/povray/"+nomFichierSource+"Tout.py");
+        	 outputBlender=new PrintStream("C:/users/decomite/pictures/povray/"+nomFichierSource+"Tout.py");
+
         	 outputBlender=new PrintStream("C:/users/francesco/pictures/povray/"+nomFichierSource+"Tout.py");
         	 // outputBlender=new PrintStream("/tmp/"+nomFichierSource+"Tout.inc");
+
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
                   while(ligne.charAt(0)=='#') ligne=in.readLine();
@@ -195,6 +197,9 @@ public class JohnsonConvert {
 		    System.out.println(dir.getName()); 
 		    for (File f:list) {
 		    	String s=f.getName();
+		    	if (!s.equals(".svn"))
+		    	{
+		    	System.out.println("---->"+s);
 		    	 JohnsonConvert toto=new JohnsonConvert(); 
 		    	toto.afficheFichierTexte(s.substring(0, s.indexOf('.')));
 		    	 TreeSet<Double>lesDistances=new TreeSet<Double>(); 
@@ -323,6 +328,7 @@ public class JohnsonConvert {
       
       toto.output.close();
 		    }
+		    }// if svn
         
 	  }// main
 	
