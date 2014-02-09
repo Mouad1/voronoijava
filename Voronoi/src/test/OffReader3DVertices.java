@@ -29,8 +29,8 @@ public class OffReader3DVertices {
 	private  ArrayList<Vertex> lesCentresDesFaces=new ArrayList<Vertex>(); 
 	private  ArrayList<Vertex> lesNormales=new ArrayList<Vertex>(); 
 	public int nbVertices,nbFaces,nbAretes;
-	private static int roulette=38; 
-	private static int roulette2=90; 
+	private static int roulette=9; 
+	private static int roulette2=190; 
 	private String catena;
 	{
 		Locale.setDefault(Locale.US);
@@ -173,7 +173,7 @@ public class OffReader3DVertices {
           OffReader3DVertices toto=new OffReader3DVertices(); 
          TreeSet<Double>lesDistances=new TreeSet<Double>(); 
        
-          toto.afficheFichierTexte("gyroelongated_pentagonal_cupolarotunda");
+          toto.afficheFichierTexte("trigyrate_rhombicosidodecahedron");
           for(int i=0;i<toto.vertices.size();i++){
         	  Vertex v1=toto.vertices.get(i); 
         	  for(int j=i+1;j<toto.vertices.size();j++){
