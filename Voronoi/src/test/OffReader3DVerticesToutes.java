@@ -191,7 +191,7 @@ public class OffReader3DVerticesToutes {
 
 
 
-          toto.afficheFichierTexte("gyroelongated_pentagonal_cupolarotunda");
+          toto.afficheFichierTexte("triaugmented_truncated_dodecahedron");
 
 
 

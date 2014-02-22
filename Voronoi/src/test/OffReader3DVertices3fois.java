@@ -36,9 +36,9 @@ public class OffReader3DVertices3fois {
 
 
 
-	private static int roulette=39;
-	private static int roulette2=17; 
-	private static int roulette3=63; 
+	private static int roulette=12;
+	private static int roulette2=7; 
+	private static int roulette3=23; 
 
 
 	private String catena;
@@ -115,7 +115,8 @@ public class OffReader3DVertices3fois {
 	public void afficheFichierTexte(String nomFichierSource) {
 			//this.catena="C:/Documents and Settings/moi/workspace/Voronoi/src/test/"+nomFichierSource+".off";
 		//this.catena="/tmp/"+nomFichierSource+".off"; 
-		this.catena="./src/test/"+nomFichierSource+".off"; 
+		//this.catena="./src/test/"+nomFichierSource+".off"; 
+		  this.catena="../Voronoi/bin/test/JohnsonOff/"+nomFichierSource+".off";
           File source = new File(catena);
           try {
         	 output=new PrintStream("../povray/scene/geometry/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".inc");
@@ -125,7 +126,7 @@ public class OffReader3DVertices3fois {
         	 //outputBlender=new PrintStream("C:/users/decomite/pictures/povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".py");
         	 outputBlender=new PrintStream("C:/users/francesco/pictures/povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".py");
 
-        	  outputBlender=new PrintStream("/tmp/"+nomFichierSource+"Test"+roulette+".inc");
+        	 //outputBlender=new PrintStream("/tmp/"+nomFichierSource+"Test"+roulette+".inc");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
                   while(ligne.charAt(0)=='#') ligne=in.readLine();
@@ -190,7 +191,7 @@ public class OffReader3DVertices3fois {
        /* ------------------------------------ ICI ---------------------------------------------------------------------*/
          
          
-          toto.afficheFichierTexte("pentagonal_hexecontahedron");
+          toto.afficheFichierTexte("metabiaugmented_truncated_dodecahedron");
 
          
           
