@@ -233,7 +233,7 @@ public class OffReader3DVerticesToutes {
           int i=0; 
           // Map<String, Float> map = new TreeMap<String, Float>(yourMap);
           Map<Double, DistList> distAndCouples2 = new TreeMap<Double, DistList>(distAndCouples);
-          
+         // TODO choisir des couleurs non aleatoires 
         for(DistList dl:distAndCouples2.values()){
         	ArrayList<VertexCouple> lc=dl.getLesCouples(); 
         	VertexCouple vc=lc.get(0); 
