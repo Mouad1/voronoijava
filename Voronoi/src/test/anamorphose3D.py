@@ -293,8 +293,8 @@ rati=0.3
 #execfile('C:/users/decomite/pictures/povray/spline.py')
 #Pour les cadres en couleur
 #execfile('C:/users/decomite/pictures/povray/color.txt')
-execfile('C:/users/decomite/pictures/povray/pentagonal_hexecontahedronTest39_17_63.py')
-
+#execfile('C:/users/francesco/pictures/povray/triaugmented_truncated_dodecahedronTout.py')
+execfile('C:/tmp/eggCup.inc')
 """
 #######################################
 # render the image and save the image

@@ -26,7 +26,7 @@ public class FaroOutGeneral {
 		int turn=0; 
 		for(int i=0;i<2*n;i++) tab[i]=i;
 		do{
-			//affiche(tab); 
+			affiche(tab); 
 			int aux[]=new int[2*n]; 
 			for (int j=0;j<n;j++)
 				aux[2*j]=tab[j]; 
@@ -35,13 +35,15 @@ public class FaroOutGeneral {
 		System.arraycopy(aux,0,tab, 0,2*n);
 		turn++; 
 		}while(!isSorted(tab));
-		//affiche(tab); 
+		affiche(tab); 
 		return turn; 
 	}
 	
 	
 	public static void main(String[] args) {
-		double rapmin=10000; 
+		double rapmin=10000;
+		makeFaro(50); 
+		/*
 		for(int i=1;i<7500;i++){
 			int u=makeFaro(i);
 			if(2.0*i/u<rapmin){
@@ -49,7 +51,7 @@ public class FaroOutGeneral {
 				System.out.println(2*i+" "+u+" "+rapmin);
 			}
 		
-		}
+		} */
 	}
 
 }
