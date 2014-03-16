@@ -24,7 +24,7 @@ public class EggCup {
 			pointBas[i]=new Pos3D(R*Math.cos(2*Math.PI*i/n), 0, R*Math.sin(2*Math.PI*i/n));
 		
 			//les spheres
-			outputBlender.println("me"+i+"=translate(["+pointHaut[i].forBlenderTwistYZ()+"],2*diam)");
+			outputBlender.println("me"+i+"=translate(["+pointHaut[i].getX()+","+pointHaut[i].getZ()+",hauteur],2*diam)");
 			 if(number==0){
 				 outputBlender.println("ob0=scene.objects.new(me"+i+",'sphere"+number+"')");
 			 }
@@ -34,7 +34,7 @@ public class EggCup {
    	          outputBlender.println("scene.objects.unlink(localOb)");
 			 }
 		      number++;
-		      outputBlender.println("me"+i+"=translate(["+pointBas[i].forBlenderTwistYZ()+"],2*diam)");
+		      outputBlender.println("me"+i+"=translate(["+pointBas[i].getX()+","+pointBas[i].getZ()+",0],2*diam)");
 		      outputBlender.println("localOb=scene.objects.new(me"+i+",'sphere"+number+"')");
 			  outputBlender.println("ob0.join([localOb])");
    	          outputBlender.println("scene.objects.unlink(localOb)");
@@ -43,9 +43,9 @@ public class EggCup {
 		for(int i=0;i<n;i++){
 			  // Les cylindres
 			  outputBlender.println("meFinal=NMesh.GetRaw()"); 
-      		  outputBlender.println("point0=Vector(["+pointHaut[i].forBlenderTwistYZ()+"])");
+      		  outputBlender.println("point0=Vector(["+pointHaut[i].getX()+","+pointHaut[i].getZ()+",hauteur])");
       		  System.out.println(i+" "+n);
-       	  	  outputBlender.println("point1=Vector(["+pointBas[(i+decale)%n].forBlenderTwistYZ()+"])");
+       	  	  outputBlender.println("point1=Vector(["+pointBas[(i+decale)%n].getX()+","+pointBas[(i+decale)%n].getZ()+",0])");
        	  	  outputBlender.println("meFinal.verts.extend(lineSegMe(point0,point1,diam,nbf)[1])");  
        	      outputBlender.println("meFinal.verts.extend(lineSegMe(point0,point1,diam,nbf)[3])");  
        	      outputBlender.println("me=meshify(meFinal,nbf)");
@@ -55,8 +55,8 @@ public class EggCup {
  	    	  number++; 
  	    	  
 			  outputBlender.println("meFinal=NMesh.GetRaw()"); 
-      		  outputBlender.println("point0=Vector(["+pointHaut[i].forBlenderTwistYZ()+"])");
-       	  	  outputBlender.println("point1=Vector(["+pointBas[(i-decale+n)%n].forBlenderTwistYZ()+"])");
+      		  outputBlender.println("point0=Vector(["+pointHaut[i].getX()+","+pointHaut[i].getZ()+",hauteur])");
+      		  outputBlender.println("point1=Vector(["+pointBas[(i+n-decale)%n].getX()+","+pointBas[(i+n-decale)%n].getZ()+",0])");
        	  	  outputBlender.println("meFinal.verts.extend(lineSegMe(point0,point1,diam,nbf)[1])");  
        	      outputBlender.println("meFinal.verts.extend(lineSegMe(point0,point1,diam,nbf)[3])");  
        	      outputBlender.println("me=meshify(meFinal,nbf)");
