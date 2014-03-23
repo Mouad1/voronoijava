@@ -180,6 +180,8 @@ def lineSegMe(p1,p2,d1,nbFaces):
  dir.normalize()
  u = dir
  uu = Vector([0,0,1.0])
+ if(abs(AngleBetweenVecs(u,uu)<1e-5))|(abs(AngleBetweenVecs(u,uu)-180)<1e-5):
+  uu = Vector([1.0,0,0])	
  if abs(AngleBetweenVecs(u,uu))>1e-6:
 
   v = CrossVecs(u,uu)
@@ -293,8 +295,8 @@ rati=0.3
 #execfile('C:/users/decomite/pictures/povray/spline.py')
 #Pour les cadres en couleur
 #execfile('C:/users/decomite/pictures/povray/color.txt')
-#execfile('C:/users/francesco/pictures/povray/triaugmented_truncated_dodecahedronTout.py')
-execfile('C:/tmp/eggCup.inc')
+execfile('C:/users/francesco/pictures/povray/dodecahedronTout.py')
+
 """
 #######################################
 # render the image and save the image

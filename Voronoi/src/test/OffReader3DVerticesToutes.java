@@ -112,7 +112,11 @@ public class OffReader3DVerticesToutes {
 	
 	
 	public void afficheFichierTexte(String nomFichierSource) {
-		 this.catena="./src/test/"+nomFichierSource+".off";
+
+			this.catena="C:/users/francesco/workspace/Voronoi/src/test/"+nomFichierSource+".off";
+
+		 //this.catena="./src/test/"+nomFichierSource+".off";
+
 		//this.catena="/tmp/"+nomFichierSource+".off"; 
 		//this.catena="./src/test/JohnsonOff/"+nomFichierSource+".off"; 
           File source = new File(catena);
@@ -191,7 +195,9 @@ public class OffReader3DVerticesToutes {
 
 
 
-          toto.afficheFichierTexte("snub_icosidodecahedron");
+
+          toto.afficheFichierTexte("kite_icositetrahedron");
+
 
 
 
