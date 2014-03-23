@@ -112,8 +112,8 @@ public class OffReader3DVerticesTableau {
           File source = new File(catena);
           try {
         	// output=new PrintStream("../../../../pearls/scene/geometry/polyhedra/archimedean/archi.txt");
-        	 output=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Testtableau.inc");
-        	 outputBlender=new PrintStream("F:/Povray/"+nomFichierSource+"TestTableau.py");
+        	 output=new PrintStream("../povray/scene/geometry/"+nomFichierSource+"Testtableau.inc");
+        	 outputBlender=new PrintStream("H:/Povray/"+nomFichierSource+"TestTableau.py");
         	  //output=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Test"+roulette+".inc");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
@@ -175,7 +175,7 @@ public class OffReader3DVerticesTableau {
           OffReader3DVerticesTableau toto=new OffReader3DVerticesTableau(); 
          TreeSet<Double>lesDistances=new TreeSet<Double>(); 
        
-          toto.afficheFichierTexte("snub_icosidodecahedron");
+          toto.afficheFichierTexte("kite_icositetrahedron");
           for(int i=0;i<toto.vertices.size();i++){
         	  Vertex v1=toto.vertices.get(i); 
         	  for(int j=i+1;j<toto.vertices.size();j++){
@@ -208,22 +208,24 @@ public class OffReader3DVerticesTableau {
           }
           */
           
-          roulette.add(17); 
-          roulette.add(8); 
-          roulette.add(22); 
-          roulette.add(28); 
-          roulette.add(29);
+          roulette.add(11); 
+         roulette.add(5); 
+         // roulette.add(5); 
+         // roulette.add(8); 
+          //roulette.add(29);
           int number=0;
           ArrayList<Vertex>dejavu=new ArrayList<Vertex>();
           int i=0; 
+          int j=0;
         for(DistList dl:distAndCouples.values()){
         	ArrayList<VertexCouple> lc=dl.getLesCouples(); 
         	VertexCouple vc=lc.get(0); 
         	System.out.println(i+" *  "+vc.distance()+" "+lc.size());
         	if(inRoulette(i)){
+        		j++;
         		for(VertexCouple wc:lc){
         		if(!dejavu.contains(wc.getV1())){
-        			 toto.output.println("sphere{"+wc.getV1()+",diam*coef  texture{T1} finish{F1}}");
+        			 toto.output.println("sphere{"+wc.getV1()+",diam*coef  texture{T"+j+"} finish{F"+j+"}}");
         		
         			 dejavu.add(wc.getV1());
         			 
@@ -243,7 +245,7 @@ public class OffReader3DVerticesTableau {
         		}
         		
         		if(!dejavu.contains(wc.getV2())){
-       			 toto.output.println("sphere{"+wc.getV2()+",diam*coef  texture{T1} finish{F1}}");
+       			 toto.output.println("sphere{"+wc.getV2()+",diam*coef  texture{T"+j+"} finish{F"+j+"}}");
        			 dejavu.add(wc.getV2());
        			 
        			 
@@ -278,7 +280,7 @@ public class OffReader3DVerticesTableau {
            	      }
            	      number++;
        		
-        			toto.output.println("cylinder{"+wc.getV1()+","+wc.getV2()+",diam texture{T1} finish{F1}}"); 
+        			toto.output.println("cylinder{"+wc.getV1()+","+wc.getV2()+",diam texture{T"+j+"} finish{F"+j+"}}"); 
         		}
         	}
         	
