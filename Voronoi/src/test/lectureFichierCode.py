@@ -280,7 +280,7 @@ scn = Scene.GetCurrent()
 
 
 numero=0
-epaisseur=0.0176853
+epaisseur=0.01497
 diam=epaisseur*1.3
 nbf=12
 first=1
