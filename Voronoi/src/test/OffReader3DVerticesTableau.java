@@ -112,8 +112,10 @@ public class OffReader3DVerticesTableau {
           File source = new File(catena);
           try {
         	// output=new PrintStream("../../../../pearls/scene/geometry/polyhedra/archimedean/archi.txt");
-        	 output=new PrintStream("../povray/scene/geometry/"+nomFichierSource+"Testtableau.inc");
-        	 outputBlender=new PrintStream("H:/Povray/"+nomFichierSource+"TestTableau.py");
+        	 //output=new PrintStream("../povray/scene/geometry/"+nomFichierSource+"Testtableau.inc");
+        	 output=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Testtableau.inc");
+        	 //outputBlender=new PrintStream("H:/Povray/"+nomFichierSource+"TestTableau.py");
+        	 outputBlender=new PrintStream("/tmp/"+nomFichierSource+"TestTableau.py");
         	  //output=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Test"+roulette+".inc");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
@@ -175,7 +177,7 @@ public class OffReader3DVerticesTableau {
           OffReader3DVerticesTableau toto=new OffReader3DVerticesTableau(); 
          TreeSet<Double>lesDistances=new TreeSet<Double>(); 
        
-          toto.afficheFichierTexte("kite_icositetrahedron");
+          toto.afficheFichierTexte("pentagonal_hexecontahedron");
           for(int i=0;i<toto.vertices.size();i++){
         	  Vertex v1=toto.vertices.get(i); 
         	  for(int j=i+1;j<toto.vertices.size();j++){
@@ -208,8 +210,8 @@ public class OffReader3DVerticesTableau {
           }
           */
           
-          roulette.add(11); 
-         roulette.add(5); 
+          roulette.add(62); 
+         //roulette.add(5); 
          // roulette.add(5); 
          // roulette.add(8); 
           //roulette.add(29);
@@ -232,6 +234,10 @@ public class OffReader3DVerticesTableau {
         			
         			 //sphere
         			 toto.outputBlender.println("me=translate(["+wc.getV1().rawString()+"],2*diam)");
+        			 
+        			 
+        			 
+        			 
         			 if(number==0){
         				 toto.outputBlender.println("ob=scene.objects.new(me,'sphere"+number+"')");
         			 }

@@ -113,9 +113,9 @@ public class OffReader3DVerticesToutes {
 	
 	public void afficheFichierTexte(String nomFichierSource) {
 
-			this.catena="C:/users/francesco/workspace/Voronoi/src/test/"+nomFichierSource+".off";
+			//this.catena="C:/users/francesco/workspace/Voronoi/src/test/"+nomFichierSource+".off";
 
-		 //this.catena="./src/test/"+nomFichierSource+".off";
+		 this.catena="./src/test/"+nomFichierSource+".off";
 
 		//this.catena="/tmp/"+nomFichierSource+".off"; 
 		//this.catena="./src/test/JohnsonOff/"+nomFichierSource+".off"; 
@@ -126,7 +126,7 @@ public class OffReader3DVerticesToutes {
         	 //outputBlender=new PrintStream("F:/Povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+".py");
         	 //outputBlender=new PrintStream("C:/users/decomite/pictures/povray/"+nomFichierSource+"Tout.py");
         	 //outputBlender=new PrintStream("C:/users/francesco/pictures/povray/"+nomFichierSource+"Tout.py");
-        	  outputBlender=new PrintStream("/tmp/"+nomFichierSource+"Tout.inc");
+        	  outputBlender=new PrintStream("/tmp/"+nomFichierSource+"Tout.py");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
                   while(ligne.charAt(0)=='#') ligne=in.readLine();
@@ -196,7 +196,7 @@ public class OffReader3DVerticesToutes {
 
 
 
-          toto.afficheFichierTexte("kite_icositetrahedron");
+          toto.afficheFichierTexte("pentagonal_hexecontahedron");
 
 
 
@@ -241,19 +241,21 @@ public class OffReader3DVerticesToutes {
           // Map<String, Float> map = new TreeMap<String, Float>(yourMap);
           Map<Double, DistList> distAndCouples2 = new TreeMap<Double, DistList>(distAndCouples);
          // TODO choisir des couleurs non aleatoires 
+          int index=-1; 
         for(DistList dl:distAndCouples2.values()){
+        	index++;
         	ArrayList<VertexCouple> lc=dl.getLesCouples(); 
         	VertexCouple vc=lc.get(0); 
         	System.out.println(i+" *  "+vc.distance()+" "+lc.size());
         	 toto.outputBlender.println("print "+i);
         		number=0;
-        		double rouge=generator.nextDouble();
+        		double rouge=0.5+0.5*(index+0.0)/dl.size();
         		double vert=generator.nextDouble();
-        		double bleu=generator.nextDouble();
+        		double bleu=(0.5+0.5*(1-rouge))*( 0.5+0.5*(1-rouge));
         		
         		for(VertexCouple wc:lc){
         		if(!dejavu.contains(wc.getV1())){
-        			 toto.output.println("sphere{"+wc.getV1()+",diam*coef*2  texture{pigment{color rgb<"+rouge+","+vert+","+bleu+">}} finish{F1}}");
+        			 toto.output.println("sphere{"+wc.getV1()+",diam*coef  texture{pigment{color rgb<"+rouge+","+vert+","+bleu+">}} finish{F1}}");
         		
         			 dejavu.add(wc.getV1());
         			 
@@ -273,7 +275,7 @@ public class OffReader3DVerticesToutes {
         		}
         		
         		if(!dejavu.contains(wc.getV2())){
-       			 toto.output.println("sphere{"+wc.getV2()+",diam*coef*2  texture{pigment{color rgb<"+rouge+","+vert+","+bleu+">}} finish{F1}}");
+       			 toto.output.println("sphere{"+wc.getV2()+",diam*coef  texture{pigment{color rgb<"+rouge+","+vert+","+bleu+">}} finish{F1}}");
        			 dejavu.add(wc.getV2());
        			 //sphere
     			 toto.outputBlender.println("me"+i+"=translate(["+wc.getV2().rawString()+"],2*diam) #                                 translate 2");
