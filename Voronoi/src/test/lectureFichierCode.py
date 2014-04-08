@@ -280,13 +280,15 @@ scn = Scene.GetCurrent()
 
 
 numero=0
-epaisseur=0.0127356
+epaisseur=0.0176853
 diam=epaisseur*1.3
 nbf=12
 first=1
 #fichier=open('C:\Users\decomite\workspace\imageJ\cardioidBlender.txt')
 #fichier=open('C:/tmp/BeretSansTrou.txt')
-fichier=open('C:/tmp/coquetier.txt')
+#fichier=open('C:/tmp/coquetier.txt')
+fichier=open('C:/tmp/BeretSansTrou.txt')
+#fichier=open('C:/tmp/BeretATrouTest.txt')
 index=0
 try:	
  for line in fichier:

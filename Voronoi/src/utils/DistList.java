@@ -9,7 +9,8 @@ public class DistList {
 	public DistList(Double d){
 		this.dist=d; 
 	}
-
+	public int size(){return this.lesCouples.size(); }
+	
 	public Double getDist() {
 		return dist;
 	}
