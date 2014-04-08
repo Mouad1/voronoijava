@@ -280,8 +280,8 @@ scn = Scene.GetCurrent()
 
 
 numero=0
-epaisseur=0.2
-diam=epaisseur*1.06
+epaisseur=0.0127356
+diam=epaisseur*1.3
 nbf=12
 first=1
 #fichier=open('C:\Users\decomite\workspace\imageJ\cardioidBlender.txt')
