@@ -295,7 +295,8 @@ rati=0.3
 #execfile('C:/users/decomite/pictures/povray/spline.py')
 #Pour les cadres en couleur
 #execfile('C:/users/decomite/pictures/povray/color.txt')
-execfile('C:/users/francesco/pictures/povray/dodecahedronTout.py')
+#execfile('C:/users/francesco/pictures/povray/dodecahedronTout.py')
+execfile('/tmp/kite_icositetrahedronTout.py')
 
 """
 #######################################
