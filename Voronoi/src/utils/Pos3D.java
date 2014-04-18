@@ -124,9 +124,17 @@ public class Pos3D {
 		return x+","+y+","+z; 
 	}
 	
+	public String forBlenderSpace(){
+		return x+" "+y+" "+z; 
+	}
+	
 	public String forBlenderTwistYZ(){
 		return x+","+z+","+y; 
 	}
+	public String forBlenderTwistYZSpace(){
+		return x+" "+z+" "+y; 
+	}
+	
 	public  static double distance(Pos3D u,Pos3D v){
 		double resu=0;
 		resu=(u.x-v.x)*(u.x-v.x); 
