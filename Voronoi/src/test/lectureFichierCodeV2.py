@@ -289,7 +289,8 @@ first=1
 #fichier=open('C:/tmp/coquetier.txt')
 #fichier=open('C:/tmp/BeretSansTrou.txt')
 #fichier=open('C:/tmp/BeretATrouTest.txt')
-fichier=open('C:/tmp/knotBlender.txt')
+#fichier=open('C:/tmp/knotBlender.txt')
+fichier=open('C:/tmp/eggCup.inc')
 index=0
 try:	
  for line in fichier:
