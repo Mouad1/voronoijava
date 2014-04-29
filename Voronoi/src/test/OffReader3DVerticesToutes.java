@@ -121,8 +121,8 @@ public class OffReader3DVerticesToutes {
 		//this.catena="./src/test/JohnsonOff/"+nomFichierSource+".off"; 
           File source = new File(catena);
           try {
-        	 //output=new PrintStream("../povray/scene/geometry/"+nomFichierSource+"Tout.inc");
-        	output=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Tout.inc");
+        	 output=new PrintStream("../povray/scene/geometry/"+nomFichierSource+"Tout.inc");
+        	//output=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Tout.inc");
         	 //outputBlender=new PrintStream("F:/Povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+".py");
         	 //outputBlender=new PrintStream("C:/users/decomite/pictures/povray/"+nomFichierSource+"Tout.py");
         	 //outputBlender=new PrintStream("C:/users/francesco/pictures/povray/"+nomFichierSource+"Tout.py");
