@@ -8,15 +8,17 @@ __url__="Website, www.lifl.fr/decomite"
  
 ##############################################################
 # load the modules used in the script
-import Blender
+#import Blender
 import bpy
-from Blender import *
-from Blender.Scene import Render
-from Blender import Text
-from Blender import Mathutils
-from Blender.Mathutils import *
+#from Blender import *
+#from Blender.Scene import Render
+#from Blender import Text
+#from Blender import Mathutils
+#from Blender.Mathutils import *
 import math
-from Blender import Mesh
+import mathutils
+from mathutils import *
+#from Blender import Mesh
 from math import *
 ##############################################################
 
@@ -117,70 +119,137 @@ def lunule(R,l,ep,nb):
   faces.append([base,base+2,base+2*nb+4]) #original ok
  #fin de la boucle
 
- me.verts.extend(coords)
- me.faces.extend(faces)
+ #me.verts.extend(coords)
+ #me.faces.extend(faces)
+ 
+ me.from_pydata(coords,[],faces)   # edges or faces should be [], or you ask for problems
+ me.update(calc_edges=True) 
  return me
 #fin de la fonction
  
 #test
-scn = Scene.GetCurrent()
+print("debut/n")
+#scn = Scene.GetCurrent()
+scn=bpy.context.scene
 
 first=1
 numero=0
-nombre=8
-epaisseur=3
-angle=45
+nombre=10
+epaisseur=0.5
+angle=45/180.0*pi
 rayon=20
-distance=35
+distance=15
 segments=100
 
 
-rotata1=RotationMatrix(angle,4,"x")	
-rotasym=RotationMatrix(180,4,"y")	
+#rotata1=RotationMatrix(angle,4,"x")	
+rotata1=mathutils.Matrix.Rotation( angle, 4, 'X')
+#rotasym=RotationMatrix(180,4,"y")	
+rotasym=mathutils.Matrix.Rotation( pi, 4, 'Y')
 for i in range(nombre):
- rotata=RotationMatrix(360*i/(nombre+0.0),4,"z")		
+ #rotata=RotationMatrix(2*pi*i/(nombre+0.0),4,"z")	
+ rotata=mathutils.Matrix.Rotation( 2*pi*i/(nombre+0.0), 4, 'Z')	
  myMesh=lunule(rayon,distance,epaisseur,segments)  
  myMesh.transform(rotata1)	
  myMesh.transform(rotata)
 
+ #debut de l'insertion brutale
 
- myMesh.vertexColors=1
- faxes=myMesh.faces
- for f in faxes:
-  for i2,d in enumerate(f.col):
-   d.b=255
-   d.r=0
-   d.g=0
+ # Create a single Material that respect Vertex Color
+ mat = bpy.data.materials.new('VertexMat')
+ mat.use_vertex_color_paint = True
+ mat.use_vertex_color_light = True
+
+ #object.data.materials.append(mat) # ??
+    
+ # Create new 'Col' Vertex Color Layer
+ myMesh.vertex_colors.new()
+    
+ # Vertex colour data
+ vertexColor = myMesh.vertex_colors[0].data
+ faces = myMesh.polygons
+    
+ # Assign colours to verts (loop every faces)
+ # Script Snippet from Blender Artist
+ i = 0
+ for face in faces:
+  rgb = [255,0,0]
+  for idx in face.loop_indices:
+   vertexColor[i].color = rgb
+   i += 1
+        
+
+ #fin de l'insertion brutale
+
+ #myMesh.vertexColors=1
+ #faxes=myMesh.faces
+ #for f in faxes:
+  #for i2,d in enumerate(f.col):
+   #d.b=255
+   #d.r=0
+   #d.g=0
     		
  if(first==1):
-  ob=scn.objects.new(myMesh,'lunule'+`numero`)
+  #ob=scn.objects.new(myMesh,'lunule')
+  ob = bpy.data.objects.new('lunule', myMesh)
+  bpy.context.scene.objects.link(ob) 
   numero+=1
   first=0
  else:
-  localOb=scn.objects.new(myMesh,'lunule'+`numero`)
+  #localOb=scn.objects.new(myMesh,'lunule')
+  localOb = bpy.data.objects.new('lunule', myMesh)
   numero+=1
-  ob.join([localOb])
-  scn.objects.unlink(localOb)
+  #ob.join([localOb]) 
+  scn.objects.link(localOb)
 
  myMesh2=lunule(rayon,distance,epaisseur,segments)
  myMesh2.transform(rotasym)
  myMesh2.transform(rotata1)
  myMesh2.transform(rotata)
  
- myMesh2.vertexColors=1
- faxes=myMesh2.faces
- for f in faxes:
-  for i2,d in enumerate(f.col):
-   d.b=0
-   d.r=255
-   d.g=255
+ #debut de l'insertion brutale
+
+ # Create a single Material that respect Vertex Color
+ mat = bpy.data.materials.new('VertexMat')
+ mat.use_vertex_color_paint = True
+ mat.use_vertex_color_light = True
+
+ #object.data.materials.append(mat) # ??
+    
+ # Create new 'Col' Vertex Color Layer
+ myMesh2.vertex_colors.new()
+    
+ # Vertex colour data
+ vertexColor = myMesh2.vertex_colors[0].data
+ faces = myMesh2.polygons
+    
+ # Assign colours to verts (loop every faces)
+ # Script Snippet from Blender Artist
+ i = 0
+ for face in faces:
+  rgb = [0,255,255]
+  for idx in face.loop_indices:
+   vertexColor[i].color = rgb
+   i += 1
+        
+
+ #fin de l'insertion brutale
+ 
+ #myMesh2.vertexColors=1
+ #faxes=myMesh2.faces
+ #for f in faxes:
+  #for i2,d in enumerate(f.col):
+   #d.b=0
+   #d.r=255
+   #d.g=255
 
 
- localOb=scn.objects.new(myMesh2,'lunuleInverse'+`numero`)
+ #localOb=scn.objects.new(myMesh2,'lunuleInverse')
+ localOb = bpy.data.objects.new('lunuleInverse', myMesh2)
  numero+=1
- ob.join([localOb])
- scn.objects.unlink(localOb)
+ #ob.join([localOb])
+ #bpy.context.scene.objects.link(localOb) ## dans le brouillard
+ scn.objects.link(localOb)
 
-Window.RedrawAll()
 
  
