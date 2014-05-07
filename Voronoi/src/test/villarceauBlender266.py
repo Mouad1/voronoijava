@@ -33,10 +33,10 @@ from math import *
 # nombre de faces : 8nb+4 
 def lunule(R,l,ep,nb):
  me=bpy.data.meshes.new('lunule')
- coords=[]
+ coords=[[0,0,0] for i in range(4*nb+4)]
  faces=[]
- for i in range(4*nb+4):
-  coords.append([0,0,0])
+# for i in range(4*nb+4):
+#  coords.append([0,0,0])
  # Face superieure 
  #premiere pointe de la lunule
 
@@ -119,9 +119,7 @@ def lunule(R,l,ep,nb):
   faces.append([base,base+2,base+2*nb+4]) #original ok
  #fin de la boucle
 
- #me.verts.extend(coords)
- #me.faces.extend(faces)
- 
+
  me.from_pydata(coords,[],faces)   # edges or faces should be [], or you ask for problems
  me.update(calc_edges=True) 
  return me
@@ -129,7 +127,7 @@ def lunule(R,l,ep,nb):
  
 #test
 print("debut/n")
-#scn = Scene.GetCurrent()
+
 scn=bpy.context.scene
 
 first=1
@@ -173,7 +171,7 @@ for i in range(nombre):
  # Script Snippet from Blender Artist
  i = 0
  for face in faces:
-  rgb = [255,0,0]
+  rgb = [1,0,0]
   for idx in face.loop_indices:
    vertexColor[i].color = rgb
    i += 1
@@ -181,25 +179,16 @@ for i in range(nombre):
 
  #fin de l'insertion brutale
 
- #myMesh.vertexColors=1
- #faxes=myMesh.faces
- #for f in faxes:
-  #for i2,d in enumerate(f.col):
-   #d.b=255
-   #d.r=0
-   #d.g=0
+
     		
  if(first==1):
-  #ob=scn.objects.new(myMesh,'lunule')
-  ob = bpy.data.objects.new('lunule', myMesh)
+  ob = bpy.data.objects.new('lunule'+str(numero), myMesh)
   bpy.context.scene.objects.link(ob) 
   numero+=1
   first=0
  else:
-  #localOb=scn.objects.new(myMesh,'lunule')
-  localOb = bpy.data.objects.new('lunule', myMesh)
+  localOb = bpy.data.objects.new('lunule'+str(numero), myMesh)
   numero+=1
-  #ob.join([localOb]) 
   scn.objects.link(localOb)
 
  myMesh2=lunule(rayon,distance,epaisseur,segments)
@@ -235,20 +224,10 @@ for i in range(nombre):
 
  #fin de l'insertion brutale
  
- #myMesh2.vertexColors=1
- #faxes=myMesh2.faces
- #for f in faxes:
-  #for i2,d in enumerate(f.col):
-   #d.b=0
-   #d.r=255
-   #d.g=255
 
 
- #localOb=scn.objects.new(myMesh2,'lunuleInverse')
- localOb = bpy.data.objects.new('lunuleInverse', myMesh2)
+ localOb = bpy.data.objects.new('lunuleInverse'+str(numero), myMesh2)
  numero+=1
- #ob.join([localOb])
- #bpy.context.scene.objects.link(localOb) ## dans le brouillard
  scn.objects.link(localOb)
 
 
