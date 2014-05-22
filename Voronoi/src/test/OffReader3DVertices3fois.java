@@ -36,8 +36,8 @@ public class OffReader3DVertices3fois {
 
 
 
-	private static int roulette=12;
-	private static int roulette2=7; 
+	private static int roulette=58;
+	private static int roulette2=1; 
 	private static int roulette3=23; 
 
 
@@ -115,18 +115,18 @@ public class OffReader3DVertices3fois {
 	public void afficheFichierTexte(String nomFichierSource) {
 			//this.catena="C:/Documents and Settings/moi/workspace/Voronoi/src/test/"+nomFichierSource+".off";
 		//this.catena="/tmp/"+nomFichierSource+".off"; 
-		//this.catena="./src/test/"+nomFichierSource+".off"; 
-		  this.catena="../Voronoi/bin/test/JohnsonOff/"+nomFichierSource+".off";
+		this.catena="./src/test/"+nomFichierSource+".off"; 
+		  //this.catena="../Voronoi/bin/test/JohnsonOff/"+nomFichierSource+".off";
           File source = new File(catena);
           try {
-        	 output=new PrintStream("../povray/scene/geometry/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".inc");
-        	//output=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".inc");
+        	 //output=new PrintStream("../povray/scene/geometry/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".inc");
+        	output=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".inc");
         	 //outputBlender=new PrintStream("F:/Povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+".py");
 
         	 //outputBlender=new PrintStream("C:/users/decomite/pictures/povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".py");
-        	 outputBlender=new PrintStream("C:/users/francesco/pictures/povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".py");
+        	 //outputBlender=new PrintStream("C:/users/francesco/pictures/povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+"_"+roulette3+".py");
 
-        	 //outputBlender=new PrintStream("/tmp/"+nomFichierSource+"Test"+roulette+".inc");
+        	 outputBlender=new PrintStream("/tmp/"+nomFichierSource+"Test"+roulette+".py");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
                   while(ligne.charAt(0)=='#') ligne=in.readLine();
@@ -191,7 +191,7 @@ public class OffReader3DVertices3fois {
        /* ------------------------------------ ICI ---------------------------------------------------------------------*/
          
          
-          toto.afficheFichierTexte("metabiaugmented_truncated_dodecahedron");
+          toto.afficheFichierTexte("pentagonal_hexecontahedron");
 
          
           
@@ -289,7 +289,7 @@ public class OffReader3DVertices3fois {
         	      //print me.materials               # print the list of materials
            		  toto.outputBlender.println("mat = me.materials[0]");       
            		  toto.outputBlender.println("mat.R = 1.0");     
-           		  toto.outputBlender.println("mat.G = 0.0");     
+           		  toto.outputBlender.println("mat.G = 1.0");     
            		  toto.outputBlender.println("mat.B = 0.0");     
            	      if(number==0)
            	    	  toto.outputBlender.println("ob1=scene.objects.new(me,'pieceU"+number+"')");
@@ -365,9 +365,9 @@ public class OffReader3DVertices3fois {
 
                	      //print me.materials               # print the list of materials
                   		  toto.outputBlender.println("mat = me2.materials[0]");       
-                  		  toto.outputBlender.println("mat.R = 1.0");     
-                  		  toto.outputBlender.println("mat.G = 1.0");     
-                  		  toto.outputBlender.println("mat.B = 0.0");     
+                  		  toto.outputBlender.println("mat.R = 0.0");     
+                  		  toto.outputBlender.println("mat.G = 0.0");     
+                  		  toto.outputBlender.println("mat.B = 1.0");     
                  	      
                  	      if(number==0)
                  	    	  toto.outputBlender.println("ob2=scene.objects.new(me2,'Deux"+number+"')");
@@ -448,9 +448,9 @@ public class OffReader3DVertices3fois {
 
               	      //print me.materials               # print the list of materials
                  		  toto.outputBlender.println("mat = me3.materials[0]");       
-                 		  toto.outputBlender.println("mat.R = 0.0");     
+                 		  toto.outputBlender.println("mat.R = 1.0");     
                  		  toto.outputBlender.println("mat.G = 0.0");     
-                 		  toto.outputBlender.println("mat.B = 1.0");     
+                 		  toto.outputBlender.println("mat.B = 0.0");     
            			
                  	      if(number==0)
                  	    	  toto.outputBlender.println("ob3=scene.objects.new(me3,'Trois"+number+"')");
