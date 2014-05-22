@@ -325,11 +325,11 @@ for ob in scene.objects:
     scene.objects.unlink(ob)
 
 nbf=8
-diam=0.02
+diam=0.028
 rati=0.8
 number=0
 
-execfile('C:/users/decomite/pictures/povray/truncated_cubeTout.py')
+execfile('C:/tmp/pentagonal_hexecontahedronTest58.py')
 #execfile('C:\Users\decomite\Pictures\povray\output povray\spline.py')
 
 #execfile('C:/Users/decomite/Pictures/povray/ruled.py')

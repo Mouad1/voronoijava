@@ -210,9 +210,9 @@ public class OffReader3DVerticesTableau {
           }
           */
           
-          roulette.add(62); 
-         //roulette.add(5); 
-         // roulette.add(5); 
+          roulette.add(58); 
+         roulette.add(1); 
+         roulette.add(23); 
          // roulette.add(8); 
           //roulette.add(29);
           int number=0;
