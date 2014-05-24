@@ -30,7 +30,7 @@ public class Gonogon {
 	public static void  makeChaine(String s,int limit,HashSet<Coordonnees> pointsParcourus,int xReached,int yReached){
 		//affiche(pointsParcourus); 
 		if(s.length()==limit) {
-			if(isClosed(s)){
+			if(isClosed(s)&& (pointsParcourus.size()==limit*(limit+1)/2)){
 			System.out.println(compte+" #declare chemin=\""+s+"\";");
 			compte++; 
 			}
@@ -73,7 +73,7 @@ public class Gonogon {
 		init.add(new Coordonnees(1,2));
 		
 		
-		makeChaine("ur",16,init,2,1); 
+		makeChaine("ur",32,init,2,1); 
 		compte=0;
 		}
 	}
