@@ -39,7 +39,7 @@ public class Gonogon {
 		int l=s.length(); 
 		
 		if(pointsParcourus.size()!=1+(l*(l+1)/2)) {
-			//System.out.println("raté "+s); 
+			//System.out.println("ratï¿½ "+s); 
 			return; 
 		}
 		
@@ -73,7 +73,7 @@ public class Gonogon {
 		init.add(new Coordonnees(1,2));
 		
 		
-		makeChaine("ur",32,init,2,1); 
+		makeChaine("ur",40,init,2,1); 
 		compte=0;
 		}
 	}
