@@ -73,7 +73,9 @@ public class Gonogon {
 		init.add(new Coordonnees(1,2));
 		
 
+
 		makeChaine("ur",40,init,2,1); 
+
 
 		compte=0;
 		}
