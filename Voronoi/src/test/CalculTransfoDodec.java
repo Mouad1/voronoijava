@@ -28,7 +28,7 @@ import utils.Vertex;
 import utils.Pos3D; 
 import utils.VertexCouple;
 
-public class OffReader3DVerticesSculpture {
+public class CalculTransfoDodec {
 	
 	private Random generator=new Random(); 
 	private  ArrayList<Vertex> lesCentresDesFaces=new ArrayList<Vertex>(); 
@@ -65,9 +65,7 @@ public class OffReader3DVerticesSculpture {
           File source = new File(catena);
           try {
         	// output=new PrintStream("../../../../pearls/scene/geometry/polyhedra/archimedean/archi.txt");
-        	 output=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Test"+roulette+".inc");
-        	 //outputBlender=new PrintStream("F:/Povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+".py");
-        	  //output=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Test"+roulette+".inc");
+        	 output=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Transfo"+".inc");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
                   while(ligne.charAt(0)=='#') ligne=in.readLine();
@@ -80,11 +78,7 @@ public class OffReader3DVerticesSculpture {
                   
                   nbAretes=rl.nextInt(); 
                   System.out.println(nbVertices+" "+nbFaces+" "+nbAretes);
-                  /*
-                  System.out.println("mesh2{\n");
-                  System.out.println("vertex_vectors{\n");
-                  System.out.println(nbVertices+",\n");
-                  */
+                 
                   // lire les sommets
                   for(int i=0;i<nbVertices;i++){
                 	  ligne=in.readLine();
@@ -126,7 +120,7 @@ public class OffReader3DVerticesSculpture {
   }
 	  public static void main(String args[]) {
           // new TestIO().copieFichierTexte("essai.txt","output.txt");
-          OffReader3DVerticesSculpture toto=new OffReader3DVerticesSculpture(); 
+          CalculTransfoDodec toto=new CalculTransfoDodec(); 
          TreeSet<Double>lesDistances=new TreeSet<Double>(); 
        
 
@@ -223,7 +217,7 @@ public class OffReader3DVerticesSculpture {
                 toto.output.println("#declare trans=array[maxIndices]");
               
                 for(Transfo t:lesTransfos){
-             	   //System.out.println("#declare trans["+vj+"]="+t+";");
+             	   System.out.println("#declare trans["+vj+"]="+t+";");
              	   toto.output.println("#declare trans["+vj+"]="+t+";");
              	   vj++;
                 }   
