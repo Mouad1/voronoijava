@@ -1,6 +1,18 @@
 package utils;
 
 public class Transfo {
+	public Vertex getTrans() {
+		return trans;
+	}
+
+	public double getAlpha() {
+		return alpha;
+	}
+
+	public double getBeta() {
+		return beta;
+	}
+
 	/**
 	 * @param alpha
 	 * @param beta
@@ -52,5 +64,5 @@ public class Transfo {
 		s+=" translate "+Vertex.mul(trans,-1)+"}";
 		return s; 
 	}
-
+	
 }

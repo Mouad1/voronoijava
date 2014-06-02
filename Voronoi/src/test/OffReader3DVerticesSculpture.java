@@ -222,14 +222,34 @@ public class OffReader3DVerticesSculpture {
                 toto.output.println("#declare maxIndices="+lesTransfos.size()+";");
                 toto.output.println("#declare trans=array[maxIndices]");
               
+                System.out.println("def transfo(me,ind):"); 
+                
                 for(Transfo t:lesTransfos){
+                	System.out.println(" if ind=="+vj+":"); 
+                	    System.out.println("  translator=Vector(("+t.getTrans().rawString()+"))"); 
+                		System.out.println("  transly=mathutils.Matrix.Translation(20*translator)"); 
+                		System.out.println("  rotaz=mathutils.Matrix.Rotation("+(-t.getBeta())+",4,'Z')");
+                		System.out.println("  rotay=mathutils.Matrix.Rotation("+(-t.getAlpha())+",4,'Y')");
+                		System.out.println("  victor=Vector((0,1,0))"); 
+                		System.out.println("  victor.rotate(rotaz)"); 
+                		System.out.println("  victor.rotate(rotay)"); 
+                		System.out.println("  hector=Vector((0,0,1))"); 
+                		System.out.println("  hector.rotate(rotaz)"); 
+                		System.out.println("  hector.rotate(rotay)");
+                		System.out.println("  provy=hector.angle(translator)");
+                		System.out.println("  rota3=mathutils.Matrix.Rotation(provy,4,victor)");
+                		System.out.println("  me.transform(rotaz)");
+                		System.out.println("  me.transform(rotay)");
+                		System.out.println("  me.transform(rota3)");
+                		System.out.println("  me.transform(transly)");
+                		
              	   //System.out.println("#declare trans["+vj+"]="+t+";");
              	   toto.output.println("#declare trans["+vj+"]="+t+";");
              	   vj++;
                 }   
         	}
 
-        	
+        	System.out.println(" return"); 
         	i++; 
         }
         System.out.println(i-1); 
