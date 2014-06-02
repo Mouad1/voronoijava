@@ -161,5 +161,9 @@ public class Pos3D {
 	public double norme(){
 		return Math.sqrt(x*x+y*y+z*z); 
 	}
+
+	public String printSimple() {
+		return x+","+y+","+z; 
+	}
 	
 }
