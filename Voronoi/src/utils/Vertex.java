@@ -113,5 +113,10 @@ public class Vertex extends Pos3D {
 		     System.out.println(follow.norme()); 
 		}
 	}
+
+	public String rawStringSpace() {
+		String s=x+"1 "+y+" "+z;
+		return s;
+	}
 	
 }

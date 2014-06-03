@@ -49,7 +49,7 @@ public class OffReader3DVerticesSculpture {
 	//private ArrayList<FacePolygonale> lesFacesPolygonales=new ArrayList<FacePolygonale>();
 
 	private PrintStream output; 
-//	private PrintStream outputBlender; 
+	private static PrintStream outputBlender; 
 	
 
 	private static double roundDecimals(double d) {
@@ -64,6 +64,7 @@ public class OffReader3DVerticesSculpture {
 		this.catena="./src/test/"+nomFichierSource+".off"; 
           File source = new File(catena);
           try {
+        	  outputBlender=new PrintStream("C:/tmp/dataBigDodec.txt"); 
         	// output=new PrintStream("../../../../pearls/scene/geometry/polyhedra/archimedean/archi.txt");
         	 output=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Test"+roulette+".inc");
         	 //outputBlender=new PrintStream("F:/Povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+".py");
@@ -222,39 +223,41 @@ public class OffReader3DVerticesSculpture {
                 toto.output.println("#declare maxIndices="+lesTransfos.size()+";");
                 toto.output.println("#declare trans=array[maxIndices]");
               
-                System.out.println("def transfo(me,ind):"); 
+                outputBlender.println(lesTransfos.size()); 
                 
                 for(Transfo t:lesTransfos){
-                	System.out.println(" if ind=="+vj+":"); 
-                	    System.out.println("  translator=Vector(("+t.getTrans().rawString()+"))"); 
-                		System.out.println("  transly=mathutils.Matrix.Translation(20*translator)"); 
-                		System.out.println("  rotaz=mathutils.Matrix.Rotation("+(-t.getBeta())+",4,'Z')");
-                		System.out.println("  rotay=mathutils.Matrix.Rotation("+(-t.getAlpha())+",4,'Y')");
-                		System.out.println("  victor=Vector((0,1,0))"); 
-                		System.out.println("  victor.rotate(rotaz)"); 
-                		System.out.println("  victor.rotate(rotay)"); 
-                		System.out.println("  hector=Vector((0,0,1))"); 
-                		System.out.println("  hector.rotate(rotaz)"); 
-                		System.out.println("  hector.rotate(rotay)");
-                		System.out.println("  provy=hector.angle(translator)");
-                		System.out.println("  rota3=mathutils.Matrix.Rotation(provy,4,victor)");
-                		System.out.println("  me.transform(rotaz)");
-                		System.out.println("  me.transform(rotay)");
-                		System.out.println("  me.transform(rota3)");
-                		System.out.println("  me.transform(transly)");
-                		
-             	   //System.out.println("#declare trans["+vj+"]="+t+";");
+                	
+                	    outputBlender.println(t.getTrans().rawStringSpace()); 
+                		outputBlender.println(t.getAlpha()+" "+t.getBeta()); 
+                		/*
+                		outputBlender.println("  rotaz=mathutils.Matrix.Rotation("+(-t.getBeta())+",4,'Z')");
+                		outputBlender.println("  rotay=mathutils.Matrix.Rotation("+(-t.getAlpha())+",4,'Y')");
+                		outputBlender.println("  victor=Vector((0,1,0))"); 
+                		outputBlender.println("  victor.rotate(rotaz)"); 
+                		outputBlender.println("  victor.rotate(rotay)"); 
+                		outputBlender.println("  hector=Vector((0,0,1))"); 
+                		outputBlender.println("  hector.rotate(rotaz)"); 
+                		outputBlender.println("  hector.rotate(rotay)");
+                		outputBlender.println("  provy=hector.angle(translator)");
+                		outputBlender.println("  rota3=mathutils.Matrix.Rotation(provy,4,victor)");
+                		outputBlender.println("  me.transform(rotaz)");
+                		outputBlender.println("  me.transform(rotay)");
+                		outputBlender.println("  me.transform(rota3)");
+                		outputBlender.println("  me.transform(transly)");
+                		*/
+             	   System.out.println("#declare trans["+vj+"]="+t+";");
              	   toto.output.println("#declare trans["+vj+"]="+t+";");
              	   vj++;
                 }   
         	}
 
-        	System.out.println(" return"); 
+        	
         	i++; 
         }
         System.out.println(i-1); 
         System.out.println(roulette); 
       toto.output.close();
+      outputBlender.close();
         
 	  }// main
 	
