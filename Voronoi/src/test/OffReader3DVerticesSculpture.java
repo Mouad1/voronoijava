@@ -35,7 +35,7 @@ public class OffReader3DVerticesSculpture {
 	private  ArrayList<Vertex> lesNormales=new ArrayList<Vertex>(); 
 	public int nbVertices,nbFaces,nbAretes;
 
-	private static int roulette=0; 
+	private static int roulette=2; 
 
 	private String catena;
 	{
@@ -64,7 +64,8 @@ public class OffReader3DVerticesSculpture {
 		this.catena="./src/test/"+nomFichierSource+".off"; 
           File source = new File(catena);
           try {
-        	  outputBlender=new PrintStream("C:/tmp/dataBigDodec.txt"); 
+        	  //outputBlender=new PrintStream("C:/tmp/dataBigDodec.txt"); 
+        	  outputBlender=new PrintStream("C:/tmp/dataBigIcos.txt"); 
         	// output=new PrintStream("../../../../pearls/scene/geometry/polyhedra/archimedean/archi.txt");
         	 output=new PrintStream("../pearls/scene/geometry/"+nomFichierSource+"Test"+roulette+".inc");
         	 //outputBlender=new PrintStream("F:/Povray/"+nomFichierSource+"Test"+roulette+"_"+roulette2+".py");
@@ -131,8 +132,9 @@ public class OffReader3DVerticesSculpture {
          TreeSet<Double>lesDistances=new TreeSet<Double>(); 
        
 
-          toto.afficheFichierTexte("dodecahedron");
-
+          //toto.afficheFichierTexte("dodecahedron");
+         
+         toto.afficheFichierTexte("snub_icosidodecahedron");
           for(int i=0;i<toto.vertices.size();i++){
         	  Vertex v1=toto.vertices.get(i); 
         	  for(int j=i+1;j<toto.vertices.size();j++){
@@ -245,8 +247,8 @@ public class OffReader3DVerticesSculpture {
                 		outputBlender.println("  me.transform(rota3)");
                 		outputBlender.println("  me.transform(transly)");
                 		*/
-             	   System.out.println("#declare trans["+vj+"]="+t+";");
-             	   toto.output.println("#declare trans["+vj+"]="+t+";");
+             	   //System.out.println("#declare trans["+vj+"]="+t+";");
+             	   //toto.output.println("#declare trans["+vj+"]="+t+";");
              	   vj++;
                 }   
         	}
