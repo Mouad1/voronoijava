@@ -30,20 +30,20 @@ def sphere(R,n,p):
         zc=pi/2-(i+1)*pi/(p+1)
         for j in range(n):
             coords[j+i*n]=[R*cos(2*j*pi/n)*cos(zc),R*sin(2*j*pi/n)*cos(zc),R*sin(zc)]
-    coords[n*p]=[0,R,0]
-    coords[n*p+1]=[0,-R,0]
+    coords[n*p]=[0,0,R]
+    coords[n*p+1]=[0,0,-R]
     
     #les faces
     # Calottes
     for i in range(n):
         faces.append([i,(i+1)%n,n*p])
-        faces.append([i+(p-1)*n,(i+1)%n+(p-1)*n,n*p+1])
+        faces.append([i+(p-1)*n,n*p+1,(i+1)%n+(p-1)*n])
     
     # relier un parallele au suivant
     for i in range(p-1):
         for j in range(n):
-            faces.append([j+n*i,(j+1)%n+n*i,j+n*(i+1)])
-            faces.append([(j+1)%n+n*i,(j+1)%n+n*(i+1),j+n*(i+1)])
+            faces.append([(j+1)%n+n*i,j+n*i,j+n*(i+1)])
+            faces.append([(j+1)%n+n*i,j+n*(i+1),(j+1)%n+n*(i+1)])
             
     me.from_pydata(coords,[],faces)   
     me.update(calc_edges=True) 
@@ -141,40 +141,27 @@ R=75
 r=2
 catenaName='un'
 
-nbSteps=120
-k1=2
-k2=3
-first=1
-fil=0
-numero=0
-for i in range(nbSteps):
-    p1=Vector([R*cos(2*k1*i*pi/nbSteps),R*sin(2*k1*i*pi/nbSteps),0])
-    p2=Vector([R*cos(2*k2*i*pi/nbSteps),0,R*sin(2*k2*i*pi/nbSteps)])
-   
-    dd=p2-p1
-    if (dd.length!=0):
-        myMesh=cylindreOriente(p1,p2,0.8,20)
 
-        if(first==1):
-            ob=bpy.data.objects.new(catenaName+str(numero),myMesh)
+
+first=1
+numero=0
+dist=10
+nbSteps=100
+for index in range(nbSteps):
+    mySphere=sphere(0.5,10,10)
+    theta=2*index*pi/nbSteps
+    A=mathutils.Matrix.Translation((dist*cos(2*theta)*cos(theta),dist*cos(2*theta)*sin(theta),dist*sin(2*theta)))
+    mySphere.transform(A)
+    if(first==1):
+            ob=bpy.data.objects.new(catenaName+str(numero),mySphere)
             bpy.context.scene.objects.link(ob) 
             bpy.context.scene.objects.active = ob
             numero+=1
             first=0
-        else:
-            localOb=bpy.data.objects.new(catenaName+str(numero),myMesh)
+    else:
+            localOb=bpy.data.objects.new(catenaName+str(numero),mySphere)
             numero+=1
             scn.objects.link(localOb)
-
-
-myMesh=tore(R,r,200,20)
-localOb=bpy.data.objects.new(catenaName+'tour1',myMesh)
-scn.objects.link(localOb)
-myMesh=tore(R,r,200,20)
-rotata=mathutils.Matrix.Rotation(pi/2, 4, 'X') 
-myMesh.transform(rotata)
-localOb=bpy.data.objects.new(catenaName+'tour2',myMesh)
-scn.objects.link(localOb)
-
+            
 bpy.ops.object.select_pattern(extend=False, pattern=catenaName+'*', case_sensitive=False)
 bpy.ops.object.join()   

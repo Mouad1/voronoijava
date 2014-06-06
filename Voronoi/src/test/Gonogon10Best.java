@@ -72,10 +72,9 @@ public class Gonogon10Best {
 		for(Coordonnees c: p)
 			System.out.println(c); 
 	}
+
+	public static void  makeChaine(String s,int limit,HashSet<Coordonnees> pointsParcourus,int xReached,int yReached){
 	
-	public static void  makeChaine(String s,int limit,HashSet<Coordonnees> pointsParcourus,int xReached,int yReached,int dx,int dy){
-		//affiche(pointsParcourus); 
-		System.out.println(s+" "+xReached+" "+yReached+" "+dx+" "+dy); 
 		if(s.length()==limit) {
 			if(isClosed(s)&& (pointsParcourus.size()==limit*(limit+1)/2)){
 			double comp=valeur(s); 
@@ -92,8 +91,6 @@ public class Gonogon10Best {
 			}
 			return;}
 		
-		if(dy<Math.abs(xReached)) return; 
-		if(dx<Math.abs(yReached)) return; 
 		
 		int l=s.length(); 
 		
@@ -110,8 +107,8 @@ public class Gonogon10Best {
 				pointsParcourusA.add(new Coordonnees(xReached,yReached+i));
 				pointsParcourusB.add(new Coordonnees(xReached,yReached-i));
 			}
-			makeChaine(s+'u',limit,pointsParcourusA,xReached,yReached+l+1,dx,dy-l-1); 
-			makeChaine(s+'d',limit,pointsParcourusB,xReached,yReached-l-1,dx,dy-l-1); 
+			makeChaine(s+'u',limit,pointsParcourusA,xReached,yReached+l+1); 
+			makeChaine(s+'d',limit,pointsParcourusB,xReached,yReached-l-1); 
 		}
 		else
 		{
@@ -119,8 +116,8 @@ public class Gonogon10Best {
 				pointsParcourusA.add(new Coordonnees(xReached-i,yReached));
 				pointsParcourusB.add(new Coordonnees(xReached+i,yReached));
 			}	
-			makeChaine(s+'l',limit,pointsParcourusA,xReached-l-1,yReached,dx-l-1,dy); 
-			makeChaine(s+'r',limit,pointsParcourusB,xReached+l+1,yReached,dx-l-1,dy); 
+			makeChaine(s+'l',limit,pointsParcourusA,xReached-l-1,yReached); 
+			makeChaine(s+'r',limit,pointsParcourusB,xReached+l+1,yReached); 
 		}
 	}
 	
@@ -146,10 +143,10 @@ public class Gonogon10Best {
 		init.add(new Coordonnees(0,0)); 
 		init.add(new Coordonnees(0,1));
 		init.add(new Coordonnees(1,1)); 
-		init.add(new Coordonnees(1,2));
+		init.add(new Coordonnees(2,1));
 		
 
-		makeChaine("ur",8,init,2,1,dist1(8)-2,dist2(8)-1); 
+		makeChaine("ur",32,init,2,1); 
 
 		for(int i=0;i<10;i++){
 			System.out.println(i+" "+tenBestIndices[i]+" "+tenBestString[i]+" "+tenBestValues[i]); 
