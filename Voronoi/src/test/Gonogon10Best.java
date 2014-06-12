@@ -146,7 +146,7 @@ public class Gonogon10Best {
 		init.add(new Coordonnees(2,1));
 		
 
-		makeChaine("ur",32,init,2,1); 
+		makeChaine("ur",24,init,2,1); 
 
 		for(int i=0;i<10;i++){
 			System.out.println(i+" "+tenBestIndices[i]+" "+tenBestString[i]+" "+tenBestValues[i]); 
