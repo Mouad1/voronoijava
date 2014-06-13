@@ -131,9 +131,63 @@ def cylindreOriente(p1,p2,rayon,nbFaces):
  me.transform(trans)
  return me
       
-     
-    
+       
+# un cylindre
+def cylindre(r,nbFaces,l):
+ 
+ me=bpy.data.meshes.new('cylindre')
+ coords=[[0,0,0] for i in range(2*nbFaces+2)]
+ faces=[]
 
+ coords[2*nbFaces]=[0,0,0]
+ coords[2*nbFaces+1]=[0,l,0]
+ 
+ for i in range(0,nbFaces):
+     coords[i]=[r*cos(2*i*pi/nbFaces),0,r*sin(2*i*pi/nbFaces)]
+     coords[i+nbFaces]=[r*cos(2*i*pi/nbFaces),l,r*sin(2*i*pi/nbFaces)]
+    
+ for i in range(0,nbFaces):
+     faces.append([i,(i+1)%nbFaces,2*nbFaces])  
+     faces.append([i+nbFaces,2*nbFaces+1,nbFaces+(i+1)%nbFaces])
+     faces.append([(i+1)%nbFaces,i,i+nbFaces])
+     faces.append([i+nbFaces,nbFaces+(i+1)%nbFaces,(i+1)%nbFaces])
+    
+ me.from_pydata(coords,[],faces)   # edges or faces should be [], or you ask for problems
+ me.update(calc_edges=True) 
+ return me
+     
+# construit une liste de points (la couronne) et l'oriente dans l'espace
+def cylindreOriente(p1,p2,rayon,nbFaces):
+ 
+ # use the class constructors from Blender to form vectors for p1 and p2
+ p1 = Vector(p1)
+ p2 = Vector(p2)
+ # form a vector that points in the direction from p1 to p2
+ dir = p2-p1             
+ # get the length of the line we want that goes from p1 to p2
+ length = dir.length
+ me=cylindre(rayon,nbFaces,length)
+ dir.normalize()
+ u = dir
+ uu = Vector([0,1.0,0])
+ if abs(u.angle(uu))>1e-6:
+  v=u.cross(uu)
+  A=Matrix.Rotation(-u.angle(uu),4,v)
+ else:
+  A = Matrix((
+    (1,0,0,0),
+    (0,1,0,0),
+    (0,0,1,0),
+    (0,0,0,1)))
+  
+ # apply the transform to the cylinder  
+ 
+ me.transform(A)
+ trans=mathutils.Matrix.Translation(p1)
+ me.transform(trans)
+ return me
+      
+     
 
 
 scn=bpy.context.scene
@@ -146,11 +200,25 @@ catenaName='un'
 first=1
 numero=0
 dist=10
-nbSteps=100
+nbSteps=1000
+k1=3
+k2=7
+radio=0.5
+"""
+SphereDeBase=sphere(dist,20,20)
+ob=bpy.data.objects.new(catenaName+str(numero),SphereDeBase)
+bpy.context.scene.objects.link(ob) 
+bpy.context.scene.objects.active = ob
+numero+=1
+first=0
+"""
 for index in range(nbSteps):
-    mySphere=sphere(0.5,10,10)
+    mySphere=sphere(radio,10,10)
     theta=2*index*pi/nbSteps
-    A=mathutils.Matrix.Translation((dist*cos(2*theta)*cos(theta),dist*cos(2*theta)*sin(theta),dist*sin(2*theta)))
+    thetap=theta+2*pi/nbSteps
+    p1=Vector((dist*cos(k1*theta)*cos(k2*theta),dist*cos(k1*theta)*sin(k2*theta),dist*sin(k1*theta)))
+    p2=Vector((dist*cos(k1*thetap)*cos(k2*thetap),dist*cos(k1*thetap)*sin(k2*thetap),dist*sin(k1*thetap)))
+    A=mathutils.Matrix.Translation((dist*cos(k1*theta)*cos(k2*theta),dist*cos(k1*theta)*sin(k2*theta),dist*sin(k1*theta)))
     mySphere.transform(A)
     if(first==1):
             ob=bpy.data.objects.new(catenaName+str(numero),mySphere)
@@ -162,6 +230,10 @@ for index in range(nbSteps):
             localOb=bpy.data.objects.new(catenaName+str(numero),mySphere)
             numero+=1
             scn.objects.link(localOb)
+    myCylindre=cylindreOriente(p1,p2,radio,12)    
+    localOb=bpy.data.objects.new(catenaName+str(numero),myCylindre)
+    numero+=1
+    scn.objects.link(localOb)    
             
 bpy.ops.object.select_pattern(extend=False, pattern=catenaName+'*', case_sensitive=False)
 bpy.ops.object.join()   
