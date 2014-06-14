@@ -74,7 +74,7 @@ public class Gonogon {
 		
 
 
-		makeChaine("ur",40,init,2,1); 
+		makeChaine("ur",16,init,2,1); 
 
 
 		compte=0;
