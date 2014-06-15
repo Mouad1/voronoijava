@@ -199,10 +199,13 @@ catenaName='un'
 
 first=1
 numero=0
-dist=10
+dist=60
+dist2=3*dist/4
 nbSteps=1000
 k1=3
-k2=7
+k2=2
+l1=5
+l2=8
 radio=0.5
 """
 SphereDeBase=sphere(dist,20,20)
@@ -216,9 +219,14 @@ for index in range(nbSteps):
     mySphere=sphere(radio,10,10)
     theta=2*index*pi/nbSteps
     thetap=theta+2*pi/nbSteps
+    thetaS=theta+24*pi/nbSteps
     p1=Vector((dist*cos(k1*theta)*cos(k2*theta),dist*cos(k1*theta)*sin(k2*theta),dist*sin(k1*theta)))
     p2=Vector((dist*cos(k1*thetap)*cos(k2*thetap),dist*cos(k1*thetap)*sin(k2*thetap),dist*sin(k1*thetap)))
+    pl1=Vector((dist2*cos(l1*theta)*cos(l2*theta),dist2*cos(l1*theta)*sin(l2*theta),dist2*sin(l1*theta)))
+    pl2=Vector((dist2*cos(l1*thetap)*cos(l2*thetap),dist2*cos(l1*thetap)*sin(l2*thetap),dist2*sin(l1*thetap)))
+    pSucc=Vector((dist*cos(k1*thetaS)*cos(k2*thetaS),dist*cos(k1*thetaS)*sin(k2*thetaS),dist*sin(k1*thetaS)))
     A=mathutils.Matrix.Translation((dist*cos(k1*theta)*cos(k2*theta),dist*cos(k1*theta)*sin(k2*theta),dist*sin(k1*theta)))
+    
     mySphere.transform(A)
     if(first==1):
             ob=bpy.data.objects.new(catenaName+str(numero),mySphere)
@@ -232,6 +240,14 @@ for index in range(nbSteps):
             scn.objects.link(localOb)
     myCylindre=cylindreOriente(p1,p2,radio,12)    
     localOb=bpy.data.objects.new(catenaName+str(numero),myCylindre)
+    numero+=1
+    scn.objects.link(localOb)    
+    myCylindrebis=cylindreOriente(pl1,pl2,radio,12)    
+    localOb=bpy.data.objects.new(catenaName+str(numero),myCylindrebis)
+    numero+=1
+    scn.objects.link(localOb)    
+    myCylindrelien=cylindreOriente(p1,pl1,radio,12)    
+    localOb=bpy.data.objects.new(catenaName+str(numero),myCylindrelien)
     numero+=1
     scn.objects.link(localOb)    
             
