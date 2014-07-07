@@ -62,7 +62,7 @@ public class Laby2 {
 		visit(startX, startY,startZ,0);
 	}
 
-	/** on visite la case de coordonnees x et y et on cherhce a aller vers ses voisins (si non vus)
+	/** on visite la case de coordonnees x et y et on cherche a aller vers ses voisins (si non vus)
 	 * @param x x courant
 	 * @param y y courant
 	 */
