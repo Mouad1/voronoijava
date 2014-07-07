@@ -201,14 +201,14 @@ first=1
 numero=0
 dist=60
 dist2=3*dist/4
-nbSteps=1000
+nbSteps=100
 k1=3
 k2=2
 l1=5
 l2=8
 radio=0.5
 
-ax=20
+ax=50
 ucur=0
 umax=2*pi
 vmax=2*pi
@@ -219,32 +219,34 @@ cy=1
 cz=1
 while(ucur<umax):
     vcur=0
-    point=Vector((ax*sin(cx*ucur),ax*sin(cy*ucur+vcur),ax*sin(cz*vcur)))
-    vcurpred=vcur-stepv
-    ps=Vector((ax*sin(cx*ucur),ax*sin(cy*ucur+vcurpred),ax*sin(cz*vcurpred)))
-    ppred=Vector((ax*sin(cx*(ucur-stepu)),ax*sin(cy*(ucur-stepu)+vcur),ax*sin(cz*vcur)))
-    mySphere=sphere(radio,10,10)
-    A=mathutils.Matrix.Translation((ax*sin(cx*ucur),ax*sin(cy*ucur+vcur),ax*sin(cz*vcur)))
+    while(vcur<=vmax):
+        point=Vector((ax*sin(cx*ucur),ax*sin(cy*ucur+vcur),ax*sin(cz*vcur)))
+        vcurpred=vcur-stepv
+        ps=Vector((ax*sin(cx*ucur),ax*sin(cy*ucur+vcurpred),ax*sin(cz*vcurpred)))
+        ppred=Vector((ax*sin(cx*(ucur-stepu)),ax*sin(cy*(ucur-stepu)+vcur),ax*sin(cz*vcur)))
+        mySphere=sphere(radio,10,10)
+        A=mathutils.Matrix.Translation((ax*sin(cx*ucur),ax*sin(cy*ucur+vcur),ax*sin(cz*vcur)))
     
-    mySphere.transform(A)
-    if(first==1):
+        mySphere.transform(A)
+        if(first==1):
             ob=bpy.data.objects.new(catenaName+str(numero),mySphere)
             bpy.context.scene.objects.link(ob) 
             bpy.context.scene.objects.active = ob
             numero+=1
             first=0
-    else:
+        else:
             localOb=bpy.data.objects.new(catenaName+str(numero),mySphere)
             numero+=1
             scn.objects.link(localOb)
-    myCylindre=cylindreOriente(point,ps,radio,12)    
-    localOb=bpy.data.objects.new(catenaName+str(numero),myCylindre)
-    numero+=1
-    scn.objects.link(localOb)    
-    myCylindrebis=cylindreOriente(point,ppred,radio,12)    
-    localOb=bpy.data.objects.new(catenaName+str(numero),myCylindrebis)
-    numero+=1
-    scn.objects.link(localOb)    
+        myCylindre=cylindreOriente(point,ps,radio,12)    
+        localOb=bpy.data.objects.new(catenaName+str(numero),myCylindre)
+        numero+=1
+        scn.objects.link(localOb)    
+        myCylindrebis=cylindreOriente(point,ppred,radio,12)    
+        localOb=bpy.data.objects.new(catenaName+str(numero),myCylindrebis)
+        numero+=1
+        scn.objects.link(localOb)    
+        vcur=vcur+stepv
     ucur=ucur+stepu
     
 
