@@ -207,25 +207,24 @@ k2=2
 l1=5
 l2=8
 radio=0.5
-"""
-SphereDeBase=sphere(dist,20,20)
-ob=bpy.data.objects.new(catenaName+str(numero),SphereDeBase)
-bpy.context.scene.objects.link(ob) 
-bpy.context.scene.objects.active = ob
-numero+=1
-first=0
-"""
-for index in range(nbSteps):
+
+ax=20
+ucur=0
+umax=2*pi
+vmax=2*pi
+stepu=pi/nbSteps
+stepv=pi/nbSteps
+cx=1
+cy=1
+cz=1
+while(ucur<umax):
+    vcur=0
+    point=Vector((ax*sin(cx*ucur),ax*sin(cy*ucur+vcur),ax*sin(cz*vcur)))
+    vcurpred=vcur-stepv
+    ps=Vector((ax*sin(cx*ucur),ax*sin(cy*ucur+vcurpred),ax*sin(cz*vcurpred)))
+    ppred=Vector((ax*sin(cx*(ucur-stepu)),ax*sin(cy*(ucur-stepu)+vcur),ax*sin(cz*vcur)))
     mySphere=sphere(radio,10,10)
-    theta=2*index*pi/nbSteps
-    thetap=theta+2*pi/nbSteps
-    thetaS=theta+24*pi/nbSteps
-    p1=Vector((dist*cos(k1*theta)*cos(k2*theta),dist*cos(k1*theta)*sin(k2*theta),dist*sin(k1*theta)))
-    p2=Vector((dist*cos(k1*thetap)*cos(k2*thetap),dist*cos(k1*thetap)*sin(k2*thetap),dist*sin(k1*thetap)))
-    pl1=Vector((dist2*cos(l1*theta)*cos(l2*theta),dist2*cos(l1*theta)*sin(l2*theta),dist2*sin(l1*theta)))
-    pl2=Vector((dist2*cos(l1*thetap)*cos(l2*thetap),dist2*cos(l1*thetap)*sin(l2*thetap),dist2*sin(l1*thetap)))
-    pSucc=Vector((dist*cos(k1*thetaS)*cos(k2*thetaS),dist*cos(k1*thetaS)*sin(k2*thetaS),dist*sin(k1*thetaS)))
-    A=mathutils.Matrix.Translation((dist*cos(k1*theta)*cos(k2*theta),dist*cos(k1*theta)*sin(k2*theta),dist*sin(k1*theta)))
+    A=mathutils.Matrix.Translation((ax*sin(cx*ucur),ax*sin(cy*ucur+vcur),ax*sin(cz*vcur)))
     
     mySphere.transform(A)
     if(first==1):
@@ -238,18 +237,17 @@ for index in range(nbSteps):
             localOb=bpy.data.objects.new(catenaName+str(numero),mySphere)
             numero+=1
             scn.objects.link(localOb)
-    myCylindre=cylindreOriente(p1,p2,radio,12)    
+    myCylindre=cylindreOriente(point,ps,radio,12)    
     localOb=bpy.data.objects.new(catenaName+str(numero),myCylindre)
     numero+=1
     scn.objects.link(localOb)    
-    myCylindrebis=cylindreOriente(pl1,pl2,radio,12)    
+    myCylindrebis=cylindreOriente(point,ppred,radio,12)    
     localOb=bpy.data.objects.new(catenaName+str(numero),myCylindrebis)
     numero+=1
     scn.objects.link(localOb)    
-    myCylindrelien=cylindreOriente(p1,pl1,radio,12)    
-    localOb=bpy.data.objects.new(catenaName+str(numero),myCylindrelien)
-    numero+=1
-    scn.objects.link(localOb)    
+    ucur=ucur+stepu
+    
+
             
 bpy.ops.object.select_pattern(extend=False, pattern=catenaName+'*', case_sensitive=False)
 bpy.ops.object.join()   
