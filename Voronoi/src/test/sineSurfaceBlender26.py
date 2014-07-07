@@ -201,14 +201,12 @@ first=1
 numero=0
 dist=60
 dist2=3*dist/4
-nbSteps=100
-k1=3
-k2=2
-l1=5
-l2=8
+nbSteps=30
+
 radio=0.5
 
 ax=50
+nb=0
 ucur=0
 umax=2*pi
 vmax=2*pi
@@ -219,6 +217,8 @@ cy=1
 cz=1
 while(ucur<umax):
     vcur=0
+    print(nb)
+    nb=nb+1
     while(vcur<=vmax):
         point=Vector((ax*sin(cx*ucur),ax*sin(cy*ucur+vcur),ax*sin(cz*vcur)))
         vcurpred=vcur-stepv
