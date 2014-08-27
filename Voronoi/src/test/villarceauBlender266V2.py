@@ -128,19 +128,19 @@ numero=0
 
 # Les parametres utilisateur
 # Nombre de couples de lunules
-nombre=10
+nombre=50
 
 # Epaisseur d'une lunule (au final : 3 mm)
-epaisseur=0.5
+epaisseur=0.7
 
 #Angle des lunules avec la verticale
 angle=45/180.0*pi
 
 # Rayon des cercles generateurs des lunules
-rayon=20
+rayon=30
 
 # Distance entre les centres des cercles generateurs
-distance=15
+distance=5
 
 # Nombre de segments composant chaque lunule
 segments=100
@@ -179,12 +179,14 @@ for i in range(nombre):
  # Assign colours to verts (loop every faces)
  # Script Snippet from Blender Artist
  #Fixer la couleur de tous les sommets d'une meme lunule
- i = 0
+ ii = 0
+ rgb=[cos((i+0.0)/nombre*pi-pi/2),sin((i+0.0)/nombre*pi),1-(4*((i+0.0)/nombre)*(1-((i+0.0)/nombre)))]
+ print(i," ",nombre," ",rgb)
  for face in faces:
-  rgb = rgb1
+  #rgb = rgb1
   for idx in face.loop_indices:
-   vertexColor[i].color = rgb
-   i += 1
+   vertexColor[idx].color = rgb
+   ii += 1
 
  if(first==1):
   ob = bpy.data.objects.new('lunule'+str(numero), myMesh)
@@ -220,12 +222,13 @@ for i in range(nombre):
     
  # Assign colours to verts (loop every faces)
  # Script Snippet from Blender Artist
- i = 0
+ ii = 0
+ rgb=[1-(4*((i+0.0)/nombre)*(1-((i+0.0)/nombre))),sin((i+0.0)/nombre*pi),cos((i+0.0)/nombre*pi-pi/2)]
  for face in faces:
-  rgb = rgb2
+  #rgb = rgb2
   for idx in face.loop_indices:
-   vertexColor[i].color = rgb
-   i += 1
+   vertexColor[idx].color = rgb
+   ii += 1
  
  localOb = bpy.data.objects.new('lunuleInverse'+str(numero), myMesh2)
  numero+=1
