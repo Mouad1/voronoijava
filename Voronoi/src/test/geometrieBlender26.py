@@ -17,7 +17,7 @@ from math import *
 ##############################################################
 # une sphere
 # R : rayon
-# n : nombre de méridiens
+# n : nombre de meridiens
 # p : nombre de paralleles
 
 def sphere(R,n,p):
