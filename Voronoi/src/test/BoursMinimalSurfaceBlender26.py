@@ -189,8 +189,8 @@ def cylindreOriente(p1,p2,rayon,nbFaces):
 
 
 k1=1.5
-k2=5
-k3=0.75
+k2=8
+k3=0.5
       
 def calculPoint(r,t):
 	point=Vector((r*cos(t)-0.5*r*r*cos(k1*t),-r*sin(t)-0.5*r*r*sin(k1*t),k3*r*sqrt(r)*cos(k2*t)))
@@ -210,7 +210,7 @@ radio=0.5
 rmax=1
 thetamax=6*pi
 stepr=1/6.0
-steptheta=pi/250
+steptheta=pi/50
 rcur=stepr
 
 while(rcur<rmax):
