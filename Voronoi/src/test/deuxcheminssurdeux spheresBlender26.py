@@ -186,11 +186,20 @@ def cylindreOriente(p1,p2,rayon,nbFaces):
  trans=mathutils.Matrix.Translation(p1)
  me.transform(trans)
  return me
-      
-taille=10      
-cases=[[[0 for i in range(taille)] for j in range(taille)] for k in range(taille)]
-#etatCases=[][][]      
-     
+ 
+dist=60
+dist2=3*dist/4
+nbSteps=500
+k1=7
+k2=11
+l1=5
+l2=7      
+
+def f(th):
+    return (dist*cos(2*th)*cos(4*th),dist*sin(2*th)*cos(4*th),dist*sin(4*th))
+
+def g(th):
+    return (dist2*cos(4*th)*cos(4*th),dist2*sin(4*th)*cos(4*th),dist2*sin(4*th))
 
 
 scn=bpy.context.scene
@@ -202,13 +211,7 @@ catenaName='un'
 
 first=1
 numero=0
-dist=60
-dist2=3*dist/4
-nbSteps=1000
-k1=3
-k2=2
-l1=5
-l2=8
+
 radio=0.5
 """
 SphereDeBase=sphere(dist,20,20)
@@ -222,14 +225,20 @@ for index in range(nbSteps):
     mySphere=sphere(radio,10,10)
     theta=2*index*pi/nbSteps
     thetap=theta+2*pi/nbSteps
-    thetaS=theta+24*pi/nbSteps
+    thetaS=theta+6*pi/nbSteps
+    p1=Vector(f(theta))
+    p2=Vector(f(thetap))
+    pl1=Vector(g(theta))
+    pl2=Vector(g(thetap))
+    A=mathutils.Matrix.Translation(f(theta))
+    """
     p1=Vector((dist*cos(k1*theta)*cos(k2*theta),dist*cos(k1*theta)*sin(k2*theta),dist*sin(k1*theta)))
     p2=Vector((dist*cos(k1*thetap)*cos(k2*thetap),dist*cos(k1*thetap)*sin(k2*thetap),dist*sin(k1*thetap)))
     pl1=Vector((dist2*cos(l1*theta)*cos(l2*theta),dist2*cos(l1*theta)*sin(l2*theta),dist2*sin(l1*theta)))
-    pl2=Vector((dist2*cos(l1*thetap)*cos(l2*thetap),dist2*cos(l1*thetap)*sin(l2*thetap),dist2*sin(l1*thetap)))
-    pSucc=Vector((dist*cos(k1*thetaS)*cos(k2*thetaS),dist*cos(k1*thetaS)*sin(k2*thetaS),dist*sin(k1*thetaS)))
+    pl2=Vector((dist2*cos(l1*thetaS)*cos(l2*thetaS),dist2*cos(l1*thetaS)*sin(l2*thetaS),dist2*sin(l1*thetaS)))
+    #pSucc=Vector((dist*cos(k1*thetaS)*cos(k2*thetaS),dist*cos(k1*thetaS)*sin(k2*thetaS),dist*sin(k1*thetaS)))
     A=mathutils.Matrix.Translation((dist*cos(k1*theta)*cos(k2*theta),dist*cos(k1*theta)*sin(k2*theta),dist*sin(k1*theta)))
-    
+    """
     mySphere.transform(A)
     if(first==1):
             ob=bpy.data.objects.new(catenaName+str(numero),mySphere)
