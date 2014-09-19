@@ -22,6 +22,8 @@ public class Sommet {
 		return Z;
 	} 
 	
-	
+	public String toPovray(){
+		return "<"+X+","+Y+","+Z+">"; 
+	}
 
 }
