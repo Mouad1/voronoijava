@@ -10,7 +10,7 @@ public class STLReader {
 	
 	
 	public static void main(String[] args) throws Exception{
-		String catena="/tmp/cube.stl"; 
+		String catena="/tmp/bouleMille.stl"; 
 		File source=new File(catena); 
 		FileInputStream fis = new FileInputStream(source);
 		BufferedInputStream bis = new BufferedInputStream(fis);
@@ -44,13 +44,13 @@ public class STLReader {
 			float S2X=fichier.readFloat(); 
 			float S2Y=fichier.readFloat(); 
 			float S2Z=fichier.readFloat(); 
-			//System.out.println("Deuxième sommet :("+S2X+" "+S2Y+" "+S2Z+")");		
+			//System.out.println("Deuxieme sommet :("+S2X+" "+S2Y+" "+S2Z+")");		
 			Sommet S2=new Sommet(S2X,S2Y,S2Z);
 			// Sommet 3
 			float S3X=fichier.readFloat(); 
 			float S3Y=fichier.readFloat(); 
 			float S3Z=fichier.readFloat(); 
-			//System.out.println("Troisième sommet :("+S3X+" "+S3Y+" "+S3Z+")");		
+			//System.out.println("Troisieme sommet :("+S3X+" "+S3Y+" "+S3Z+")");		
 			Sommet S3=new Sommet(S3X,S3Y,S3Z);
 			
 			Triangle tr=new Triangle(S1,S2,S3); 
