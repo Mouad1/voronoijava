@@ -204,22 +204,23 @@ catenaName='un'
 
 first=1
 numero=0
-radio=0.005
+radio=1
 
 
 thetamax=4*pi
 stepr=1/6.0
-steptheta=pi/100
+steptheta=pi/81
 
 thetacur=0
-r=1
+r=70
+gama=0.5
 while(thetacur<=thetamax):
     point=calculPoint(r,thetacur)
     ps=calculPoint(r,thetacur+steptheta)
-    ppred=calculPoint(r,thetacur+4*pi/3)
+    ppred=calculPoint(r,thetacur+gama*pi)
        
           
-    mySphere=sphere(radio,10,10)
+    mySphere=sphere(radio*1.03,16,16)
     A=mathutils.Matrix.Translation(point)
     mySphere.transform(A)
 
@@ -234,7 +235,7 @@ while(thetacur<=thetamax):
         numero+=1
         scn.objects.link(localOb)
     if((ppred-point).length>1e-6):    
-        myCylindre=cylindreOriente(point,ppred,radio/3,12)    
+        myCylindre=cylindreOriente(point,ppred,0.5,12)    
         localOb=bpy.data.objects.new(catenaName+str(numero),myCylindre)
         numero+=1
         scn.objects.link(localOb)    
