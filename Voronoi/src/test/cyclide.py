@@ -15,7 +15,29 @@ from mathutils import *
 
 from math import *
 ##############################################################
-
+#un tore
+# R : grand rayon
+# r : petit rayon
+# n : nombre de sections
+# p : nombre de points sur une section
+def tore(R,r,n,p):
+    me=bpy.data.meshes.new('tore')
+    coords=[[0,0,0] for i in range(n*p)]
+    faces=[]
+    for i in range(n): 
+        for j in range(p):
+                coords[i*p+j]=[(R+r*cos(2*j*pi/p))*cos(2*i*pi/n),(R+r*cos(2*j*pi/p))*sin(2*i*pi/n),r*sin(2*j*pi/p)]
+    for i in range(n):
+        #relier la couronne numero i a la couronne (i+1)%n
+        depart=i*p
+        arrivee=((i+1)*p)%(n*p)
+        for j in range(p):
+            faces.append([depart+j,arrivee+j,depart+(j+1)%p])
+            faces.append([depart+(j+1)%p,arrivee+j,arrivee+(j+1)%p])
+            
+    me.from_pydata(coords,[],faces)   
+    me.update(calc_edges=True) 
+    return me          
 
 def cyclide2(r0,r1,rc,nbc,nbd):
  me=bpy.data.meshes.new('cyclide')
@@ -148,5 +170,64 @@ ob = bpy.data.objects.new('Dupin'+str(numero), myMesh)
 bpy.context.scene.objects.link(ob) 
  
 bpy.context.scene.objects.active = ob
+
+
+"""
+#declare theta=0;
+#declare nbSteps=10; 
+#declare incT=2*pi/nbSteps; 
+#declare index=0; 
+#while(index<nbSteps)
+#declare rad1X=2*(r1*cos(theta)-r0)*(rCercle*rCercle-r1*r1)*cos(theta)/(rCercle*rCercle-r1*r1*cos(theta)*cos(theta)); 
+#declare rad1Y=2*rCercle*sqrt(rCercle*rCercle-r1*r1)*sin(theta)*(r1*cos(theta)-r0)/(rCercle*rCercle-r1*r1*cos(theta)*cos(theta)); 
+#declare rad1=0.5*sqrt(rad1X*rad1X+rad1Y*rad1Y); 
+
+#declare slide1X=rCercle*(r0*r1*sin(theta)*sin(theta)+(rCercle*rCercle-r1*r1)*cos(theta))/(rCercle*rCercle-r1*r1*cos(theta)*cos(theta)); 
+#declare slide1Y=sqrt(rCercle*rCercle-r1*r1)*sin(theta)*(rCercle*rCercle-r0*r1*cos(theta))/(rCercle*rCercle-r1*r1*cos(theta)*cos(theta)); 
+
+//#declare rad1=0.5*2*sqrt(rCercle*rCercle-r1*r1)*(r1*cos(theta)-r0)/sqrt(rCercle*rCercle-r1*r1*cos(theta)*cos(theta)); 
+
+
+torus{rad1,rado texture{pigment{color Green}} 
+rotate 90*x
+rotate -180/pi*theta*y
+translate <slide1X,0,slide1Y>
+}
+
+//torus{rad2,rado texture{pigment{color Green}} translate -rCercle*x}
+
+/*
+rotate 90*x
+rotate 180/pi*theta*y
+translate -r0*r1/rCercle*x
+*/
+
+#declare theta=theta+incT; 
+#declare index=index+1; 
+#end
+"""
+# la meme cyclide avec eles premiers cercles en tore
+p1=(-r0*r1/rC,0,0)
+trans=mathutils.Matrix.Translation(p1)
+for i in range(10):
+   theta=2*i*pi/10
+   denom=rc*rc-r1*r1*cos(theta)
+   rad1X=2*(r1*cos(theta)-r0)*(rc*rc-r1*r1)*cos(theta)/denom
+   rad1Y=2*rc*sqrt(rc*rc-r1*r1)*sin(theta)*(r1*cos(theta)-r0)/denom
+   rad1=0.5*sqrt(rad1X*rad1X+rad1Y*rad1Y)
+   slide1X=rc*(r0*r1*sin(theta)*sin(theta)+(rc*rc-r1*r1)*cos(theta))/denom
+   slide1Y=sqrt(rc*rc-r1*r1)*sin(theta)*(rc*rc-r0*r1*cos(theta))/denom
+   
+   myMesh=tore(rad1,0.3,200,20)
+   rotata=mathutils.Matrix.Rotation(pi/2, 4, 'X') 
+   myMesh.transform(rotata)
+   rotata=mathutils.Matrix.Rotation(theta, 4, 'Z') 
+   myMesh.transform(rotata)
+   me.transform(trans)
+   localOb=bpy.data.objects.new('tore'+i,myMesh)
+   scn.objects.link(localOb)
+   
+   
+     
   
  
