@@ -40,13 +40,16 @@ def tore(R,r,n,p):
     return me          
 
 def cyclide2(mu,c,a,nbc,nbd):
+ global xOmega,r,R,omega,krap,den
  b=sqrt(a*a-c*c)
  omega=(a*mu+b*sqrt(mu*mu-c*c))/c
  den=(a-c)*(mu-c)+b*sqrt(mu*mu-c*c)
  krap=1/den
+ print("krap ",krap)
  r=krap*c*c*(mu-c)/(den*((a+c)*(mu-c)+b*sqrt(mu*mu-c*c)))
  R=krap*c*c*(a-c)/(den*((a-c)*(mu+c)+b*sqrt(mu*mu-c*c)))
  xOmega=omega-krap*b*b*(omega-c)/(((a-c)*(mu+omega)-b*b)*((a+c)*(omega-c)+b*b))
+ print("xOmega dans cyclide",xOmega)
  me=bpy.data.meshes.new('cyclide')
  coords=[[0,0,0] for i in range(nbc*nbd)]
  faces=[]
@@ -85,33 +88,44 @@ def cyclide2(mu,c,a,nbc,nbd):
 b=0
 omega=0
 den=0
-krap=0
+
 r=0
 R=0
 xOmega=0
 
 def den1(t,theta,epsilon):
-    auxi=xomega-sqrt(R*r-r*r)*cos(theta)*sin(t)-epsilon*(r+R*cos(t)*sin(theta)-omega)
+    global xOmega,r,R,omega
+    print("XOmega ",xOmega)
+    auxi=xOmega-sqrt(R*r-r*r)*cos(theta)*sin(t)-epsilon*(r+R*cos(t)*sin(theta)-omega)
+    print("auxi den1 ",auxi)
     return auxi*auxi
 
 def den2(t,theta,epsilon):
+    global xOmega,r,R,omega
     auxi=-sqrt(R*R-r*r)*sin(theta)*sin(t)+epsilon*(r+R*cos(t))*cos(theta)
+    print("auxi den2 ",auxi)
     return auxi*auxi
 
 def numx(t,theta,epsilon):
+    global xOmega,r,R,omega
     return -sqrt(R*R-r*r)*cos(theta)*sin(t)-epsilon*(r+R*cos(t))*sin(theta)
 
 def valX(t,theta,epsilon):
+    global xOmega,r,R,omega,krap
     numer=krap*(xOmega-omega+numx(t,theta,epsilon))
     denim=den1(t,theta,epsilon)+den2(t,theta,epsilon)+r*r*sin(t)*sin(t)
+    print("denim danx valX ",denim)
     return omega+numer/denim
 
 def valY(t,theta,epsilon):
+    global xOmega,r,R,omega,krap
     denim=den1(t,theta,epsilon)+den2(t,theta,epsilon)+r*r*sin(t)*sin(t)
     numer=krap*(-sqrt(R*R-r*r)*sin(theta)*sin(t)+epsilon*(r+R*cos(t))*cos(theta))
+    print("Krap dans valY ",krap)
     return numer/denim
 
 def valZ(t,theta,epsilon):
+    global xOmega,r,R,omega,krap
     denim=den1(t,theta,epsilon)+den2(t,theta,epsilon)+r*r*sin(t)*sin(t)
     return krap*r*sin(t)/denim
 
@@ -120,13 +134,18 @@ def valZ(t,theta,epsilon):
 
 #Construire un tore sur un cercle de Villarcceau pour la cyclide de parametre a,mu,c
 def villarceau(a,mu,c,theta,epsilon):
+   global xOmega,r,R,omega
    # trois points du cercle
-   point1=(valX(0,theta,epsilon),valY(0,theta,epsilon),valZ(0,theta,epsilon))
-   point2=(valX(pi/3,theta,epsilon),valY(pi/3,theta,epsilon),valZ(pi/3,theta,epsilon))
-   point3=(valX(2*pi/3,theta,epsilon),valY(2*pi/3,theta,epsilon),valZ(2*pi/3,theta,epsilon))
+   point1=Vector((valX(0,theta,epsilon),valY(0,theta,epsilon),valZ(0,theta,epsilon)))
+   point2=Vector((valX(pi/3,theta,epsilon),valY(pi/3,theta,epsilon),valZ(pi/3,theta,epsilon)))
+   point3=Vector((valX(2*pi/3,theta,epsilon),valY(2*pi/3,theta,epsilon),valZ(2*pi/3,theta,epsilon)))
    vec12=point2-point1
+   print("point1 ",point1)
+   print("point2 ",point2)
+   print("point3 ",point3)
    vec13=point3-point1
    planeNormal=vec12.cross(vec13)
+   print("Normale au plan ",planeNormal)
    #passage de la bissectrice 1 2
    milieu12=(point1+point2)/2
    #vecteur directeur de la bissectrice 1 2
@@ -136,16 +155,18 @@ def villarceau(a,mu,c,theta,epsilon):
    #vecteur directeur de la bissectrice 1 2
    dir13=vec13.cross(planeNormal)
    dir13.normalize()
+   
    dirAux=milieu12-milieu13
    c1=dir13.cross(dirAux)
    c2=dir12.cross(dir13)
    nA=c1.dot(c2)
    d=c2.dot(c2)
+   print("valeur de d ",d)
    # Ouf, on a trouve le centre
    center=milieu12+nA/d*dir12
    radio=center-point1
    rayon=sqrt(radio.dot(radio))
-   return center,rayon,planeNormal
+   return center,rayon,planeNormal
    
    
       
