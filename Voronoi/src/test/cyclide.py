@@ -39,11 +39,18 @@ def tore(R,r,n,p):
     me.update(calc_edges=True) 
     return me          
 
-def cyclide2(r0,r1,rc,nbc,nbd):
+def cyclide2(mu,c,a,nbc,nbd):
+ b=sqrt(a*a-c*c)
+ omega=(a*mu+b*sqrt(mu*mu-c*c))/c
+ den=(a-c)*(mu-c)+b*sqrt(mu*mu-c*c)
+ krap=1/den
+ r=krap*c*c*(mu-c)/(den*((a+c)*(mu-c)+b*sqrt(mu*mu-c*c)))
+ R=krap*c*c*(a-c)/(den*((a-c)*(mu+c)+b*sqrt(mu*mu-c*c)))
+ xOmega=omega-krap*b*b*(omega-c)/(((a-c)*(mu+omega)-b*b)*((a+c)*(omega-c)+b*b))
  me=bpy.data.meshes.new('cyclide')
  coords=[[0,0,0] for i in range(nbc*nbd)]
  faces=[]
- b2=rc*rc-r1*r1
+ b2=a*a-c*c
  for k in range(nbc):
   theta=2*pi*k/nbc
   cost=cos(theta)
@@ -52,10 +59,10 @@ def cyclide2(r0,r1,rc,nbc,nbd):
    alpha=2*pi*j/nbd
    cosa=cos(alpha)
    sina=sin(alpha)
-   denom=rc-r1*cost*cosa
-   mx=(r0*(r1-rc*cost*cosa)+b2*cost)/denom
-   my=sqrt(b2)*sint*(rc-r0*cosa)/denom
-   mz=sqrt(b2)*sina*(r1*cost-r0)/denom
+   denom=a-c*cost*cosa
+   mx=(mu*(c-a*cost*cosa)+b2*cost)/denom
+   my=sqrt(b2)*sint*(a-mu*cosa)/denom
+   mz=sqrt(b2)*sina*(c*cost-mu)/denom
    coords[k*nbd+j]=[mx,my,mz] 
  # les faces
  for k in range(nbc):
@@ -74,80 +81,76 @@ def cyclide2(r0,r1,rc,nbc,nbd):
  return me
 #fin de la fonction
 
+#Les parametres de la cyclide
+b=0
+omega=0
+den=0
+krap=0
+r=0
+R=0
+xOmega=0
 
-#fonction creant une cyclide de Dupin
-#pour le moment, seulement un sac a main, on verifiera par la suite
-# r0+r1 et r0-r1 sont les deux rayons des cercles associes
-# r0>r1
-# rc rayon du cercle central
-# nombre de cercles : nbc
-# nombre de division sur un cercle : nbd
+def den1(t,theta,epsilon):
+    auxi=xomega-sqrt(R*r-r*r)*cos(theta)*sin(t)-epsilon*(r+R*cos(t)*sin(theta)-omega)
+    return auxi*auxi
 
-def cyclide2(r0,r1,rc,nbc,nbd):
- b2=sqrt(rc*rc-r1*r1)    
- me=bpy.data.meshes.new('cyclide')
- coords=[[0,0,0] for i in range(nbc*nbd)]
- faces=[]
- for k in range(nbc):
-  theta=2*pi*k/nbc
-  cosinus=cos(theta)
-  sinus=sin(theta)
-  for j in range(nbd):
-   alpha=2*pi*j/nbd   
-   denom=rc-r1*cos(theta)*cos(alpha)
-   mx=(r0*(r1-rc*cos(theta)*cos(alpha))+b2*b2*cos(theta))/denom
-   my=(b2*sin(theta)*(rc-r0*cos(alpha)))/denom
-   mz=(b2*sin(alpha)*(r1*cos(theta)-r0))/denom
-   coords[k*nbd+j]=[mx,my,mz]
-   # les faces
- for k in range(nbc):
-  for j in range(nbd):
-   #faire deux faces a partir de i (je me comprends)
-   coinA=k*nbd+j; 
-   coinB=k*nbd+(j+1)%nbd
-   coinC=((k+1)%nbc)*nbd+j
-   coinD=((k+1)%nbc)*nbd+(j+1)%nbd	
-   faces.append([coinA,coinD,coinB])
-   faces.append([coinA,coinC,coinD])
+def den2(t,theta,epsilon):
+    auxi=-sqrt(R*R-r*r)*sin(theta)*sin(t)+epsilon*(r+R*cos(t))*cos(theta)
+    return auxi*auxi
+
+def numx(t,theta,epsilon):
+    return -sqrt(R*R-r*r)*cos(theta)*sin(t)-epsilon*(r+R*cos(t))*sin(theta)
+
+def valX(t,theta,epsilon):
+    numer=krap*(xOmega-omega+numx(t,theta,epsilon))
+    denim=den1(t,theta,epsilon)+den2(t,theta,epsilon)+r*r*sin(t)*sin(t)
+    return omega+numer/denim
+
+def valY(t,theta,epsilon):
+    denim=den1(t,theta,epsilon)+den2(t,theta,epsilon)+r*r*sin(t)*sin(t)
+    numer=krap*(-sqrt(R*R-r*r)*sin(theta)*sin(t)+epsilon*(r+R*cos(t))*cos(theta))
+    return numer/denim
+
+def valZ(t,theta,epsilon):
+    denim=den1(t,theta,epsilon)+den2(t,theta,epsilon)+r*r*sin(t)*sin(t)
+    return krap*r*sin(t)/denim
 
 
- me.from_pydata(coords,[],faces)   # edges or faces should be [], or you ask for problems
- me.update(calc_edges=True) 
- return me
-#fin de la fonction
+    
+
+#Construire un tore sur un cercle de Villarcceau pour la cyclide de parametre a,mu,c
+def villarceau(a,mu,c,theta,epsilon):
+   # trois points du cercle
+   point1=(valX(0,theta,epsilon),valY(0,theta,epsilon),valZ(0,theta,epsilon))
+   point2=(valX(pi/3,theta,epsilon),valY(pi/3,theta,epsilon),valZ(pi/3,theta,epsilon))
+   point3=(valX(2*pi/3,theta,epsilon),valY(2*pi/3,theta,epsilon),valZ(2*pi/3,theta,epsilon))
+   vec12=point2-point1
+   vec13=point3-point1
+   planeNormal=vec12.cross(vec13)
+   #passage de la bissectrice 1 2
+   milieu12=(point1+point2)/2
+   #vecteur directeur de la bissectrice 1 2
+   dir12=vec12.cross(planeNormal)
+   dir12.normalize()
+   milieu13=(point1+point3)/2
+   #vecteur directeur de la bissectrice 1 2
+   dir13=vec13.cross(planeNormal)
+   dir13.normalize()
+   dirAux=milieu12-milieu13
+   c1=dir13.cross(dirAux)
+   c2=dir12.cross(dir13)
+   nA=c1.dot(c2)
+   d=c2.dot(c2)
+   # Ouf, on a trouve le centre
+   center=milieu12+nA/d*dir12
+   radio=center-point1
+   rayon=sqrt(radio.dot(radio))
+   return center,rayon,planeNormal
    
    
-def cyclide(r0,r1,rc,nbc,nbd):
- me=bpy.data.meshes.new('cyclide')
- coords=[[0,0,0] for i in range(nbc*nbd)]
- faces=[]
- for k in range(nbc):
-  theta=2*pi*k/nbc
-  cosinus=cos(theta)
-  sinus=sin(theta)
-  for j in range(nbd):
-   alpha=2*pi*j/nbd
-   rayon=r0+r1*cosinus
-   
-   coords[k*nbd+j]=[(rc+rayon*cos(alpha))*cosinus,(rc+rayon*cos(alpha))*sinus,rayon*sin(alpha)] 
- # les faces
- for k in range(nbc):
-  for j in range(nbd):
-   #faire deux faces a partir de i (je me comprends)
-   coinA=k*nbd+j; 
-   coinB=k*nbd+(j+1)%nbd
-   coinC=((k+1)%nbc)*nbd+j
-   coinD=((k+1)%nbc)*nbd+(j+1)%nbd	
-   faces.append([coinA,coinD,coinB])
-   faces.append([coinA,coinC,coinD])
-
-
- me.from_pydata(coords,[],faces)   # edges or faces should be [], or you ask for problems
- me.update(calc_edges=True) 
- return me
-#fin de la fonction
- 
-
+      
+    
+    
  
 #test
 print("debut/n")
@@ -165,7 +168,12 @@ r0=1.5
 r1=0.75
 rc=5
 
-myMesh=cyclide2(r0,r1,rc,nbc,nbd)
+# renommage des parametres de la cyclide pour etre en accord avec Garnier
+a=5
+mu=r0
+c=r1
+
+myMesh=cyclide2(mu,c,a,nbc,nbd)
 
 ob = bpy.data.objects.new('Dupin'+str(numero), myMesh)
 bpy.context.scene.objects.link(ob) 
@@ -198,5 +206,5 @@ for i in range(nbtore):
    
    
      
-  
+vilain=villarceau(a,mu,c,pi/3,1)
  
