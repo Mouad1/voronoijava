@@ -47,7 +47,7 @@ def cyclide2(mu,c,a,nbc,nbd):
  print("Omega dans cyclide ",omega)
  den=(a-c)*(mu-c)+b*sqrt(mu*mu-c*c)
  print("den ",den)
- krap=500
+ krap=1.15
  print("krap ",krap)
  r=krap*c*c*(mu-c)/(den*((a+c)*(mu-c)+b*sqrt(mu*mu-c*c)))
  R=krap*c*c*(a-c)/(den*((a-c)*(mu+c)+b*sqrt(mu*mu-c*c)))
@@ -70,7 +70,7 @@ def cyclide2(mu,c,a,nbc,nbd):
    mx=(mu*(c-a*cost*cosa)+b2*cost)/denom
    my=sqrt(b2)*sint*(a-mu*cosa)/denom
    mz=sqrt(b2)*sina*(c*cost-mu)/denom
-   coords[k*nbd+j]=[mx,my,mz] 
+   coords[k*nbd+j]=[mx,mz,my] 
  # les faces
  for k in range(nbc):
   for j in range(nbd):
@@ -212,14 +212,14 @@ c=1
 myMesh=cyclide2(mu,c,a,nbc,nbd)
 
 ob = bpy.data.objects.new('Dupin'+str(numero), myMesh)
-#bpy.context.scene.objects.link(ob) 
+bpy.context.scene.objects.link(ob) 
  
 #bpy.context.scene.objects.active = ob
 
 
 
 # la meme cyclide avec les premiers cercles en tore
-"""
+
 nbtore=30
 for i in range(nbtore):
    theta=2*i*pi/nbtore
@@ -238,8 +238,8 @@ for i in range(nbtore):
    myMesh.transform(rotata)
    myMesh.transform(trans)
    localOb=bpy.data.objects.new('tore',myMesh)
-   #scn.objects.link(localOb)
-"""   
+   scn.objects.link(localOb)
+ 
  
 """   
 for i in range(nbtore):
@@ -264,8 +264,9 @@ for i in range(nbtore):
 a=5
 mu=3
 c=1
+petitR=0.2
 for i in range(20):
-    """
+    
     vilain=villarceau(a,mu,c,2*i*pi/20,1)   
     #print("Centre ",vilain[0])
     print(i," Rayon ",vilain[1])
@@ -273,17 +274,17 @@ for i in range(20):
     pn=vilain[2]
     angle1=atan2(pn[2],pn[0])
     angle2=atan2(sqrt(pn[2]*pn[2]+pn[0]*pn[0]),pn[1])
-    myMesh=tore(vilain[1],0.05,200,20)
+    myMesh=tore(vilain[1],petitR,200,20)
     rotata=mathutils.Matrix.Rotation(angle2, 4, 'Y') 
     myMesh.transform(rotata)
-    rotata=mathutils.Matrix.Rotation(angle1, 4, 'Z') 
+    rotata=mathutils.Matrix.Rotation(-angle1, 4, 'Z') 
     myMesh.transform(rotata)
     trans=mathutils.Matrix.Translation(Vector([vilain[0][0],-vilain[0][2],vilain[0][1]]))
     myMesh.transform(trans)
     ob = bpy.data.objects.new('Dupin'+str(numero), myMesh)
     numero=numero+1
     bpy.context.scene.objects.link(ob)  
-    """
+    
     vilain=villarceau(a,mu,c,2*i*pi/20,-1)   
     print("Centre ",vilain[0])
     print("Rayon ",vilain[1])
@@ -291,10 +292,10 @@ for i in range(20):
     pn=vilain[2]
     angle1=atan2(pn[2],pn[0])
     angle2=atan2(sqrt(pn[2]*pn[2]+pn[0]*pn[0]),pn[1])
-    myMesh=tore(vilain[1],0.05,200,20)
+    myMesh=tore(vilain[1],petitR,200,20)
     rotata=mathutils.Matrix.Rotation(angle2, 4, 'Y') 
     myMesh.transform(rotata)
-    rotata=mathutils.Matrix.Rotation(angle1, 4, 'Z') 
+    rotata=mathutils.Matrix.Rotation(-angle1, 4, 'Z') 
     myMesh.transform(rotata)
     trans=mathutils.Matrix.Translation(Vector([vilain[0][0],-vilain[0][2],vilain[0][1]]))
     myMesh.transform(trans)
