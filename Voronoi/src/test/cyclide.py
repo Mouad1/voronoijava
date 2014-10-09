@@ -42,12 +42,16 @@ def tore(R,r,n,p):
 def cyclide2(mu,c,a,nbc,nbd):
  global xOmega,r,R,omega,krap,den
  b=sqrt(a*a-c*c)
+ print(" a, b,c,mu",a," ",b," ",c," ",mu)
  omega=(a*mu+b*sqrt(mu*mu-c*c))/c
+ print("Omega dans cyclide ",omega)
  den=(a-c)*(mu-c)+b*sqrt(mu*mu-c*c)
- krap=1/den
+ print("den ",den)
+ krap=500
  print("krap ",krap)
  r=krap*c*c*(mu-c)/(den*((a+c)*(mu-c)+b*sqrt(mu*mu-c*c)))
  R=krap*c*c*(a-c)/(den*((a-c)*(mu+c)+b*sqrt(mu*mu-c*c)))
+ print("R ",R," r ",r)
  xOmega=omega-krap*b*b*(omega-c)/(((a-c)*(mu+omega)-b*b)*((a+c)*(omega-c)+b*b))
  print("xOmega dans cyclide",xOmega)
  me=bpy.data.meshes.new('cyclide')
@@ -95,15 +99,16 @@ xOmega=0
 
 def den1(t,theta,epsilon):
     global xOmega,r,R,omega
-    print("XOmega ",xOmega)
-    auxi=xOmega-sqrt(R*r-r*r)*cos(theta)*sin(t)-epsilon*(r+R*cos(t)*sin(theta)-omega)
-    print("auxi den1 ",auxi)
+    #print("XOmega dans den1 ",xOmega)
+    #print("Omega theta",omega," ",theta)
+    auxi=xOmega-sqrt(R*R-r*r)*cos(theta)*sin(t)-epsilon*(r+R*cos(t))*sin(theta)-omega
+    #print("den1(",t,") ",auxi*auxi)
     return auxi*auxi
 
 def den2(t,theta,epsilon):
     global xOmega,r,R,omega
     auxi=-sqrt(R*R-r*r)*sin(theta)*sin(t)+epsilon*(r+R*cos(t))*cos(theta)
-    print("auxi den2 ",auxi)
+    #print("den2(",t,") ",auxi*auxi)
     return auxi*auxi
 
 def numx(t,theta,epsilon):
@@ -113,20 +118,22 @@ def numx(t,theta,epsilon):
 def valX(t,theta,epsilon):
     global xOmega,r,R,omega,krap
     numer=krap*(xOmega-omega+numx(t,theta,epsilon))
+    print("krap dans valx ",krap)
     denim=den1(t,theta,epsilon)+den2(t,theta,epsilon)+r*r*sin(t)*sin(t)
-    print("denim danx valX ",denim)
+    print("valX (",t,"):",omega+numer/denim)
     return omega+numer/denim
 
 def valY(t,theta,epsilon):
     global xOmega,r,R,omega,krap
     denim=den1(t,theta,epsilon)+den2(t,theta,epsilon)+r*r*sin(t)*sin(t)
     numer=krap*(-sqrt(R*R-r*r)*sin(theta)*sin(t)+epsilon*(r+R*cos(t))*cos(theta))
-    print("Krap dans valY ",krap)
+    print("valY (",t,"):",numer/denim)
     return numer/denim
 
 def valZ(t,theta,epsilon):
     global xOmega,r,R,omega,krap
     denim=den1(t,theta,epsilon)+den2(t,theta,epsilon)+r*r*sin(t)*sin(t)
+    print("valZ (",t,"):",krap*r*sin(t)/denim)
     return krap*r*sin(t)/denim
 
 
@@ -139,13 +146,16 @@ def villarceau(a,mu,c,theta,epsilon):
    point1=Vector((valX(0,theta,epsilon),valY(0,theta,epsilon),valZ(0,theta,epsilon)))
    point2=Vector((valX(pi/3,theta,epsilon),valY(pi/3,theta,epsilon),valZ(pi/3,theta,epsilon)))
    point3=Vector((valX(2*pi/3,theta,epsilon),valY(2*pi/3,theta,epsilon),valZ(2*pi/3,theta,epsilon)))
-   vec12=point2-point1
+   vec12=point2-point1 # vec1
+   """
    print("point1 ",point1)
    print("point2 ",point2)
    print("point3 ",point3)
-   vec13=point3-point1
+   """
+   vec13=point3-point1 #vec2
    planeNormal=vec12.cross(vec13)
-   print("Normale au plan ",planeNormal)
+   planeNormal.normalize()
+   #print("Normale au plan ",planeNormal)
    #passage de la bissectrice 1 2
    milieu12=(point1+point2)/2
    #vecteur directeur de la bissectrice 1 2
@@ -161,11 +171,16 @@ def villarceau(a,mu,c,theta,epsilon):
    c2=dir12.cross(dir13)
    nA=c1.dot(c2)
    d=c2.dot(c2)
-   print("valeur de d ",d)
+   #print("valeur de d ",d)
    # Ouf, on a trouve le centre
    center=milieu12+nA/d*dir12
    radio=center-point1
    rayon=sqrt(radio.dot(radio))
+   """
+   print("Rayon ",rayon)
+   print("Centre ",center)
+   print("Normale ",planeNormal)
+   """
    return center,rayon,planeNormal
    
    
@@ -191,20 +206,20 @@ rc=5
 
 # renommage des parametres de la cyclide pour etre en accord avec Garnier
 a=5
-mu=r0
-c=r1
+mu=3
+c=1
 
 myMesh=cyclide2(mu,c,a,nbc,nbd)
 
 ob = bpy.data.objects.new('Dupin'+str(numero), myMesh)
-bpy.context.scene.objects.link(ob) 
+#bpy.context.scene.objects.link(ob) 
  
-bpy.context.scene.objects.active = ob
+#bpy.context.scene.objects.active = ob
 
 
 
 # la meme cyclide avec les premiers cercles en tore
-
+"""
 nbtore=30
 for i in range(nbtore):
    theta=2*i*pi/nbtore
@@ -216,16 +231,74 @@ for i in range(nbtore):
    slide1Y=sqrt(rc*rc-r1*r1)*sin(theta)*(rc*rc-r0*r1*cos(theta))/denom
    p1=Vector([slide1X,slide1Y,0])
    trans=mathutils.Matrix.Translation(p1)
-   myMesh=tore(rad1,0.05,200,20)
+   myMesh=tore(rad1,0.2,200,20)
    rotata=mathutils.Matrix.Rotation(pi/2, 4, 'X') 
    myMesh.transform(rotata)
    rotata=mathutils.Matrix.Rotation(theta, 4, 'Z') 
    myMesh.transform(rotata)
    myMesh.transform(trans)
    localOb=bpy.data.objects.new('tore',myMesh)
-   scn.objects.link(localOb)
-   
-   
-     
-vilain=villarceau(a,mu,c,pi/3,1)
+   #scn.objects.link(localOb)
+"""   
  
+"""   
+for i in range(nbtore):
+    theta=2*i*pi/nbtore     
+    vilain=villarceau(a,mu,c,theta,1)
+    rayon=vilain[1]
+    centre=vilain[0]
+    trans=mathutils.Matrix.Translation(centre)
+    myMesh=tore(rayon,0.05,200,20)
+    plan=vilain[2]
+    angle1=atan2(plan[2],plan[0])
+    angle2=atan2(sqrt(plan[0]*plan[0]+plan[2]*plan[2]),plan[1])
+    rotata=mathutils.Matrix.Rotation(-angle2, 4, 'Y') 
+    myMesh.transform(rotata)
+    rotata=mathutils.Matrix.Rotation(-angle1, 4, 'Z') 
+    myMesh.transform(rotata)
+    #myMesh.transform(trans)
+    ob = bpy.data.objects.new('Dupin'+str(numero), myMesh)
+    numero=numero+1
+    bpy.context.scene.objects.link(ob)  
+""" 
+a=5
+mu=3
+c=1
+for i in range(20):
+    """
+    vilain=villarceau(a,mu,c,2*i*pi/20,1)   
+    #print("Centre ",vilain[0])
+    print(i," Rayon ",vilain[1])
+    #print("normale ",vilain[2])
+    pn=vilain[2]
+    angle1=atan2(pn[2],pn[0])
+    angle2=atan2(sqrt(pn[2]*pn[2]+pn[0]*pn[0]),pn[1])
+    myMesh=tore(vilain[1],0.05,200,20)
+    rotata=mathutils.Matrix.Rotation(angle2, 4, 'Y') 
+    myMesh.transform(rotata)
+    rotata=mathutils.Matrix.Rotation(angle1, 4, 'Z') 
+    myMesh.transform(rotata)
+    trans=mathutils.Matrix.Translation(Vector([vilain[0][0],-vilain[0][2],vilain[0][1]]))
+    myMesh.transform(trans)
+    ob = bpy.data.objects.new('Dupin'+str(numero), myMesh)
+    numero=numero+1
+    bpy.context.scene.objects.link(ob)  
+    """
+    vilain=villarceau(a,mu,c,2*i*pi/20,-1)   
+    print("Centre ",vilain[0])
+    print("Rayon ",vilain[1])
+    print("normale ",vilain[2])
+    pn=vilain[2]
+    angle1=atan2(pn[2],pn[0])
+    angle2=atan2(sqrt(pn[2]*pn[2]+pn[0]*pn[0]),pn[1])
+    myMesh=tore(vilain[1],0.05,200,20)
+    rotata=mathutils.Matrix.Rotation(angle2, 4, 'Y') 
+    myMesh.transform(rotata)
+    rotata=mathutils.Matrix.Rotation(angle1, 4, 'Z') 
+    myMesh.transform(rotata)
+    trans=mathutils.Matrix.Translation(Vector([vilain[0][0],-vilain[0][2],vilain[0][1]]))
+    myMesh.transform(trans)
+    ob = bpy.data.objects.new('Dupin'+str(numero), myMesh)
+    numero=numero+1
+    bpy.context.scene.objects.link(ob)  
+    
