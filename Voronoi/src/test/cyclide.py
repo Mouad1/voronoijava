@@ -47,9 +47,10 @@ def cyclide2(mu,c,a,nbc,nbd):
  print("Omega dans cyclide ",omega)
  den=(a-c)*(mu-c)+b*sqrt(mu*mu-c*c)
  print("den ",den)
- krap=1.15
- print("krap ",krap)
+ krap=den
+ print("krap initial",krap)
  r=krap*c*c*(mu-c)/(den*((a+c)*(mu-c)+b*sqrt(mu*mu-c*c)))
+ print("Proportion : ",(mu-c)/r)
  R=krap*c*c*(a-c)/(den*((a-c)*(mu+c)+b*sqrt(mu*mu-c*c)))
  print("R ",R," r ",r)
  xOmega=omega-krap*b*b*(omega-c)/(((a-c)*(mu+omega)-b*b)*((a+c)*(omega-c)+b*b))
@@ -118,28 +119,29 @@ def numx(t,theta,epsilon):
 def valX(t,theta,epsilon):
     global xOmega,r,R,omega,krap
     numer=krap*(xOmega-omega+numx(t,theta,epsilon))
-    print("krap dans valx ",krap)
+    #print("krap dans valx ",krap)
     denim=den1(t,theta,epsilon)+den2(t,theta,epsilon)+r*r*sin(t)*sin(t)
-    print("valX (",t,"):",omega+numer/denim)
+    #print("valX (",t,"):",omega+numer/denim)
     return omega+numer/denim
+    
 
 def valY(t,theta,epsilon):
     global xOmega,r,R,omega,krap
     denim=den1(t,theta,epsilon)+den2(t,theta,epsilon)+r*r*sin(t)*sin(t)
     numer=krap*(-sqrt(R*R-r*r)*sin(theta)*sin(t)+epsilon*(r+R*cos(t))*cos(theta))
-    print("valY (",t,"):",numer/denim)
+    #print("valY (",t,"):",numer/denim)
     return numer/denim
 
 def valZ(t,theta,epsilon):
     global xOmega,r,R,omega,krap
     denim=den1(t,theta,epsilon)+den2(t,theta,epsilon)+r*r*sin(t)*sin(t)
-    print("valZ (",t,"):",krap*r*sin(t)/denim)
+    #print("valZ (",t,"):",krap*r*sin(t)/denim)
     return krap*r*sin(t)/denim
 
 
     
 
-#Construire un tore sur un cercle de Villarcceau pour la cyclide de parametre a,mu,c
+#Construire un tore sur un cercle de Villarceau pour la cyclide de parametre a,mu,c
 def villarceau(a,mu,c,theta,epsilon):
    global xOmega,r,R,omega
    # trois points du cercle
@@ -211,15 +213,15 @@ c=1
 
 myMesh=cyclide2(mu,c,a,nbc,nbd)
 
-ob = bpy.data.objects.new('Dupin'+str(numero), myMesh)
-bpy.context.scene.objects.link(ob) 
+#ob = bpy.data.objects.new('Dupin'+str(numero), myMesh)
+#bpy.context.scene.objects.link(ob) 
  
 #bpy.context.scene.objects.active = ob
 
 
 
 # la meme cyclide avec les premiers cercles en tore
-
+"""
 nbtore=30
 for i in range(nbtore):
    theta=2*i*pi/nbtore
@@ -241,7 +243,7 @@ for i in range(nbtore):
    scn.objects.link(localOb)
  
  
-"""   
+   
 for i in range(nbtore):
     theta=2*i*pi/nbtore     
     vilain=villarceau(a,mu,c,theta,1)
@@ -261,16 +263,26 @@ for i in range(nbtore):
     numero=numero+1
     bpy.context.scene.objects.link(ob)  
 """ 
-a=5
-mu=3
-c=1
-petitR=0.2
-for i in range(20):
+
+# Couleur de la premiere nappe
+rgb1=[1,1,0]
+
+# Couleur de la deuxieme nappe
+rgb2=[0,0,1]
+
+petitR=0.3
+first=1
+numero=0
+nbCercles=25
+for i in range(nbCercles):
     
-    vilain=villarceau(a,mu,c,2*i*pi/20,1)   
+    vilain=villarceau(a,mu,c,2*i*pi/nbCercles,1)   
+    """
     #print("Centre ",vilain[0])
     print(i," Rayon ",vilain[1])
     #print("normale ",vilain[2])
+    """
+    
     pn=vilain[2]
     angle1=atan2(pn[2],pn[0])
     angle2=atan2(sqrt(pn[2]*pn[2]+pn[0]*pn[0]),pn[1])
@@ -281,14 +293,53 @@ for i in range(20):
     myMesh.transform(rotata)
     trans=mathutils.Matrix.Translation(Vector([vilain[0][0],-vilain[0][2],vilain[0][1]]))
     myMesh.transform(trans)
-    ob = bpy.data.objects.new('Dupin'+str(numero), myMesh)
-    numero=numero+1
-    bpy.context.scene.objects.link(ob)  
+        
+        
+     
+    # Create a single Material that respect Vertex Color
+    mat = bpy.data.materials.new('VertexMat')
+    mat.use_vertex_color_paint = True
+    mat.use_vertex_color_light = True
     
-    vilain=villarceau(a,mu,c,2*i*pi/20,-1)   
+     
+        
+    # Create new 'Col' Vertex Color Layer
+    myMesh.vertex_colors.new()
+        
+    # Vertex colour data
+    vertexColor = myMesh.vertex_colors[0].data
+    faces = myMesh.polygons
+        
+    # Assign colours to verts (loop every faces)
+    # Script Snippet from Blender Artist
+    #Fixer la couleur de tous les sommets d'une meme lunule
+    j = 0
+    for face in faces:
+     rgb = [0.5+0.5*cos(2*i*pi/nbCercles),(cos(2*i*pi/nbCercles)+sin(2*i*pi/nbCercles))/4,0.5+0.5*sin(2*i*pi/nbCercles)]
+     for idx in face.loop_indices:
+      vertexColor[j].color = rgb
+      j += 1
+    
+    
+    if(first==1):
+      ob = bpy.data.objects.new('Villarceau'+str(numero), myMesh)
+      bpy.context.scene.objects.link(ob) 
+      # Le premier tore cree est actif, les autres seront selectionnes a la fin, puis joints 
+      bpy.context.scene.objects.active = ob
+      numero+=1
+      first=0
+    else:
+      localOb = bpy.data.objects.new('Villarceau'+str(numero), myMesh)
+      numero+=1
+      scn.objects.link(localOb)
+        
+    
+    vilain=villarceau(a,mu,c,2*i*pi/nbCercles,-1)   
+    """
     print("Centre ",vilain[0])
     print("Rayon ",vilain[1])
     print("normale ",vilain[2])
+    """
     pn=vilain[2]
     angle1=atan2(pn[2],pn[0])
     angle2=atan2(sqrt(pn[2]*pn[2]+pn[0]*pn[0]),pn[1])
@@ -299,7 +350,45 @@ for i in range(20):
     myMesh.transform(rotata)
     trans=mathutils.Matrix.Translation(Vector([vilain[0][0],-vilain[0][2],vilain[0][1]]))
     myMesh.transform(trans)
-    ob = bpy.data.objects.new('Dupin'+str(numero), myMesh)
-    numero=numero+1
-    bpy.context.scene.objects.link(ob)  
+   
+   
+     
+    # Create a single Material that respect Vertex Color
+    mat = bpy.data.materials.new('VertexMat')
+    mat.use_vertex_color_paint = True
+    mat.use_vertex_color_light = True
     
+     
+        
+    # Create new 'Col' Vertex Color Layer
+    myMesh.vertex_colors.new()
+        
+    # Vertex colour data
+    vertexColor = myMesh.vertex_colors[0].data
+    faces = myMesh.polygons
+        
+    # Assign colours to verts (loop every faces)
+    # Script Snippet from Blender Artist
+    #Fixer la couleur de tous les sommets d'une meme lunule
+    j = 0
+    for face in faces:
+     rgb = [0.5+0.5*cos(2*i*pi/nbCercles),(cos(2*i*pi/nbCercles)+sin(2*i*pi/nbCercles))/4,0.5+0.5*sin(2*i*pi/nbCercles)]
+     for idx in face.loop_indices:
+      vertexColor[j].color = rgb
+      j += 1
+    
+    if(first==1):
+      ob = bpy.data.objects.new('Villarceau'+str(numero), myMesh)
+      bpy.context.scene.objects.link(ob) 
+      
+      bpy.context.scene.objects.active = ob
+      numero+=1
+      first=0
+    else:
+      localOb = bpy.data.objects.new('Villarceau'+str(numero), myMesh)
+      numero+=1
+      scn.objects.link(localOb)
+      
+      
+bpy.ops.object.select_pattern(extend=False, pattern="Villarceau*", case_sensitive=False)
+bpy.ops.object.join()   
