@@ -22,12 +22,12 @@ public class STLReaderToPovray {
 	private static PrintStream output; 
 	
 	public static void main(String[] args) throws Exception{
-		 output=new PrintStream("C:/tmp/bunny.inc");
-		String catena="/tmp/bunny.stl"; 
+		 output=new PrintStream("C:/tmp/cyclide.inc");
+		String catena="/tmp/cyclide.stl"; 
 		File source=new File(catena); 
 		FileInputStream fis = new FileInputStream(source);
 		BufferedInputStream bis = new BufferedInputStream(fis);
-		String nom="bunny";  
+		String nom="cyclide";  
 		Mesh leMesh=new Mesh(); 
 	
 		LittleEndianInputStream fichier=new LittleEndianInputStream(bis); 
@@ -80,7 +80,7 @@ public class STLReaderToPovray {
 			if(i<nbTriangles-1) output.print(","); 
 			if(i%10==0) output.println(); 
 		}
-		output.println("}}");
+		output.println("} inside_vector<1,1,1>}");
 		System.out.println("fini"); 
 	}
 

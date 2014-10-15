@@ -151,7 +151,7 @@ numero=0
 
 # Les parametres utilisateur
 # Nombre de couples de lunules
-nombre=20
+nombre=11
 
 # Epaisseur d'une lunule (au final : 3 mm)
 epaisseur=0.5
@@ -163,7 +163,7 @@ angle=45/180.0*pi
 rayon=20
 
 # Distance entre les centres des cercles generateurs
-distance=15
+distance=20
 
 # Nombre de segments composant chaque lunule
 segments=100
@@ -174,7 +174,7 @@ rgb1=[1,0,0]
 # Couleur de la deuxieme lunule
 rgb2=[0,0,1]
 
-petitR=1.14
+petitR=0.9
 
 trans1=mathutils.Matrix.Translation(Vector([-distance/2,0,0]))
 trans2=mathutils.Matrix.Translation(Vector([distance/2,0,0]))
@@ -208,7 +208,8 @@ for i in range(nombre):
  #Fixer la couleur de tous les sommets d'une meme lunule
  j = 0
  for face in faces:
-  rgb =  [0.5+0.5*cos(2*i*pi/nombre),(cos(2*i*pi/nombre)+sin(2*i*pi/nombre))/4,0.5+0.5*sin(2*i*pi/nombre)]
+  #rgb =  [0.5+0.5*cos(2*i*pi/nombre),(cos(2*i*pi/nombre)+sin(2*i*pi/nombre))/4,0.5+0.5*sin(2*i*pi/nombre)]
+  rgb=[0.78,0.59,0.38]
   for idx in face.loop_indices:
    vertexColor[j].color = rgb
    j += 1
@@ -251,7 +252,8 @@ for i in range(nombre):
  # Script Snippet from Blender Artist
  j = 0
  for face in faces:
-  rgb = [0.5+0.5*cos(2*i*pi/nombre),(cos(2*i*pi/nombre)+sin(2*i*pi/nombre))/4,0.5+0.5*sin(2*i*pi/nombre)]
+  #rgb = [0.5+0.5*cos(2*i*pi/nombre),(cos(2*i*pi/nombre)+sin(2*i*pi/nombre))/4,0.5+0.5*sin(2*i*pi/nombre)]
+  rgb=[0.36,0.26,0.24]
   for idx in face.loop_indices:
    vertexColor[j].color = rgb
    j += 1
