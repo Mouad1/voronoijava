@@ -15,6 +15,29 @@ from mathutils import *
 
 from math import *
 ##############################################################
+#un cylindre
+# R : rayon
+# ep : epaisseur
+# n : nombres de points sur la circonference
+def cylindre(R,ep,n):
+    me=bpy.data.meshes.new('cylindre')
+    coords=[[0,0,0] for i in range(2*n+2)]
+    coords[2*n]=[0,0,ep/2]
+    coords[2*n+1]=[0,0,-ep/2]
+    faces=[]
+    for i in range(n): 
+        coords[i]=[R*cos(2*i*pi/n),R*sin(2*i*pi/n),ep/2]
+        coords[i+n]=[R*cos(2*i*pi/n),R*sin(2*i*pi/n),-ep/2]
+    for i in range(n):
+        faces.append([2*n,i,(i+1)%n])
+        faces.append([i+n,2*n+1,n+(i+1)%n])
+        faces.append([i,i+n,(i+1)%n])
+        faces.append([(i+1)%n,i+n,(i+1)%n+n])
+    me.from_pydata(coords,[],faces)   
+    me.update(calc_edges=True) 
+    return me   
+
+
 #un tore
 # R : grand rayon
 # r : petit rayon
@@ -40,20 +63,21 @@ def tore(R,r,n,p):
     return me          
 
 def cyclide2(mu,c,a,nbc,nbd):
- global xOmega,r,R,omega,krap,den
+ global xOmega,r,R,omega,krap,den,b
  b=sqrt(a*a-c*c)
  print(" a, b,c,mu",a," ",b," ",c," ",mu)
  omega=(a*mu+b*sqrt(mu*mu-c*c))/c
  print("Omega dans cyclide ",omega)
  den=(a-c)*(mu-c)+b*sqrt(mu*mu-c*c)
  print("den ",den)
- krap=den
+ krap=1000
  print("krap initial",krap)
  r=krap*c*c*(mu-c)/(den*((a+c)*(mu-c)+b*sqrt(mu*mu-c*c)))
  print("Proportion : ",(mu-c)/r)
  R=krap*c*c*(a-c)/(den*((a-c)*(mu+c)+b*sqrt(mu*mu-c*c)))
+ 
  print("R ",R," r ",r)
- xOmega=omega-krap*b*b*(omega-c)/(((a-c)*(mu+omega)-b*b)*((a+c)*(omega-c)+b*b))
+ xOmega=omega-krap*b*b*(omega-c)/(((a-c)*(mu+omega)-b*b)*((a+c)*(omega-mu)+b*b)) #(omega-c) dans le papier
  print("xOmega dans cyclide",xOmega)
  me=bpy.data.meshes.new('cyclide')
  coords=[[0,0,0] for i in range(nbc*nbd)]
@@ -72,6 +96,7 @@ def cyclide2(mu,c,a,nbc,nbd):
    my=sqrt(b2)*sint*(a-mu*cosa)/denom
    mz=sqrt(b2)*sina*(c*cost-mu)/denom
    coords[k*nbd+j]=[mx,mz,my] 
+   
  # les faces
  for k in range(nbc):
   for j in range(nbd):
@@ -97,6 +122,7 @@ den=0
 r=0
 R=0
 xOmega=0
+superTheta=0
 
 def den1(t,theta,epsilon):
     global xOmega,r,R,omega
@@ -129,7 +155,7 @@ def valY(t,theta,epsilon):
     global xOmega,r,R,omega,krap
     denim=den1(t,theta,epsilon)+den2(t,theta,epsilon)+r*r*sin(t)*sin(t)
     numer=krap*(-sqrt(R*R-r*r)*sin(theta)*sin(t)+epsilon*(r+R*cos(t))*cos(theta))
-    #print("valY (",t,"):",numer/denim)
+    #print("valY (",t,"):",numer/denim," theta ",theta)
     return numer/denim
 
 def valZ(t,theta,epsilon):
@@ -145,16 +171,28 @@ def valZ(t,theta,epsilon):
 def villarceau(a,mu,c,theta,epsilon):
    global xOmega,r,R,omega
    # trois points du cercle
+ 
    point1=Vector((valX(0,theta,epsilon),valY(0,theta,epsilon),valZ(0,theta,epsilon)))
    point2=Vector((valX(pi/3,theta,epsilon),valY(pi/3,theta,epsilon),valZ(pi/3,theta,epsilon)))
    point3=Vector((valX(2*pi/3,theta,epsilon),valY(2*pi/3,theta,epsilon),valZ(2*pi/3,theta,epsilon)))
+   
+   
+   
    vec12=point2-point1 # vec1
+   da=sqrt(vec12.dot(vec12))
    """
    print("point1 ",point1)
    print("point2 ",point2)
    print("point3 ",point3)
    """
    vec13=point3-point1 #vec2
+   db=sqrt(vec13.dot(vec13))
+   
+   vec23=point3-point2
+   dc=sqrt(vec23.dot(vec23))
+   
+   verifRad=da*db*dc/sqrt(2*da*da*db*db+2*db*db*dc*dc+2*dc*dc*da*da-da*da*da*da-db*db*db*db-dc*dc*dc*dc)
+   
    planeNormal=vec12.cross(vec13)
    planeNormal.normalize()
    #print("Normale au plan ",planeNormal)
@@ -164,7 +202,7 @@ def villarceau(a,mu,c,theta,epsilon):
    dir12=vec12.cross(planeNormal)
    dir12.normalize()
    milieu13=(point1+point3)/2
-   #vecteur directeur de la bissectrice 1 2
+   #vecteur directeur de la bissectrice 1 3
    dir13=vec13.cross(planeNormal)
    dir13.normalize()
    
@@ -177,9 +215,17 @@ def villarceau(a,mu,c,theta,epsilon):
    # Ouf, on a trouve le centre
    center=milieu12+nA/d*dir12
    radio=center-point1
+   radio2=center-point2
+   radio3=center-point3
    rayon=sqrt(radio.dot(radio))
+   
+   rayon2=sqrt(radio2.dot(radio2))
+   rayon3=sqrt(radio3.dot(radio3))
+   print("grosse formule ",verifRad)
+   print("Rayon ",rayon," verif ",radio.dot(planeNormal))
+   print("Rayon 2 ",rayon2," verif ",radio.dot(planeNormal))
+   print("Rayon 3 ",rayon3," verif ",radio.dot(planeNormal))
    """
-   print("Rayon ",rayon)
    print("Centre ",center)
    print("Normale ",planeNormal)
    """
@@ -207,17 +253,19 @@ r1=0.75
 rc=5
 
 # renommage des parametres de la cyclide pour etre en accord avec Garnier
+
+# 5,3,1
 a=5
 mu=3
-c=1
+c=2.5
 
 myMesh=cyclide2(mu,c,a,nbc,nbd)
 
-#ob = bpy.data.objects.new('Dupin'+str(numero), myMesh)
-#bpy.context.scene.objects.link(ob) 
+
+ob = bpy.data.objects.new('Dupin'+str(numero), myMesh)
+bpy.context.scene.objects.link(ob) 
  
 #bpy.context.scene.objects.active = ob
-
 
 
 # la meme cyclide avec les premiers cercles en tore
@@ -270,23 +318,22 @@ rgb1=[1,1,0]
 # Couleur de la deuxieme nappe
 rgb2=[0,0,1]
 
+
 petitR=0.3
+ep=0.3
 first=1
 numero=0
-nbCercles=25
+nbCercles=1
 for i in range(nbCercles):
     
     vilain=villarceau(a,mu,c,2*i*pi/nbCercles,1)   
-    """
-    #print("Centre ",vilain[0])
-    print(i," Rayon ",vilain[1])
-    #print("normale ",vilain[2])
-    """
+   
     
     pn=vilain[2]
     angle1=atan2(pn[2],pn[0])
     angle2=atan2(sqrt(pn[2]*pn[2]+pn[0]*pn[0]),pn[1])
-    myMesh=tore(vilain[1],petitR,200,20)
+    #myMesh=tore(vilain[1],petitR,200,20)
+    myMesh=cylindre(vilain[1],ep,100)
     rotata=mathutils.Matrix.Rotation(angle2, 4, 'Y') 
     myMesh.transform(rotata)
     rotata=mathutils.Matrix.Rotation(-angle1, 4, 'Z') 
@@ -316,6 +363,8 @@ for i in range(nbCercles):
     j = 0
     for face in faces:
      rgb = [0.5+0.5*cos(2*i*pi/nbCercles),(cos(2*i*pi/nbCercles)+sin(2*i*pi/nbCercles))/4,0.5+0.5*sin(2*i*pi/nbCercles)]
+     
+     #rgb=[0.78,0.59,0.38]
      for idx in face.loop_indices:
       vertexColor[j].color = rgb
       j += 1
@@ -335,15 +384,12 @@ for i in range(nbCercles):
         
     
     vilain=villarceau(a,mu,c,2*i*pi/nbCercles,-1)   
-    """
-    print("Centre ",vilain[0])
-    print("Rayon ",vilain[1])
-    print("normale ",vilain[2])
-    """
+    
     pn=vilain[2]
     angle1=atan2(pn[2],pn[0])
     angle2=atan2(sqrt(pn[2]*pn[2]+pn[0]*pn[0]),pn[1])
-    myMesh=tore(vilain[1],petitR,200,20)
+    #myMesh=tore(vilain[1],petitR,200,20)
+    myMesh=cylindre(vilain[1],ep,100)
     rotata=mathutils.Matrix.Rotation(angle2, 4, 'Y') 
     myMesh.transform(rotata)
     rotata=mathutils.Matrix.Rotation(-angle1, 4, 'Z') 
@@ -373,6 +419,8 @@ for i in range(nbCercles):
     j = 0
     for face in faces:
      rgb = [0.5+0.5*cos(2*i*pi/nbCercles),(cos(2*i*pi/nbCercles)+sin(2*i*pi/nbCercles))/4,0.5+0.5*sin(2*i*pi/nbCercles)]
+     
+     #rgb=[0.36,0.26,0.24]
      for idx in face.loop_indices:
       vertexColor[j].color = rgb
       j += 1
