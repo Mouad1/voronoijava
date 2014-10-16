@@ -247,7 +247,7 @@ numero=0
 
 nbc=100
 
-nbd=150
+nbd=5 #150
 r0=1.5
 r1=0.75
 rc=5
@@ -257,7 +257,7 @@ rc=5
 # 5,3,1
 a=5
 mu=3
-c=2.5
+c=1
 
 myMesh=cyclide2(mu,c,a,nbc,nbd)
 
@@ -323,7 +323,7 @@ petitR=0.3
 ep=0.3
 first=1
 numero=0
-nbCercles=1
+nbCercles=0
 for i in range(nbCercles):
     
     vilain=villarceau(a,mu,c,2*i*pi/nbCercles,1)   
