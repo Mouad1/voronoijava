@@ -247,7 +247,7 @@ numero=0
 
 nbc=100
 
-nbd=5 #150
+nbd=150
 r0=1.5
 r1=0.75
 rc=5
@@ -320,18 +320,20 @@ rgb2=[0,0,1]
 
 
 petitR=0.3
-ep=0.3
+ep=0.003
 first=1
 numero=0
-nbCercles=0
+nbCercles=7
 for i in range(nbCercles):
     
-    vilain=villarceau(a,mu,c,2*i*pi/nbCercles,1)   
+    vilain=villarceau(a,mu,c,2*i*pi/nbCercles,-1)   
    
     
     pn=vilain[2]
     angle1=atan2(pn[2],pn[0])
+    print(angle1)
     angle2=atan2(sqrt(pn[2]*pn[2]+pn[0]*pn[0]),pn[1])
+    print(angle2)
     #myMesh=tore(vilain[1],petitR,200,20)
     myMesh=cylindre(vilain[1],ep,100)
     rotata=mathutils.Matrix.Rotation(angle2, 4, 'Y') 
@@ -362,7 +364,8 @@ for i in range(nbCercles):
     #Fixer la couleur de tous les sommets d'une meme lunule
     j = 0
     for face in faces:
-     rgb = [0.5+0.5*cos(2*i*pi/nbCercles),(cos(2*i*pi/nbCercles)+sin(2*i*pi/nbCercles))/4,0.5+0.5*sin(2*i*pi/nbCercles)]
+     #rgb = [0.5+0.5*cos(2*i*pi/nbCercles),(cos(2*i*pi/nbCercles)+sin(2*i*pi/nbCercles))/4,0.5+0.5*sin(2*i*pi/nbCercles)]
+     rgb=rgb1
      
      #rgb=[0.78,0.59,0.38]
      for idx in face.loop_indices:
@@ -383,7 +386,7 @@ for i in range(nbCercles):
       scn.objects.link(localOb)
         
     
-    vilain=villarceau(a,mu,c,2*i*pi/nbCercles,-1)   
+    vilain=villarceau(a,mu,c,2*i*pi/nbCercles,1)   
     
     pn=vilain[2]
     angle1=atan2(pn[2],pn[0])
@@ -418,8 +421,8 @@ for i in range(nbCercles):
     #Fixer la couleur de tous les sommets d'une meme lunule
     j = 0
     for face in faces:
-     rgb = [0.5+0.5*cos(2*i*pi/nbCercles),(cos(2*i*pi/nbCercles)+sin(2*i*pi/nbCercles))/4,0.5+0.5*sin(2*i*pi/nbCercles)]
-     
+     #rgb = [0.5+0.5*cos(2*i*pi/nbCercles),(cos(2*i*pi/nbCercles)+sin(2*i*pi/nbCercles))/4,0.5+0.5*sin(2*i*pi/nbCercles)]
+     rgb=rgb2
      #rgb=[0.36,0.26,0.24]
      for idx in face.loop_indices:
       vertexColor[j].color = rgb
