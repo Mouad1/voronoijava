@@ -174,7 +174,7 @@ def villarceau(a,mu,c,theta,epsilon):
  
    point1=Vector((valX(0,theta,epsilon),valY(0,theta,epsilon),valZ(0,theta,epsilon)))
    point2=Vector((valX(pi/3,theta,epsilon),valY(pi/3,theta,epsilon),valZ(pi/3,theta,epsilon)))
-   point3=Vector((valX(2*pi/3,theta,epsilon),valY(2*pi/3,theta,epsilon),valZ(2*pi/3,theta,epsilon)))
+   point3=Vector((valX(pi,theta,epsilon),valY(pi,theta,epsilon),valZ(pi,theta,epsilon)))
    
    
    
@@ -195,6 +195,7 @@ def villarceau(a,mu,c,theta,epsilon):
    
    planeNormal=vec12.cross(vec13)
    planeNormal.normalize()
+   print(planeNormal)
    #print("Normale au plan ",planeNormal)
    #passage de la bissectrice 1 2
    milieu12=(point1+point2)/2
@@ -221,11 +222,12 @@ def villarceau(a,mu,c,theta,epsilon):
    
    rayon2=sqrt(radio2.dot(radio2))
    rayon3=sqrt(radio3.dot(radio3))
+   """
    print("grosse formule ",verifRad)
    print("Rayon ",rayon," verif ",radio.dot(planeNormal))
    print("Rayon 2 ",rayon2," verif ",radio.dot(planeNormal))
    print("Rayon 3 ",rayon3," verif ",radio.dot(planeNormal))
-   """
+   
    print("Centre ",center)
    print("Normale ",planeNormal)
    """
@@ -247,7 +249,7 @@ numero=0
 
 nbc=100
 
-nbd=150
+nbd=50 #150
 r0=1.5
 r1=0.75
 rc=5
@@ -257,13 +259,13 @@ rc=5
 # 5,3,1
 a=5
 mu=3
-c=1
+c=2
 
 myMesh=cyclide2(mu,c,a,nbc,nbd)
 
 
-ob = bpy.data.objects.new('Dupin'+str(numero), myMesh)
-bpy.context.scene.objects.link(ob) 
+#ob = bpy.data.objects.new('Dupin'+str(numero), myMesh)
+#bpy.context.scene.objects.link(ob) 
  
 #bpy.context.scene.objects.active = ob
 
@@ -320,27 +322,29 @@ rgb2=[0,0,1]
 
 
 petitR=0.3
-ep=0.003
+ep=0.3
 first=1
 numero=0
-nbCercles=7
+nbCercles=1
 for i in range(nbCercles):
-    
-    vilain=villarceau(a,mu,c,2*i*pi/nbCercles,-1)   
+    print(i," avec epsilon=1")
+    vilain=villarceau(a,mu,c,2*i*pi/nbCercles,1)   
+    #vilain=villarceau(a,mu,c,0,1)   
    
     
     pn=vilain[2]
     angle1=atan2(pn[2],pn[0])
-    print(angle1)
     angle2=atan2(sqrt(pn[2]*pn[2]+pn[0]*pn[0]),pn[1])
-    print(angle2)
     #myMesh=tore(vilain[1],petitR,200,20)
-    myMesh=cylindre(vilain[1],ep,100)
-    rotata=mathutils.Matrix.Rotation(angle2, 4, 'Y') 
+    myMesh=cylindre(vilain[1]*1.1,ep,100)
+    rotata=mathutils.Matrix.Rotation(angle2, 4, 'Y')  #original
+    
     myMesh.transform(rotata)
-    rotata=mathutils.Matrix.Rotation(-angle1, 4, 'Z') 
+    rotata=mathutils.Matrix.Rotation(-angle1, 4, 'Z')  #original
+    
     myMesh.transform(rotata)
-    trans=mathutils.Matrix.Translation(Vector([vilain[0][0],-vilain[0][2],vilain[0][1]]))
+    trans=mathutils.Matrix.Translation(Vector([vilain[0][0],-vilain[0][2],vilain[0][1]])) #original
+   
     myMesh.transform(trans)
         
         
@@ -364,8 +368,7 @@ for i in range(nbCercles):
     #Fixer la couleur de tous les sommets d'une meme lunule
     j = 0
     for face in faces:
-     #rgb = [0.5+0.5*cos(2*i*pi/nbCercles),(cos(2*i*pi/nbCercles)+sin(2*i*pi/nbCercles))/4,0.5+0.5*sin(2*i*pi/nbCercles)]
-     rgb=rgb1
+     rgb = [0.5+0.5*cos(2*i*pi/nbCercles),(cos(2*i*pi/nbCercles)+sin(2*i*pi/nbCercles))/4,0.5+0.5*sin(2*i*pi/nbCercles)]
      
      #rgb=[0.78,0.59,0.38]
      for idx in face.loop_indices:
@@ -385,17 +388,20 @@ for i in range(nbCercles):
       numero+=1
       scn.objects.link(localOb)
         
-    
-    vilain=villarceau(a,mu,c,2*i*pi/nbCercles,1)   
+    print(i," avec epsilon=-1")
+    vilain=villarceau(a,mu,c,2*i*pi/nbCercles,-1)   
+    #vilain=villarceau(a,mu,c,0,-1)   
     
     pn=vilain[2]
     angle1=atan2(pn[2],pn[0])
     angle2=atan2(sqrt(pn[2]*pn[2]+pn[0]*pn[0]),pn[1])
     #myMesh=tore(vilain[1],petitR,200,20)
-    myMesh=cylindre(vilain[1],ep,100)
-    rotata=mathutils.Matrix.Rotation(angle2, 4, 'Y') 
+    myMesh=cylindre(vilain[1]*1.1,ep,100)
+    rotata=mathutils.Matrix.Rotation(angle2, 4, 'Y')  #original
+    
     myMesh.transform(rotata)
-    rotata=mathutils.Matrix.Rotation(-angle1, 4, 'Z') 
+    rotata=mathutils.Matrix.Rotation(-angle1, 4, 'Z') #original
+    
     myMesh.transform(rotata)
     trans=mathutils.Matrix.Translation(Vector([vilain[0][0],-vilain[0][2],vilain[0][1]]))
     myMesh.transform(trans)
@@ -421,8 +427,8 @@ for i in range(nbCercles):
     #Fixer la couleur de tous les sommets d'une meme lunule
     j = 0
     for face in faces:
-     #rgb = [0.5+0.5*cos(2*i*pi/nbCercles),(cos(2*i*pi/nbCercles)+sin(2*i*pi/nbCercles))/4,0.5+0.5*sin(2*i*pi/nbCercles)]
-     rgb=rgb2
+     rgb = [0.5+0.5*cos(2*i*pi/nbCercles),(cos(2*i*pi/nbCercles)+sin(2*i*pi/nbCercles))/4,0.5+0.5*sin(2*i*pi/nbCercles)]
+     
      #rgb=[0.36,0.26,0.24]
      for idx in face.loop_indices:
       vertexColor[j].color = rgb
