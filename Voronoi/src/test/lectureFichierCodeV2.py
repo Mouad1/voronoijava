@@ -130,7 +130,7 @@ def lineSegMe(p1,p2,d1,nbFaces):
 
 #function creating a torus
 # R : grand rayon
-# r : petit rayon
+# r : petit rayon([
 # n : nombre de troncons selon le grand rayon
 # p : nombre de sections sur la tranche
 def myTorus(R,r,n,p):
