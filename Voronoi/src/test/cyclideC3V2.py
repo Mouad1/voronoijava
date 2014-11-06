@@ -310,21 +310,23 @@ def makeMesh(path,radio,nbFaces):
             challenger=coords[indice_challenger+decalage]
             distCourante=distance(temoin,challenger)
             if(distCourante<distMin):
+                
                 decalageMin=decalage
+                print(decalageMin)
                 distMin=distCourante
-           
-        for j in range(nbFaces):
-            faces.append([i*nbFaces+j,i*nbFaces+((j+1)%nbFaces),(i+1)*nbFaces+(j+decalageMin)%nbFaces])
-            faces.append([(i+1)*nbFaces+(j+decalageMin)%nbFaces,(i+1)*nbFaces+((j+1+decalageMin)%nbFaces),i*nbFaces+(j+1)%nbFaces])
-    # toutes les faces sont finies sauf la cloture circuliare ou bien les couvercles
+        if(i!=fin-1):
+            for j in range(nbFaces):
+                faces.append([i*nbFaces+j,i*nbFaces+((j+1)%nbFaces),(i+1)*nbFaces+(j+decalageMin)%nbFaces])
+                faces.append([(i+1)*nbFaces+(j+decalageMin)%nbFaces,(i+1)*nbFaces+((j+1+decalageMin)%nbFaces),i*nbFaces+(j+1)%nbFaces])
+    # toutes les faces sont finies sauf la cloture circulaire ou bien les couvercles
     if(complet==1):
         #fermeture entre premier et dernier
-        decalage=5
-        
+       
+        decalageMin=8
         for j in range(nbFaces):
-            faces.append([fin*nbFaces+j,fin*nbFaces+(j+1)%nbFaces,j])
-            faces.append([j,(j+1)%nbFaces,fin*nbFaces+(j+1)%nbFaces])
-            
+            faces.append([fin*nbFaces+(nbFaces-j),fin*nbFaces+(nbFaces-j-1)%nbFaces,(j+decalageMin)%nbFaces])
+            faces.append([(j+decalageMin)%nbFaces,(j+1+decalageMin)%nbFaces,fin*nbFaces+(nbFaces-j-1)%nbFaces])
+          
     else:
         coords.append([path[0][0],path[0][1],path[0][2]]) # de numero (fin+1)*nbFaces
         coords.append([path[fin][0],path[fin][1],path[fin][2]])    # de numero (fin+1)*nbFaces+1       
