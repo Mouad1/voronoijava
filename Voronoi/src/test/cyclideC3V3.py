@@ -379,17 +379,15 @@ def makeMesh(path,radio,nbFaces,alpha,epsilon):
     vz=valZ(theta2,alpha,epsilon)
     point2=Vector((vx,vy,vz))
     valcoef=modifCoef(point1,point2,maxbox)
-    print("coef ",valcoef)
     for i in reversed(range(fin+1)):
         path[i+1]=path[i]
     path[0]=valcoef*point1+(1-valcoef)*point2    
-    print("verif ",path[0]," ",path[1])
     fin=fin+1 
-    print(path[fin])
+    
     
       
     for i in range(fin):
-        print("i ",i)
+        
         tably=couronneOrientee(path[i],path[i+1],rayon,nbFaces)
         for j in range(len(tably)):
             coords.append(tably[j])
@@ -421,10 +419,10 @@ def makeMesh(path,radio,nbFaces,alpha,epsilon):
                 faces.append([i*nbFaces+j,i*nbFaces+((j+1)%nbFaces),(i+1)*nbFaces+(j+decalageMin)%nbFaces])
                 faces.append([(i+1)*nbFaces+(j+decalageMin)%nbFaces,(i+1)*nbFaces+((j+1+decalageMin)%nbFaces),i*nbFaces+(j+1)%nbFaces])
         else:
-            
+            print("decalage :",decalageMin)
             for j in range(nbFaces):
-                faces.append([i*nbFaces+j,i*nbFaces+((j+1)%nbFaces),(i+1)*nbFaces+(2*nbFaces-j-decalageMin)%nbFaces])
-                faces.append([(i+1)*nbFaces+(2*nbFaces-j-decalageMin)%nbFaces,(i+1)*nbFaces+((2*nbFaces-j-1-decalageMin)%nbFaces),i*nbFaces+(j+1)%nbFaces])        
+                faces.append([i*nbFaces+j,i*nbFaces+((j+1)%nbFaces),(i+1)*nbFaces+(j+decalageMin)%nbFaces])
+                faces.append([(i+1)*nbFaces+(j+decalageMin)%nbFaces,(i+1)*nbFaces+((j+1+decalageMin)%nbFaces),i*nbFaces+(j+1)%nbFaces])        
         
     # toutes les faces sont finies sauf les couvercles
     
