@@ -1,4 +1,5 @@
-#!BPY
+
+!BPY
  
 # Version corrigee, un seul mesh a la fin
 __author__ = "francesco de comite"

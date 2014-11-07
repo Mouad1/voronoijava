@@ -138,7 +138,6 @@ def couronneOrientee(p1,p2,rayon,nbFaces):
      # use the class constructors from Blender to form vectors for p1 and p2
      p1 = Vector(p1)
      p2 = Vector(p2)
-     print(p1," ",p2)
      # form a vector that points in the direction from p1 to p2
      dir = p2-p1             
      # get the length of the line we want that goes from p1 to p2
@@ -171,12 +170,13 @@ def couronneOrientee(p1,p2,rayon,nbFaces):
  
  
 maxbox=15
-rayon=0.2
+rayon=0.1
 
-nbAlpha=20 # forcement multiple de 4...
+nbAlpha=80 # forcement multiple de 4...
 nbTheta=50
 nbFaces=20
-
+indice=0
+memoire=[[0,0,0] for i in range(2*nbAlpha)]
 
 # les parametres de la cyclide
 p=2
@@ -300,7 +300,7 @@ def makeSimiliTorus(path,rayon,nbFaces):
 # construire un tube a partir d'un tableau de points    
 # aussitot qu'on repere que tous les points sont presents, on pass la main a un autre programme
 def makeMesh(path,radio,nbFaces,alpha,epsilon):
-    global nbTheta,maxbox
+    global nbTheta,maxbox,memoire,indice
     coords=[]
     faces=[]
     
@@ -364,25 +364,29 @@ def makeMesh(path,radio,nbFaces,alpha,epsilon):
     valcoef=modifCoef(point1,point2,maxbox)
     fin=fin+1
     path[fin]=valcoef*point1+(1-valcoef)*point2    
+    memoire[indice]=path[fin]
+    indice=indice+1
         
     #rajouter un point au debut
-    
-    theta1=2*(indiceDepart-1)*pi/nbTheta
-    theta2=2*(indiceDepart)*pi/nbTheta
-    vx=valX(theta1,alpha,epsilon)
-    vy=valY(theta1,alpha,epsilon)
-    vz=valZ(theta1,alpha,epsilon)
-    point1=Vector((vx,vy,vz))
-    
-    vx=valX(theta2,alpha,epsilon)
-    vy=valY(theta2,alpha,epsilon)
-    vz=valZ(theta2,alpha,epsilon)
-    point2=Vector((vx,vy,vz))
-    valcoef=modifCoef(point1,point2,maxbox)
-    for i in reversed(range(fin+1)):
-        path[i+1]=path[i]
-    path[0]=valcoef*point1+(1-valcoef)*point2    
-    fin=fin+1 
+    if(nbZero!=1):
+        theta1=2*(indiceDepart-1)*pi/nbTheta
+        theta2=2*(indiceDepart)*pi/nbTheta
+        vx=valX(theta1,alpha,epsilon)
+        vy=valY(theta1,alpha,epsilon)
+        vz=valZ(theta1,alpha,epsilon)
+        point1=Vector((vx,vy,vz))
+        
+        vx=valX(theta2,alpha,epsilon)
+        vy=valY(theta2,alpha,epsilon)
+        vz=valZ(theta2,alpha,epsilon)
+        point2=Vector((vx,vy,vz))
+        valcoef=modifCoef(point1,point2,maxbox)
+        for i in reversed(range(fin+1)):
+            path[i+1]=path[i]
+        path[0]=valcoef*point1+(1-valcoef)*point2    
+        memoire[indice]=path[0]
+        indice=indice+1
+        fin=fin+1 
     
     
       
@@ -437,7 +441,16 @@ def makeMesh(path,radio,nbFaces,alpha,epsilon):
     me.update(calc_edges=True) 
     return me        
                    
-                
+def ordonner(tableau,indice):
+    for i in range(indice):
+        for j in range(indice-1):
+            valj=atan2(tableau[j][1],tableau[j][2])
+            valjp1=atan2(tableau[j+1][1],tableau[j+1][2])    
+            if(valj>valjp1):
+                tmp=tableau[j]
+                tableau[j]=tableau[j+1]
+                tableau[j+1]=tmp
+    return                        
     
     
  
@@ -528,9 +541,24 @@ for ind2 in range(nbAlpha):
         numero+=1
         scn.objects.link(localOb)
        
-             
- 
-      
-      
+
+for index in range(indice):      
+    print(index," ",memoire[index]," ",atan2(memoire[index][1],memoire[index][2]))
+    
+   
+print("--------")
+ordonner(memoire,indice)
+
+newMemoire=[[0,0,0] for i in range(indice)]
+  
+for index in range(indice):      
+    print(index," ",memoire[index]," ",atan2(memoire[index][1],memoire[index][2]))
+    newMemoire[index]=memoire[index]
+              
+contour=makeSimiliTorus(newMemoire,rayon,nbFaces) 
+localOb=bpy.data.objects.new(catenaName+str(numero),contour)
+numero+=1
+scn.objects.link(localOb)
+
 bpy.ops.object.select_pattern(extend=False, pattern=catenaName+'*', case_sensitive=False)
 bpy.ops.object.join()   
