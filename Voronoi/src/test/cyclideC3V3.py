@@ -2,6 +2,7 @@
  
 # Une cyclide de Dupin C3, format fil de fer, avec les quatres droites. En couleur...
 # chaque cercle est un seul mesh
+# on isole le cas des cercles complets, plutot que de trainer des si alors sinon compliques
 __author__ = "francesco de comite"
 __version__ = "1.0 2014/11/05"
 __url__="Website, www.lifl.fr/decomite"
@@ -137,6 +138,7 @@ def couronneOrientee(p1,p2,rayon,nbFaces):
      # use the class constructors from Blender to form vectors for p1 and p2
      p1 = Vector(p1)
      p2 = Vector(p2)
+     print(p1," ",p2)
      # form a vector that points in the direction from p1 to p2
      dir = p2-p1             
      # get the length of the line we want that goes from p1 to p2
@@ -173,6 +175,7 @@ rayon=0.2
 
 nbAlpha=20 # forcement multiple de 4...
 nbTheta=50
+nbFaces=20
 
 
 # les parametres de la cyclide
@@ -255,10 +258,47 @@ def distance(t1,t2):
     az=t1[2]-t2[2]
     az=az*az
     return sqrt(ax+ay+az)
+  
+#quand tous les point du cercle sont dans la sphere, on fait un tore cols. 
+def makeSimiliTorus(path,rayon,nbFaces):
+    coords=[]
+    faces=[]
+    me=bpy.data.meshes.new('victor')
+    for i in range(len(path)):
+        tably=couronneOrientee(path[i],path[(i+1)%len(path)],rayon,nbFaces)
+        for j in range(len(tably)):
+            coords.append(tably[j])
     
-    
+    # Construire les faces
+    for i in range(len(path)):
+        # calculer le decalage pour eviter les etranglements
+        temoin=coords[i*nbFaces]
+        indice_challenger=((i+1)%len(path))*nbFaces
+        decalageMin=0
+        
+        challenger=coords[indice_challenger]
+        distMin=distance(temoin,challenger)
+        # TODO : pas tres au point, et pas utile
+        for decalage in range(nbFaces):
+            challenger=coords[indice_challenger+decalage]
+            distCourante=distance(temoin,challenger)
+            if(distCourante<distMin):
+                decalageMin=decalage
+                distMin=distCourante
+                
+        decalageMin=0
+        for j in range(nbFaces):
+            faces.append([i*nbFaces+j,i*nbFaces+((j+1)%nbFaces),((i+1)%len(path))*nbFaces+(j+decalageMin)%nbFaces])
+            faces.append([((i+1)%len(path))*nbFaces+(j+decalageMin)%nbFaces,((i+1)%len(path))*nbFaces+((j+1+decalageMin)%nbFaces),i*nbFaces+(j+1)%nbFaces])
+    me.from_pydata(coords,[],faces)
+    me.update(calc_edges=True) 
+    return me           
+          
+      
+  # fin de makeSililiTorus  
 
 # construire un tube a partir d'un tableau de points    
+# aussitot qu'on repere que tous les points sont presents, on pass la main a un autre programme
 def makeMesh(path,radio,nbFaces,alpha,epsilon):
     global nbTheta,maxbox
     coords=[]
@@ -277,56 +317,86 @@ def makeMesh(path,radio,nbFaces,alpha,epsilon):
     if(nbZero==len(path)):
         print("rien dans le tableau")
         return      
-    if(nbZero!=0):
-        # tableau avec des trous
-        complet=0
-        # tant qu'il y a des zeros a gauche, decaler a gauche    
-        while(path[0].length==0):
-            #decaler le tableau vers la gauche
-            indiceDepart=indiceDepart+1
-            tmp=path[0]
-            for i in range(len(path)-1):
-                path[i]=path[i+1]
-            path[len(path)-1]=tmp
-        #tant qu'il y a quelque chose a droite, decaler a droite
-        while(path[len(path)-1].length!=0):
-            indiceDepart=indiceDepart-1
-            tmp=path[len(path)-1]
-            for i in range(len(path)-1):
-                j=len(path)-i-1
-                path[j]=path[j-1]
-            path[0]=tmp        
-        while(path[fin].length==0):
-            fin=fin-1
+    
+    if(nbZero==0):
+        return makeSimiliTorus(path,radio,nbFaces)
+    
+    # cas  des cercles incomplets
+    
+    # tableau avec des trous
+    complet=0
+    # tant qu'il y a des zeros a gauche, decaler a gauche    
+    while(path[0].length==0):
+        #decaler le tableau vers la gauche
+        indiceDepart=indiceDepart+1
+        tmp=path[0]
+        for i in range(len(path)-1):
+            path[i]=path[i+1]
+        path[len(path)-1]=tmp
+    #tant qu'il y a quelque chose a droite, decaler a droite
+    while(path[len(path)-1].length!=0):
+        indiceDepart=indiceDepart-1
+        tmp=path[len(path)-1]
+        for i in range(len(path)-1):
+            j=len(path)-i-1
+            path[j]=path[j-1]
+        path[0]=tmp        
+    while(path[fin].length==0):
+        fin=fin-1
     # de l'indice zero  a l'indice fin (inclus), la liste des points du tube 
     # pour des angles theta=2*(indiceDepart)*pi/nbTheta jusqu'a theta=2*(indiceDepart+fin)*pi/nbTheta
     # todo : si le tube n'est pas ferme, rajouter des bouts de tube pour arriver au bord, memoriser la position de cette extremite...
     
-    if(complet==0):
-        #rajouter un point a la fin
-        #fin=fin+1
-        theta1=2*(indiceDepart+fin)*pi/nbTheta
-        theta2=2*(1+indiceDepart+fin)*pi/nbTheta
-        vx=valX(theta1,alpha,epsilon)
-        vy=valY(theta1,alpha,epsilon)
-        vz=valZ(theta1,alpha,epsilon)
-        
-        
-        point1=Vector((vx,vy,vz))
-        
-        
     
-    # si complet vaut 1, il faudra fermer le tube, sinon, on met des couvercles
+    #rajouter un point a la fin
     
-  
+    theta1=2*(indiceDepart+fin)*pi/nbTheta
+    theta2=2*(1+indiceDepart+fin)*pi/nbTheta
+    vx=valX(theta1,alpha,epsilon)
+    vy=valY(theta1,alpha,epsilon)
+    vz=valZ(theta1,alpha,epsilon)
+    point1=Vector((vx,vy,vz))
+    
+    vx=valX(theta2,alpha,epsilon)
+    vy=valY(theta2,alpha,epsilon)
+    vz=valZ(theta2,alpha,epsilon)
+    point2=Vector((vx,vy,vz))
+    valcoef=modifCoef(point1,point2,maxbox)
+    fin=fin+1
+    path[fin]=valcoef*point1+(1-valcoef)*point2    
+        
+    #rajouter un point au debut
+    
+    theta1=2*(indiceDepart-1)*pi/nbTheta
+    theta2=2*(indiceDepart)*pi/nbTheta
+    vx=valX(theta1,alpha,epsilon)
+    vy=valY(theta1,alpha,epsilon)
+    vz=valZ(theta1,alpha,epsilon)
+    point1=Vector((vx,vy,vz))
+    
+    vx=valX(theta2,alpha,epsilon)
+    vy=valY(theta2,alpha,epsilon)
+    vz=valZ(theta2,alpha,epsilon)
+    point2=Vector((vx,vy,vz))
+    valcoef=modifCoef(point1,point2,maxbox)
+    print("coef ",valcoef)
+    for i in reversed(range(fin+1)):
+        path[i+1]=path[i]
+    path[0]=valcoef*point1+(1-valcoef)*point2    
+    print("verif ",path[0]," ",path[1])
+    fin=fin+1 
+    print(path[fin])
+    
+      
     for i in range(fin):
+        print("i ",i)
         tably=couronneOrientee(path[i],path[i+1],rayon,nbFaces)
         for j in range(len(tably)):
             coords.append(tably[j])
         
     # la derniere couronne (a l'envers)
     tably=couronneOrientee(path[fin],path[fin-1],rayon,nbFaces)
-    for j in range(len(tably)):
+    for j in reversed(range(len(tably))):
             coords.append(tably[j])
     # Construire les faces
     for i in range(fin):
@@ -340,35 +410,31 @@ def makeMesh(path,radio,nbFaces,alpha,epsilon):
             challenger=coords[indice_challenger+decalage]
             distCourante=distance(temoin,challenger)
             if(distCourante<distMin):
-                
                 decalageMin=decalage
-                print(decalageMin)
                 distMin=distCourante
-        if(i!=fin-1):
+        
+        
+        
+        if(i!=fin-1): 
+            decalageMin=0
             for j in range(nbFaces):
                 faces.append([i*nbFaces+j,i*nbFaces+((j+1)%nbFaces),(i+1)*nbFaces+(j+decalageMin)%nbFaces])
                 faces.append([(i+1)*nbFaces+(j+decalageMin)%nbFaces,(i+1)*nbFaces+((j+1+decalageMin)%nbFaces),i*nbFaces+(j+1)%nbFaces])
         else:
+            
             for j in range(nbFaces):
-                faces.append([i*nbFaces+j,i*nbFaces+((j+1)%nbFaces),(i+1)*nbFaces+(nbFaces-j+decalageMin)%nbFaces])
-                faces.append([(i+1)*nbFaces+(nbFaces-j+decalageMin)%nbFaces,(i+1)*nbFaces+((nbFaces-j-1+decalageMin)%nbFaces),i*nbFaces+(j+1)%nbFaces])
-    # toutes les faces sont finies sauf la cloture circulaire ou bien les couvercles
-    if(complet==1):
-        #fermeture entre premier et dernier
+                faces.append([i*nbFaces+j,i*nbFaces+((j+1)%nbFaces),(i+1)*nbFaces+(2*nbFaces-j-decalageMin)%nbFaces])
+                faces.append([(i+1)*nbFaces+(2*nbFaces-j-decalageMin)%nbFaces,(i+1)*nbFaces+((2*nbFaces-j-1-decalageMin)%nbFaces),i*nbFaces+(j+1)%nbFaces])        
+        
+    # toutes les faces sont finies sauf les couvercles
+    
+    coords.append([path[0][0],path[0][1],path[0][2]]) # de numero (fin+1)*nbFaces
+    coords.append([path[fin][0],path[fin][1],path[fin][2]])    # de numero (fin+1)*nbFaces+1       
+    for j in range(nbFaces):
+        # fabriquer des triangles pour les couvercles     
+        faces.append([j,(j+1)%nbFaces,(fin+1)*nbFaces])
+        faces.append([j+fin*nbFaces,(j+1)%nbFaces+fin*nbFaces,(fin+1)*nbFaces+1])
        
-      
-        for j in range(nbFaces):
-            faces.append([fin*nbFaces+(nbFaces-j)%nbFaces,fin*nbFaces+(nbFaces-j-1)%nbFaces,(j+decalageMin)%nbFaces])
-            faces.append([(j+decalageMin)%nbFaces,(j+1+decalageMin)%nbFaces,fin*nbFaces+(nbFaces-j-1)%nbFaces])
-          
-    else:
-        coords.append([path[0][0],path[0][1],path[0][2]]) # de numero (fin+1)*nbFaces
-        coords.append([path[fin][0],path[fin][1],path[fin][2]])    # de numero (fin+1)*nbFaces+1       
-        for j in range(nbFaces):
-            # fabriquer des triangles pour les couvercles     
-            faces.append([j,(j+1)%nbFaces,(fin+1)*nbFaces])
-            faces.append([j+fin*nbFaces,(j+1)%nbFaces+fin*nbFaces,(fin+1)*nbFaces+1])
-   
     me.from_pydata(coords,[],faces)
     me.update(calc_edges=True) 
     return me        
@@ -439,7 +505,7 @@ for ind2 in range(nbAlpha):
     # On a cree deux chemins, pas forcement complets, on les transforme en tubes fermes aux extremites
     
     
-    cercle1=makeMesh(cheminDirect,rayon,24,alphy,1)
+    cercle1=makeMesh(cheminDirect,rayon,nbFaces,alphy,1)
     
     if(first==1):
         ob=bpy.data.objects.new(catenaName+str(numero),cercle1)
@@ -452,7 +518,7 @@ for ind2 in range(nbAlpha):
         numero+=1
         scn.objects.link(localOb)
     
-    cercle2=makeMesh(cheminInverse,rayon,24,alphy,-1)
+    cercle2=makeMesh(cheminInverse,rayon,nbFaces,alphy,-1)
     if(first==1):
         ob=bpy.data.objects.new(catenaName+str(numero),cercle2)
         bpy.context.scene.objects.link(ob) 
@@ -463,7 +529,7 @@ for ind2 in range(nbAlpha):
         localOb=bpy.data.objects.new(catenaName+str(numero),cercle2)
         numero+=1
         scn.objects.link(localOb)
-   
+       
              
  
       
