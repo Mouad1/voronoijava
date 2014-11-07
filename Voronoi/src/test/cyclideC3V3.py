@@ -368,6 +368,7 @@ def makeMesh(path,radio,nbFaces,alpha,epsilon):
     indice=indice+1
         
     #rajouter un point au debut
+    # todo que faire quand on ne peu pas ???
     if(nbZero!=1):
         theta1=2*(indiceDepart-1)*pi/nbTheta
         theta2=2*(indiceDepart)*pi/nbTheta
