@@ -325,7 +325,7 @@ petitR=0.3
 ep=0.3
 first=1
 numero=0
-nbCercles=1
+nbCercles=10
 for i in range(nbCercles):
     print(i," avec epsilon=1")
     vilain=villarceau(a,mu,c,2*i*pi/nbCercles,1)   
@@ -335,8 +335,8 @@ for i in range(nbCercles):
     pn=vilain[2]
     angle1=atan2(pn[2],pn[0])
     angle2=atan2(sqrt(pn[2]*pn[2]+pn[0]*pn[0]),pn[1])
-    #myMesh=tore(vilain[1],petitR,200,20)
-    myMesh=cylindre(vilain[1]*1.1,ep,100)
+    myMesh=tore(vilain[1],petitR,200,20)
+    #myMesh=cylindre(vilain[1]*1.1,ep,100)
     rotata=mathutils.Matrix.Rotation(angle2, 4, 'Y')  #original
     
     myMesh.transform(rotata)
@@ -395,8 +395,8 @@ for i in range(nbCercles):
     pn=vilain[2]
     angle1=atan2(pn[2],pn[0])
     angle2=atan2(sqrt(pn[2]*pn[2]+pn[0]*pn[0]),pn[1])
-    #myMesh=tore(vilain[1],petitR,200,20)
-    myMesh=cylindre(vilain[1]*1.1,ep,100)
+    myMesh=tore(vilain[1],petitR,200,20)
+    #myMesh=cylindre(vilain[1]*1.1,ep,100)
     rotata=mathutils.Matrix.Rotation(angle2, 4, 'Y')  #original
     
     myMesh.transform(rotata)

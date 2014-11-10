@@ -5,6 +5,7 @@
 # on isole le cas des cercles complets, plutot que de trainer des si alors sinon compliques
 # 10/11/2014 : mesh ok, on rajoute les couleurs
 # et les quatre droites
+# cette version pour faire en sandstone
 __author__ = "francesco de comite"
 __version__ = "1.0 2014/11/05"
 __url__="Website, www.lifl.fr/decomite"
@@ -171,18 +172,19 @@ def couronneOrientee(p1,p2,rayon,nbFaces):
  
  
  
-maxbox=15
-rayon=0.1
+maxbox=50
+rayon=1
+rapportDiam=1.414
 
-nbAlpha=80 # forcement multiple de 4...
-nbTheta=50
+nbAlpha=48 # forcement multiple de 4...
+nbTheta=100
 nbFaces=20
 indice=0
 memoire=[[0,0,0] for i in range(2*nbAlpha)]
 
 # les parametres de la cyclide
-p=2
-q=-9
+p=6
+q=-30
 omega=q-sqrt(q*q-p*q)
 k=p*p-p*q
 xOmega=(2*q*q-(p+2*q)*sqrt(q*q-p*q))/(2*q)
@@ -611,7 +613,7 @@ for ind2 in range(nbAlpha):
     if(ind2!=(nbAlpha//4)):
         cercle1=makeMesh(cheminDirect,rayon,nbFaces,alphy,1)
     else:
-        cercle1=makeMesh(cheminDirect,2*rayon,nbFaces,alphy,1)
+        cercle1=makeMesh(cheminDirect,rapportDiam*rayon,nbFaces,alphy,1)
     
     colorize(cercle1,couleurFamille1)
     
@@ -629,7 +631,7 @@ for ind2 in range(nbAlpha):
     if(ind2!=(3*nbAlpha//4)):
         cercle2=makeMesh(cheminInverse,rayon,nbFaces,alphy,-1)
     else:
-        cercle2=makeMesh(cheminInverse,2*rayon,nbFaces,alphy,-1)
+        cercle2=makeMesh(cheminInverse,rapportDiam*rayon,nbFaces,alphy,-1)
     
     colorize(cercle2,couleurFamille2)
     
@@ -664,12 +666,11 @@ localOb=bpy.data.objects.new(catenaName+str(numero),contour)
 numero+=1
 scn.objects.link(localOb)
 
-"""
 # les deux droites p et q
 # Droite P
 extremiteMoinsP=Vector((p,0,-maxbox+rayon))
 extremitePlusP=Vector((p,0,maxbox-rayon))
-droiteP=cylindreOriente(extremiteMoinsP,extremitePlusP,2*rayon,nbFaces)
+droiteP=cylindreOriente(extremiteMoinsP,extremitePlusP,rapportDiam*rayon,nbFaces)
 colorize(droiteP,couleurDroiteP)
 localOb=bpy.data.objects.new(catenaName+str(numero),droiteP)
 numero+=1
@@ -677,14 +678,14 @@ scn.objects.link(localOb)
 
 
 # Droite Q
-extremiteMoinsQ=Vector((q,-24.23/2+rayon,0))
-extremitePlusQ=Vector((q,24.23/2-rayon,0))
-droiteQ=cylindreOriente(extremiteMoinsQ,extremitePlusQ,2*rayon,nbFaces)
+extremiteMoinsQ=Vector((q,-82.306/2+rayon,0))
+extremitePlusQ=Vector((q,82.306/2-rayon,0))
+droiteQ=cylindreOriente(extremiteMoinsQ,extremitePlusQ,rapportDiam*rayon,nbFaces)
 colorize(droiteQ,couleurDroiteQ)
 localOb=bpy.data.objects.new(catenaName+str(numero),droiteQ)
 numero+=1
 scn.objects.link(localOb)
-"""
+
 
 
 bpy.ops.object.select_pattern(extend=False, pattern=catenaName+'*', case_sensitive=False)
