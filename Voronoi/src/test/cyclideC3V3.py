@@ -21,7 +21,7 @@ from math import *
 ##############################################################
 # une sphere
 # R : rayon
-# n : nombre de méridiens
+# n : nombre de meridiens
 # p : nombre de paralleles
 
 def sphere(R,n,p):
@@ -172,11 +172,11 @@ def couronneOrientee(p1,p2,rayon,nbFaces):
  
  
 maxbox=15
-rayon=0.1
+rayon=0.2
 
-nbAlpha=80 # forcement multiple de 4...
-nbTheta=50
-nbFaces=20
+nbAlpha=32 # forcement multiple de 4...
+nbTheta=400
+nbFaces=10
 indice=0
 memoire=[[0,0,0] for i in range(2*nbAlpha)]
 
@@ -289,9 +289,11 @@ def makeSimiliTorus(path,rayon,nbFaces):
                 distMin=distCourante
                 
         decalageMin=0
+
         for j in range(nbFaces):  # Normales en cours
             #faces.append([i*nbFaces+j,i*nbFaces+((j+1)%nbFaces),((i+1)%len(path))*nbFaces+(j+decalageMin)%nbFaces])
             faces.append([i*nbFaces+((j+1)%nbFaces),i*nbFaces+j,((i+1)%len(path))*nbFaces+(j+decalageMin)%nbFaces])
+
             faces.append([((i+1)%len(path))*nbFaces+(j+decalageMin)%nbFaces,((i+1)%len(path))*nbFaces+((j+1+decalageMin)%nbFaces),i*nbFaces+(j+1)%nbFaces])
     me.from_pydata(coords,[],faces)
     me.update(calc_edges=True) 
