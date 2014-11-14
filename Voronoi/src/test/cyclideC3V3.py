@@ -172,9 +172,9 @@ def couronneOrientee(p1,p2,rayon,nbFaces):
  
  
 maxbox=15
-rayon=0.2
+rayon=0.135
 
-nbAlpha=32 # forcement multiple de 4...
+nbAlpha=48 # forcement multiple de 4...
 nbTheta=400
 nbFaces=10
 indice=0
@@ -274,6 +274,7 @@ def makeSimiliTorus(path,rayon,nbFaces):
     # Construire les faces
     for i in range(len(path)):
         # calculer le decalage pour eviter les etranglements
+        # ca ne marche pas vraiment TODO
         temoin=coords[i*nbFaces]
         indice_challenger=((i+1)%len(path))*nbFaces
         decalageMin=0
@@ -302,7 +303,7 @@ def makeSimiliTorus(path,rayon,nbFaces):
   
   
   
-#quand tous les point du cercle sont dans la sphere, on fait un tore clos. 
+# Pour faire le contour ferme
 def makeSimiliTorus2(path,rayon,nbFaces):
     coords=[]
     faces=[]
@@ -320,18 +321,27 @@ def makeSimiliTorus2(path,rayon,nbFaces):
         decalageMin=0
         
         challenger=coords[indice_challenger]
-        distMin=distance(temoin,challenger)
+        
         # TODO : pas tres au point, et pas utile (en fait, vaut mieux laisser un decalage de zero...
-        for decalage in range(nbFaces):
-            challenger=coords[indice_challenger+decalage]
-            distCourante=distance(temoin,challenger)
-            if(distCourante<distMin):
-                decalageMin=decalage
-                distMin=distCourante
-                
-        if(decalageMin!=0):
-            print(i," ",decalageMin)
-        decalageMin=0    
+        #14/11/2014 : on refait le decalage
+        # toujours pas tres efficace : il semble que les deux derniers doivent etre tournes de nbFaces/2
+        d1min=0
+        d2min=0
+        distMin=distance(temoin,challenger)
+        for decalage1 in range(nbFaces):
+            surCercle1=coords[i*nbFaces+decalage1]
+            debut2=coords[indice_challenger]
+            for decalage2 in range(nbFaces):
+                # distance entre i+d1min et j+d2min
+                surCercle2=coords[indice_challenger+decalage2]
+                distCourante=distance(surCercle1,surCercle2)
+                if(distCourante<distMin):
+                    distMin=distCourante
+                    d1min=decalage1
+                    d2min=decalage2
+        decalageMin=(d2min-d1min+nbFaces)%nbFaces    
+        print(i," ",d1min," ",d2min," ",decalageMin)    
+       
         if(i<len(path)-2):
             for j in range(nbFaces):
                 #faces.append([i*nbFaces+j,i*nbFaces+((j+1)%nbFaces),((i+1)%len(path))*nbFaces+(j+decalageMin)%nbFaces]) #originale
@@ -339,14 +349,14 @@ def makeSimiliTorus2(path,rayon,nbFaces):
                 faces.append([((i+1)%len(path))*nbFaces+(j+decalageMin)%nbFaces,((i+1)%len(path))*nbFaces+((j+1+decalageMin)%nbFaces),i*nbFaces+(j+1)%nbFaces]) #originale
         #traitement particulier pour les deux derniers segments...
         if(i==len(path)-2):
-            decalage=6
+            decalage=decalageMin-1
             for j in range(nbFaces):  # Normales OK
                 #faces.append([i*nbFaces+j,i*nbFaces+((j+1)%nbFaces),((i+1)%len(path))*nbFaces+(nbFaces-j-1+decalage)%nbFaces]) #originale
                 faces.append([i*nbFaces+((j+1)%nbFaces),i*nbFaces+j,((i+1)%len(path))*nbFaces+(nbFaces-j-1+decalage)%nbFaces]) 
                 faces.append([((i+1)%len(path))*nbFaces+(nbFaces-j-1+decalage)%nbFaces,((i+1)%len(path))*nbFaces+((nbFaces-j-1-1+decalage)%nbFaces),i*nbFaces+(j+1)%nbFaces]) #originale
                 #faces.append([((i+1)%len(path))*nbFaces+((nbFaces-j-1-1+decalage)%nbFaces),((i+1)%len(path))*nbFaces+(nbFaces-j-1+decalage)%nbFaces,i*nbFaces+(j+1)%nbFaces]) 
         if(i==len(path)-1):
-            decalage=6
+            decalage=decalageMin-1
             for j in range(nbFaces): # Normales OK
                 faces.append([i*nbFaces+j,i*nbFaces+((j+1)%nbFaces),((i+1)%len(path))*nbFaces+(nbFaces-j-1+decalage)%nbFaces]) #originale
                 #faces.append([i*nbFaces+((j+1)%nbFaces),i*nbFaces+j,((i+1)%len(path))*nbFaces+(nbFaces-j-1+decalage)%nbFaces]) 
@@ -666,7 +676,7 @@ localOb=bpy.data.objects.new(catenaName+str(numero),contour)
 numero+=1
 scn.objects.link(localOb)
 
-"""
+
 # les deux droites p et q
 # Droite P
 extremiteMoinsP=Vector((p,0,-maxbox+rayon))
@@ -686,7 +696,7 @@ colorize(droiteQ,couleurDroiteQ)
 localOb=bpy.data.objects.new(catenaName+str(numero),droiteQ)
 numero+=1
 scn.objects.link(localOb)
-"""
+
 
 
 bpy.ops.object.select_pattern(extend=False, pattern=catenaName+'*', case_sensitive=False)
