@@ -15,6 +15,62 @@ from mathutils import *
 
 from math import *
 ##############################################################
+# construire un cercle quand on a trois points, en dimension 3
+def circle3D(p1,p2,p3):
+ # trois points du cercle
+ 
+   vec12=p2-p1 # vec1
+   da=sqrt(vec12.dot(vec12))
+   
+   vec13=p3-p1 #vec2
+   db=sqrt(vec13.dot(vec13))
+   
+   vec23=p3-p2
+   dc=sqrt(vec23.dot(vec23))
+   
+   verifRad=da*db*dc/sqrt(2*da*da*db*db+2*db*db*dc*dc+2*dc*dc*da*da-da*da*da*da-db*db*db*db-dc*dc*dc*dc)
+   
+   planeNormal=vec12.cross(vec13)
+   planeNormal.normalize()
+   
+   #passage de la bissectrice 1 2
+   milieu12=(p1+p2)/2
+   #vecteur directeur de la bissectrice 1 2
+   dir12=vec12.cross(planeNormal)
+   dir12.normalize()
+   milieu13=(p1+p3)/2
+   #vecteur directeur de la bissectrice 1 3
+   dir13=vec13.cross(planeNormal)
+   dir13.normalize()
+   
+   dirAux=milieu12-milieu13
+   c1=dir13.cross(dirAux)
+   c2=dir12.cross(dir13)
+   nA=c1.dot(c2)
+   d=c2.dot(c2)
+   #print("valeur de d ",d)
+   # Ouf, on a trouve le centre
+   center=milieu12+nA/d*dir12
+   radio=center-p1
+   radio2=center-p2
+   radio3=center-p3
+   rayon=sqrt(radio.dot(radio))
+   
+   rayon2=sqrt(radio2.dot(radio2))
+   rayon3=sqrt(radio3.dot(radio3))
+   """
+   print("grosse formule ",verifRad)
+   print("Rayon ",rayon," verif ",radio.dot(planeNormal))
+   print("Rayon 2 ",rayon2," verif ",radio.dot(planeNormal))
+   print("Rayon 3 ",rayon3," verif ",radio.dot(planeNormal))
+   """
+   print("Centre ",center," distance ",sqrt(center.dot(center)),"\n")
+   #print("Normale ",planeNormal)
+   
+   return center,rayon,planeNormal   
+
+
+
 #un cylindre
 # R : rayon
 # ep : epaisseur
@@ -105,8 +161,8 @@ def cyclide2(mu,c,a,nbc,nbd):
    coinB=k*nbd+(j+1)%nbd
    coinC=((k+1)%nbc)*nbd+j
    coinD=((k+1)%nbc)*nbd+(j+1)%nbd	
-   faces.append([coinA,coinD,coinB])
-   faces.append([coinA,coinC,coinD])
+   faces.append([coinA,coinB,coinD])
+   faces.append([coinA,coinD,coinC])
 
 
  me.from_pydata(coords,[],faces)   # edges or faces should be [], or you ask for problems
@@ -164,10 +220,17 @@ def valZ(t,theta,epsilon):
     #print("valZ (",t,"):",krap*r*sin(t)/denim)
     return krap*r*sin(t)/denim
 
-
+def pointCyclide(va,vmu,vc,theta,phi):
+    vdenom=va-vc*cos(theta)*cos(phi)
+    vb2=a*a-c*c
+    mx=(vmu*(vc-va*cos(theta)*cos(phi))+vb2*cos(theta))/vdenom
+    my=sqrt(vb2)*sin(theta)*(va-vmu*cos(phi))/vdenom
+    mz=sqrt(vb2)*sin(phi)*(vc*cos(theta)-vmu)/vdenom
+    return Vector((mx,my,mz))
     
 
 #Construire un tore sur un cercle de Villarceau pour la cyclide de parametre a,mu,c
+# Construit un cercle de Villarceau (centre, rayon, plan normal
 def villarceau(a,mu,c,theta,epsilon):
    global xOmega,r,R,omega
    # trois points du cercle
@@ -195,7 +258,7 @@ def villarceau(a,mu,c,theta,epsilon):
    
    planeNormal=vec12.cross(vec13)
    planeNormal.normalize()
-   print(planeNormal)
+   #print(planeNormal)
    #print("Normale au plan ",planeNormal)
    #passage de la bissectrice 1 2
    milieu12=(point1+point2)/2
@@ -233,12 +296,38 @@ def villarceau(a,mu,c,theta,epsilon):
    """
    return center,rayon,planeNormal
    
-   
+def colorize(myMesh,myColor):
+     # Create a single Material that respect Vertex Color
+    mat = bpy.data.materials.new('VertexMat')
+    mat.use_vertex_color_paint = True
+    mat.use_vertex_color_light = True
+    
+     
+        
+    # Create new 'Col' Vertex Color Layer
+    myMesh.vertex_colors.new()
+        
+    # Vertex colour data
+    vertexColor = myMesh.vertex_colors[0].data
+    faces = myMesh.polygons
+        
+    # Assign colours to verts (loop every faces)
+    # Script Snippet from Blender Artist
+    #Fixer la couleur de tous les sommets d'une meme lunule
+    j = 0
+    for face in faces:
+     for idx in face.loop_indices:
+      vertexColor[j].color = myColor
+      j += 1
+    return
+# fin de colorize      
+       
       
     
     
  
 #test
+
 print("debut/n")
 
 scn=bpy.context.scene
@@ -250,8 +339,8 @@ numero=0
 nbc=100
 
 nbd=50 #150
-r0=1.5
-r1=0.75
+r0=3
+r1=2
 rc=5
 
 # renommage des parametres de la cyclide pour etre en accord avec Garnier
@@ -260,19 +349,22 @@ rc=5
 a=5
 mu=3
 c=2
+petitR=0.1
 
 myMesh=cyclide2(mu,c,a,nbc,nbd)
+colorize(myMesh,[1,0,0])
 
-
-#ob = bpy.data.objects.new('Dupin'+str(numero), myMesh)
-#bpy.context.scene.objects.link(ob) 
+ob = bpy.data.objects.new('XVillarceau'+str(numero), myMesh)
+bpy.context.scene.objects.link(ob) 
  
-#bpy.context.scene.objects.active = ob
+bpy.context.scene.objects.active = ob
 
 
 # la meme cyclide avec les premiers cercles en tore
-"""
+
 nbtore=30
+"""
+#les meridiens
 for i in range(nbtore):
    theta=2*i*pi/nbtore
    denom=rc*rc-r1*r1*cos(theta)*cos(theta)
@@ -283,36 +375,49 @@ for i in range(nbtore):
    slide1Y=sqrt(rc*rc-r1*r1)*sin(theta)*(rc*rc-r0*r1*cos(theta))/denom
    p1=Vector([slide1X,slide1Y,0])
    trans=mathutils.Matrix.Translation(p1)
-   myMesh=tore(rad1,0.2,200,20)
+   myMesh=tore(rad1,petitR,200,20)
    rotata=mathutils.Matrix.Rotation(pi/2, 4, 'X') 
    myMesh.transform(rotata)
    rotata=mathutils.Matrix.Rotation(theta, 4, 'Z') 
    myMesh.transform(rotata)
    myMesh.transform(trans)
-   localOb=bpy.data.objects.new('tore',myMesh)
+   rotata=mathutils.Matrix.Rotation(pi/2, 4, 'X') 
+   myMesh.transform(rotata)
+   localOb = bpy.data.objects.new('Villarceau'+str(numero), myMesh)
+   numero+=1
    scn.objects.link(localOb)
+   colorize(myMesh,[0,1,0])
+ """
  
- 
-   
+#les paralleles (normalement .....)
 for i in range(nbtore):
-    theta=2*i*pi/nbtore     
-    vilain=villarceau(a,mu,c,theta,1)
-    rayon=vilain[1]
-    centre=vilain[0]
-    trans=mathutils.Matrix.Translation(centre)
-    myMesh=tore(rayon,0.05,200,20)
-    plan=vilain[2]
-    angle1=atan2(plan[2],plan[0])
-    angle2=atan2(sqrt(plan[0]*plan[0]+plan[2]*plan[2]),plan[1])
-    rotata=mathutils.Matrix.Rotation(-angle2, 4, 'Y') 
+    phi=2*i*pi/nbtore   
+    pA=pointCyclide(a,mu,c,0,phi)
+    pB=pointCyclide(a,mu,c,pi/3,phi)  
+    pC=pointCyclide(a,mu,c,2*pi/3,phi)  
+    phiConstant=circle3D(pA,pB,pC)
+    rayon=phiConstant[1]
+    centre=phiConstant[0]
+    plan=phiConstant[2]
+    normeCentre=sqrt(centre.dot(centre))
+    myMesh=tore(rayon,petitR,200,20)
+    rotata=mathutils.Matrix.Rotation(pi/2, 4, 'X') 
     myMesh.transform(rotata)
-    rotata=mathutils.Matrix.Rotation(-angle1, 4, 'Z') 
+    trans=mathutils.Matrix.Translation(Vector((normeCentre+a*mu/c,0,0)))
+    
+    myMesh.transform(trans)
+    planTemoin=Vector((c*sin(phi),0,b))
+    #print("Plan temoin : ",planTemoin)
+    angle2=atan2(plan[2],plan[0])
+    #print("\t angle de rotation ",angle2)
+    rotata=mathutils.Matrix.Rotation(angle2, 4, 'Z') 
     myMesh.transform(rotata)
-    #myMesh.transform(trans)
-    ob = bpy.data.objects.new('Dupin'+str(numero), myMesh)
-    numero=numero+1
-    bpy.context.scene.objects.link(ob)  
-""" 
+    
+    localOb = bpy.data.objects.new('Villarceau'+str(numero), myMesh)
+    numero+=1
+    scn.objects.link(localOb)
+    colorize(myMesh,[1,0,1])
+
 
 # Couleur de la premiere nappe
 rgb1=[1,1,0]
@@ -321,11 +426,11 @@ rgb1=[1,1,0]
 rgb2=[0,0,1]
 
 
-petitR=0.3
-ep=0.3
-first=1
-numero=0
-nbCercles=10
+
+
+#first=1
+#numero=0
+nbCercles=0
 for i in range(nbCercles):
     print(i," avec epsilon=1")
     vilain=villarceau(a,mu,c,2*i*pi/nbCercles,1)   
@@ -346,9 +451,10 @@ for i in range(nbCercles):
     trans=mathutils.Matrix.Translation(Vector([vilain[0][0],-vilain[0][2],vilain[0][1]])) #original
    
     myMesh.transform(trans)
-        
-        
-     
+    rgb = [0.5+0.5*cos(2*i*pi/nbCercles),(cos(2*i*pi/nbCercles)+sin(2*i*pi/nbCercles))/4,0.5+0.5*sin(2*i*pi/nbCercles)]    
+    colorize(myMesh,rgb)    
+    
+    """ 
     # Create a single Material that respect Vertex Color
     mat = bpy.data.materials.new('VertexMat')
     mat.use_vertex_color_paint = True
@@ -374,7 +480,7 @@ for i in range(nbCercles):
      for idx in face.loop_indices:
       vertexColor[j].color = rgb
       j += 1
-    
+    """
     
     if(first==1):
       ob = bpy.data.objects.new('Villarceau'+str(numero), myMesh)
@@ -405,9 +511,10 @@ for i in range(nbCercles):
     myMesh.transform(rotata)
     trans=mathutils.Matrix.Translation(Vector([vilain[0][0],-vilain[0][2],vilain[0][1]]))
     myMesh.transform(trans)
-   
-   
-     
+    rgb = [0.5+0.5*cos(2*i*pi/nbCercles),(cos(2*i*pi/nbCercles)+sin(2*i*pi/nbCercles))/4,0.5+0.5*sin(2*i*pi/nbCercles)]
+    colorize(myMesh,rgb)
+    
+    """ 
     # Create a single Material that respect Vertex Color
     mat = bpy.data.materials.new('VertexMat')
     mat.use_vertex_color_paint = True
@@ -433,7 +540,7 @@ for i in range(nbCercles):
      for idx in face.loop_indices:
       vertexColor[j].color = rgb
       j += 1
-    
+    """
     if(first==1):
       ob = bpy.data.objects.new('Villarceau'+str(numero), myMesh)
       bpy.context.scene.objects.link(ob) 
