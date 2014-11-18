@@ -15,6 +15,15 @@ from mathutils import *
 
 from math import *
 ##############################################################
+def distance(p1,p2):
+    dx=p1[0]-p2[0]
+    dx=dx*dx
+    dy=p1[1]-p2[1]
+    dy=dy*dy
+    dz=p1[2]-p2[2]
+    dz=dz*dz
+    return sqrt(dx+dy+dz)
+    
 # construire un cercle quand on a trois points, en dimension 3
 def circle3D(p1,p2,p3):
  # trois points du cercle
@@ -363,7 +372,7 @@ bpy.context.scene.objects.active = ob
 # la meme cyclide avec les premiers cercles en tore
 
 nbtore=30
-"""
+
 #les meridiens
 for i in range(nbtore):
    theta=2*i*pi/nbtore
@@ -387,9 +396,10 @@ for i in range(nbtore):
    numero+=1
    scn.objects.link(localOb)
    colorize(myMesh,[0,1,0])
- """
  
-#les paralleles (normalement .....)
+ 
+#les paralleles 
+pointCommun=Vector((a*mu/c,0,0))
 for i in range(nbtore):
     phi=2*i*pi/nbtore   
     pA=pointCyclide(a,mu,c,0,phi)
@@ -399,26 +409,33 @@ for i in range(nbtore):
     rayon=phiConstant[1]
     centre=phiConstant[0]
     plan=phiConstant[2]
-    normeCentre=sqrt(centre.dot(centre))
+    cprimeX=distance(centre,pointCommun)-(a*mu/c)
     myMesh=tore(rayon,petitR,200,20)
+    
     rotata=mathutils.Matrix.Rotation(pi/2, 4, 'X') 
     myMesh.transform(rotata)
-    trans=mathutils.Matrix.Translation(Vector((normeCentre+a*mu/c,0,0)))
+    trans=mathutils.Matrix.Translation(Vector((cprimeX,0,0)))
+    myMesh.transform(trans)
+    rotata=mathutils.Matrix.Rotation(pi, 4, 'Y') 
+    myMesh.transform(rotata)
+    trans=mathutils.Matrix.Translation(Vector((-a*mu/c,0,0)))
     
     myMesh.transform(trans)
     planTemoin=Vector((c*sin(phi),0,b))
-    #print("Plan temoin : ",planTemoin)
-    angle2=atan2(plan[2],plan[0])
-    #print("\t angle de rotation ",angle2)
+    # Leux definitions de angle2 sont equivalentes
+    angle2=atan2(plan[0],plan[2])
+    angle2=atan2(c*sin(phi),b)
     rotata=mathutils.Matrix.Rotation(angle2, 4, 'Z') 
     myMesh.transform(rotata)
-    
+    trans=mathutils.Matrix.Translation(Vector((a*mu/c,0,0)))
+    myMesh.transform(trans)
     localOb = bpy.data.objects.new('Villarceau'+str(numero), myMesh)
     numero+=1
     scn.objects.link(localOb)
     colorize(myMesh,[1,0,1])
 
 
+# les villarceau
 # Couleur de la premiere nappe
 rgb1=[1,1,0]
 
@@ -430,13 +447,10 @@ rgb2=[0,0,1]
 
 #first=1
 #numero=0
-nbCercles=0
+nbCercles=30
 for i in range(nbCercles):
     print(i," avec epsilon=1")
     vilain=villarceau(a,mu,c,2*i*pi/nbCercles,1)   
-    #vilain=villarceau(a,mu,c,0,1)   
-   
-    
     pn=vilain[2]
     angle1=atan2(pn[2],pn[0])
     angle2=atan2(sqrt(pn[2]*pn[2]+pn[0]*pn[0]),pn[1])
@@ -451,36 +465,10 @@ for i in range(nbCercles):
     trans=mathutils.Matrix.Translation(Vector([vilain[0][0],-vilain[0][2],vilain[0][1]])) #original
    
     myMesh.transform(trans)
-    rgb = [0.5+0.5*cos(2*i*pi/nbCercles),(cos(2*i*pi/nbCercles)+sin(2*i*pi/nbCercles))/4,0.5+0.5*sin(2*i*pi/nbCercles)]    
-    colorize(myMesh,rgb)    
+    #rgb = [0.5+0.5*cos(2*i*pi/nbCercles),(cos(2*i*pi/nbCercles)+sin(2*i*pi/nbCercles))/4,0.5+0.5*sin(2*i*pi/nbCercles)]    
+    colorize(myMesh,rgb1)    
     
-    """ 
-    # Create a single Material that respect Vertex Color
-    mat = bpy.data.materials.new('VertexMat')
-    mat.use_vertex_color_paint = True
-    mat.use_vertex_color_light = True
     
-     
-        
-    # Create new 'Col' Vertex Color Layer
-    myMesh.vertex_colors.new()
-        
-    # Vertex colour data
-    vertexColor = myMesh.vertex_colors[0].data
-    faces = myMesh.polygons
-        
-    # Assign colours to verts (loop every faces)
-    # Script Snippet from Blender Artist
-    #Fixer la couleur de tous les sommets d'une meme lunule
-    j = 0
-    for face in faces:
-     rgb = [0.5+0.5*cos(2*i*pi/nbCercles),(cos(2*i*pi/nbCercles)+sin(2*i*pi/nbCercles))/4,0.5+0.5*sin(2*i*pi/nbCercles)]
-     
-     #rgb=[0.78,0.59,0.38]
-     for idx in face.loop_indices:
-      vertexColor[j].color = rgb
-      j += 1
-    """
     
     if(first==1):
       ob = bpy.data.objects.new('Villarceau'+str(numero), myMesh)
@@ -511,36 +499,9 @@ for i in range(nbCercles):
     myMesh.transform(rotata)
     trans=mathutils.Matrix.Translation(Vector([vilain[0][0],-vilain[0][2],vilain[0][1]]))
     myMesh.transform(trans)
-    rgb = [0.5+0.5*cos(2*i*pi/nbCercles),(cos(2*i*pi/nbCercles)+sin(2*i*pi/nbCercles))/4,0.5+0.5*sin(2*i*pi/nbCercles)]
-    colorize(myMesh,rgb)
+    #rgb = [0.5+0.5*cos(2*i*pi/nbCercles),(cos(2*i*pi/nbCercles)+sin(2*i*pi/nbCercles))/4,0.5+0.5*sin(2*i*pi/nbCercles)]
+    colorize(myMesh,rgb2)
     
-    """ 
-    # Create a single Material that respect Vertex Color
-    mat = bpy.data.materials.new('VertexMat')
-    mat.use_vertex_color_paint = True
-    mat.use_vertex_color_light = True
-    
-     
-        
-    # Create new 'Col' Vertex Color Layer
-    myMesh.vertex_colors.new()
-        
-    # Vertex colour data
-    vertexColor = myMesh.vertex_colors[0].data
-    faces = myMesh.polygons
-        
-    # Assign colours to verts (loop every faces)
-    # Script Snippet from Blender Artist
-    #Fixer la couleur de tous les sommets d'une meme lunule
-    j = 0
-    for face in faces:
-     rgb = [0.5+0.5*cos(2*i*pi/nbCercles),(cos(2*i*pi/nbCercles)+sin(2*i*pi/nbCercles))/4,0.5+0.5*sin(2*i*pi/nbCercles)]
-     
-     #rgb=[0.36,0.26,0.24]
-     for idx in face.loop_indices:
-      vertexColor[j].color = rgb
-      j += 1
-    """
     if(first==1):
       ob = bpy.data.objects.new('Villarceau'+str(numero), myMesh)
       bpy.context.scene.objects.link(ob) 
