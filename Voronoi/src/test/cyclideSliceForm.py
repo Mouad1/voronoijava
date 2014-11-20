@@ -343,7 +343,7 @@ scn=bpy.context.scene
 
 first=1
 numero=0
-
+reduc=0.95
 
 nbc=100
 
@@ -365,7 +365,7 @@ colorize(myMesh,[1,0,0])
 
 ob = bpy.data.objects.new('XVillarceau'+str(numero), myMesh)
 bpy.context.scene.objects.link(ob) 
- 
+obj_B=scn.objects.get('XVillarceau0') 
 bpy.context.scene.objects.active = ob
 
 
@@ -449,15 +449,16 @@ rgb2=[0,0,1]
 
 #first=1
 #numero=0
-nbCercles=30
+nbCercles=10
+ep=0.1
 for i in range(nbCercles):
     print(i," avec epsilon=1")
     vilain=villarceau(a,mu,c,2*i*pi/nbCercles,1)   
     pn=vilain[2]
     angle1=atan2(pn[2],pn[0])
     angle2=atan2(sqrt(pn[2]*pn[2]+pn[0]*pn[0]),pn[1])
-    myMesh=tore(vilain[1],petitR,200,20)
-    #myMesh=cylindre(vilain[1]*1.1,ep,100)
+    #myMesh=tore(vilain[1],petitR,200,20)
+    myMesh=cylindre(vilain[1]*reduc,ep,100)
     rotata=mathutils.Matrix.Rotation(angle2, 4, 'Y')  #original
     
     myMesh.transform(rotata)
@@ -468,6 +469,9 @@ for i in range(nbCercles):
    
     myMesh.transform(trans)
     #rgb = [0.5+0.5*cos(2*i*pi/nbCercles),(cos(2*i*pi/nbCercles)+sin(2*i*pi/nbCercles))/4,0.5+0.5*sin(2*i*pi/nbCercles)]    
+    # intersection de la lunule avec XVillarceau0
+    
+    
     colorize(myMesh,rgb1)    
     
     
@@ -477,13 +481,25 @@ for i in range(nbCercles):
       bpy.context.scene.objects.link(ob) 
       # Le premier tore cree est actif, les autres seront selectionnes a la fin, puis joints 
       bpy.context.scene.objects.active = ob
-      numero+=1
+      #numero+=1
       first=0
     else:
       localOb = bpy.data.objects.new('Villarceau'+str(numero), myMesh)
-      numero+=1
+      #numero+=1
       scn.objects.link(localOb)
-        
+    
+    obj_A=scn.objects.get('Villarceau'+str(numero))
+    #print(obj_A)
+    bpy.context.scene.objects.active = obj_A
+    boo = obj_A.modifiers.new('Booh'+str(numero), 'BOOLEAN')
+    boo.object = obj_B
+    boo.operation = 'INTERSECT'
+    bpy.ops.object.modifier_apply(apply_as='DATA', modifier='Booh'+str(numero))
+    print(boo,boo.object,boo.operation,obj_A)
+    #scn.objects.unlink(obj_B)
+    #scn.objects.unlink(obj_A)
+    
+    numero+=1    
     print(i," avec epsilon=-1")
     vilain=villarceau(a,mu,c,2*i*pi/nbCercles,-1)   
     #vilain=villarceau(a,mu,c,0,-1)   
@@ -491,8 +507,8 @@ for i in range(nbCercles):
     pn=vilain[2]
     angle1=atan2(pn[2],pn[0])
     angle2=atan2(sqrt(pn[2]*pn[2]+pn[0]*pn[0]),pn[1])
-    myMesh=tore(vilain[1],petitR,200,20)
-    #myMesh=cylindre(vilain[1]*1.1,ep,100)
+    #myMesh=tore(vilain[1],petitR,200,20)
+    myMesh=cylindre(vilain[1]*reduc,ep,100)
     rotata=mathutils.Matrix.Rotation(angle2, 4, 'Y')  #original
     
     myMesh.transform(rotata)
@@ -509,13 +525,24 @@ for i in range(nbCercles):
       bpy.context.scene.objects.link(ob) 
       
       bpy.context.scene.objects.active = ob
-      numero+=1
+      #numero+=1
       first=0
     else:
       localOb = bpy.data.objects.new('Villarceau'+str(numero), myMesh)
-      numero+=1
+      #numero+=1
       scn.objects.link(localOb)
-      
-      
+    
+    obj_A=scn.objects.get('Villarceau'+str(numero))
+    #print(obj_A)
+    bpy.context.scene.objects.active = obj_A
+    boo = obj_A.modifiers.new('Booh'+str(numero), 'BOOLEAN')
+    boo.object = obj_B
+    boo.operation = 'INTERSECT'
+    bpy.ops.object.modifier_apply(apply_as='DATA', modifier='Booh'+str(numero))
+    print(boo,boo.object,boo.operation,obj_A)
+    #scn.objects.unlink(obj_B)
+    #scn.objects.unlink(obj_A)
+    numero=numero+1
+    
 bpy.ops.object.select_pattern(extend=False, pattern="Villarceau*", case_sensitive=False)
 bpy.ops.object.join()   
