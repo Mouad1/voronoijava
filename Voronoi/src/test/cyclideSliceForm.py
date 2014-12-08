@@ -355,9 +355,10 @@ rc=5
 # renommage des parametres de la cyclide pour etre en accord avec Garnier
 
 # 5,3,1
-a=5
-mu=3
-c=2
+rapaport=20
+a=5*rapaport
+mu=3*rapaport
+c=2*rapaport
 petitR=0.1
 
 myMesh=cyclide2(mu,c,a,nbc,nbd)
@@ -449,8 +450,8 @@ rgb2=[0,0,1]
 
 #first=1
 #numero=0
-nbCercles=10
-ep=0.1
+nbCercles=16
+ep=3
 for i in range(nbCercles):
     print(i," avec epsilon=1")
     vilain=villarceau(a,mu,c,2*i*pi/nbCercles,1)   
