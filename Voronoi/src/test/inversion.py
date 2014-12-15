@@ -235,12 +235,12 @@ scn=bpy.context.scene
 first=1
 numero=0
 petitR=0.1
-nbLignes=100
+nbLignes=25
 
-centreInv=Vector((0,0.5,0.5))
-radInv=0.3
+centreInv=Vector((0,0,0.5))
+radInv=1
 
-for i in range(nbLignes-1):
+for i in range(nbLignes):
     point1=Vector((cos(2*i*pi/nbLignes),sin(2*i*pi/nbLignes),0))
     point2=Vector((cos((4*i+1)*pi/nbLignes),sin((4*i+1)*pi/nbLignes),0))
     point3=(point1+point2)/2
@@ -257,7 +257,7 @@ for i in range(nbLignes-1):
     if(plan[0]!=0):
         angle1=atan2(plan[2],plan[0])
     else:
-        angl1=pi/2
+        angle1=-pi/2
     if(plan[1]!=0):
         angle2=atan2(sqrt(plan[0]*plan[0]+plan[2]*plan[2]),plan[1])
     else:
