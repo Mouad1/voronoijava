@@ -393,7 +393,7 @@ public class OffReader3DMeshV2 {
 
 
 
-          toto.afficheFichierTexte("kite_hexecontahedron",true);
+          toto.afficheFichierTexte("metagyrate_diminished_rhombicosidodecahedron",true);
 
 
 
