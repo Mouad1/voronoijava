@@ -172,17 +172,18 @@ def couronneOrientee(p1,p2,rayon,nbFaces):
  
  
 maxbox=15
-rayon=0.135
+#rayon=0.135
+rayon=0.08
 
-nbAlpha=48 # forcement multiple de 4...
+nbAlpha=60 # 48 forcement multiple de 4...
 nbTheta=400
 nbFaces=10
 indice=0
 memoire=[[0,0,0] for i in range(2*nbAlpha)]
 
 # les parametres de la cyclide
-p=2
-q=-9
+p=3 # 2
+q=-9 #-9
 omega=q-sqrt(q*q-p*q)
 k=p*p-p*q
 xOmega=(2*q*q-(p+2*q)*sqrt(q*q-p*q))/(2*q)
