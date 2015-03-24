@@ -34,10 +34,12 @@ __url__="Website, dataOrigami.blogspot.com"
 # load the modules used in the script
 import Blender
 import bpy
-import BPyAddMesh
+#import Scene
+#import bmesh
+from bpy import *
 from Blender import *
-from Blender.Scene import Render
-from Blender import Text
+#from Blender.Scene import Render
+#from Blender import Text
 from Blender import Mathutils
 from Blender.Mathutils import *
 
@@ -52,6 +54,7 @@ from math import pi,cos,sin
 
 
 def translate(p,r):
+ #bmesh.ops.create_uvsphere(me,14,14,r)
  me=Mesh.Primitives.UVsphere(14,14,r)
  dir=Vector(p)
  A = Matrix(
@@ -132,7 +135,7 @@ def couronne(d1,nbFaces,l):
  me.verts.append(vertex)
 
  for i in range(0,nbFaces,1):
-  print "couronne ",i," nbfaces ",nbFaces	
+  #print "couronne ",i," nbfaces ",nbFaces	
   vertex=NMesh.Vert(d1*cos(2*i*pi/nbFaces),d1*sin(2*i*pi/nbFaces),0)
   me.verts.append(vertex)
  for i in range(0,nbFaces,1):
@@ -237,13 +240,13 @@ def vectorize(coord):
 def meshify(meche,nbFaces):
  mechouille=NMesh.GetRaw()
  nbtranches=(len(meche.verts)-1)/nbFaces
- print "xxx---->",nbtranches
+ #print "xxx---->",nbtranches
  for j in range(0,nbtranches-1):
   #print j," *** ",len(meche.verts)
   dmin=50	
   kcandidat=1
   x1=meche.verts[1+j*nbFaces].co
-  print "x1 --->",x1
+  #print "x1 --->",x1
   for k in range(0,nbFaces,1):
    x2=meche.verts[1+k+(j+1)*nbFaces].co
    x3=x2-x1
@@ -259,7 +262,7 @@ def meshify(meche,nbFaces):
 #garder le k qui minimise la distance entre les deux sommets
    face=NMesh.Face()
    face.append(vectorize(meche.verts[1+i+j*nbFaces]))
-   print "index -----> ",meche.verts[1+i+j*nbFaces].index
+   #print "index -----> ",meche.verts[1+i+j*nbFaces].index
    face.append(vectorize(meche.verts[1+j*nbFaces+((i+1)%nbFaces)]))
    #face.append(meche.verts[1+(j+1)*nbFaces+((1+i)%nbFaces)])  
    #face.append(meche.verts[1+(j+1)*nbFaces+i])
@@ -282,31 +285,39 @@ def meshify(meche,nbFaces):
    face.append(vectorize(meche.verts[taille-nbFaces-1+(i+1)%nbFaces]))
    face.append(vectorize(meche.verts[taille-1]))
    mechouille.faces.append(face)
-   for item in face.v:
-    print "face courante :",item.index
-   print "\n"
+   #for item in face.v:
+    #print "face courante :",item.index
+   #print "\n"
  return mechouille
 
 
 ##############################################################
 # Get rid of the lamp and cube from the default scene
-scene = Scene.GetCurrent()
-
+#scene = bpy.context.scene
+scene = Scene.GetCurrent() 
+"""
 for ob in scene.objects:
    if (cmp(ob.getName(),'Cube')==0):
     scene.objects.unlink(ob)
-
+"""
 nbf=12
 diam=0.05
 rati=0.8
 
 #execfile('C:\Users\decomite\Pictures\povray\output povray\spline.py')
-execfile('C:\Users\decomite\Pictures\povray\snub_icosidodecahedronTest8_16_19.py')
+#execfile('C:\\Users\\francesco\\Pictures\\povray\\tridiminished_rhombicosidodecahedronTout.py')
+execfile ('C:\\Users\\francesco\\Pictures\\povray\\square_pyramidTout.py')
+"""
+with open('C:\\Users\\francesco\\Pictures\\povray\\square_pyramidTout.py') as f:
+    code = compile(f.read(), "somefile.py", 'exec')
+    exec(code)
+"""    
 #execfile('C:/Users/decomite/Pictures/povray/ruled.py')
 #Pour les slides together
 #execfile('C:/users/decomite/pictures/povray/t4b.txt')
 #Pour les anamorphoses
-#execfile('C:/users/decomite/pictures/povray/spline.py')
+#execfile('C:/users/dec
+#execfile('C:\Users\decomite/pictures/povray/spline.py')
 #execfile('F:/Povray/spline.py')
 #Pour les cadres en couleur*
 # Portable
