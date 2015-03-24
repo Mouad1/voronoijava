@@ -208,7 +208,7 @@ r=2
 catenaName='un'
 
 
-
+cwef=1.05
 first=1
 numero=0
 
@@ -222,7 +222,7 @@ numero+=1
 first=0
 """
 for index in range(nbSteps):
-    mySphere=sphere(radio,10,10)
+    mySphere=sphere(cwef*radio,10,10)
     theta=2*index*pi/nbSteps
     thetap=theta+2*pi/nbSteps
     alfa=2*index*pi/nbSteps+pi/4
@@ -253,7 +253,7 @@ for index in range(nbSteps):
             scn.objects.link(localOb)
             
     A=mathutils.Matrix.Translation(g(alfa))  
-    mySphere=sphere(radio,10,10)
+    mySphere=sphere(cwef*radio,10,10)
     mySphere.transform(A)      
     localOb=bpy.data.objects.new(catenaName+str(numero),mySphere)
     numero+=1

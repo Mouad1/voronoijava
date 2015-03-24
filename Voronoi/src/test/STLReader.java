@@ -10,7 +10,7 @@ public class STLReader {
 	
 	
 	public static void main(String[] args) throws Exception{
-		String catena="/tmp/bouleMille.stl"; 
+		String catena="/tmp/alveole.stl"; 
 		File source=new File(catena); 
 		FileInputStream fis = new FileInputStream(source);
 		BufferedInputStream bis = new BufferedInputStream(fis);
@@ -32,25 +32,25 @@ public class STLReader {
 			float normaleX=fichier.readFloat(); 
 			float normaleY=fichier.readFloat(); 
 			float normaleZ=fichier.readFloat(); 
-			//System.out.println("Normale : ("+normaleX+" "+normaleY+" "+normaleZ+")"); 
+			System.out.println("Normale : ("+normaleX+" "+normaleY+" "+normaleZ+")"); 
 			
 			// Sommet 1
 			float S1X=fichier.readFloat(); 
 			float S1Y=fichier.readFloat(); 
 			float S1Z=fichier.readFloat(); 
-			//System.out.println("Premier sommet :("+S1X+" "+S1Y+" "+S1Z+")");
+			System.out.println("Premier sommet :("+S1X+" "+S1Y+" "+S1Z+")");
 			Sommet S1=new Sommet(S1X,S1Y,S1Z);
 			// Sommet 2
 			float S2X=fichier.readFloat(); 
 			float S2Y=fichier.readFloat(); 
 			float S2Z=fichier.readFloat(); 
-			//System.out.println("Deuxieme sommet :("+S2X+" "+S2Y+" "+S2Z+")");		
+			System.out.println("Deuxieme sommet :("+S2X+" "+S2Y+" "+S2Z+")");		
 			Sommet S2=new Sommet(S2X,S2Y,S2Z);
 			// Sommet 3
 			float S3X=fichier.readFloat(); 
 			float S3Y=fichier.readFloat(); 
 			float S3Z=fichier.readFloat(); 
-			//System.out.println("Troisieme sommet :("+S3X+" "+S3Y+" "+S3Z+")");		
+			System.out.println("Troisieme sommet :("+S3X+" "+S3Y+" "+S3Z+")");		
 			Sommet S3=new Sommet(S3X,S3Y,S3Z);
 			
 			Triangle tr=new Triangle(S1,S2,S3); 
