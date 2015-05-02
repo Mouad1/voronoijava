@@ -112,14 +112,15 @@ public class Pos3D {
     	return String.format("%.7g", d);
 }
 	
-	public String toStringRestrict(){
+	public String toString(){
 		return "<"+roundDecimals(x)+","+roundDecimals(y)+","+roundDecimals(z)+">"; 
 	}
 	
+	/*
 	public String toString(){
 		return "<"+x+","+y+","+z+">"; 
 	}
-	
+	*/	
 	public String forBlender(){
 		return x+","+y+","+z; 
 	}

@@ -6,7 +6,7 @@ import java.util.Iterator;
 public class Vertex extends Pos3D {
 	private HashSet<Vertex> neighbours=new HashSet<Vertex>();
 	private boolean istraced=false; 
-
+	
 	/**
 	 * @return the istraced
 	 */
@@ -84,6 +84,11 @@ public class Vertex extends Pos3D {
 	
 	public String rawString(){
 		String s=x+","+y+","+z;
+		return s; 
+	}
+	public String toString(){
+		String s=super.toString(); 
+		
 		return s; 
 	}
 	
