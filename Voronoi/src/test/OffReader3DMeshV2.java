@@ -105,7 +105,7 @@ public class OffReader3DMeshV2 {
           try {
         	// output=new PrintStream("../../../../pearls/scene/geometry/polyhedra/archimedean/archi.txt");
         	//  output=new PrintStream("../pearls/scene/geometry/playingcards/archimedean/"+nomFichierSource+".inc");
-        	  output=new PrintStream(nomFichierSource+".inc");
+        	  output=new PrintStream(nomFichierSource+".incNEW");
                   BufferedReader in = new BufferedReader(new FileReader(source));
                   String ligne = in.readLine();
                   while(ligne.charAt(0)=='#') ligne=in.readLine();
@@ -115,6 +115,7 @@ public class OffReader3DMeshV2 {
                   
                   nbFaces=rl.nextInt();
                   System.out.println(nbVertices+" "+nbFaces);
+                 
                   /*
                   System.out.println("mesh2{\n");
                   System.out.println("vertex_vectors{\n");
@@ -155,7 +156,7 @@ public class OffReader3DMeshV2 {
                 		  Vertex center=new Vertex(0,0,0);
                 		  for(int j=0;j<dim;j++) center= Vertex.add(vertices.get(coins[j]),center);
                 		  center=(Vertex) Vertex.mul(center,1.0/(dim+0.0)); 
-                		  vertices.add(center);
+                		  //vertices.add(center);
                 		  // Construire les dim triangles  (vi,v(i+1),c)
                 		  for(int j=0;j<dim;j++)
                 			  lesFacesTriangulaires.add(new FaceTriangulaire(vertices.get(coins[j]),vertices.get(coins[(j+1)%dim]),center,coins[j],coins[(j+1)%dim],vertices.indexOf(center)));
@@ -389,11 +390,11 @@ public class OffReader3DMeshV2 {
           // new TestIO().copieFichierTexte("essai.txt","output.txt");
           OffReader3DMeshV2 toto=new OffReader3DMeshV2(); 
          // true : seulement les aretesd initiales
-          // false : ausi les centres des faces 
+          // false : aussi les centres des faces 
 
 
 
-          toto.afficheFichierTexte("metagyrate_diminished_rhombicosidodecahedron",true);
+          toto.afficheFichierTexte("truncated_icosidodecahedron",true);
 
 
 
