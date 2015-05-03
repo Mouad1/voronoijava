@@ -17,19 +17,19 @@ import utils.Cylinder;
 import utils.FacePolygonale;
 import utils.FaceTriangulaire;
 import utils.Transfo;
-import utils.Vertex;
+import utils.VertexAL;
 import utils.Pos3D; 
 
-public class OffReaderRechercheHamiltonien {
+public class OffReaderRechercheHamiltonienAL {
 	
 	private Random generator=new Random(); 
-	public static void printResu(ArrayList<Vertex> p){
+	public static void printResu(ArrayList<VertexAL> p){
 		System.out.println("printResu"); 
 		int i=0;
-		for(Vertex v:p){
+		for(VertexAL v:p){
 			System.out.println(v);
 			/*
-			Iterator<Vertex> it=v.getIterator(); 
+			Iterator<VertexAL> it=v.getIterator(); 
 			while(it.hasNext())
 				System.out.println("\t"+it.next()); 
 				*/
@@ -43,10 +43,10 @@ public class OffReaderRechercheHamiltonien {
 	
 	protected long  nn=0; 
 	protected int tour=0; 
-	public  int  maxsize=85; 
+	public  int  maxsize=5; 
 	
 	
-	public  ArrayList<Vertex> trajet(ArrayList<Vertex> deja,ArrayList<Vertex> reste,Vertex v){
+	public  ArrayList<VertexAL> trajet(ArrayList<VertexAL> deja,ArrayList<VertexAL> reste,VertexAL v){
 		nn++;
 		if(nn%10000000==0) System.out.println("\t\t\t"+tour+" "+nn); 
 		if(nn>1000000000) {nn=0; tour++;} //return presu; 
@@ -54,17 +54,18 @@ public class OffReaderRechercheHamiltonien {
 		if(reste.isEmpty()){
 			System.out.println("Hourra !"); 
 			printResu(deja); 
+			System.out.println("\t"+v);
 			return deja; 
 		}
-		Iterator<Vertex> it=v.getIterator(); 
+		Iterator<VertexAL> it=v.getIterator(); 
 		while(it.hasNext()){
-			Vertex q=it.next();
+			VertexAL q=it.next();
 			if(!deja.contains(q)){
-				ArrayList<Vertex> dejax=new ArrayList<Vertex>(deja);
-				ArrayList<Vertex> restex=new ArrayList<Vertex>(reste);
+				ArrayList<VertexAL> dejax=new ArrayList<VertexAL>(deja);
+				ArrayList<VertexAL> restex=new ArrayList<VertexAL>(reste);
 				dejax.add(v);
 				restex.remove(q); 
-				ArrayList<Vertex> presu=trajet(dejax,restex,q); 
+				ArrayList<VertexAL> presu=trajet(dejax,restex,q); 
 				
 			}
 		}
@@ -85,7 +86,7 @@ public class OffReaderRechercheHamiltonien {
 	}
 	
 	
-	private ArrayList<Vertex> vertices=new ArrayList<Vertex>();
+	private ArrayList<VertexAL> vertices=new ArrayList<VertexAL>();
 	
 	private PrintStream output; 
 	
@@ -98,7 +99,7 @@ public class OffReaderRechercheHamiltonien {
 	
 	public void mix(){
 		System.out.println("entree dans mix "+vertices.size()+" "+nbVertices); 
-		ArrayList<Vertex> verpro=new ArrayList<Vertex>();
+		ArrayList<VertexAL> verpro=new ArrayList<VertexAL>();
 		ArrayList<Integer> sac=new ArrayList<Integer>();
 		for(int i=0;i<nbVertices;i++)
 			sac.add(i); 
@@ -144,8 +145,8 @@ public class OffReaderRechercheHamiltonien {
                 	  Double x=rl.nextDouble(); 
                 	  Double y=rl.nextDouble();
                 	  Double z=rl.nextDouble();
-                	  vertices.add(new Vertex(x,y,z)); 
-                	  //trueVertices.add(new Vertex(x,y,z));
+                	  vertices.add(new VertexAL(x,y,z)); 
+                	  //trueVertices.add(new VertexAL(x,y,z));
                   }
                   
                   for(int i=0;i<nbFaces;i++){
@@ -181,25 +182,26 @@ public class OffReaderRechercheHamiltonien {
   }
 	  public static void main(String args[]) {
           // new TestIO().copieFichierTexte("essai.txt","output.txt");
-          OffReaderRechercheHamiltonien toto=new OffReaderRechercheHamiltonien(); 
+          OffReaderRechercheHamiltonienAL toto=new OffReaderRechercheHamiltonienAL(); 
          // true : seulement les aretes initiales
           // false : aussi les centres des faces 
 
 
 
-          toto.afficheFichierTexte("pentagonal_hexecontahedron",true);
-          for(Vertex v:toto.vertices){
+          //toto.afficheFichierTexte("pentagonal_hexecontahedron",true);
+          toto.afficheFichierTexte("truncated_icosidodecahedron",true);
+          for(VertexAL v:toto.vertices){
         	  System.out.println(v+" "+v.nbNeighbours()); 
           }
           
-          ArrayList<Vertex>deja=new ArrayList<Vertex>(); 
-          Vertex deb=toto.vertices.get(0); 
-          deja.add(deb);
+          ArrayList<VertexAL>deja=new ArrayList<VertexAL>(); 
+          VertexAL deb=toto.vertices.get(0); 
+          //deja.add(deb);
           toto.vertices.remove(0); 
           System.out.println(toto.vertices.size()); 
           printResu(toto.vertices); 
          
-          ArrayList<Vertex> monResu=toto.trajet(deja, toto.vertices,deb );
+          ArrayList<VertexAL> monResu=toto.trajet(deja, toto.vertices,deb );
           System.out.println(monResu.size()); 
           printResu(monResu); 
          
