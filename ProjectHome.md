@@ -1,0 +1,1 @@
+Implementation of Voronoi diagram computation, based on "Computational Geometry: Algorithms and Applications" (de Berg, van Kreveld and alii)
